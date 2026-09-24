@@ -1,18 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { websiteChecklistPrompt } from "@/lib/website-checklist-prompt";
 import { contactUrl } from "./project-data";
 
 const nav = [["Home", "/"], ["Over", "/about"], ["Werk", "/work"], ["Contact", "#contact"]] as const;
+const websiteChecklistUrl = `https://chatgpt.com/?${new URLSearchParams({ prompt: websiteChecklistPrompt })}`;
 
 function Navigation({ footer = false }: { footer?: boolean }) {
   const pathname = usePathname();
-  return <nav aria-label={footer ? "Footernavigatie" : "Hoofdnavigatie"} className="flex flex-wrap gap-x-4 gap-y-1 md:gap-x-5">
+  return <nav aria-label={footer ? "Footernavigatie" : "Hoofdnavigatie"} className="flex flex-wrap items-center gap-x-4 gap-y-1 md:gap-x-5">
     {nav.map(([label, href]) => {
       const active = href !== "#contact" && pathname === href;
       return <Link key={label} href={href} className={`text-[17px] leading-[1.42857] transition-colors hover:text-[#111] ${active && !footer ? "text-[#111]" : "text-gray-400"}`}>{label}</Link>;
     })}
+    {!footer && <a href={websiteChecklistUrl} target="_blank" rel="noopener noreferrer" aria-label="Website-checklist prompt openen in ChatGPT (nieuw tabblad)" className="inline-flex items-center gap-2 rounded-full border border-gray-200 py-1.5 pl-1.5 pr-3 text-[15px] leading-none transition-colors hover:border-gray-400 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+      <span className="relative block h-7 w-7 shrink-0 overflow-hidden rounded-[7px]" aria-hidden="true"><Image src="/chris/media/chatgpt_logo.png" alt="" width={83} height={46} className="absolute left-0 top-[-7px] max-w-none" /></span>
+      <span>Website-checklist prompt</span>
+      <span aria-hidden="true" className="text-gray-400">↗</span>
+    </a>}
   </nav>;
 }
 
