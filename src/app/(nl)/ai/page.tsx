@@ -41,7 +41,7 @@ export default function AiPagina() {
             <p className="ai-tweede">{ai.tweede}</p>
           </div>
         </section>
-        <RevealOnScroll once>
+        <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px">
           <section className="sectie container-site" aria-labelledby="wat-kop">
             <div className="sectie-kop" data-reveal="">
               <p className="nr">01</p>

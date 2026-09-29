@@ -51,10 +51,10 @@ export default function Over() {
           <BeeldLetters woord={over.kop} beeld="/beeld/chris-duimen-900.webp" terug="#f0533a" beweging="drijf" kopClassName="over-h1" className="over-letters" />
         </section>
 
-        <RevealOnScroll once>
+        <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px">
           <section className="sectie container-site verhaal">
             <div className="beeld verhaal-foto" data-reveal="left">
-              <Beeld naam="team-chris" breedte={526} hoogte={736} alt={over.portretAlt} />
+              <Beeld naam="team-chris" breedte={526} hoogte={736} alt={over.portretAlt} prioriteit />
             </div>
             <div className="verhaal-tekst">
               {over.alineas.map((a, i) => (

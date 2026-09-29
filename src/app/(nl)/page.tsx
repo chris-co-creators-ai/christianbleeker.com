@@ -52,7 +52,7 @@ export default function Home() {
           </div>
         </MediaHero>
 
-        <RevealOnScroll once>
+        <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px">
           <div className="tel container-site">
             {home.tellers.map((t) => (
               <CountUp key={t.label} waarde={t.waarde} label={t.label} className="tel-item" />

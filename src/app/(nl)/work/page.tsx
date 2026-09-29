@@ -34,7 +34,7 @@ export default function Werk() {
         <section className="werk-intro container-site">
           <h1 className="werk-h1">{werk.kop}</h1>
         </section>
-        <RevealOnScroll once>
+        <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px">
           <EigenProduct />
           <section id="werk" className="sectie container-site" aria-labelledby="websites-kop">
             <div className="sectie-kop" data-reveal="">

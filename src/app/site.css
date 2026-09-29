@@ -223,7 +223,7 @@
 
 /* ── Werk ───────────────────────────────────────────────────────────── */
 .werk-intro { padding-top: clamp(120px, 16vw, 200px); }
-.werk-h1 { font-size: clamp(38px, 6.2vw, 100px); font-weight: 700; max-width: 17ch; letter-spacing: -0.045em; }
+.werk-h1 { font-size: clamp(32px, 4.6vw, 72px); font-weight: 700; max-width: 22ch; letter-spacing: -0.045em; }
 .werk-bento.bento { grid-auto-rows: 14rem; gap: 16px; grid-auto-flow: dense; }
 .werk-bento .tegel { background: var(--color-grond-2); border: 1px solid var(--color-lijn); border-radius: 18px; color: var(--color-tekst); }
 .werk-bento .tegel__media img { object-position: 50% 32%; }
@@ -237,7 +237,7 @@
 .case-kop { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: end; padding-top: clamp(120px, 14vw, 180px); }
 .case-terug { grid-column: 1 / -1; color: var(--color-tekst-2); text-decoration: none; font-weight: 600; font-size: 15px; }
 .case-terug:hover { color: var(--color-tekst); }
-.case-h1 { font-size: clamp(44px, 8vw, 128px); font-weight: 700; letter-spacing: -0.05em; }
+.case-h1 { font-size: clamp(28px, 8.6vw, 128px); font-weight: 700; letter-spacing: -0.05em; }
 .case-omslag { aspect-ratio: 3 / 4; }
 .case-lijn[data-reislijn], .case-lijn { padding-block: clamp(72px, 9vw, 128px) 0; --rl-kleur-1: #f0533a; --rl-kleur-2: #a8e0d6; --rl-dun: rgba(245, 236, 227, 0.3); }
 .case-kolom { max-width: 760px; margin-left: clamp(0px, 8vw, 140px); display: grid; gap: clamp(56px, 7vw, 96px); }
@@ -249,7 +249,7 @@
 .case-scherm { aspect-ratio: 1499 / 1049; }
 .case-volgende { padding-top: clamp(80px, 10vw, 140px); }
 .volgende-link { display: grid; gap: 12px; padding-top: 28px; border-top: 1px solid var(--color-lijn); color: var(--color-tekst); text-decoration: none; }
-.volgende-naam { font: 700 clamp(40px, 7vw, 112px)/0.95 var(--font-kop); letter-spacing: -0.05em; transition: transform 240ms var(--ease-uit); }
+.volgende-naam { font: 700 clamp(26px, 8.2vw, 112px)/0.95 var(--font-kop); letter-spacing: -0.05em; transition: transform 240ms var(--ease-uit); }
 @media (hover: hover) { .volgende-link:hover .volgende-naam { transform: translateX(12px); } }
 @media (max-width: 899px) { .case-kop { grid-template-columns: 1fr; } .case-omslag { max-width: 420px; } .case-kolom { margin-left: 16px; } }
 
@@ -272,7 +272,7 @@
 /* ── Contact ────────────────────────────────────────────────────────── */
 .contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); padding-top: clamp(120px, 14vw, 180px); }
 .contact-links { display: grid; gap: 24px; align-content: start; justify-items: start; }
-.contact-h1 { font-size: clamp(52px, 9vw, 144px); font-weight: 700; letter-spacing: -0.05em; }
+.contact-h1 { font-size: clamp(40px, 6vw, 96px); font-weight: 700; letter-spacing: -0.05em; white-space: nowrap; }
 .contact-tekst { font-size: clamp(19px, 1.6vw, 24px); max-width: 30ch; }
 .contact-foto { aspect-ratio: 3 / 4; width: min(100%, 300px); }
 .contact-foto img { object-position: 50% 22%; }
@@ -333,3 +333,11 @@
 /* beeld-letters op de donkere grond: de tint is crème, dan maakt de contrastregeling van het
    onderdeel (minimaal 3:1 tegen de pagina) de letters lichter in plaats van donkerder. */
 .over-letters[data-beeld-letters] { --bl-tint: 245 236 227; --bl-donker: 0.3; --bl-terug: #f0533a; }
+
+/* Vangnet: een woord dat in deze brede letter niet past, breekt liever dan dat het de pagina verbreedt. */
+h1, h2, h3 { overflow-wrap: break-word; }
+/* Aanbevelingen: de tegel volgt de echte verhouding van de schermafbeelding. */
+.ervaringen .ervaring[data-lightbox] { aspect-ratio: auto; background: #fff; --flb-focus: #a8e0d6; }
+.ervaringen .ervaring[data-lightbox] img { height: auto; }
+/* Werk: Eigen product begint in het eerste scherm, direct onder de kop. */
+.werk-intro + * > .eigen:first-child { padding-top: clamp(40px, 5vw, 72px); }
