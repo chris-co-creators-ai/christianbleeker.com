@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-hidden="true">
+  <rect width="400" height="300" fill="#f6f4ee" />
+  <rect x="24" y="24" width="352" height="252" rx="14" fill="#ffffff" stroke="#e3ded0" stroke-width="2" />
+
+  <!-- tandwiel -->
+  <g transform="translate(160 150)">
+    <g fill="#18181b">
+      <rect x="-8" y="-70" width="16" height="24" rx="4" />
+      <rect x="-8" y="46" width="16" height="24" rx="4" />
+      <rect x="-70" y="-8" width="24" height="16" rx="4" />
+      <rect x="46" y="-8" width="24" height="16" rx="4" />
+      <rect x="-8" y="-70" width="16" height="24" rx="4" transform="rotate(45)" />
+      <rect x="-8" y="46" width="16" height="24" rx="4" transform="rotate(45)" />
+      <rect x="-70" y="-8" width="24" height="16" rx="4" transform="rotate(45)" />
+      <rect x="46" y="-8" width="24" height="16" rx="4" transform="rotate(45)" />
+    </g>
+    <circle r="52" fill="#2a635a" />
+    <circle r="22" fill="#f6f4ee" />
+  </g>
+
+  <!-- kleiner tandwiel -->
+  <g transform="translate(270 200) scale(0.55)">
+    <g fill="#18181b">
+      <rect x="-8" y="-70" width="16" height="24" rx="4" />
+      <rect x="-8" y="46" width="16" height="24" rx="4" />
+      <rect x="-70" y="-8" width="24" height="16" rx="4" />
+      <rect x="46" y="-8" width="24" height="16" rx="4" />
+      <rect x="-8" y="-70" width="16" height="24" rx="4" transform="rotate(45)" />
+      <rect x="-8" y="46" width="16" height="24" rx="4" transform="rotate(45)" />
+      <rect x="-70" y="-8" width="24" height="16" rx="4" transform="rotate(45)" />
+      <rect x="46" y="-8" width="24" height="16" rx="4" transform="rotate(45)" />
+    </g>
+    <circle r="52" fill="#2f6fed" />
+    <circle r="22" fill="#f6f4ee" />
+  </g>
+
+  <!-- steeksleutel -->
+  <path d="M300 70 L330 100 L270 160 L240 130 Z" fill="none" stroke="#f2b705" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" />
+</svg>

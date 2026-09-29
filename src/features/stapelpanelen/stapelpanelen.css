@@ -1,0 +1,213 @@
+/**
+ * stapelpanelen.css
+ * ------------------------------------------------------------------------
+ * Namespace: [data-stapelpanelen] (root) met [data-sp-*] op de delen.
+ * Zonder JS (geen data-sp-modus) staat alles open onder elkaar: de basisregels
+ * hieronder zijn die stand. JS zet data-sp-modus = pin | uitklap | open.
+ * Kleur en maat via variabelen op de root of per item:
+ *   --sp-bg --sp-ink --sp-zacht --sp-lijn --sp-accent --sp-kop --sp-pad
+ *   --sp-per (scrollhoogte per overgang, standaard 100svh)
+ *   --sp-item-bg / --sp-item-ink (per [data-sp-item])
+ */
+
+@property --sp-t {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+[data-stapelpanelen] {
+  --sp-bg: #f6f4ee;
+  --sp-ink: #18181b;
+  --sp-zacht: #6b6a62;
+  --sp-lijn: rgba(24, 24, 27, 0.14);
+  --sp-accent: #2f6fed;
+  --sp-kop: 4.5rem;
+  --sp-pad: clamp(1.25rem, 5vw, 4rem);
+  --sp-uit: cubic-bezier(0.23, 1, 0.32, 1);
+  --sp-vh: 100vh;
+  color: var(--sp-ink);
+  background: var(--sp-bg);
+}
+@supports (height: 1svh) {
+  [data-stapelpanelen] { --sp-vh: 100svh; }
+}
+
+[data-stapelpanelen] [data-sp-item] {
+  background: var(--sp-item-bg, var(--sp-bg));
+  color: var(--sp-item-ink, var(--sp-ink));
+  border-top: 1px solid var(--sp-lijn);
+}
+[data-stapelpanelen] [data-sp-kop] { margin: 0; font: inherit; }
+
+/* --- de kop = tab -------------------------------------------------------- */
+[data-stapelpanelen] [data-sp-knop] {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-height: var(--sp-kop);
+  padding: 0 var(--sp-pad);
+  margin: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s ease-out;
+}
+[data-stapelpanelen] [data-sp-nr] {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+  min-width: 1.75rem;
+}
+[data-stapelpanelen] [data-sp-titel] {
+  flex: 1;
+  font-size: clamp(1.05rem, 1.1rem + 0.4vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+[data-stapelpanelen] [data-sp-icoon] {
+  position: relative;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.55;
+  transition: transform 0.2s var(--sp-uit), opacity 0.15s ease-out, background-color 0.15s ease-out;
+}
+[data-stapelpanelen] [data-sp-icoon]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-0.08rem) rotate(45deg);
+  transition: transform 0.3s var(--sp-uit);
+}
+/* voortgangsbalkje onder de kop: schaalt in bij de actieve/open kop */
+[data-stapelpanelen] [data-sp-knop]::after {
+  content: '';
+  position: absolute;
+  left: var(--sp-pad);
+  right: var(--sp-pad);
+  bottom: 0;
+  height: 2px;
+  background: var(--sp-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--sp-uit);
+}
+[data-stapelpanelen] [data-sp-knop]:focus-visible {
+  /* currentColor = de inkt van het paneel: haalt in elke paneelkleur 3:1 (het accent deed dat niet overal) */
+  outline: 2px solid currentColor;
+  outline-offset: -4px;
+}
+[data-stapelpanelen] [data-sp-knop]:active [data-sp-icoon] { transform: scale(0.9); }
+@media (hover: hover) {
+  [data-stapelpanelen] [data-sp-knop]:hover [data-sp-icoon] { opacity: 1; }
+}
+[data-stapelpanelen] [data-sp-knop][aria-current='true']::after,
+[data-stapelpanelen][data-sp-modus='uitklap'] [data-sp-knop][aria-expanded='true']::after { transform: scaleX(1); }
+[data-stapelpanelen] [data-sp-knop][aria-current='true'] [data-sp-icoon],
+[data-stapelpanelen][data-sp-modus='uitklap'] [data-sp-knop][aria-expanded='true'] [data-sp-icoon] { opacity: 1; }
+[data-stapelpanelen][data-sp-modus='uitklap'] [data-sp-knop][aria-expanded='true'] [data-sp-icoon]::before { transform: translateY(0.06rem) rotate(-135deg); }
+/* inactieve tabs in de pin: gedempt, bij hover vol */
+[data-stapelpanelen][data-sp-modus='pin'] [data-sp-knop]:not([aria-current='true']) [data-sp-titel] { opacity: 0.82; transition: opacity 0.15s ease-out; }
+@media (hover: hover) {
+  [data-stapelpanelen][data-sp-modus='pin'] [data-sp-knop]:hover [data-sp-titel] { opacity: 1; }
+}
+[data-stapelpanelen][data-sp-modus='pin'] [data-sp-icoon]::before { transform: translateY(-0.08rem) rotate(-45deg); }
+
+/* --- uitklap (mobiel): gewone uitklapper -------------------------------- */
+[data-stapelpanelen][data-sp-modus='uitklap'] [data-sp-paneel] {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 0.32s var(--sp-uit), visibility 0s 0.32s;
+}
+[data-stapelpanelen][data-sp-modus='uitklap'] [data-sp-item][data-sp-open] [data-sp-paneel] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows 0.32s var(--sp-uit), visibility 0s 0s;
+}
+[data-stapelpanelen][data-sp-modus='uitklap'] [data-sp-inhoud] { min-height: 0; overflow: hidden; }
+
+/* --- pin (desktop): sticky blok ----------------------------------------- */
+[data-stapelpanelen][data-sp-modus='pin'] [data-sp-track] {
+  /* N x viewporthoogte gereserveerd, in svh (stabiel bij de mobiele adresbalk) */
+  height: calc(var(--sp-vh) + (var(--sp-n) - 1) * var(--sp-per, var(--sp-vh)));
+}
+[data-stapelpanelen][data-sp-modus='pin'] [data-sp-stage] {
+  --sp-h: calc(var(--sp-vh) - var(--sp-n) * var(--sp-kop)); /* hoogte van één open paneel */
+  --sp-p: calc(var(--sp-t) * (var(--sp-n) - 1));
+  position: sticky;
+  top: 0;
+  height: var(--sp-vh);
+  overflow: hidden;
+  overflow: clip; /* clip: ook programmatisch niet scrollbaar (focus in een dicht paneel) */
+  background: var(--sp-bg);
+}
+[data-stapelpanelen][data-sp-modus='pin'] [data-sp-item] {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: calc(var(--sp-i) + 1);
+  height: calc(var(--sp-kop) + var(--sp-h));
+  transform: translateY(calc(var(--sp-i) * var(--sp-kop) + var(--sp-h) * clamp(0, var(--sp-i) - var(--sp-p), 1)));
+  will-change: transform;
+  box-shadow: 0 -18px 40px -14px rgba(0, 0, 0, 0.16);
+}
+[data-stapelpanelen][data-sp-modus='pin'] [data-sp-paneel] { height: var(--sp-h); overflow: hidden; }
+[data-stapelpanelen][data-sp-modus='pin'] [data-sp-inhoud] {
+  height: 100%;
+  /* de inhoud dimt en schuift licht mee met de afstand tot het open paneel */
+  --sp-d: max(var(--sp-p) - var(--sp-i), var(--sp-i) - var(--sp-p));
+  opacity: clamp(0, calc(1.5 - 1.25 * var(--sp-d)), 1);
+  transform: translateY(calc(clamp(-1, var(--sp-i) - var(--sp-p), 1) * 1.5rem));
+}
+
+/* Route CSS: de wrapper-scrolltimeline animeert --sp-t (0 -> 1) over de gepinde afstand. */
+@keyframes sp-voortgang { to { --sp-t: 1; } }
+[data-stapelpanelen][data-sp-modus='pin'][data-sp-motor='css'] [data-sp-track] { view-timeline: --sp-tl block; }
+[data-stapelpanelen][data-sp-modus='pin'][data-sp-motor='css'] [data-sp-stage] {
+  animation: sp-voortgang 1s linear both;
+  animation-timeline: --sp-tl;
+  animation-range: contain 0% contain 100%;
+  animation-timing-function: var(--sp-ease, linear);
+}
+
+[data-stapelpanelen][data-sp-wissel] [data-sp-paneel] { transition: none !important; }
+
+/* --- hulp ---------------------------------------------------------------- */
+[data-stapelpanelen] [data-sp-live] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+[data-stapelpanelen] { position: relative; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-stapelpanelen] [data-sp-knop],
+  [data-stapelpanelen] [data-sp-knop]::after,
+  [data-stapelpanelen] [data-sp-icoon],
+  [data-stapelpanelen] [data-sp-icoon]::before,
+  [data-stapelpanelen] [data-sp-paneel] { transition: none !important; }
+}

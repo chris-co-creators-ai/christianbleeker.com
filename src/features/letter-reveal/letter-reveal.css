@@ -1,0 +1,69 @@
+/**
+ * letter-reveal.css
+ * ------------------------------------------------------------------------
+ * Namespace: klassen `.lr-line` / `.lr-word` / `.lr-ch` / `.lr-ch--space`,
+ * attribuut `[data-lr-line]` / `[data-lr-line="secondary"]`, CSS-variabelen
+ * `--lr-duration` (JS-optie `duration`), `--d` (per-letter vertraging, door
+ * JS gezet), `--lr-y` en `--lr-secondary` (kleur/maat, hier instelbaar).
+ *
+ * `[data-lr-line]{display:block}` staat los van de JS-module: zo staan de
+ * twee regels ook zónder JS al netjes onder elkaar (R4). De animatie zelf
+ * is een pure CSS `@keyframes`-animatie: die speelt vanzelf zodra de losse
+ * letter-spans bestaan — zonder JS bestaan die spans niet, dus staat er
+ * gewoon platte, leesbare tekst.
+ *
+ * Herkomst: keyframe-vorm gezien op christianbleeker.com (24-09-2026,
+ * `@keyframes hero-reveal`), eigen implementatie met eigen getallen (zie
+ * letter-reveal.js voor de bronvermelding).
+ */
+
+[data-letter-reveal] {
+  --lr-y: 18px;
+  --lr-secondary: #6b6a62;
+}
+
+[data-lr-line] {
+  display: block;
+}
+
+[data-lr-line='secondary'] {
+  color: var(--lr-secondary);
+}
+
+.lr-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.lr-ch {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(var(--lr-y));
+  animation: lr-rise var(--lr-duration, 0.8s) ease-out both;
+  animation-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+
+/* `white-space: pre` i.p.v. een vaste breedte: een los spatie-teken in een
+   inline-block wordt anders (leading+trailing tegelijk) weggecollapst tot 0.
+   `pre` behoudt hem, met de normale glyph-breedte van het lettertype — een
+   vaste `width` (bv. 0.25em) week meetbaar af van gewone tekstspatiëring
+   (beta-ronde 24-09, L5: 18px tegen 13,2px bij 72px, +37%). */
+.lr-ch--space {
+  white-space: pre;
+}
+
+@keyframes lr-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lr-ch {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

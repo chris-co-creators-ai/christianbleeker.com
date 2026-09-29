@@ -1,0 +1,219 @@
+/**
+ * krachtveld-logowand.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-krachtveld]` op de root, klassen `.kv__*`.
+ * Geen globale selectors. Vereist óók typography/circle-text/circle-text.css
+ * (de draaiende tekst rond de schijf).
+ *
+ * Kleur en maat via CSS-variabelen op de root (licht = standaard,
+ * `data-kv-thema="donker"` voor donker, of zet ze zelf):
+ *   --kv-bg --kv-ink --kv-lijn --kv-logo --kv-schijf-bg --kv-schijf-ink
+ *   --kv-focus --kv-lijn-breedte --kv-breed --kv-logo-breed --kv-schijf
+ *   --kv-font --kv-ease
+ *
+ * Zonder JS: alle paden en logo's staan er gewoon (de verborgen begintoestand
+ * bestaat alleen onder `[data-kv-wacht]`, dat de JS zet). Alleen `transform`,
+ * `opacity` en (voor het intekenen) `stroke-dashoffset` bewegen.
+ */
+
+[data-krachtveld] {
+  --kv-bg: #f4f1ea;
+  --kv-ink: #16181d;
+  --kv-lijn: rgba(22, 24, 29, 0.3);
+  --kv-logo: rgba(22, 24, 29, 0.78);
+  --kv-schijf-bg: #17251f;
+  --kv-schijf-ink: #f1ead9;
+  --kv-focus: #2f6fed;
+  --kv-lijn-breedte: 1.1;
+  --kv-breed: 75rem;
+  --kv-logo-breed: 14.5%;
+  --kv-schijf: 22.5%;
+  --kv-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  background: var(--kv-bg);
+  color: var(--kv-ink);
+  font-family: var(--kv-font, inherit);
+}
+
+[data-krachtveld][data-kv-thema="donker"] {
+  --kv-bg: #0d0f13;
+  --kv-ink: #ece7dc;
+  --kv-lijn: rgba(236, 231, 220, 0.26);
+  --kv-logo: rgba(236, 231, 220, 0.8);
+  --kv-schijf-bg: #e9dfc8;
+  --kv-schijf-ink: #14161b;
+  --kv-focus: #f2c46b;
+}
+
+/* --- de wand: vaste beeldverhouding, dus geen layout-shift (R19) ------- */
+[data-krachtveld] .kv__wand {
+  position: relative;
+  width: 100%;
+  max-width: var(--kv-breed);
+  margin-inline: auto;
+  aspect-ratio: 1200 / 480;
+  container-type: inline-size;
+}
+
+/* --- de veldlijnen ------------------------------------------------------ */
+[data-krachtveld] .kv__veld {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+[data-krachtveld] .kv__veld--m { display: none; }
+[data-krachtveld] .kv__veld path {
+  fill: none;
+  stroke: var(--kv-lijn);
+  stroke-width: var(--kv-lijn-breedte);
+  stroke-linecap: round;
+  stroke-opacity: calc(1 - var(--kv-i, 0) * 0.075);
+}
+
+/* --- de schijf ---------------------------------------------------------- */
+[data-krachtveld] .kv__midden {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--kv-schijf);
+  translate: -50% -50%;
+}
+[data-krachtveld] .kv__schijf {
+  --ct-size: 100%;
+  --ct-font-size: 5.3px;
+  --ct-color: var(--kv-schijf-ink);
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--kv-schijf-bg);
+  color: var(--kv-schijf-ink);
+  text-decoration: none;
+  transition: scale 0.25s var(--kv-ease);
+}
+[data-krachtveld] .kv__schijf::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--kv-schijf-ink) 22%, transparent);
+  pointer-events: none;
+}
+[data-krachtveld] .kv__schijf .ct__ring {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+[data-krachtveld] .kv__schijf .ct__center {
+  width: 62%;
+  height: auto;
+  border-radius: 0;
+  overflow: visible;
+  background: none;
+  flex-direction: column;
+  gap: 0.4em;
+  text-align: center;
+  color: var(--kv-schijf-ink);
+  font-size: 2cqw;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+[data-krachtveld] .kv__pijl {
+  width: 1.1em;
+  height: 1.1em;
+  transition: translate 0.25s var(--kv-ease);
+}
+[data-krachtveld] .kv__schijf:focus-visible {
+  outline: 3px solid var(--kv-focus);
+  outline-offset: 5px;
+}
+[data-krachtveld] .kv__schijf:active { scale: 0.97; }
+@media (hover: hover) {
+  [data-krachtveld] .kv__schijf:hover { scale: 1.035; }
+  [data-krachtveld] .kv__schijf:hover .kv__pijl { translate: 0.12em -0.12em; }
+}
+
+/* --- de logo's ---------------------------------------------------------- */
+[data-krachtveld] .kv__logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+[data-krachtveld] .kv__logo {
+  position: absolute;
+  left: calc(var(--dx) * 1%);
+  top: calc(var(--dy) * 1%);
+  width: var(--kv-logo-breed);
+  translate: -50% -50%;
+  padding: 0.55cqw 0.9cqw;
+  border-radius: 0.6cqw;
+  background: var(--kv-bg); /* de lijn loopt niet dwars door het woordmerk */
+  color: var(--kv-logo);
+}
+[data-krachtveld] .kv__logo > svg,
+[data-krachtveld] .kv__logo > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- intekenen bij binnenkomst (alleen met JS) -------------------------- */
+[data-krachtveld][data-kv-wacht] .kv__veld path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+[data-krachtveld][data-kv-wacht][data-kv-actief] .kv__veld path {
+  transition: stroke-dashoffset 1.9s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--kv-i, 0) * 0.12s);
+}
+[data-krachtveld][data-kv-wacht][data-kv-in] .kv__veld path { stroke-dashoffset: 0; }
+
+[data-krachtveld][data-kv-wacht] .kv__midden { opacity: 0; scale: 0.94; }
+[data-krachtveld][data-kv-wacht] .kv__logo { opacity: 0; translate: -50% calc(-50% + 0.6rem); }
+[data-krachtveld][data-kv-wacht][data-kv-actief] .kv__midden {
+  transition: opacity 0.9s var(--kv-ease) 0.2s, scale 0.9s var(--kv-ease) 0.2s;
+}
+[data-krachtveld][data-kv-wacht][data-kv-actief] .kv__logo {
+  transition: opacity 0.8s var(--kv-ease) calc(0.9s + var(--kv-n, 0) * 0.07s),
+              translate 0.8s var(--kv-ease) calc(0.9s + var(--kv-n, 0) * 0.07s);
+}
+[data-krachtveld][data-kv-wacht][data-kv-in] .kv__midden { opacity: 1; scale: 1; }
+[data-krachtveld][data-kv-wacht][data-kv-in] .kv__logo { opacity: 1; translate: -50% -50%; }
+
+/* --- mobiel: de as staat verticaal, lijnen boven en onder de schijf ------ */
+@media (max-width: 47.5rem) {
+  [data-krachtveld] .kv__wand { aspect-ratio: 380 / 704; max-width: 26rem; }
+  [data-krachtveld] .kv__veld--d { display: none; }
+  [data-krachtveld] .kv__veld--m { display: block; }
+  [data-krachtveld] .kv__midden { width: 42.1%; }
+  [data-krachtveld] .kv__schijf { --ct-font-size: 5.6px; }
+  [data-krachtveld] .kv__schijf .ct__center { font-size: 4.3cqw; }
+  [data-krachtveld] .kv__logo {
+    left: calc(var(--mx) * 1%);
+    top: calc(var(--my) * 1%);
+    width: 30%;
+    padding: 1.2cqw 1.8cqw;
+    border-radius: 1.6cqw;
+  }
+}
+
+/* --- minder beweging: alles staat er, niets beweegt (R1) ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-krachtveld] .kv__veld path,
+  [data-krachtveld] .kv__midden,
+  [data-krachtveld] .kv__logo,
+  [data-krachtveld] .kv__schijf,
+  [data-krachtveld] .kv__pijl {
+    transition: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  [data-krachtveld] .kv__midden,
+  [data-krachtveld] .kv__logo { opacity: 1 !important; }
+  [data-krachtveld] .kv__midden { scale: 1 !important; }
+  [data-krachtveld] .kv__logo { translate: -50% -50% !important; }
+}

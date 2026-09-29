@@ -1,0 +1,29 @@
+{
+  "name": "Chris Bleeker",
+  "version": "0.1.0",
+  "description": "Chris Bleeker-kennis, websitebediening, Creative Kit en overdracht voor de eigen GPT van de klant.",
+  "author": {
+    "name": "Chris Bleeker"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Chris Bleeker",
+    "shortDescription": "Merk, websitebediening en Creative Content van Chris Bleeker.",
+    "longDescription": "Klantstem en websitecommando's voor Codex, vier klant-skills, dossier- en e-mailsjablonen en een overdrachtsmap voor de eigen GPT van Chris Bleeker.",
+    "developerName": "Seveke Creative",
+    "category": "Productivity",
+    "capabilities": ["Write"],
+    "defaultPrompt": [
+      "Start website op localhost:3000.",
+      "Stop website.",
+      "Publiceer website naar Seveke-Creative-NL/christianbleeker-bouw en Vercel.",
+      "Herschrijf deze tekst in de stem van Chris Bleeker.",
+      "Welke dienst past bij deze pagina?",
+      "Beoordeel deze pagina op merk, duidelijkheid en claims.",
+      "Maak van dit audiotranscript een gespreksrapportage in het Creative Kit-sjabloon.",
+      "Maak een intakeformulier of dossierbijlage met de Creative Kit.",
+      "Schrijf een mail voor kennismaking, ontvangst of afwezigheid.",
+      "Maak een LinkedIn-post met het passende beeld- of videokader."
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+/**
+ * video-facade.css — namespaced op de `.vf`-prefix. Vaste aspect-ratio op
+ * de wrapper (`.vf`) zodat poster, knop en iframe elkaar exact overlappen
+ * en er nooit een layout-shift is (R19).
+ */
+
+.vf {
+  --vf-ratio: 16 / 9;
+  --vf-knop-maat: 4.5rem;
+  --vf-knop-bg: rgba(24, 24, 27, 0.82);
+  --vf-knop-fg: #f6f4ee;
+
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--vf-ratio);
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #e3ded0;
+  isolation: isolate;
+}
+
+.vf__fallback {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.vf__fallback img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vf__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--vf-knop-maat);
+  height: var(--vf-knop-maat);
+  border-radius: 50%;
+  border: none;
+  background: var(--vf-knop-bg);
+  color: var(--vf-knop-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.vf__play svg {
+  width: 38%;
+  height: 38%;
+  margin-left: 0.25rem; /* optisch centreren: driehoek heeft geen symmetrisch zwaartepunt */
+}
+
+.vf__play:hover {
+  background: #18181b;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* G4-fix (beta 24-09): een enkele lichte ring (#f6f4ee) mat 1,0–1,22:1 tegen
+   een lichte poster (#f6f4ee → #e3ded0) — vrijwel onzichtbaar op precies de
+   posters uit deze bibliotheek. Een dubbele ring (donker binnen, licht
+   buiten) heeft altijd één rand die met elke redelijke posterkleur
+   contrasteert (zelfde patroon als de H2-fix in chatgpt-intake-knop.css). */
+.vf__play:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px #18181b,
+    0 0 0 6px #f6f4ee;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vf__play {
+    transition: none;
+  }
+  .vf__play:hover {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.vf__iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* N3-fix (beta-herronde 25-09): melding i.p.v. een iframe die YouTube/Vimeo's
+   eigen foutscherm toont, voor facades met `data-placeholder` (nep-ID). Vult
+   dezelfde box als de iframe/poster zou doen — geen layout-shift. */
+.vf__placeholder {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  background: #18181b;
+  color: #f6f4ee;
+  font-size: 0.9375rem;
+}
+
+.vf__caption {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--sc-ink-soft, #6b6a62);
+}
+
+.vf__caption {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--sc-ink-soft, #6b6a62);
+}

@@ -1,0 +1,176 @@
+/**
+ * marquee.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-marquee]` (root), `[data-marquee-track]`,
+ * `[data-marquee-group]`, `[data-marquee-item]`, `[data-marquee-icon]`,
+ * plus `data-marquee-variant`/`data-marquee-direction`/`data-marquee-ready`
+ * (door de JS-module gezet). Geen globale selectors.
+ *
+ * Zonder `[data-marquee-ready]` (geen JS geladen, of "minder beweging")
+ * is er geen animatie en geen `overflow:hidden` — de items staan gewoon
+ * in een wrappende rij, allemaal zichtbaar. Dat IS de progressive-
+ * enhancement-gating; zie marquee.js.
+ */
+
+[data-marquee] {
+  --marquee-gap: 2rem;
+  overflow: visible;
+}
+
+[data-marquee-track] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--marquee-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Transparant vóór data-marquee-ready (H7): zonder JS, en zolang "minder
+   beweging" de kloonmotor uitschakelt, mag de groep-wrapper geen eigen
+   (niet-wrappende) flexrij zijn — anders wordt de hele zin één regel die
+   nooit binnen de viewport past. `display: contents` geeft de items terug
+   aan de wrappende `[data-marquee-track]` eromheen; pas als de motor draait
+   wordt de groep een echte, klein-baar te klonen eenheid (hieronder). */
+[data-marquee-group] {
+  display: contents;
+}
+
+[data-marquee][data-marquee-ready] [data-marquee-group] {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--marquee-gap);
+}
+
+[data-marquee][data-marquee-ready] {
+  overflow: hidden;
+}
+
+[data-marquee][data-marquee-ready] [data-marquee-track] {
+  flex-wrap: nowrap;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-scroll var(--marquee-duration, 20s) linear infinite;
+}
+
+[data-marquee][data-marquee-ready][data-marquee-direction='right'] [data-marquee-track] {
+  animation-direction: reverse;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--marquee-distance, 0px) * -1), 0, 0);
+  }
+}
+
+[data-marquee-icon] {
+  font-size: 0.4em;
+  opacity: 0.55;
+}
+
+[data-marquee] a:focus-visible,
+[data-marquee] button:focus-visible {
+  outline: 2px solid var(--marquee-focus, #2f6fed);
+  outline-offset: 3px;
+}
+
+/* --- variant: giant — reuzeletters --------------------------------- */
+/* Basismaat: een gewone, leesbare kop die normaal wrapt. Geldt zowel zonder
+   JS als bij "minder beweging" ([data-marquee-ready] ontbreekt dan) — H7:
+   op de volle 20vw-reuzemaat past zelfs één los woord ("Automatisering")
+   niet in 390px, en zonder clip/animatie duwt dat de hele pagina breder. */
+[data-marquee][data-marquee-variant='giant'] [data-marquee-item] {
+  font-size: clamp(1.75rem, 1.2rem + 3vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+/* Reuzemaat + nowrap alleen zodra de motor draait: dan is de band geclipt
+   ([data-marquee-ready] → overflow:hidden) en animeert ze, dus een woord
+   breder dan de viewport is precies de bedoeling. */
+[data-marquee][data-marquee-ready][data-marquee-variant='giant'] [data-marquee-item] {
+  font-size: clamp(2.5rem, 4rem + 8vw, 20vw);
+  white-space: nowrap;
+}
+
+/* --- variant: tilted — gekantelde band ------------------------------ */
+[data-marquee][data-marquee-variant='tilted'] {
+  --marquee-tilt: -3deg;
+  transform: rotate(var(--marquee-tilt));
+  transform-origin: center;
+  padding-block: 0.75rem;
+  /* Een gedraaid blok krijgt een grotere as-uitgelijnde ruimte dan zijn
+     eigen breedte (H7: 395px scrollWidth op een 390px-pagina, ook ná de
+     wrap-fix hierboven) — dat telt mee in de scrollbreedte van de pagina,
+     ook al staat overflow op dit element zelf op hidden. Een kleine inzet
+     geeft de hoeken van de rotatie ruimte zonder dat de pagina breder wordt;
+     bij 3° past dit ruim tot een paar honderd pixels bandhoogte. */
+  width: calc(100% - 2rem);
+  margin-inline: auto;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+[data-marquee][data-marquee-variant='tilted'] [data-marquee-item] {
+  font-size: clamp(1.5rem, 1rem + 3vw, 3rem);
+  font-weight: 700;
+}
+/* nowrap alleen zodra de band animeert (zie giant hierboven, zelfde reden) */
+[data-marquee][data-marquee-ready][data-marquee-variant='tilted'] [data-marquee-item] {
+  white-space: nowrap;
+}
+
+/* --- variant: ticker — smalle topbalk met fade-randen --------------- */
+[data-marquee][data-marquee-variant='ticker'] {
+  padding-block: 0.5rem;
+}
+/* De fade-randen horen bij de lopende band; statisch (geen JS, of minder
+   beweging) zou de mask alleen de tekst aan de zijkant onleesbaar maken
+   (R1: "het eindbeeld is gewoon zichtbaar") zonder dat er iets beweegt. */
+[data-marquee][data-marquee-ready][data-marquee-variant='ticker'] {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+[data-marquee][data-marquee-variant='ticker'] [data-marquee-item] {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+[data-marquee][data-marquee-ready][data-marquee-variant='ticker'] [data-marquee-item] {
+  white-space: nowrap;
+}
+
+/* --- variant: logos --------------------------------------------------- */
+[data-marquee][data-marquee-variant='logos'] [data-marquee-item] {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  filter: grayscale(1);
+  opacity: 0.65;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+[data-marquee][data-marquee-variant='logos'] [data-marquee-item]:hover,
+[data-marquee][data-marquee-variant='logos'] [data-marquee-item]:focus-within {
+  filter: none;
+  opacity: 1;
+}
+[data-marquee][data-marquee-variant='logos'] [data-marquee-item] img,
+[data-marquee][data-marquee-variant='logos'] [data-marquee-item] svg {
+  height: 100%;
+  width: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-marquee][data-marquee-ready] [data-marquee-track] {
+    animation: none;
+  }
+  [data-marquee][data-marquee-variant='logos'] [data-marquee-item] {
+    transition: none;
+  }
+}

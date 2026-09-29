@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-hidden="true">
+  <rect width="400" height="300" fill="#f6f4ee" />
+  <rect x="24" y="24" width="352" height="252" rx="14" fill="#ffffff" stroke="#e3ded0" stroke-width="2" />
+
+  <!-- schuifregelaars -->
+  <line x1="64" y1="90" x2="336" y2="90" stroke="#e3ded0" stroke-width="6" stroke-linecap="round" />
+  <line x1="64" y1="90" x2="210" y2="90" stroke="#2f6fed" stroke-width="6" stroke-linecap="round" />
+  <circle cx="210" cy="90" r="12" fill="#2f6fed" />
+
+  <line x1="64" y1="132" x2="336" y2="132" stroke="#e3ded0" stroke-width="6" stroke-linecap="round" />
+  <line x1="64" y1="132" x2="130" y2="132" stroke="#f2b705" stroke-width="6" stroke-linecap="round" />
+  <circle cx="130" cy="132" r="12" fill="#f2b705" />
+
+  <line x1="64" y1="174" x2="336" y2="174" stroke="#e3ded0" stroke-width="6" stroke-linecap="round" />
+  <line x1="64" y1="174" x2="286" y2="174" stroke="#ea580c" stroke-width="6" stroke-linecap="round" />
+  <circle cx="286" cy="174" r="12" fill="#ea580c" />
+
+  <!-- draaiknop -->
+  <circle cx="120" cy="228" r="26" fill="none" stroke="#18181b" stroke-width="4" />
+  <line x1="120" y1="228" x2="120" y2="208" stroke="#18181b" stroke-width="4" stroke-linecap="round" transform="rotate(35 120 228)" />
+
+  <!-- rekenmodule-scherm -->
+  <rect x="220" y="204" width="116" height="48" rx="8" fill="#eef2ff" stroke="#2f6fed" stroke-width="2" />
+  <rect x="232" y="216" width="60" height="8" rx="3" fill="#2f6fed" />
+  <rect x="232" y="230" width="92" height="8" rx="3" fill="#6b6a62" opacity="0.5" />
+</svg>

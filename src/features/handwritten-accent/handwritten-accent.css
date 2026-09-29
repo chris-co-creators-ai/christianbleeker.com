@@ -1,0 +1,98 @@
+/**
+ * handwritten-accent.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-handwritten-accent]` op de root, klassen
+ * `.hwa__label` (tekst) en `.hwa__squiggle` (optionele SVG-krul/pijl).
+ * Geen globale selectors. Kleur/maat via CSS-variabelen.
+ *
+ * Font: Caveat, lokaal meegeleverd in `./fonts/` (SIL Open Font License,
+ * zie `./fonts/OFL.txt`) — niet meer van fonts.googleapis.com/fonts.gstatic.com
+ * (L4: een externe fontaanroep bij elk paginabezoek is een IP-adres dat naar
+ * Google gaat zonder toestemmingsvraag, AVG-gevoelig). `font-display: swap`
+ * plus een systeemfont-fallback (cursive-stack) houdt de tekst leesbaar,
+ * ook vóór het lettertype geladen is of als het niet laadt.
+ */
+
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./fonts/caveat-latin-500-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./fonts/caveat-latin-600-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+
+[data-handwritten-accent] {
+  --hwa-tilt: -4deg;
+  --hwa-color: #d1495b;
+  --hwa-size: 1.35rem;
+  --hwa-font: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  transform: rotate(var(--hwa-tilt));
+  transform-origin: left center;
+  font-family: var(--hwa-font);
+  font-size: var(--hwa-size);
+  font-weight: 500;
+  color: var(--hwa-color);
+  line-height: 1;
+}
+
+.hwa__label {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  white-space: nowrap;
+}
+
+[data-handwritten-accent][data-hwa-ready] .hwa__label {
+  transition: clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-handwritten-accent].is-written .hwa__label {
+  clip-path: inset(0 0% 0 0);
+}
+
+.hwa__squiggle {
+  width: 1.6em;
+  height: 1.6em;
+  flex: none;
+  overflow: visible;
+}
+
+.hwa__squiggle path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+/* Zonder JS (of vóór init): gewoon meteen zichtbaar, geen wipe/tekenen. */
+[data-handwritten-accent]:not([data-hwa-ready]) .hwa__label {
+  clip-path: none;
+}
+[data-handwritten-accent]:not([data-hwa-ready]) .hwa__squiggle path {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-handwritten-accent] .hwa__label {
+    clip-path: inset(0 0% 0 0) !important;
+    transition: none !important;
+  }
+  [data-handwritten-accent] .hwa__squiggle path {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+}

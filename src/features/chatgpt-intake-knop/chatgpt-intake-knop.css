@@ -1,0 +1,189 @@
+/**
+ * chatgpt-intake-knop.css — namespaced op de `.cik`-prefix, geen globale
+ * selectors. Drie varianten: `.cik--pill` (navigatie), `.cik--cta` (grote
+ * call-to-action) en `.cik--chooser` (rij met ChatGPT/Claude naast elkaar).
+ */
+
+.cik {
+  --cik-bg: #18181b;
+  --cik-fg: #f6f4ee;
+  --cik-bg-hover: #2f2f34;
+  --cik-radius: 999px;
+  --cik-gap: 0.5rem;
+  --cik-pad-x: 1.1rem;
+  --cik-pad-y: 0.6rem;
+  --cik-font-size: 0.9375rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cik-gap);
+  padding: var(--cik-pad-y) var(--cik-pad-x);
+  border-radius: var(--cik-radius);
+  background: var(--cik-bg);
+  color: var(--cik-fg);
+  font-size: var(--cik-font-size);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.cik:hover {
+  background: var(--cik-bg-hover);
+}
+
+/* H2-fix (beta 24-09): een enkele outline-kleur kon exact de kleur van de
+   pagina-achtergrond raken (2px solid var(--cik-fg), met --cik-fg gelijk aan
+   --sc-paper op de pil/CTA → contrast 1,00:1, onzichtbaar). Een dubbele ring
+   (licht + donker, met een kleine tussenruimte) heeft altijd op z'n minst
+   één rand die met elke redelijke pagina- of knopkleur contrasteert. */
+.cik:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px #18181b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cik {
+    transition: none;
+  }
+}
+
+/* --- variant: grote CTA-knop -------------------------------------------- */
+.cik--cta {
+  --cik-radius: 0.75rem;
+  --cik-pad-x: 1.75rem;
+  --cik-pad-y: 1rem;
+  --cik-font-size: 1.0625rem;
+  display: flex;
+  width: fit-content;
+}
+
+/* --- variant: chooser (ChatGPT of Claude naast elkaar) ------------------ */
+.cik-chooser {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.cik--chooser {
+  --cik-bg: #fff;
+  --cik-fg: #18181b;
+  --cik-bg-hover: #f1efe6;
+  border-color: var(--cik-line, #e3ded0);
+}
+
+/* --- wrap: positioneringsanker voor de feedback-tooltip (G1-fix) -------- */
+/* G1-fix (beta 24-09): de feedback-span stond als derde flex-item in
+   `header.studio-nav { display:flex; justify-content:space-between }` — zodra
+   hij tekst kreeg, schoof de knop zelf 544px op. `init()` verpakt de trigger
+   nu in dit `.cik__wrap` (positioneringsanker); de feedback wordt daarbinnen
+   absoluut gepositioneerd, dus hij neemt nooit meer ruimte in de flex-ouder
+   in en de knop blijft op zijn plek, in elke omringende layout. */
+.cik__wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+/* --- feedback (aria-live): alleen zichtbaar met tekst erin -------------- */
+.cik__feedback {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 5;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.65rem;
+  width: max-content;
+  max-width: 16rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--cik-line, #e3ded0);
+  box-shadow: 0 4px 14px rgba(24, 24, 27, 0.12);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--cik-feedback-kleur, #2f5d26);
+}
+
+.cik__feedback:empty {
+  display: none;
+}
+
+/* G2-fix (beta 24-09): een mislukte kopie kreeg dezelfde (groene) kleur als
+   een gelukte — "geef de fout een eigen kleur". */
+.cik__feedback[data-cik-status="fout"] {
+  color: #9a2f2f;
+  border-color: #e7c6c6;
+}
+
+/* G2-fix: handmatig-kopiëren-terugval (mislukt kopiëren) — een echt
+   selecteerbaar tekstvak met de volledige prompt, in plaats van ChatGPT
+   te openen met een onware "al gekopieerd"-claim. */
+/* N2-fix (beta-herronde 25-09): dit tekstvak stond eerst gewoon in de
+   flow van `.cik__wrap`, en groeide dus de omringende layout mee — in de
+   navigatie werd de kopbalk zo 78 → 211px op mobiel en schoof de pil over
+   het logo heen. Een `<dialog showModal>` (top-layer, los van de trigger's
+   positie in de pagina) kan die omringende layout per definitie niet meer
+   raken, en centreert zichzelf via de UA-stylesheet. */
+.cik__dialog {
+  max-width: min(28rem, calc(100vw - 2rem));
+  padding: 1.25rem;
+  border: none;
+  border-radius: 0.875rem;
+  box-shadow: 0 12px 40px rgba(24, 24, 27, 0.25);
+  font-family: inherit;
+}
+
+.cik__dialog::backdrop {
+  background: rgba(24, 24, 27, 0.45);
+}
+
+.cik__dialog-titel {
+  margin: 0 0 0.35rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #18181b;
+}
+
+.cik__dialog-uitleg {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: var(--cik-ink-soft, #6b6a62);
+}
+
+.cik__dialog-textarea {
+  display: block;
+  width: 100%;
+  height: 10rem;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--cik-line, #e3ded0);
+  font: inherit;
+  font-size: 0.8125rem;
+  color: #18181b;
+  background: #f6f4ee;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.cik__dialog-sluit {
+  display: block;
+  margin: 0.85rem 0 0 auto;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background: #18181b;
+  color: #f6f4ee;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cik__dialog-sluit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #18181b;
+}

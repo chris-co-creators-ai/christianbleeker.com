@@ -1,0 +1,77 @@
+/**
+ * circle-text.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-circle-text]` op het klikbare element,
+ * klasse `.ct__ring` (de roterende SVG), `.ct__center` (icoon/foto in het
+ * midden, draait niet mee) en `.ct--offscreen` (door de JS gezet). Geen
+ * globale selectors.
+ *
+ * De rotatie zelf is pure CSS — zonder JS draait de ring gewoon door (of
+ * staat hij stil bij reduced motion, via de media query onderin); de JS
+ * voegt alleen `.ct--offscreen` toe om ook buiten beeld te pauzeren.
+ */
+
+[data-circle-text] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ct-size, 9rem);
+  height: var(--ct-size, 9rem);
+  text-decoration: none;
+  color: inherit;
+  border-radius: 50%;
+}
+
+[data-circle-text]:focus-visible {
+  outline: 2px solid var(--ct-focus, var(--sc-accent, #2f6fed));
+  outline-offset: 3px;
+}
+
+.ct__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: var(--ct-color, currentColor);
+  font-size: var(--ct-font-size, 0.8rem);
+  letter-spacing: 0.08em;
+  animation: ct-spin var(--ct-duration, 24s) linear infinite;
+}
+
+@keyframes ct-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Pauzeren: hover/focus (muis + toetsenbord) en buiten beeld (JS). */
+[data-circle-text]:hover .ct__ring,
+[data-circle-text]:focus-visible .ct__ring,
+[data-circle-text].ct--offscreen .ct__ring {
+  animation-play-state: paused;
+}
+
+.ct__center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ct-center-size, 3.25rem);
+  height: var(--ct-center-size, 3.25rem);
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--ct-center-bg, #fff);
+  pointer-events: none;
+}
+
+.ct__center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ct__ring {
+    animation: none !important;
+  }
+}

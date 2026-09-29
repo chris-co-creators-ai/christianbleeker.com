@@ -1,0 +1,151 @@
+/**
+ * reislijn.css
+ * ------------------------------------------------------------------------
+ * Namespace: `[data-reislijn]` (root), `.rl-*` (toegevoegde elementen).
+ * Alles hieronder is gescoped op `[data-reislijn]`: zonder JS bestaat er
+ * geen laag en geen enkele regel doet iets (R4).
+ *
+ * Kleur en maat via variabelen op de root (of hoger):
+ *   --rl-kleur-1   lijn 1 en stippen op lijn 1
+ *   --rl-kleur-2   lijn 2 en stippen op lijn 2
+ *   --rl-dun       de gestippelde "nog niet gelopen" lijn
+ *   --rl-ring      binnenkant van een nog lege stip (JS zet dit per stip
+ *                  op de achtergrondkleur van de sectie)
+ *   --rl-lijn      lijndikte (px), --rl-punt stipdiameter (px)
+ *
+ * Alleen `transform`, `opacity` en de SVG-streek worden geanimeerd (R18);
+ * de laag heeft `pointer-events: none` en ligt in de marge, nooit over tekst.
+ */
+
+[data-reislijn] {
+  position: relative;
+  --rl-kleur-1: #3d6bf0;
+  --rl-kleur-2: #d99a1e;
+  --rl-dun: rgb(128 128 118 / 0.42);
+  --rl-lijn: 1.5px;
+  --rl-punt: 12px;
+  --rl-ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+[data-reislijn][data-reislijn-modus='mobiel'] {
+  --rl-lijn: 1px;
+  --rl-punt: 8px;
+}
+
+[data-reislijn] .rl-laag {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+[data-reislijn] .rl-laag[data-uit] { display: none; }
+[data-reislijn] .rl-svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+[data-reislijn] .rl-punten { position: absolute; inset: 0; pointer-events: none; }
+
+/* --- lijnen ------------------------------------------------------------ */
+[data-reislijn] .rl-svg path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: var(--rl-lijn);
+  vector-effect: non-scaling-stroke;
+}
+[data-reislijn] .rl-dun {
+  stroke: var(--rl-dun);
+  stroke-dasharray: 0.1 6;
+  stroke-width: calc(var(--rl-lijn) + 0.5px);
+}
+[data-reislijn] .rl-vol,
+[data-reislijn] .rl-tak {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: var(--rl-o, 0);
+}
+[data-reislijn] .rl-vol[data-lijn='1'],
+[data-reislijn] .rl-tak { stroke: var(--rl-kleur-1); }
+[data-reislijn] .rl-vol[data-lijn='2'] { stroke: var(--rl-kleur-2); }
+
+/* aftakking: tekent zich zodra het element open staat, verdwijnt bij sluiten */
+[data-reislijn] .rl-tak {
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.7s var(--rl-ease);
+}
+[data-reislijn] .rl-tak[data-getekend='ja'] { stroke-dashoffset: 0; }
+[data-reislijn] .rl-tak-punt {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--rl-kleur-1);
+  translate: -50% -50%;
+  opacity: 0;
+  scale: 0.5;
+  transition: opacity 0.2s ease-out, scale 0.3s var(--rl-ease);
+}
+[data-reislijn] .rl-tak-punt[data-getekend='ja'] {
+  opacity: 1;
+  scale: 1;
+  transition-delay: 0.45s;
+}
+
+/* --- stippen ----------------------------------------------------------- */
+[data-reislijn] .rl-punt {
+  --rl-kl: var(--rl-kleur-1);
+  position: absolute;
+  box-sizing: border-box;
+  width: var(--rl-punt);
+  height: var(--rl-punt);
+  border-radius: 50%;
+  border: var(--rl-lijn) solid var(--rl-kl);
+  background-color: var(--rl-ring, #fff);
+  translate: -50% -50%;
+  scale: 0.8;
+  transition: background-color 0.25s ease-out, scale 0.35s var(--rl-ease);
+}
+[data-reislijn] .rl-punt[data-lijn='2'] { --rl-kl: var(--rl-kleur-2); }
+[data-reislijn] .rl-punt[data-actief] {
+  background-color: var(--rl-kl);
+  scale: 1;
+}
+
+/* --- route "css": de browser doet het scroll-werk ---------------------- */
+@keyframes rl-teken {
+  from { stroke-dashoffset: var(--rl-o0, 1); }
+  to { stroke-dashoffset: var(--rl-o1, 0); }
+}
+@keyframes rl-licht {
+  from { background-color: var(--rl-ring, #fff); scale: 0.8; }
+  to { background-color: var(--rl-kl); scale: 1; }
+}
+[data-reislijn][data-reislijn-route='css'] .rl-vol {
+  animation: rl-teken 1ms linear both;
+  animation-timeline: scroll(root);
+  animation-range: var(--rl-r0, 0px) var(--rl-r1, 1px);
+}
+[data-reislijn][data-reislijn-route='css'] .rl-punt {
+  transition: none;
+  animation: rl-licht 1ms linear both;
+  animation-timeline: scroll(root);
+  animation-range: var(--rl-van, 0px) calc(var(--rl-van, 0px) + 56px);
+}
+[data-reislijn][data-reislijn-route='css'] .rl-punt[data-vast] {
+  animation: none;
+  background-color: var(--rl-kl);
+  scale: 1;
+}
+
+/* --- minder beweging: geen animatie, eindtoestand direct --------------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-reislijn] .rl-punt,
+  [data-reislijn] .rl-tak,
+  [data-reislijn] .rl-tak-punt {
+    transition: none;
+    animation: none;
+  }
+  [data-reislijn] .rl-tak-punt[data-getekend='ja'] { transition-delay: 0s; }
+}

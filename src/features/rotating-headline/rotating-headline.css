@@ -1,0 +1,173 @@
+/**
+ * rotating-headline.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-rotating-headline]` op de kop, `.rh__stage`
+ * (de wissel-container), `[data-rh-word]` (elk woord) en de door de JS
+ * toegevoegde `.rh__visible`/`.rh__sr-only`. Geen globale selectors.
+ *
+ * Zonder JS (of vóór init): alle `[data-rh-word]` staan gewoon na elkaar in
+ * de kop (`display:inline`); markeer alle woorden behalve het eerste met
+ * het `hidden`-attribuut in de HTML, dan toont de pagina zonder JS gewoon
+ * het eerste woord, statisch — geen lege stage, geen layout-shift.
+ */
+
+/* Basistoestand = de zonder-JS-toestand: `.rh__stage` is gewoon inline tekst
+   en `.rh__word` staat gewoon in de flow, zichtbaar. `[hidden]` in de markup
+   verbergt alle woorden behalve het eerste al — geen lege stage, geen
+   layout-shift. Vroeger stond de wissel-opmaak (position:absolute,
+   opacity:0) hier onvoorwaardelijk, gated via `:not([data-rh-variant])` —
+   maar demo's/gebruikers zetten `data-rh-variant` vaak al in de HTML als
+   hint, dus die selector matchte nooit en de kop las zonder JS "Wij zijn ."
+   (G4). Nu is de wissel-opmaak pas actief ná `init()`, via het attribuut dat
+   de JS zelf zet (`data-rh-ready` — zie rotating-headline.js), dus de
+   aan/uit-schakeling hangt niet af van wat de auteur toevallig al in de
+   HTML zette. */
+.rh__stage {
+  display: inline;
+}
+
+.rh__word {
+  color: var(--rh-color, var(--sc-accent, #2f6fed));
+  font-weight: inherit;
+}
+
+[data-rotating-headline][data-rh-ready] .rh__stage {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 1.2em;
+  vertical-align: bottom;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-rotating-headline][data-rh-ready] .rh__word {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+[data-rotating-headline][data-rh-ready] .rh__word[data-rh-state='active'] {
+  opacity: 1;
+}
+
+.rh__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* G4 (woorden overlappen tijdens de wissel): de leaving- en entering-
+   animatie van een paar moeten EXACT dezelfde timing-functie gebruiken.
+   Anders legt de ene helft van de wipe een andere voortgangscurve af dan de
+   andere, en het (klippende of schuivende) stuk dat "nog zichtbaar" moet
+   zijn overlapt tijdelijk het stuk dat "al zichtbaar" is — precies het
+   dubbele-belichting-effect uit de beta-ronde. Met dezelfde curve tillen
+   leaving en entering elkaar op elk moment exact af, zonder gat of overlap. */
+:root {
+  --rh-wipe-ease: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* --- variant: clip (horizontale wipe) ----------------------------------- */
+[data-rh-variant='clip'] .rh__word[data-rh-state='leaving'] {
+  animation: rh-clip-out var(--rh-duration, 0.42s) var(--rh-wipe-ease) forwards;
+}
+[data-rh-variant='clip'] .rh__word[data-rh-state='entering'] {
+  animation: rh-clip-in var(--rh-duration, 0.42s) var(--rh-wipe-ease) forwards;
+}
+@keyframes rh-clip-out {
+  from { clip-path: inset(0 0 0 0); opacity: 1; }
+  to { clip-path: inset(0 0 0 100%); opacity: 0; }
+}
+@keyframes rh-clip-in {
+  from { clip-path: inset(0 100% 0 0); opacity: 0; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+/* --- variant: blinds (verticale wipe) ----------------------------------- */
+[data-rh-variant='blinds'] .rh__word[data-rh-state='leaving'] {
+  animation: rh-blinds-out var(--rh-duration, 0.42s) var(--rh-wipe-ease) forwards;
+}
+[data-rh-variant='blinds'] .rh__word[data-rh-state='entering'] {
+  animation: rh-blinds-in var(--rh-duration, 0.42s) var(--rh-wipe-ease) forwards;
+}
+@keyframes rh-blinds-out {
+  from { clip-path: inset(0 0 0 0); opacity: 1; }
+  to { clip-path: inset(0 0 100% 0); opacity: 0; }
+}
+@keyframes rh-blinds-in {
+  from { clip-path: inset(100% 0 0 0); opacity: 0; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+/* --- variant: slide (verticaal doorschuiven) ---------------------------- */
+[data-rh-variant='slide'] .rh__word[data-rh-state='leaving'] {
+  animation: rh-slide-out var(--rh-duration, 0.42s) var(--rh-wipe-ease) forwards;
+}
+[data-rh-variant='slide'] .rh__word[data-rh-state='entering'] {
+  animation: rh-slide-in var(--rh-duration, 0.42s) var(--rh-wipe-ease) forwards;
+}
+@keyframes rh-slide-out {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-100%); opacity: 0; }
+}
+@keyframes rh-slide-in {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- variant: typing (per-teken reveal met steps()) --------------------- */
+/* G4 ("bij typing zweeft de punt los"): de stage-breedte animeert normaal
+   gesproken zelf mee (.rh__stage transition: width 0.35s, andere curve/duur
+   dan de steps()-reveal van 0.42s hierbeneden). Voor typing hoort de stage
+   meteen op zijn eindbreedte te staan — de reveal-animatie IS de
+   letter-voor-letter opbouw; een los meeanimerend vak duwt de "." erna op
+   een tempo dat niet bij de zichtbare tekst past, en die lijkt los te
+   zweven. Instant breedte, dan pas de steps()-reveal erbinnen. */
+[data-rh-variant='typing'] .rh__stage {
+  transition: none;
+}
+/* De stage-breedte zélf is hier de reveal: hij groeit (of krimpt) van de
+   oude naar de nieuwe woordbreedte met dezelfde steps()-curve als de
+   "getypte" tekst — de "." erna hangt aan diezelfde breedte (normale
+   inline flow), dus die schuift in precies hetzelfde tempo mee als de
+   laatst zichtbare letter, in plaats van meteen naar zijn eindpositie te
+   springen. `:has()` triggert de animatie zodra een woord "entering" wordt. */
+[data-rh-variant='typing'] .rh__stage:has(.rh__word[data-rh-state='entering']) {
+  animation: rh-typing-width var(--rh-duration, 0.42s) steps(var(--rh-steps, 8), end) forwards;
+}
+@keyframes rh-typing-width {
+  from { width: var(--rh-from-width, 0px); }
+  to { width: var(--rh-to-width, 0px); }
+}
+[data-rh-variant='typing'] .rh__word[data-rh-state='leaving'] {
+  animation: rh-typing-out 0.18s linear forwards;
+}
+/* Het woord zelf hoeft niet meer te clippen (de stage doet dat via
+   overflow:hidden + zijn eigen groeiende breedte hierboven) — meteen
+   volledig zichtbaar. De (inhoudelijk lege) animatie bestaat alleen om op
+   hetzelfde moment als de breedte-reveal een animationend-event te geven. */
+[data-rh-variant='typing'] .rh__word[data-rh-state='entering'] {
+  opacity: 1;
+  animation: rh-typing-in var(--rh-duration, 0.42s) steps(var(--rh-steps, 8), end) forwards;
+}
+@keyframes rh-typing-out {
+  to { opacity: 0; }
+}
+@keyframes rh-typing-in {
+  from { opacity: 1; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh__stage { transition: none; }
+  .rh__word { animation: none !important; opacity: 0; clip-path: none; transform: none; }
+  .rh__word:first-of-type { opacity: 1; }
+}

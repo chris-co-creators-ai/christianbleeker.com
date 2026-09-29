@@ -1,16 +1,8 @@
 {
-  "name": "christianbleeker-com",
-  "version": "1.0.0",
+  "name": "christianbleeker-bouw",
+  "version": "0.1.0",
   "private": true,
-  "description": "Personal portfolio of Christian Bleeker",
-  "author": "Christian Bleeker",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/chris-co-creators-ai/christianbleeker.com.git"
-  },
-  "homepage": "https://www.christianbleeker.com",
-  "keywords": ["portfolio", "nextjs"],
+  "description": "Website van Chris Bleeker, gebouwd door Seveke Creative.",
   "engines": {
     "node": ">=24"
   },
@@ -20,29 +12,36 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "check": "npm run lint && npm run typecheck && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run build",
+    "keuring": "node scripts/keuring.mjs",
+    "vercel-build": "next build && node scripts/keuring.mjs",
+    "qa": "node qa/run.mjs"
   },
   "dependencies": {
-    "@base-ui/react": "^1.3.0",
+    "@next/third-parties": "^16.3.6",
+    "@sentry/nextjs": "^11.0.0",
+    "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lottie-react": "^3.1.2",
-    "lucide-react": "^1.6.0",
-    "next": "16.3.5",
+    "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "resend": "^6.28.1",
     "shadcn": "^4.1.0",
-    "tailwind-merge": "^3.5.0",
-    "tw-animate-css": "^1.4.0"
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.13.0",
     "eslint": "^9",
-    "eslint-config-next": "16.3.5",
+    "eslint-config-next": "16.2.4",
+    "playwright-core": "1.62.1",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "author": "Seveke Creative"
 }

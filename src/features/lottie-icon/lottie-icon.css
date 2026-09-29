@@ -1,0 +1,40 @@
+/**
+ * lottie-icon.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-lottie-icon]` (root), `[data-lottie-active]`
+ * (door JS gezet zodra de player gemount is — verbergt dan de fallback),
+ * `[data-lottie-fallback]` (de no-JS/nog-niet-in-beeld-afbeelding), klasse
+ * `.li-stage` (de container die de JS-module toevoegt voor de Lottie-SVG),
+ * CSS-variabele `--li-size` (breedte/hoogte, hier instelbaar).
+ *
+ * `aspect-ratio: 1/1` staat vast op de root, mét of zonder JS: er is dus
+ * nooit een layout-shift wanneer de player later gemount wordt (R19).
+ */
+
+[data-lottie-icon] {
+  position: relative;
+  display: block;
+  width: var(--li-size, 64px);
+  aspect-ratio: 1 / 1;
+}
+
+[data-lottie-icon] [data-lottie-fallback] {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+[data-lottie-icon][data-lottie-active] [data-lottie-fallback] {
+  display: none;
+}
+
+.li-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.li-stage svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

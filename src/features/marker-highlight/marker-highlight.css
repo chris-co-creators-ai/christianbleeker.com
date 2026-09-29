@@ -1,0 +1,74 @@
+/**
+ * marker-highlight.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut [data-marker] op het gemarkeerde element; de JS zet
+ * [data-mh-hidden]/[data-mh-active] op de root en .is-in op het element.
+ * Zonder die attributen (geen JS) staat de streep er gewoon meteen.
+ *
+ * Variabelen (op element of voorouder):
+ *   --mh-kleur       markeerkleur            (#f4d35e)
+ *   --mh-tekst       tekstkleur op de streep (erft)
+ *   --mh-hoogte      100% = hele regel, 45% = onderste helft
+ *   --mh-duur        looptijd                (0.8s)
+ *   --mh-vertraging  vertraging              (0s)
+ *   --mh-vlak        eigen achtergrondafbeelding (de ruwe SVG-rand uit de JS)
+ * Animeert alleen background-size (paint, geen layout); dat is een
+ * bewuste keuze boven transform, omdat de streep met de tekstregels mee
+ * moet breken (box-decoration-break).
+ */
+[data-marker] {
+  --mh-kleur: #f4d35e;
+  --mh-hoogte: 100%;
+  --mh-duur: 0.8s;
+  --mh-vertraging: 0s;
+  --mh-ease: cubic-bezier(0.6, 0.05, 0.2, 1);
+
+  background-color: transparent;
+  background-image: var(--mh-vlak, linear-gradient(var(--mh-kleur), var(--mh-kleur)));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% var(--mh-hoogte);
+  color: var(--mh-tekst, inherit);
+  padding: 0 0.14em;
+  margin: 0 -0.14em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+[data-mh-hidden] [data-marker]:not(.is-in) {
+  background-size: 0% var(--mh-hoogte);
+}
+
+[data-mh-active] [data-marker] {
+  transition: background-size var(--mh-duur) var(--mh-ease) var(--mh-vertraging);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mh-hidden] [data-marker],
+  [data-mh-hidden] [data-marker]:not(.is-in),
+  [data-mh-active] [data-marker] {
+    background-size: 100% var(--mh-hoogte);
+    transition: none;
+  }
+}
+
+/*
+ * Windows-hoog-contrast: eigen kleuren worden genegeerd en background-color
+ * transparent liet de tekst op de pagina-achtergrond staan (zwart op zwart).
+ * Vervang de streep door de systeemkleuren Mark/MarkText, altijd hele regel,
+ * zodat de tekst altijd op zijn eigen paar staat.
+ */
+@media (forced-colors: active) {
+  [data-marker] {
+    forced-color-adjust: none;
+    color: MarkText;
+    background-image: linear-gradient(Mark, Mark);
+  }
+  /* geen inloop: de streep staat er direct, ook vóór binnenkomst */
+  [data-marker],
+  [data-mh-hidden] [data-marker]:not(.is-in),
+  [data-mh-active] [data-marker] {
+    background-size: 100% 100%;
+    transition: none;
+  }
+}

@@ -1,0 +1,148 @@
+/**
+ * media-hero.css
+ * -------------------------------------------------------------------------
+ * Namespace: klasse `.mh` + BEM-achtige `.mh__*` kinderen, status via
+ * `[data-mh-status]` (door de JS gezet) en `[data-modus]` (door de auteur
+ * gezet, in markup). Geen globale selectors.
+ *
+ * Contrast (R16): `.mh__inhoud` is een ondoorzichtige kaart
+ * (rgba(10,15,31,.85)) — geen gok op een gradient over onbekende
+ * videohelderheid. Bij wit tekst (L=1) en een volledig wit beeld erachter
+ * (worst case, L=1) is de gemengde achtergrondluminantie
+ * (1-.85)*1 = .15 -> contrastratio (1.05)/(.15+.05) = 5,25 : 1 — boven de
+ * eis van 4,5:1, ook in het slechtste geval. Gemeten in test/meet.mjs op
+ * een witte testfixture.
+ *
+ * Geen layout-shift (R19): `.mh__stage` krijgt zijn hoogte via
+ * `aspect-ratio`, niet via het laden van video/afbeelding.
+ */
+.mh {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  font-family: inherit;
+  overflow: hidden; /* vangnet: nooit horizontale scroll, wat de stage ook doet */
+}
+
+.mh__stage {
+  position: relative;
+  width: 100%; /* expliciet i.p.v. auto: anders berekent de browser de breedte terug uit
+                   min-height/aspect-ratio (16/7 × 20rem min-height = 731px) en breekt hij
+                   uit een smalle container (H1, mobiel 390px → scrollWidth 751px) */
+  aspect-ratio: var(--mh-aspect, 16 / 9);
+  min-height: 20rem;
+  overflow: hidden;
+  background: #0a0f1f; /* voorkomt een wit flitsje vóór de eerste frame/afbeelding laadt */
+}
+
+.mh__video,
+.mh__poster,
+.mh__dia {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- videomodus: video <-> poster crossfade op basis van afspeelstatus --- */
+.mh[data-modus='video'] .mh__video {
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+.mh[data-modus='video'] .mh__poster {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.mh[data-modus='video'][data-mh-status='gepauzeerd'] .mh__video {
+  opacity: 0;
+}
+.mh[data-modus='video'][data-mh-status='gepauzeerd'] .mh__poster {
+  opacity: 1;
+}
+/* Zonder JS (geen data-mh-status): video speelt native af via het
+   autoplay-attribuut, poster blijft onzichtbaar totdat de browser hem
+   zelf toont (vóór de eerste frame). */
+
+/* --- diashowmodus: Ken Burns (fade + langzame zoom) ---------------------- */
+.mh[data-modus='diashow'] .mh__dia {
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 1.2s ease;
+}
+.mh[data-modus='diashow'] .mh__dia.is-actief {
+  opacity: 1;
+  animation: mh-kenburns var(--mh-dia-duur, 6s) ease-out forwards;
+}
+@keyframes mh-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mh[data-modus='diashow'] .mh__dia.is-actief {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* --- overlay: lichte gradient voor sfeer (niet de contrast-garantie) ---- */
+.mh__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(10, 15, 31, 0.5) 0%, rgba(10, 15, 31, 0.05) 65%);
+}
+
+/* --- inhoud: de contrast-garantie zit hier (ondoorzichtige kaart) ------- */
+.mh__inhoud {
+  position: absolute;
+  left: clamp(1.25rem, 5vw, 3.5rem);
+  right: clamp(1.25rem, 5vw, 3.5rem);
+  bottom: clamp(1.25rem, 6vw, 3.5rem);
+  z-index: 3;
+  max-width: 38rem;
+  background: rgba(10, 15, 31, 0.85);
+  color: #fff;
+  padding: 1.5rem 1.75rem;
+  border-radius: 1rem;
+}
+.mh__inhoud h1,
+.mh__inhoud p {
+  margin: 0 0 0.75rem;
+}
+.mh__inhoud :last-child {
+  margin-bottom: 0;
+}
+
+/* --- pauzeknop: altijd zichtbaar, nooit alleen-op-hover (WCAG 2.2.2) ---- */
+.mh__pauze {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(10, 15, 31, 0.72);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+.mh__pauze:hover {
+  background: rgba(10, 15, 31, 0.88);
+}
+.mh__pauze:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}

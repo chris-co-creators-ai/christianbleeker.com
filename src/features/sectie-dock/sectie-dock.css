@@ -1,0 +1,185 @@
+/**
+ * sectie-dock.css
+ * ------------------------------------------------------------------------
+ * Namespace: `.sd` (+ `data-sd-*` haken die de module zet). Geen globale
+ * selectors. Kleur, maat en afstand via CSS-variabelen op `.sd`:
+ *   --sd-maat (96px)  --sd-rand (16px)  --sd-z (60)
+ *   --sd-ring (rand om de schijf, standaard --sd-ink)  --sd-halo (buitenste lichte rand, standaard --sd-cream)
+ *   --sd-accent (schijf)  --sd-ink (tekst op schijf, pil-achtergrond)
+ *   --sd-cream (tekst op pil, pijl)  --sd-font  --sd-focus
+ * Alleen `transform` en `opacity` animeren (R18).
+ *
+ * Zonder JS (`.sd` zonder `data-sd-klaar`): een vaste pil rechtsonder met
+ * de linktekst, dus altijd een link naar het contact (R4).
+ */
+.sd {
+  --sd-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --sd-veer: cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: fixed;
+  z-index: var(--sd-z, 60);
+  right: max(var(--sd-rand, 16px), env(safe-area-inset-right, 0px));
+  bottom: calc(var(--sd-rand, 16px) + env(safe-area-inset-bottom, 0px));
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.95rem 1.3rem;
+  border-radius: 999px;
+  background: var(--sd-ink, #14110f);
+  color: var(--sd-cream, #f6f1e7);
+  font: 600 0.9rem/1 var(--sd-font, inherit);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow: 0 14px 30px -14px rgba(20, 17, 15, 0.55);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Pre-init verbergen (optioneel): zet `sd-js` op <html> in de <head> */
+.sd-js .sd:not([data-sd-klaar]) { visibility: hidden; }
+
+.sd[data-sd-klaar]:focus-visible,
+.sd:focus-visible {
+  outline: 3px solid var(--sd-focus, #14110f);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px #fff, 0 14px 30px -14px rgba(20, 17, 15, 0.55);
+}
+
+/* ---- met JS: schijf ---------------------------------------------------- */
+.sd[data-sd-klaar] {
+  --sd-x: 0px;
+  width: var(--sd-maat, 96px);
+  height: var(--sd-maat, 96px);
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--sd-accent, #ff5b24);
+  color: var(--sd-ink, #14110f);
+  /* dubbele rand (inkt + crème halo): >= 3:1 op licht ÉN donker, los van welke sectie erachter ligt (1.4.11) */
+  border: 3px solid var(--sd-ring, var(--sd-ink, #14110f));
+  box-shadow: 0 0 0 2px var(--sd-halo, var(--sd-cream, #f6f1e7)), 0 14px 30px -14px rgba(20, 17, 15, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(0, 20px, 0) scale(0.9);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.sd[data-sd-klaar][data-sd-aan] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition: opacity 0.35s var(--sd-ease), transform 0.5s var(--sd-ease), visibility 0s;
+}
+
+.sd__schijf {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translate3d(var(--sd-mx, 0px), var(--sd-my, 0px), 0);
+  transition: transform 0.6s var(--sd-veer); /* loslaten = terugveren */
+}
+.sd[data-sd-trek] .sd__schijf { transition: transform 0.2s ease-out; }
+
+.sd__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: sd-draai 24s linear infinite;
+  animation-play-state: paused; /* buiten beeld draait er niets (R18) */
+  will-change: transform;
+}
+.sd[data-sd-aan] .sd__ring { animation-play-state: running; }
+.sd__ring text {
+  font: 700 9.4px/1 var(--sd-font, inherit);
+  letter-spacing: 0.14em;
+  fill: currentColor;
+  transition: opacity 0.2s ease;
+}
+.sd[data-sd-wissel] .sd__ring text,
+.sd[data-sd-wissel] .sd__pil-tekst { opacity: 0; }
+
+.sd__pijl {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: translate3d(var(--sd-ax, 0px), var(--sd-ay, 0px), 0);
+  transition: transform 0.6s var(--sd-veer);
+}
+.sd[data-sd-trek] .sd__pijl { transition: transform 0.2s ease-out; }
+.sd__bol {
+  display: grid;
+  place-items: center;
+  width: 42%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--sd-ink, #14110f);
+  color: var(--sd-cream, #f6f1e7);
+  transition: transform 0.3s var(--sd-ease);
+}
+.sd__bol svg { width: 52%; height: 52%; }
+
+.sd__pil { display: none; }
+.sd__pil-tekst { transition: opacity 0.2s ease; white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+  .sd[data-sd-klaar]:hover .sd__bol { transform: rotate(45deg); }
+}
+.sd[data-sd-klaar]:active .sd__schijf {
+  transform: translate3d(var(--sd-mx, 0px), var(--sd-my, 0px), 0) scale(0.96);
+  transition-duration: 0.12s;
+}
+
+/* ---- met JS: pil (desktop, alleen met optie `pil`) ------------------------ */
+@media (min-width: 900px) and (hover: hover) {
+  .sd[data-sd-klaar][data-sd-pil] {
+    width: auto;
+    height: 3rem;
+    padding: 0 1.3rem 0 1.1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--sd-ink, #14110f);
+    color: var(--sd-cream, #f6f1e7);
+    box-shadow: 0 0 0 2px var(--sd-halo, var(--sd-cream, #f6f1e7)), 0 14px 30px -14px rgba(20, 17, 15, 0.6);
+  }
+  /* de schijf blijft in de layout (meetbare ring), maar is onzichtbaar */
+  .sd[data-sd-pil] .sd__schijf { position: absolute; width: var(--sd-maat, 96px); height: var(--sd-maat, 96px); visibility: hidden; }
+  .sd[data-sd-pil] .sd__ring { animation: none; }
+  .sd[data-sd-pil] .sd__pil {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font: 600 0.9rem/1 var(--sd-font, inherit);
+  }
+  .sd__punt {
+    position: relative;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--sd-accent, #ff5b24);
+  }
+  .sd__punt::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--sd-accent, #ff5b24);
+    animation: sd-puls 2.4s var(--sd-ease) infinite;
+    animation-play-state: paused;
+  }
+  .sd[data-sd-aan] .sd__punt::after { animation-play-state: running; }
+}
+
+@keyframes sd-draai { to { transform: rotate(360deg); } }
+@keyframes sd-puls { 0% { transform: scale(1); opacity: 0.55; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
+
+/* ---- minder beweging: alles stil, wissels direct (R1) -------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .sd, .sd *, .sd::before, .sd::after, .sd *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

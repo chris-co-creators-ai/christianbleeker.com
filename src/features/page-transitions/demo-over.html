@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Studio Wester — over ons</title>
+<script>window.addEventListener('unhandledrejection',function(e){var r=e.reason;if(r&&r.name==='AbortError'&&/transition was skipped/i.test(String(r.message||'')))e.preventDefault();});</script>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="../../_tools/showcase.css" />
+<link rel="stylesheet" href="./page-transitions.css" />
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--sc-font); background: var(--sc-paper); color: var(--sc-ink); }
+  header.top { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem clamp(1.25rem, 4vw, 3rem); border-bottom: 1px solid var(--sc-line); }
+  header.top .logo { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--sc-ink); }
+  nav.top a { margin-left: 1.25rem; color: var(--sc-ink-soft); text-decoration: none; font-size: 0.9375rem; }
+  nav.top a:hover { color: var(--sc-ink); }
+  .hero { max-width: 44rem; margin: 0 auto; padding: 4rem 1.5rem; }
+  .hero h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); margin: 0 0 0.75rem; }
+  .hero p { color: var(--sc-ink-soft); font-size: 1.0625rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+  <div class="sc-bar">
+    <a class="sc-bar__back" href="../../showcase.html">Component-overzicht</a>
+    <p class="sc-bar__hint">Tweede pagina van de demo — navigeer verder of terug naar Home.</p>
+  </div>
+
+  <header class="top">
+    <a class="logo pt-share" href="./demo.html">Studio Wester</a>
+    <nav class="top">
+      <a href="./demo.html">Home</a>
+      <a href="./demo-over.html">Over ons</a>
+      <a href="./demo-contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Over Studio Wester</h1>
+    <p>
+      Een klein team dat het liefst klein begint: eerst iets werkends, dan
+      pas uitbreiden. Geen dichtgetimmerd traject vooraf, wel een heldere
+      afspraak over wat er staat aan het eind van elke stap.
+    </p>
+  </section>
+
+  <script type="module">
+    import { init } from './page-transitions.js';
+    const params = new URLSearchParams(location.search);
+    const destroy = init(document.body, { forceerFallback: params.has('fallback') });
+    window.__pageTransitionsDestroy = () => destroy();
+  </script>
+</body>
+</html>

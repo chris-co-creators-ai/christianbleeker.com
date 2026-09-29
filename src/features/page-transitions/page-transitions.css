@@ -1,0 +1,48 @@
+/**
+ * page-transitions.css
+ * ------------------------------------------------------------------------
+ * Twee onafhankelijke paden in één bestand. De activerende
+ * `@view-transition { navigation: auto; }`-regel staat bewust NIET hier,
+ * maar wordt door page-transitions.js zelf als `<style>` toegevoegd — zie
+ * de uitleg bovenaan dat bestand ("gebruikNative"/`forceerFallback`).
+ *
+ * 1. Native cross-document View Transitions: `.pt-share` geeft een
+ *    element (bv. het logo in de header) dezelfde `view-transition-name`
+ *    op elke pagina, zodat de browser het herkent als "hetzelfde" element
+ *    en het morft in plaats van hard te wisselen — puur CSS, doet niets
+ *    zolang er geen actieve transitie loopt.
+ * 2. JS-fallback overlay (`.pt-overlay`, namespace-prefix `pt-`) voor
+ *    browsers zonder native ondersteuning (of bij `forceerFallback`) —
+ *    zie page-transitions.js.
+ */
+
+.pt-share {
+  view-transition-name: pt-share;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+.pt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  background: var(--pt-kleur, #0b0b0c);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pt-duur, 0.32s) var(--pt-ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.pt-overlay.pt-is-in {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pt-overlay.pt-geen-transitie {
+  transition: none;
+}

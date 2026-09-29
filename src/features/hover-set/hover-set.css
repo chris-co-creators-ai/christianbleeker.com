@@ -1,0 +1,214 @@
+/**
+ * hover-set.css
+ * ------------------------------------------------------------------------
+ * Namespace: klasse `.hover-card` + attribuut `data-hover="lift|tilt|grow|
+ * zoom|arrow|corners"`. Geen globale selectors. Kleur/maat via CSS-vars op
+ * `.hover-card` — override per instantie of globaal.
+ *
+ * Elke kaart heeft precies één interactief element: `.hover-card__link`,
+ * een `<a>` met `position:absolute; inset:0` (stretched-link) — de hele
+ * kaart is dus klikbaar via één echt `<a>`, zonder JS-klik op een div.
+ * `:hover` staat achter `(hover: hover) and (pointer: fine)` zodat touch
+ * geen "plakkende hover" krijgt; `:has(a:focus-visible)` zorgt dat
+ * toetsenbordfocus dezelfde stijl triggert als hover.
+ */
+
+.hover-card {
+  --hc-radius: 1rem;
+  --hc-border: #e3ded0;
+  --hc-shadow: 0 18px 34px -22px rgba(24, 24, 27, 0.35);
+  --hc-duration: 0.4s;
+  --hc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --hc-accent: #2f6fed;
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hc-border);
+  border-radius: var(--hc-radius);
+  background: #fff;
+  overflow: hidden;
+  transition: transform var(--hc-duration) var(--hc-ease), box-shadow var(--hc-duration) var(--hc-ease), flex-grow var(--hc-duration) var(--hc-ease);
+}
+
+.hover-card__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #ece7d8;
+}
+
+.hover-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--hc-duration) var(--hc-ease);
+}
+
+.hover-card__body {
+  position: relative;
+  padding: 1.25rem 1.35rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.hover-card__body h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.hover-card__body p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #6b6a62;
+}
+
+.hover-card__cta {
+  margin-top: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--hc-accent);
+}
+
+/* Stretched-link: het enige interactieve element van de kaart. */
+.hover-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* Tekst zit al zichtbaar in .hover-card__body h3; deze link heeft alleen
+     een toegankelijke naam nodig, geen zichtbare tekst. */
+  color: transparent;
+  font-size: 0;
+}
+
+.hover-card__link:focus-visible {
+  outline: 2px solid var(--hc-accent);
+  outline-offset: 3px;
+  border-radius: var(--hc-radius);
+}
+
+/* --- lift ---------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .hover-card[data-hover='lift']:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: var(--hc-shadow);
+  }
+}
+.hover-card[data-hover='lift']:has(.hover-card__link:focus-visible) {
+  transform: translateY(-0.5rem);
+  box-shadow: var(--hc-shadow);
+}
+
+/* --- tilt ------------------------------------------------------------ */
+.hover-card[data-hover='tilt'] {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform-style: preserve-3d;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-card[data-hover='tilt']:hover {
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    box-shadow: var(--hc-shadow);
+  }
+}
+.hover-card[data-hover='tilt']:has(.hover-card__link:focus-visible) {
+  transform: perspective(900px) rotateX(-2deg) rotateY(2deg);
+  box-shadow: var(--hc-shadow);
+}
+
+/* --- grow (Monkey Fiets: kolom 33% -> 50%) --------------------------- */
+.hover-row {
+  display: flex;
+  gap: 1.1rem;
+  align-items: stretch;
+}
+.hover-card[data-hover='grow'] {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-card[data-hover='grow']:hover {
+    flex-grow: 3;
+    box-shadow: var(--hc-shadow);
+  }
+}
+.hover-card[data-hover='grow']:has(.hover-card__link:focus-visible) {
+  flex-grow: 3;
+  box-shadow: var(--hc-shadow);
+}
+@media (max-width: 40rem) {
+  .hover-row {
+    flex-direction: column;
+  }
+}
+
+/* --- zoom -------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .hover-card[data-hover='zoom']:hover .hover-card__media img {
+    transform: scale(1.09);
+  }
+}
+.hover-card[data-hover='zoom']:has(.hover-card__link:focus-visible) .hover-card__media img {
+  transform: scale(1.09);
+}
+
+/* --- arrow (schuift in) ------------------------------------------------ */
+.hover-card[data-hover='arrow'] .hover-card__arrow {
+  display: inline-block;
+  transform: translateX(-0.4rem);
+  opacity: 0;
+  transition: transform var(--hc-duration) var(--hc-ease), opacity var(--hc-duration) var(--hc-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-card[data-hover='arrow']:hover .hover-card__arrow {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.hover-card[data-hover='arrow']:has(.hover-card__link:focus-visible) .hover-card__arrow {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* --- corners (Sloopteam: technische hoekhaken) ------------------------- */
+.hover-card[data-hover='corners'] .hover-card__corner {
+  position: absolute;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--hc-accent);
+  opacity: 0;
+  transition: opacity var(--hc-duration) var(--hc-ease), transform var(--hc-duration) var(--hc-ease);
+  z-index: 1;
+  pointer-events: none;
+}
+.hover-card__corner--tl { top: 0.6rem; left: 0.6rem; border-width: 2px 0 0 2px; transform: translate(0.35rem, 0.35rem); }
+.hover-card__corner--tr { top: 0.6rem; right: 0.6rem; border-width: 2px 2px 0 0; transform: translate(-0.35rem, 0.35rem); }
+.hover-card__corner--bl { bottom: 0.6rem; left: 0.6rem; border-width: 0 0 2px 2px; transform: translate(0.35rem, -0.35rem); }
+.hover-card__corner--br { bottom: 0.6rem; right: 0.6rem; border-width: 0 2px 2px 0; transform: translate(-0.35rem, -0.35rem); }
+@media (hover: hover) and (pointer: fine) {
+  .hover-card[data-hover='corners']:hover .hover-card__corner {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+.hover-card[data-hover='corners']:has(.hover-card__link:focus-visible) .hover-card__corner {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* --- minder beweging: directe wissel, geen transitie -------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hover-card,
+  .hover-card * {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}

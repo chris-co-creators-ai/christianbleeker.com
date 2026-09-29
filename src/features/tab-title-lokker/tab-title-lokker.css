@@ -1,0 +1,10 @@
+/**
+ * tab-title-lokker.css
+ * ------------------------------------------------------------------------
+ * Deze feature heeft geen zichtbare DOM-laag — hij wisselt alleen
+ * `document.title` en (optioneel) het `<link rel="icon">`-attribuut, dus
+ * er valt niets te stylen. Dit bestand bestaat puur om de vaste vorm van
+ * de bibliotheek aan te houden (zie `_kwaliteit/KWALITEITSREGELS.md`).
+ * `TabTitleLokker.tsx` importeert dit bestand daarom bewust niet — een
+ * lege stylesheet laden kost een netwerk-request voor niets.
+ */

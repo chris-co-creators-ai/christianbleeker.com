@@ -1,49 +1,20 @@
-# Dependencies
 node_modules/
-.pnp
-.pnp.js
-
-# Build
 .next/
 out/
-build/
-dist/
-
-# Environment
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# OS
+*.log
 .DS_Store
-Thumbs.db
+.env*
+!.env.example
+tsconfig.tsbuildinfo
+# werkstaat van agents en QA
+qa/
+.claude/agent-memory/
+.claude/.cc-writes/
+# de beta-screenshots (±76 MB) blijven lokaal; de rapporten en metingen (md/json) gaan wél mee
+docs/research/beta-2026-09-22/**/*.png
+# scan-uitvoer van scripts/oude-site-urls.mjs — een mens controleert 'm en zet regels over naar
+# src/content/redirects.ts, het bestand zelf hoort niet in git
+redirects-voorstel.tsv
 
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
-
-# Vercel
-.vercel
-
-# Local settings (not project config)
-.claude/settings.local.json
-
-# User-specific skills (not part of the template)
-.claude/skills/customize/
-.claude/skills/release/
-
-# Local temp files
-temp/
+# uitvoer van de controlereeks (contactbladen, metingen) blijft lokaal
+qa/uitvoer/

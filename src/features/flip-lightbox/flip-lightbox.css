@@ -1,0 +1,191 @@
+/**
+ * flip-lightbox.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-lightbox]` op de tegels (het markup-contract,
+ * werkt al zonder JS als gewone link), en de klasse-prefix `.flb-` op alles
+ * wat de module zelf toevoegt (de <dialog> en zijn inhoud). Geen globale
+ * selectors.
+ */
+
+[data-lightbox] {
+  --flb-radius: 0.75rem;
+  display: block;
+  position: relative;
+  border-radius: var(--flb-radius);
+  overflow: hidden;
+  cursor: zoom-in;
+  aspect-ratio: 4 / 3;
+  background: #e7e3d6;
+}
+
+[data-lightbox] img,
+[data-lightbox] video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+[data-lightbox]:focus-visible {
+  outline: 3px solid var(--flb-focus, #2f6fed);
+  outline-offset: 2px;
+}
+
+[data-lightbox][data-type='video']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: rgba(24, 24, 27, 0.55);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6l10 6-10 6V6z' fill='white'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.25rem;
+  pointer-events: none;
+}
+
+/* --- de <dialog> zelf ---------------------------------------------------- */
+.flb-dialog {
+  --flb-duration: 0.42s;
+  --flb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --flb-bg: #101012;
+  --flb-fg: #f5f4ef;
+
+  border: 0;
+  padding: 0;
+  margin: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  background: var(--flb-bg);
+  color: var(--flb-fg);
+}
+
+.flb-dialog::backdrop {
+  background: rgba(8, 8, 9, 0.92);
+}
+
+.flb-dialog:not([open]) {
+  display: none;
+}
+
+.flb-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flb-media-wrap {
+  position: relative;
+  width: min(92vw, 78rem);
+  height: min(82vh, 60rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flb-media {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0.5rem;
+  transition: transform var(--flb-duration) var(--flb-ease), opacity 0.25s ease;
+  will-change: transform, opacity;
+  background: #000;
+}
+
+.flb-btn {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(16, 16, 18, 0.65);
+  color: var(--flb-fg);
+  cursor: pointer;
+}
+
+.flb-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.flb-btn:hover {
+  background: rgba(16, 16, 18, 0.85);
+}
+
+.flb-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.flb-btn--close {
+  top: 1rem;
+  right: 1rem;
+}
+
+.flb-btn--prev {
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.flb-btn--next {
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.flb-meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.flb-counter {
+  font-variant-numeric: tabular-nums;
+  background: rgba(16, 16, 18, 0.65);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.flb-caption:empty {
+  display: none;
+}
+
+.flb-caption {
+  color: rgba(245, 244, 239, 0.85);
+  max-width: 32rem;
+}
+
+@media (max-width: 40rem) {
+  .flb-btn--prev { left: 0.35rem; }
+  .flb-btn--next { right: 0.35rem; }
+  .flb-btn { width: 2.35rem; height: 2.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flb-media {
+    transition: none !important;
+  }
+}
