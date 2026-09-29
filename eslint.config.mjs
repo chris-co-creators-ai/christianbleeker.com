@@ -11,7 +11,7 @@ const eslintConfig = defineConfig([
     // onderdelen in src/features zijn gemeten in de bibliotheek en worden hier niet herschreven.
     rules: { "@next/next/no-html-link-for-pages": "off", "@next/next/no-img-element": "off" },
   },
-  { files: ["src/features/**"], rules: { "@typescript-eslint/no-explicit-any": "off", "react-hooks/exhaustive-deps": "off" } },
+  { files: ["src/features/**", "src/_kwaliteit/**"], rules: { "@typescript-eslint/no-explicit-any": "off", "react-hooks/exhaustive-deps": "off", "react-hooks/refs": "off" } },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -19,6 +19,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // gevendorde, geminificeerde speler van lottie-icon
+    "src/features/lottie-icon/vendor/**",
   ]),
 ]);
 

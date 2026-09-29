@@ -110,6 +110,8 @@ export const site: SiteInhoud = {
   privacy: { kop: '', ondertitel: '', alinea: [] },
 
   aiTraining: false,
+  /* Datum van de laatste inhoudelijke wijziging: voedt lastmod in de sitemap. */
+  bijgewerkt: '2026-09-30',
   meting: { ga4: '', gtm: '', clarity: '' },
   /* `naar` blijft LEEG tot Chris een adres levert: dan meldt het formulier dat verzenden niet
      lukte (met LinkedIn als uitweg) en is `npm run keuring` rood (regel "formulier-ontvanger"). */

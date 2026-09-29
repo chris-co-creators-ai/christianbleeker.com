@@ -35,7 +35,7 @@ export default function Werk() {
           <h1 className="werk-h1">{werk.kop}</h1>
         </section>
         <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px">
-          <EigenProduct />
+          <EigenProduct prioriteit />
           <section id="werk" className="sectie container-site" aria-labelledby="websites-kop">
             <div className="sectie-kop" data-reveal="">
               <h2 id="websites-kop">{werk.websites}</h2>
@@ -60,7 +60,7 @@ export default function Werk() {
         </RevealOnScroll>
       </main>
       <Voet />
-      <Dock />
+      <Dock verberg="#werk, #producten" />
       <CustomCursor variant="crosshair" interactiveSelector=".tegel__link" magnetic={false} />
     </>
   )

@@ -235,9 +235,11 @@
 
 /* ── Casepagina ─────────────────────────────────────────────────────── */
 .case-kop { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: end; padding-top: clamp(120px, 14vw, 180px); }
+/* De naam past op één regel: in een smalle kolom brak "FuseLabs" in tweeën (Els-lat 30-09). */
+.case-kop { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
 .case-terug { grid-column: 1 / -1; color: var(--color-tekst-2); text-decoration: none; font-weight: 600; font-size: 15px; }
 .case-terug:hover { color: var(--color-tekst); }
-.case-h1 { font-size: clamp(28px, 8.6vw, 128px); font-weight: 700; letter-spacing: -0.05em; }
+.case-h1 { font-size: clamp(28px, 5.6vw, 84px); font-weight: 700; letter-spacing: -0.05em; }
 .case-omslag { aspect-ratio: 3 / 4; }
 .case-lijn[data-reislijn], .case-lijn { padding-block: clamp(72px, 9vw, 128px) 0; --rl-kleur-1: #f0533a; --rl-kleur-2: #a8e0d6; --rl-dun: rgba(245, 236, 227, 0.3); }
 .case-kolom { max-width: 760px; margin-left: clamp(0px, 8vw, 140px); display: grid; gap: clamp(56px, 7vw, 96px); }
@@ -341,3 +343,10 @@ h1, h2, h3 { overflow-wrap: break-word; }
 .ervaringen .ervaring[data-lightbox] img { height: auto; }
 /* Werk: Eigen product begint in het eerste scherm, direct onder de kop. */
 .werk-intro + * > .eigen:first-child { padding-top: clamp(40px, 5vw, 72px); }
+
+/* Werktegels: duidelijke hover (Els-lat 30-09): rand in mint, beeld zoomt, pijl-signaal via de cursor. */
+@media (hover: hover) and (pointer: fine) {
+  .werk-bento .tegel { transition: border-color 200ms ease, transform 240ms var(--ease-uit); }
+  .werk-bento .tegel:hover { border-color: var(--color-accent); transform: translateY(-3px); }
+  .werk-bento .tegel:hover .tegel__media img { transform: scale(1.05); }
+}

@@ -7,7 +7,7 @@ import { HandwrittenAccent } from '@/features/handwritten-accent/HandwrittenAcce
  * Eigen product: Dicteren.ai en Co-creatie.ai op één raster, met de drie teamfoto's op één lijn
  * (PRD P-4: 0 px verschil in bovenkant). Staat op Home en bovenaan /work.
  */
-export function EigenProduct({ nummer, kopNiveau = 2 }: { nummer?: string; kopNiveau?: 2 | 3 }) {
+export function EigenProduct({ nummer, kopNiveau = 2, prioriteit = false }: { nummer?: string; kopNiveau?: 2 | 3; prioriteit?: boolean }) {
   const Kop = `h${kopNiveau}` as 'h2'
   const co = caseVoor('co-creatie-ai')!
   return (
@@ -19,7 +19,7 @@ export function EigenProduct({ nummer, kopNiveau = 2 }: { nummer?: string; kopNi
       <div className="eigen-raster">
         <article className="eigen-kaart eigen-dicteren" data-reveal="">
           <div className="eigen-logo">
-            <Beeld naam="dicteren" breedte={800} hoogte={320} alt={eigenProduct.dicteren.beeldAlt} />
+            <Beeld naam="dicteren" breedte={800} hoogte={320} alt={eigenProduct.dicteren.beeldAlt} prioriteit={prioriteit} />
           </div>
           <h3>{eigenProduct.dicteren.naam}</h3>
           <p>{eigenProduct.dicteren.tekst}</p>

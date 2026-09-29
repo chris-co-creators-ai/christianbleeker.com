@@ -28,7 +28,7 @@ Bewust in de ik-vorm gebleven: de pagina Over, het blok "Over mij" op Home, en d
 | 003 | wij |
 | Marketing | wij |
 | Vijftien jaar ervaring in de mix. | wij |
-| We kijken niet alleen naar een mooie pagina, maar ook naar de mensen die je wilt bereiken en de stap die zij willen zetten. | wij |
+| We kijken niet alleen naar een mooie pagina, ook naar de mensen die je wilt bereiken en de stap die zij willen zetten. | wij |
 | service-3 | wij |
 | 004 | wij |
 | AI & producten | wij |
@@ -116,7 +116,7 @@ Bewust in de ik-vorm gebleven: de pagina Over, het blok "Over mij" op Home, en d
 | Ik bouw websites voor MKB-bedrijven, zelfstandig ondernemers en makers. Met 15 jaar marketingervaring en een slimme blik op AI. | We bouwen websites voor MKB-bedrijven, zelfstandig ondernemers en makers. Met 15 jaar marketingervaring en een slimme blik op AI. |
 | Wat ik doe | Wat we doen |
 | 001 Websites — Jouw verhaal helder op het web. Ik maak een website die laat zien wie je bent, wat je doet en waarom dat voor jouw bezoekers belangrijk is. | We maken een website die laat zien wie je bent, wat je doet en waarom dat voor jouw bezoekers belangrijk is. |
-| 003 Marketing — Vijftien jaar ervaring in de mix. Ik kijk niet alleen naar een mooie pagina, maar ook naar de mensen die je wilt bereiken en de stap die zij willen zetten. | We kijken niet alleen naar een mooie pagina, maar ook naar de mensen die je wilt bereiken en de stap die zij willen zetten. |
+| 003 Marketing — Vijftien jaar ervaring in de mix. Ik kijk niet alleen naar een mooie pagina, maar ook naar de mensen die je wilt bereiken en de stap die zij willen zetten. | We kijken niet alleen naar een mooie pagina, ook naar de mensen die je wilt bereiken en de stap die zij willen zetten. |
 | 004 AI & producten — Technologie met een menselijk doel. Ik onderzoek hoe AI en digitale producten echte vragen kunnen helpen oplossen, zonder jouw eigen stem te verliezen. | We onderzoeken hoe AI en digitale producten echte vragen kunnen helpen oplossen, zonder jouw eigen stem te verliezen. |
 | Een selectie van websites die ik heb mogen maken, van kinderopvang en coaching tot teamreizen en AI. | Een selectie van websites die Chris heeft mogen maken, van kinderopvang en coaching tot teamreizen en AI. |
 | Elk merk heeft een eigen verhaal. Ik help het zichtbaar te maken op het web. | Elk merk heeft een eigen verhaal. We helpen het zichtbaar te maken op het web. |

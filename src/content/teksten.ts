@@ -56,7 +56,7 @@ export const home = {
     items: [
       { nr: '001', titel: 'Websites', sub: 'Jouw verhaal helder op het web.', tekst: 'We maken een website die laat zien wie je bent, wat je doet en waarom dat voor jouw bezoekers belangrijk is.', lottie: 'service-1' }, // voorstel (wij)
       { nr: '002', titel: 'Ontwerp', sub: 'Een uitstraling die bij je past.', tekst: 'Van eerste indruk tot laatste detail: inhoud en vorm werken samen om jouw merk herkenbaar te maken.', lottie: 'service-2' },
-      { nr: '003', titel: 'Marketing', sub: 'Vijftien jaar ervaring in de mix.', tekst: 'We kijken niet alleen naar een mooie pagina, maar ook naar de mensen die je wilt bereiken en de stap die zij willen zetten.', lottie: 'service-3' }, // voorstel (wij)
+      { nr: '003', titel: 'Marketing', sub: 'Vijftien jaar ervaring in de mix.', tekst: 'We kijken niet alleen naar een mooie pagina, ook naar de mensen die je wilt bereiken en de stap die zij willen zetten.', lottie: 'service-3' }, // voorstel (wij)
       { nr: '004', titel: 'AI & producten', sub: 'Technologie met een menselijk doel.', tekst: 'We onderzoeken hoe AI en digitale producten echte vragen kunnen helpen oplossen, zonder jouw eigen stem te verliezen.', lottie: 'service-4' }, // voorstel (wij)
     ],
   },
