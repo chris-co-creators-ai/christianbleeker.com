@@ -37,6 +37,10 @@ export default function Home() {
           aspectRatio="auto"
           dias={[{ src: '/beeld/tedx-1920.webp', srcSet: '/beeld/tedx-768.webp 768w, /beeld/tedx-1280.webp 1280w, /beeld/tedx-1920.webp 1920w, /beeld/tedx-2560.webp 2560w', alt: home.fotoAlt }]}
         >
+          <p className="hero-tedx">
+            <span className="hero-tedx-logo"><Beeld naam="logo-tedxeindhoven" breedte={200} hoogte={200} alt="" /></span>
+            {home.tedx}
+          </p>
           <h1 className="hero-kop">
             <span>{home.kop[0]}</span>{' '}
             <span className="hero-regel2">{home.kop[1]}</span>

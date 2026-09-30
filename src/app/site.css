@@ -420,3 +420,7 @@ h1, h2, h3 { overflow-wrap: break-word; }
 /* Hero: de pauzeknop rechtsonder heeft zijn eigen strook; hij lag op een liggende telefoon over de knop. */
 /* Meer projecten: op de smalste telefoons één kolom, twee kolommen van 91 px sneden de tekst af. */
 @media (max-width: 359px) { .meer-rij { grid-template-columns: 1fr; } }
+/* TEDx-advisor: klein, boven de kop, in de huisstijl (geen rood-op-foto). */
+.hero-tedx { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 22px !important; padding: 6px 14px 6px 6px; border: 1px solid var(--color-lijn-sterk); border-radius: 999px; background: rgba(23, 17, 15, 0.55); font: 600 14px/1.2 var(--font-tekst); letter-spacing: 0.01em; color: var(--color-tekst); }
+.hero-tedx-logo { display: block; width: 28px; height: 28px; border-radius: 50%; overflow: hidden; background: #fff; flex: none; }
+.hero-tedx-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }

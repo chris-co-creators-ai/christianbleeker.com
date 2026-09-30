@@ -159,3 +159,9 @@ Feiten uit de sites zelf (stratenova-demo, www.seveke.nl) en het dossier van Str
 | Seveke Creative bouwt maatwerk software, AI-agents en slimme workflows voor mkb-organisaties, vanuit Nijmegen. De site zet de vraag van de ondernemer voorop: jij vertelt wat er knelt, wij bouwen wat het oplost. | Seveke Creative | voorstel |
 | Bezoekers kunnen meteen een gratis AI-scan starten en krijgen het rapport in hun inbox. Daarnaast legt de site uit waar elk project op rust, van één eigen systeem tot AI die werk overneemt. | Seveke Creative | voorstel |
 | Minder gedoe, meer resultaat: de site maakt de eerste stap klein, met een scan van vijf minuten. | Seveke Creative | voorstel |
+
+## Toegevoegd op 01-10-2026: TEDx-advisor
+
+| Tekst | Waar | Bron |
+|---|---|---|
+| Officieel advisor van TEDxEindhoven | Home, boven de kop | feit aangeleverd 01-10-2026 |
