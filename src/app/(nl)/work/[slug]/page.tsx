@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: beschrijving,
     alternates: { canonical: `/work/${c.slug}` },
     // JPG: LinkedIn toont geen WebP als deelplaatje.
-    openGraph: og(titel, beschrijving, `/work/${c.slug}`, { images: [{ url: `/beeld/${c.slug}-deel.jpg`, width: 1200, height: 840 }] }),
+    openGraph: og(titel, beschrijving, `/work/${c.slug}`, { images: [{ url: `/beeld/${c.slug}-deel.jpg`, width: 1200, height: 630 }] }),
   }
 }
 

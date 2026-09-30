@@ -170,4 +170,20 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
   ok((await page.$$eval('a.vf__fallback', (a) => a.every((x) => (x.getAttribute('aria-label') || '').length > 3))), 'zonder JS: een videolink heeft geen naam')
   await sluit()
 }
+// Hertest r4: /ai-kop boven het verloop; dock-schijf op telefoon met donkere ringtekst.
+{
+  const { page, sluit } = await pagina({ breedte: 1440, hoogte: 900 })
+  await page.goto(B + '/ai', { waitUntil: 'networkidle' })
+  const boven = await page.evaluate(() => ['.ai-h1', '.ai-intro', '.ai-tweede'].map((s) => { const r = document.querySelector(s).getBoundingClientRect(); const el = document.elementFromPoint(r.left + 20, r.top + r.height / 2); return !!el && !!el.closest(s) }))
+  ok(boven.every(Boolean), `/ai: een laag ligt over de koptekst (${boven.join(', ')})`)
+  await sluit()
+}
+{
+  const { page, sluit } = await pagina({ breedte: 390, hoogte: 844 })
+  await page.goto(B + '/', { waitUntil: 'networkidle' })
+  await page.evaluate(() => window.scrollTo(0, document.getElementById('doen').getBoundingClientRect().top + scrollY)); await page.mouse.wheel(0, 40); await page.waitForTimeout(1500)
+  const k = await page.$eval('.sd', (d) => ({ tekst: getComputedStyle(d).color, grond: getComputedStyle(d).backgroundColor }))
+  ok(k.tekst !== k.grond && /23, 17, 15/.test(k.tekst), `390: ringtekst van de dock onleesbaar (${k.tekst} op ${k.grond})`)
+  await sluit()
+}
 uitslag('beta-reparaties', fouten, geslaagd)

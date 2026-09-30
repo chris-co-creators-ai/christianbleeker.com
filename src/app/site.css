@@ -185,8 +185,8 @@
 /* ── Sectie-dock ────────────────────────────────────────────────────── */
 .sd { --sd-ink: #f0533a; --sd-cream: #17110f; --sd-accent: #f0533a; --sd-font: var(--font-tekst); }
 /* De schijf (telefoon en tablet): donkere ringtekst op rood; de pil op desktop houdt zijn eigen kleuren. */
-.sd[data-sd-klaar] { color: #17110f; border-color: #17110f; }
-.sd[data-sd-klaar] .sd__bol { background: #17110f; color: #f5ece3; }
+/* Waar de dock een schijf is (telefoon, tablet): donkere ringtekst op rood. De pil op desktop houdt rood met donkere tekst. */
+@media not ((min-width: 900px) and (hover: hover)) { .sd { --sd-ink: #17110f; --sd-cream: #f5ece3; } }
 
 /* ── Over-pagina ────────────────────────────────────────────────────── */
 .over-kop { padding-top: clamp(120px, 16vw, 200px); }
@@ -273,7 +273,7 @@
 .ai-foto { position: absolute; inset: 0; }
 .ai-foto img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 40%; opacity: 0.55; }
 .ai-foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23, 17, 15, 0.4), rgba(23, 17, 15, 0.2) 40%, #17110f 96%); }
-.ai-kop-tekst { position: relative; padding-block: 140px clamp(40px, 7vh, 72px); }
+.ai-kop-tekst { position: relative; z-index: 2; padding-block: 140px clamp(40px, 7vh, 72px); }
 .ai-h1 { margin-top: 14px; font-size: clamp(30px, 7.4vw, 120px); font-weight: 700; letter-spacing: -0.05em; max-width: 14ch; }
 .ai-intro { margin-top: 24px; max-width: 46ch; font-size: clamp(19px, 1.6vw, 24px); }
 .ai-tweede { margin-top: 12px; max-width: 52ch; color: var(--color-tekst-2); }
@@ -418,4 +418,4 @@ h1, h2, h3 { overflow-wrap: break-word; }
 .case-h1--lang { font-size: clamp(26px, 4.2vw, 64px); text-wrap: balance; }
 /* Hero: de pauzeknop rechtsonder heeft zijn eigen strook; hij lag op een liggende telefoon over de knop. */
 /* Meer projecten: op de smalste telefoons één kolom, twee kolommen van 91 px sneden de tekst af. */
-@media (max-width: 399px) { .meer-rij { grid-template-columns: 1fr; } }
+@media (max-width: 359px) { .meer-rij { grid-template-columns: 1fr; } }
