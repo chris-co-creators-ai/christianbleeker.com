@@ -328,7 +328,7 @@
 .hero-wissel { --rh-color: #a8e0d6; }
 @media (max-width: 599px) { .sd { --sd-maat: 72px; --sd-rand: 12px; } }
 
-.ervaringen .ervaring img { height: auto !important; object-fit: contain !important; aspect-ratio: auto; }
+.ervaringen .ervaring img { height: auto !important; object-fit: contain !important; }
 .podcast-link { aspect-ratio: 16 / 9; background: #fff; }
 .podcast-link img { object-fit: contain !important; object-position: center; }
 .werk-bento .tegel__tekst { pointer-events: none; }
