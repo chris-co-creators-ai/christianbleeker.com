@@ -25,8 +25,7 @@
  *
  * Herkomst: techniek gezien op christianbleeker.com (24-09-2026) — daar
  * heet de keyframe `hero-reveal` (`@keyframes hero-reveal{0%{opacity:0;
- * transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}`,
- * gemeten in `../research/christianbleeker/bundles/0vbyedifgybiy.css`):
+ * transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}`):
  * elke letter 0,5s, de tweede regel als één blok van 0,8s op 1,05s
  * vertraging. Eigen implementatie, geen code overgenomen: wij gebruiken
  * 0,8s voor élke letter (niet alleen de tweede regel), splitsen zelf per

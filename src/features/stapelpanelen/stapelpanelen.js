@@ -19,9 +19,9 @@
  * alles open onder elkaar). Zonder JS staat alles open (zelfde als `open`).
  *
  * Geen scroll-hijacking: de gebruiker scrolt zelf; de scrollhoogte is
- * gereserveerd (wrapper van N x svh). Herkomst: gedrag gezien bij
- * merkmotief.nl (GSAP ScrollTrigger pin+scrub); eigen implementatie zonder
- * GSAP en zonder hun code.
+ * gereserveerd (wrapper van N x svh). Herkomst: eigen implementatie zonder
+ * GSAP; patroon gezien bij meerdere bureausites (GSAP ScrollTrigger
+ * pin+scrub).
  *
  * @typedef {Object} StapelpanelenOpties
  * @property {number} [breakpoint=768] Onder deze breedte (px) geen pin.
@@ -199,9 +199,13 @@ export function init(root, opties = {}) {
     items.forEach((el, i) => u.stijl(el, '--sp-i', String(i)));
     if (motor === 'js') u.doe(() => stage.style.removeProperty('--sp-t'));
 
+    // De stage kan lager plakken dan de bovenrand (CSS `top`, bv. onder een vaste kop): reken
+    // vanaf die plakrand, anders schuift de laatste stap de stapel onder die kop door.
     const meet = () => {
-      const r = track.getBoundingClientRect();
-      const bereik = r.height - stage.offsetHeight;
+      const kleef = parseFloat(win.getComputedStyle(stage).top) || 0;
+      const rr = track.getBoundingClientRect();
+      const r = { top: rr.top - kleef };
+      const bereik = rr.height - stage.offsetHeight;
       return { r, bereik, t: bereik > 0 ? klem(-r.top / bereik) : 0 };
     };
     let actief = -1;

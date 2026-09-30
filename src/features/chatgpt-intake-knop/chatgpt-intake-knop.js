@@ -17,12 +17,10 @@
  * het promptbestand zelf om te kopiëren. Vanilla ES-module, 0 dependencies,
  * SSR-veilig: raakt window/document pas aan binnen `init()`.
  *
- * Herkomst: idee gezien op christianbleeker.com (research/christianbleeker/
- * OVERZICHT.md, feature C1) — een pil in de navigatie opent ChatGPT met een
- * kant-en-klare intakeprompt. Hun link is 28.700 tekens lang; browsers en
- * proxies kunnen zulke lange URL's afkappen (ONGETEST bij hen, zie
- * OVERZICHT.md "Waar het rammelt"). Eigen implementatie, geen code
- * overgenomen: wij meten de lengte en vallen automatisch terug op de
+ * Herkomst: idee gezien op christianbleeker.com — een pil in de navigatie
+ * opent ChatGPT met een kant-en-klare intakeprompt. Zo'n link kan tienduizenden
+ * tekens lang worden; browsers en proxies kunnen zulke lange URL's afkappen.
+ * Eigen implementatie: wij meten de lengte en vallen automatisch terug op de
  * klembord-flow.
  *
  * @typedef {Object} ChatgptIntakeKnopOptions
@@ -96,7 +94,7 @@ export function init(root, opties = {}) {
     const zichtbareTekst = trigger.textContent.trim();
     trigger.setAttribute('aria-label', `${zichtbareTekst} (opent in nieuw tabblad)`);
 
-    // G1-fix: de trigger in een eigen positioneringsanker verpakken, zodat de
+    // De trigger in een eigen positioneringsanker verpakken, zodat de
     // feedback-tooltip straks absoluut t.o.v. dít element kan (en dus nooit
     // meer meetelt als flex-/grid-item van de omringende layout — dat was
     // precies waarom de pil 544px opschoof in de nav-flexbox).
@@ -115,7 +113,7 @@ export function init(root, opties = {}) {
 
     function verwerk(ruweTekst) {
       if (cancelled) return;
-      // N1-fix (beta-herronde 25-09): een leidend HTML-commentaarblok in het
+      // Een leidend HTML-commentaarblok in het
       // promptbestand (documentatie voor wie het bestand rechtstreeks leest,
       // zie intake-prompt.md) hoort NOOIT in de prompt naar ChatGPT/Claude
       // terecht te komen. Strippen vóór placeholders vervangen worden, zodat
@@ -124,7 +122,7 @@ export function init(root, opties = {}) {
       promptTekst = vervangPlaceholders(zonderUitleg, waarden);
       const url = bouwUrl(promptTekst);
       if (url.length > eigenDrempel) {
-        // G2-fix: href blijft het echte promptbestand (dezelfde link als
+        // href blijft het echte promptbestand (dezelfde link als
         // zonder JS) — nooit de "…is zojuist naar je klembord gekopieerd"-
         // instructie-URL vóórdat er ook daadwerkelijk gekopieerd is. Zo
         // claimt een middenklik, ctrl-klik of gedeelde link nooit iets wat
@@ -194,7 +192,7 @@ export function init(root, opties = {}) {
     let handmatigDialog = null;
     let handmatigTextarea = null;
 
-    // N2-fix (beta-herronde 25-09): het tekstvak stond eerst gewoon als
+    // Het tekstvak stond eerst gewoon als
     // flow-element in `.cik__wrap`, en groeide dus de omringende layout mee
     // — in de navigatie werd de kopbalk zo 78 → 211px en schoof over het
     // logo heen. Een `<dialog>` (top-layer, aan `document.body` gehangen,
@@ -242,7 +240,7 @@ export function init(root, opties = {}) {
     async function onClick(e) {
       if (!trigger.hasAttribute('data-cik-ready')) return; // prompt nog niet klaar: gewone no-JS-navigatie
       if (trigger.getAttribute('data-cik-modus') !== 'klembord') return; // direct-modus: browser navigeert zelf
-      // G2-fix: middenklik/ctrl/cmd/shift-klik niet onderscheppen — de
+      // Middenklik/ctrl/cmd/shift-klik niet onderscheppen — de
       // browser opent de (altijd ware) href gewoon zelf in een nieuw
       // tabblad/venster, zonder dat wij een kopieerpoging of een claim
       // daarover toevoegen. (Een echte middenklik vuurt sowieso "auxclick",
@@ -275,7 +273,7 @@ export function init(root, opties = {}) {
       setOrRemove(trigger, 'target', oorspronkelijk.target);
       setOrRemove(trigger, 'rel', oorspronkelijk.rel);
       setOrRemove(trigger, 'aria-label', oorspronkelijk.ariaLabel);
-      // G1-fix: de .cik__wrap-verpakking weer ontvouwen — trigger terug op
+      // De .cik__wrap-verpakking weer ontvouwen — trigger terug op
       // zijn oorspronkelijke plek in de DOM, wrap weg.
       oorspronkelijk.parent.insertBefore(trigger, oorspronkelijk.volgende);
       wrap.remove();

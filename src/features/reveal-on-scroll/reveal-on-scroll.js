@@ -6,11 +6,10 @@
  * 0 dependencies, SSR-veilig: dit bestand raakt `window`/`document` pas aan
  * zodra `init()` wordt aangeroepen — niet bij import.
  *
- * Herkomst: techniek gezien op faresmasharawi.nl (22-09-2026) — daar heet de
- * mechaniek `RevealObserver` (IntersectionObserver, threshold 0.18,
- * rootMargin "0px 0px -18% 0px", met een `.js`-klasse op <html> om zonder
- * JS alles gewoon zichtbaar te tonen). Eigen implementatie: geen code
- * overgenomen, wel dezelfde drempelwaarden als vertrekpunt (zie README
+ * Herkomst: eigen implementatie; techniek gezien bij meerdere bureausites
+ * (IntersectionObserver, threshold 0.18, rootMargin "0px 0px -18% 0px", met
+ * een `.js`-klasse op <html> om zonder JS alles gewoon zichtbaar te tonen).
+ * Dezelfde drempelwaarden zijn als vertrekpunt genomen (zie README
  * "Gemeten constanten").
  *
  * @typedef {Object} RevealOnScrollOptions
@@ -28,7 +27,7 @@ import { vereisRoot } from '../../_kwaliteit/basis.js';
 
 export function init(root, options = {}) {
   // R5: crasht niet als root ontbreekt/geen element is — een waarschuwing
-  // en een no-op destroy, i.p.v. gooien (L8, beta-ronde 24-09: `init(null)`
+  // en een no-op destroy, i.p.v. gooien (`init(null)`
   // gooide een Error; zat er al vóór de `opacityVertraging`-uitbreiding,
   // maar hoort hier gefixt te zijn net als in de andere features van deze
   // bibliotheek, bv. `scroll/marquee`).

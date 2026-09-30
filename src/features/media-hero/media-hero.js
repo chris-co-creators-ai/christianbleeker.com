@@ -35,6 +35,7 @@ export function init(root, opties = {}) {
   let destroyed = false;
   let gebruikerWilPauze = false;
   let buitenBeeld = false;
+  let uitZicht = false; // stand van de IntersectionObserver, los van een verborgen tabblad
   let reduced = false;
 
   const engine =
@@ -68,7 +69,7 @@ export function init(root, opties = {}) {
   if ('IntersectionObserver' in win) {
     const io = new win.IntersectionObserver(
       (entries) => {
-        for (const entry of entries) buitenBeeld = !entry.isIntersecting;
+        for (const entry of entries) { uitZicht = !entry.isIntersecting; buitenBeeld = uitZicht || doc.visibilityState === 'hidden'; }
         updateStatus();
       },
       { threshold: 0.15 },
@@ -78,7 +79,7 @@ export function init(root, opties = {}) {
   }
 
   const onVisibility = () => {
-    buitenBeeld = doc.visibilityState === 'hidden' ? true : buitenBeeld;
+    buitenBeeld = doc.visibilityState === 'hidden' ? true : uitZicht;
     updateStatus();
   };
   doc.addEventListener('visibilitychange', onVisibility);

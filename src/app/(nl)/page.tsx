@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { og } from '@/lib/og-velden'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld, OMSLAG } from '@/components/Beeld'
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   title: { absolute: home.titel },
   description: home.beschrijving,
   alternates: { canonical: '/' },
-  openGraph: { title: home.titel, description: home.beschrijving, url: '/' },
+  openGraph: og(home.titel, home.beschrijving, '/'),
 }
 
 export default function Home() {
@@ -34,7 +35,7 @@ export default function Home() {
           className="hero"
           poster="/beeld/tedx-1920.webp"
           aspectRatio="auto"
-          dias={[{ src: '/beeld/tedx-1920.webp', alt: home.fotoAlt }]}
+          dias={[{ src: '/beeld/tedx-1920.webp', srcSet: '/beeld/tedx-768.webp 768w, /beeld/tedx-1280.webp 1280w, /beeld/tedx-1920.webp 1920w, /beeld/tedx-2560.webp 2560w', alt: home.fotoAlt }]}
         >
           <h1 className="hero-kop">
             <span>{home.kop[0]}</span>{' '}
@@ -72,7 +73,7 @@ export default function Home() {
               breakpoint={768}
               motor="auto"
               rust={0.2}
-              minHoogte={520}
+              minHoogte={760}
               panelen={selectie.map((c) => ({
                 titel: c.naam,
                 inhoud: (
@@ -123,7 +124,7 @@ export default function Home() {
             <ol className="doen">
               {home.doen.items.map((d, i) => (
                 <li key={d.nr} className="doen-item" data-reveal="" data-reveal-delay={String(i * 0.06)}>
-                  <LottieIcon src={`/lottie/${d.lottie}.json`} fallbackSrc={`/lottie/${d.lottie}.svg`} size={88} loop={false} className="doen-icoon" />
+                  <LottieIcon src={`/lottie/${d.lottie}.json`} fallbackSrc={`/lottie/${d.lottie}.svg`} size={88} loop className="doen-icoon" />
                   <p className="doen-nr">{d.nr}</p>
                   <h3>{d.titel}</h3>
                   <p className="doen-sub">{d.sub}</p>

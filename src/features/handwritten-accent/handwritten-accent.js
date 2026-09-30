@@ -8,10 +8,9 @@
  * (stroke-dashoffset), beide via een CSS-transition. Vanilla ES-module,
  * 0 dependencies, SSR-veilig: raakt window/document pas aan bij `init()`.
  *
- * Herkomst: handgeschreven accenten gezien bij ±9 Webstijn-klantsites
- * (Caveat/Shadows Into Light/Pacifico, gekanteld). Eigen implementatie: geen
- * code overgenomen. Wij voegen de "wordt geschreven"-animatie toe (bij
- * Webstijn stond het label altijd meteen stil).
+ * Herkomst: eigen implementatie; patroon gezien bij meerdere bureausites
+ * (Caveat/Shadows Into Light/Pacifico, gekanteld). Wij voegen de "wordt
+ * geschreven"-animatie toe (het label staat anders altijd meteen stil).
  *
  * @typedef {Object} HandwrittenAccentOptions
  * @property {boolean} [animate=true] "Wordt geschreven"-animatie bij in beeld. false = meteen af.

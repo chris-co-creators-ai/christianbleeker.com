@@ -139,10 +139,9 @@ naar in `data-prompt-src`.
 
 ## Herkomst
 
-Idee gezien op christianbleeker.com (`research/christianbleeker/OVERZICHT.md`,
-feature C1): een pil in de navigatie ("Website-checklist prompt ↗") opent
-ChatGPT met een kant-en-klare intake-assistent. Wat wij beter doen: hun link
-is 28.700 tekens en ongetest op afkapping; wij meten de URL-lengte en vallen
+Idee gezien op christianbleeker.com: een pil in de navigatie
+("Website-checklist prompt ↗") opent ChatGPT met een kant-en-klare
+intake-assistent. Zo'n link kan zeer lang worden en kan afgekapt worden; wij meten de URL-lengte en vallen
 automatisch terug op een klembord-flow met zichtbare feedback, zetten
 `target="_blank"`/`rel="noopener"` en een beschrijvend `aria-label`, en
 bieden zowel ChatGPT als Claude als doel aan. Eigen implementatie, geen

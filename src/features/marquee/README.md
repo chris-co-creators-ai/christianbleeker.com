@@ -167,10 +167,9 @@ strippen breken de `import` — sluit `marquee.js` uit van JS-combinatie.
 ## Herkomst
 
 Het gedrag (reuzeletters, gekantelde band, smalle topticker met fade-randen
-via `mask-image`, logo-balk) is gezien bij meerdere Webstijn-klantsites
-(`../research/webstijn/inline/css_f75d8f6b.css`, `css/post-5242.css`) — de
-code hier is zelf geschreven, niets overgenomen. Wat wij beter doen: de
+via `mask-image`, logo-balk) is gezien bij meerdere bureausites — de
+code hier is zelf geschreven. De
 snelheid is hier expliciet in px/s en dus onafhankelijk van de breedte van
-de inhoud (bij Webstijn is de animatieduur vaak een vaste tijd, wat bij een
-bredere set items juist trager oogt); en de kopieën pauzeren automatisch
+de inhoud (een vaste animatieduur oogt bij een bredere set items juist
+trager); en de kopieën pauzeren automatisch
 zodra de band buiten beeld scrolt.

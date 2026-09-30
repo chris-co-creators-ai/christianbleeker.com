@@ -1,6 +1,6 @@
 # rotating-headline
 
-Eén woord in een kop wisselt om de zoveel tijd — "Wij zijn [Webstijn /
+Eén woord in een kop wisselt om de zoveel tijd — "Wij zijn [creatief /
 Studio Wester / voor jou]." — in vier varianten: `blinds`, `clip`, `slide`,
 `typing`. De stage-breedte animeert mee naar het nieuwe woord (geen
 layout-sprong), pauzeert buiten beeld en op een verborgen tabblad, en staat
@@ -135,8 +135,7 @@ ES-modules).
 
 ## Herkomst
 
-"Wisselende kop" gezien bij 9 Webstijn-klantsites + webstijn.nl zelf
-(Elementor Animated Headline, varianten blinds/clip). Eigen implementatie,
-geen code overgenomen. Wat wij beter doen: een expliciete schermlezer-zin
+Eigen implementatie; "Wisselende kop" gezien bij meerdere bureausites
+(Elementor Animated Headline, varianten blinds/clip). Een expliciete schermlezer-zin
 (Elementor's eigen variant regelt dat niet consistent) en een extra
 `typing`-variant met een per-woord `steps()`-reveal.

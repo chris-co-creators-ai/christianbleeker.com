@@ -13,6 +13,8 @@ export interface VideoBron {
 
 export interface DiaBron {
   src: string;
+  /** Optioneel: meerdere breedtes (`srcset`); de browser kiest bij 100vw. */
+  srcSet?: string;
   alt?: string;
 }
 
@@ -63,8 +65,10 @@ export function MediaHero(props: MediaHeroProps) {
           props.dias.map((d, i) => (
             <img
               key={d.src}
-              className="mh__dia"
+              className={i === 0 ? 'mh__dia is-actief' : 'mh__dia'}
               src={d.src}
+              srcSet={d.srcSet}
+              sizes={d.srcSet ? '100vw' : undefined}
               alt={d.alt ?? ''}
               fetchPriority={i === 0 ? 'high' : undefined}
               loading={i === 0 ? undefined : 'lazy'}

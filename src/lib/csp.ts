@@ -1,5 +1,5 @@
 /**
- * Content-Security-Policy voor een statische klantsite (Lars 29-09, na Social Next).
+ * Content-Security-Policy voor een statische klantsite.
  *
  * Bewust ZONDER nonce: een nonce maakt elke pagina dynamisch en breekt de statische opbouw (SSG).
  * Daarom staat `'unsafe-inline'` op script-src — de JSON-LD, Consent-mode en Clarity zijn inline.

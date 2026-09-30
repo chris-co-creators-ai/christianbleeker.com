@@ -206,13 +206,12 @@ plugins die JS-bestanden combineren kunnen `type="module"` strippen; sluit
 
 ## Herkomst
 
-Patroon gezien op christianbleeker.com (`research/christianbleeker/
-OVERZICHT.md`, feature C7): een TEDx-video toont een poster met een ronde
+Patroon gezien op christianbleeker.com: een TEDx-video toont een poster met een ronde
 ▶-knop; de echte YouTube-iframe laadt pas na een klik. Wat wij beter doen:
 `-nocookie.com` in plaats van het gewone `youtube.com/embed` (geen
 trackingcookies vóór een bewuste keuze), preconnect pas bij pointerdown/Enter
 (niet bij hover/focus — dat stuurde al een TLS-verbinding naar Google zonder
-klik, L3 in de beta-ronde van 24-09) in plaats van meteen, een gegarandeerde
+klik) in plaats van meteen, een gegarandeerde
 aspect-ratio tegen layout-shift, en een
 echte no-JS-link als basis in plaats van een component die zonder
 JavaScript niets toont. Eigen implementatie, geen code overgenomen.

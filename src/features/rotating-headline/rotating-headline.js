@@ -9,11 +9,10 @@
  * blijft het eerste woord gewoon staan). Vanilla ES-module, 0 dependencies,
  * SSR-veilig.
  *
- * Herkomst: "Wisselende kop" gezien bij 9 Webstijn-klantsites + webstijn.nl
- * zelf (Elementor Animated Headline, varianten blinds/clip). Eigen
- * implementatie, geen code overgenomen — met een expliciete
- * schermlezer-zin (Elementor's variant laat dat aan het thema over) en een
- * `typing`-variant met een per-woord `steps()`-reveal.
+ * Herkomst: eigen implementatie; "Wisselende kop" gezien bij meerdere
+ * bureausites (Elementor Animated Headline, varianten blinds/clip) — met een
+ * expliciete schermlezer-zin (Elementor's variant laat dat aan het thema
+ * over) en een `typing`-variant met een per-woord `steps()`-reveal.
  *
  * @typedef {Object} RotatingHeadlineOptions
  * @property {'blinds'|'clip'|'slide'|'typing'} [variant] Overschrijft `data-rh-variant`.
@@ -43,7 +42,7 @@ export function init(root, options = {}) {
 
   // offsetWidth is een geheel getal (afgerond, soms naar beneden) — bij
   // overflow:hidden op de stage sneed dat de laatste letter van het woord
-  // half weg (G4: "bloemen" las als "bloemer"). getBoundingClientRect().width
+  // half weg ("bloemen" las als "bloemer"). getBoundingClientRect().width
   // is subpixel-precies; Math.ceil + 1px marge voorkomt dat afronding of
   // een cursieve/vette letter opnieuw tegen de rand aan schuurt.
   function wordWidth(word) {
@@ -58,7 +57,7 @@ export function init(root, options = {}) {
   const interval = Number(options.interval ?? root.getAttribute('data-rh-interval') ?? 2600);
   const duration = options.duration ?? 420;
   root.setAttribute('data-rh-variant', variant);
-  // G4: de wissel-opmaak (position:absolute + opacity:0 op elk woord) hoort
+  // De wissel-opmaak (position:absolute + opacity:0 op elk woord) hoort
   // pas te gelden ná init — data-rh-variant staat vaak al in de HTML als
   // auteurshint, dus die kon niet als "is JS actief"-signaal dienen. Dit
   // attribuut bestaat uitsluitend hier (mirror van data-marquee-ready).
@@ -90,7 +89,7 @@ export function init(root, options = {}) {
   words[0].setAttribute('data-rh-state', 'active');
   stageEl.style.width = `${wordWidth(words[0])}px`;
 
-  // G4 (echte oorzaak van de afgekapte laatste letter): op het eerste
+  // Echte oorzaak van de afgekapte laatste letter: op het eerste
   // meetmoment is het eigen webfont (bv. Bricolage Grotesque) vaak nog niet
   // geladen, dus meet wordWidth() de breedte in het fallback-lettertype. Zodra
   // het echte font arriveert, wordt de tekst breder — maar de vaste
@@ -141,7 +140,7 @@ export function init(root, options = {}) {
     const next = words[nextIndex];
 
     if (variant === 'typing') {
-      // G4 ("bij typing zweeft de punt los"): de "." ná de stage volgt de
+      // Bij typing zweeft de punt los: de "." ná de stage volgt de
       // stage-breedte. Bij de andere varianten mag die breedte meteen naar
       // de eindmaat van het nieuwe woord springen/animeren (het woord zelf
       // is al meteen volledig zichtbaar). Bij typing NIET: de tekst

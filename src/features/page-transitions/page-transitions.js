@@ -133,7 +133,7 @@ export function init(root, opties = {}) {
   }
   win.addEventListener('pageshow', onPageshow);
 
-  // L10: een native cross-document transitie die de browser zelf overslaat
+  // Een native cross-document transitie die de browser zelf overslaat
   // (snel opeenvolgend navigeren, een tab die sluit vóórdat hij klaar is,
   // reduced-motion die tussentijds omslaat) verwerpt zijn eigen `.ready`/
   // `.finished`-promise met een AbortError ("Transition was skipped"). Niets

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { og } from '@/lib/og-velden'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld } from '@/components/Beeld'
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   title: { absolute: ai.titel },
   description: ai.beschrijving,
   alternates: { canonical: '/ai' },
-  openGraph: { title: ai.titel, description: ai.beschrijving, url: '/ai' },
+  openGraph: og(ai.titel, ai.beschrijving, '/ai'),
 }
 
 export default function AiPagina() {
@@ -33,7 +34,7 @@ export default function AiPagina() {
       <main id="inhoud" tabIndex={-1} className="outline-none flex-1">
         <section className="ai-kop">
           <div className="ai-foto" aria-hidden="true">
-            <Beeld naam="tedx" maten={[768, 1280, 1920]} breedte={3216} hoogte={1666} alt="" prioriteit />
+            <Beeld naam="tedx" maten={[768, 1280, 1920, 2560]} breedte={3216} hoogte={1666} alt="" prioriteit />
           </div>
           <div className="container-site ai-kop-tekst">
             <p className="kicker">{ai.kicker} <span className="x" aria-hidden="true">×</span></p>
@@ -79,7 +80,7 @@ export default function AiPagina() {
             </div>
             <VideoFacade className="ai-video" >
               <div className="vf" data-video-facade="" data-provider="youtube" data-id={tedx.youtube} data-title={tedx.titel} data-reveal="">
-                <a className="vf__fallback" data-vf-fallback="" href={`https://www.youtube.com/watch?v=${tedx.youtube}`}>
+                <a className="vf__fallback" data-vf-fallback="" aria-label={tedx.titel} href={`https://www.youtube.com/watch?v=${tedx.youtube}`}>
                   <img src="/beeld/tedx-1280.webp" alt="" width={1280} height={663} loading="lazy" />
                 </a>
               </div>

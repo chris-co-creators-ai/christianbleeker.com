@@ -3,7 +3,7 @@ import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { nietGevonden } from '@/content/teksten'
 
-export const metadata: Metadata = { title: nietGevonden.kop, robots: { index: false, follow: true } }
+export const metadata: Metadata = { title: nietGevonden.kop, robots: { index: false, follow: true }, alternates: {} }
 
 export default function NietGevonden() {
   return (

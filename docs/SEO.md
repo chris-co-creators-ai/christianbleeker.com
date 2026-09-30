@@ -1,10 +1,10 @@
-# SEO — wat standaard aan staat, wat je per klant invult, wat een keuze van Lars is
+# SEO — wat standaard aan staat, wat je per klant invult, wat een keuze per site is
 
 Uitbreiding van 24-09-2026 op de SEO/GEO-basis die dezelfde dag eerder is gebouwd (sitemap,
 robots, JSON-LD, OG-beeld per pagina, RSS, `llms.txt`, `npm run keuring`, 404 — zie de
 commit-geschiedenis en `AGENTS.md` § "Standaard aan / optioneel"). Dit document voegt daar de
 resterende lagen aan toe: local SEO, structured data buiten Organization/Article, AI-vindbaarheid
-(GEO/AEO) en de keuring die erop controleert. Doel (Lars, 24-09-2026): *"zorg ervoor dat in de
+(GEO/AEO) en de keuring die erop controleert. Doel: *"zorg ervoor dat in de
 standaard buildstack de SEO optimaal is ingeregeld, zodat dat nooit een probleem kan zijn — ook
 SEO die te vinden is door AI."*
 
@@ -182,7 +182,7 @@ schema.org-validatiepakket nodig voor iets zo klein als dit template.
   8. Ná verificatie: `site.reviews` pas invullen zodra er echte reviews staan.
 - **Lokale landingspagina's**: dit template bouwt er GEEN standaard — een losse
   `/zwolle`/`/kampen`-pagina per plaats die alleen de plaatsnaam verandert is precies het soort
-  dunne, bijna-identieke content waar Google op afstraft (en waar Webstijn-achtige bureaus wél
+  dunne, bijna-identieke content waar Google op afstraft (en waar veel bureaus wél
   massaal in trappen). Heeft een klant écht meerdere, inhoudelijk verschillende vestigingen: geef
   elke vestiging een eigen pagina met een eigen `LocalBusiness`-schema (eigen adres/telefoon/
   openingstijden), eigen foto's en minstens een paar unieke alinea's — nooit een sjabloon met
@@ -204,7 +204,7 @@ schema.org-validatiepakket nodig voor iets zo klein als dit template.
 - **`llms-full.txt`** (`/llms-full.txt`) — dezelfde structuur, met de volledige artikeltekst
   uitgeschreven; `llms.txt` linkt ernaar in een `## Optional`-sectie (de llmstxt.org-conventie voor
   "sla dit over als de context krap is").
-- **`robots.txt` met AI-crawler-regels** (`robots.txt/route.ts`) — zie § "Keuzes voor Lars" hieronder voor de
+- **`robots.txt` met AI-crawler-regels** (`robots.txt/route.ts`) — zie § "Keuzes per site" hieronder voor de
   standaardhouding.
 - **Volledige tekst in server-HTML** — alles is SSG (`next build`, geen client-side-only content),
   dus een crawler die geen JavaScript uitvoert (de meeste AI-crawlers doen dat niet) ziet exact
@@ -220,7 +220,7 @@ schema.org-validatiepakket nodig voor iets zo klein als dit template.
   byline). Werk je een artikel later inhoudelijk bij zonder de byline aan te passen, overweeg dan
   een apart "bijgewerkt op"-veld toe te voegen aan `content/artikelen.ts` — dit template heeft dat
   nu niet (YAGNI: geen enkel artikel is ooit bijgewerkt sinds publicatie).
-- **IndexNow-ping — automatisch ná elke PRODUCTIE-uitrol** (besluit Lars, 25-09-2026, vervangt punt
+- **IndexNow-ping — automatisch ná elke PRODUCTIE-uitrol** (regel sinds 25-09-2026, vervangt punt
   4 van § 10 hieronder — was: handmatig/los script). `scripts/keuring.mjs` roept aan het eind van
   een groene keuring `scripts/indexnow-lib.mjs`'s `pingIndexNow()` aan, die alléén iets doet bij
   `process.env.VERCEL_ENV === 'production'` — preview en lokaal (`npm run keuring` op een
@@ -266,7 +266,7 @@ schema.org-validatiepakket nodig voor iets zo klein als dit template.
 
 ## 9. FAQ — sectie op de homepage, route pas boven een drempel
 
-**Besluit Lars (25-09-2026), vervangt punt 3 van § 10 hieronder (was: aparte route i.p.v.
+**Regel (25-09-2026), vervangt punt 3 van § 10 hieronder (was: aparte route i.p.v.
 sectie):** FAQ is STANDAARD een sectie op de homepage (`components/secties/Faq.tsx`, onderaan,
 vóór Contact/Voet — de zes pixel-gemeten secties schuiven niet op). Pas als er écht veel vragen
 zijn krijgt de site ook een eigen route.
@@ -292,7 +292,7 @@ De route zelf, wanneer hij bestaat, is gebouwd in dezelfde vorm als `/aanvraag`/
 (`Kop variant="terug"` + `kop-blok`-H1 + `Voet`, geen pixel-referentie om tegen af te zetten — de
 bron heeft geen FAQ-pagina).
 
-## 10. Keuzes voor Lars
+## 10. Keuzes per site
 
 Vijf plekken waar dit template een standaardkeuze maakt die per klant anders kan liggen — elk met
 mijn standaardkeuze en de reden:
@@ -306,10 +306,10 @@ mijn standaardkeuze en de reden:
 2. **schema.org-subtype**: **standaard generiek `LocalBusiness`** (`site.schemaType` leeg). Reden:
    correct voor de meeste MKB-klanten zonder dat ik per branche een aanname hoef te doen; een
    klant met een preciezer subtype beschikbaar (`Dentist`, `Restaurant`, `ProfessionalService`, …)
-   vult dat in — het is een boolean-achtige beslissing die de klant/Lars sneller weet dan ik kan
+   vult dat in — het is een boolean-achtige beslissing die de klant sneller weet dan ik kan
    raden.
-3. **FAQ als sectie op de homepage, met een aparte route pas boven een drempel** — **besluit Lars,
-   herzien 25-09-2026** (was tot dan: altijd een aparte route, nooit een sectie). Reden voor de
+3. **FAQ als sectie op de homepage, met een aparte route pas boven een drempel** — **herzien
+   25-09-2026** (was tot dan: altijd een aparte route, nooit een sectie). Reden voor de
    herziening: bij een klant met maar een paar vragen is een aparte, bijna lege route juist het
    soort dunne pagina waar § 6 hierboven al voor waarschuwt bij lokale landingspagina's — en een FAQ
    is nu net de content die een AI-antwoordmachine het liefst direct naast de rest van het verhaal
@@ -323,9 +323,8 @@ mijn standaardkeuze en de reden:
    productie draait. `scripts/indexnow.mjs` blijft daarnaast bestaan voor een handmatige, losse
    her-ping.
 5. **`AggregateRating` blijft standaard leeg** — reviews komen pas in de JSON-LD zodra `site.reviews`
-   met échte cijfers is ingevuld. Reden: nep-cijfers zijn precies de Webstijn-fout
-   (`research/webstijn/OVERZICHT.md` § "Waar het rammelt") die dit template overal elders al
-   vermijdt (zie R8/R9 in `component-library/_kwaliteit/KWALITEITSREGELS.md`).
+   met échte cijfers is ingevuld. Reden: nep-cijfers zijn een bekende fout op bureausites
+   die dit template overal elders al vermijdt (zie R8/R9 in de kwaliteitsregels).
 
 ## 11. Keuring
 
@@ -348,12 +347,12 @@ mijn standaardkeuze en de reden:
   `--sta-placeholders-toe` om de rest te checken vóórdat je de content vervangen hebt
 - sitemap.xml met minder `<lastmod>`- dan `<url>`-tags
 - `robots.txt`/`llms.txt`/`llms-full.txt` niet bereikbaar of (bijna) leeg
-- `FAQPage`-schema op meer dan één pagina tegelijk (besluit Lars 25-09-2026, zie § 9)
+- `FAQPage`-schema op meer dan één pagina tegelijk (regel van 25-09-2026, zie § 9)
 - een `FAQPage`-vraag die niet ook als zichtbare tekst op diezelfde pagina staat
 - `/veelgestelde-vragen` die bestaat terwijl het aantal vragen niet boven `faq.eigenPaginaVanaf`
   ligt, of andersom ontbreekt terwijl het er wél boven ligt
 
 De `seo-regels.mjs` van de onderdelenbibliotheek is dezelfde regelset, maar dan als losse,
-site-onafhankelijke functies (geen fetch, geen kennis van fares-template) — voor een toekomstige
+site-onafhankelijke functies (geen fetch, geen kennis van de basis) — voor een toekomstige
 `_kwaliteit/site-keuring.mjs` om te importeren in plaats van deze checks opnieuw te schrijven.
 Die heeft een eigen zelftest in de bibliotheek.

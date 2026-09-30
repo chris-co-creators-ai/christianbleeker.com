@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { og } from '@/lib/og-velden'
 import { notFound } from 'next/navigation'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
@@ -25,7 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: { absolute: titel },
     description: beschrijving,
     alternates: { canonical: `/work/${c.slug}` },
-    openGraph: { title: titel, description: beschrijving, url: `/work/${c.slug}`, images: [{ url: `/beeld/${c.slug}-scherm-1500.webp`, width: 1500, height: 1049 }] },
+    // JPG: LinkedIn toont geen WebP als deelplaatje.
+    openGraph: og(titel, beschrijving, `/work/${c.slug}`, { images: [{ url: `/beeld/${c.slug}-deel.jpg`, width: 1200, height: 840 }] }),
   }
 }
 
@@ -47,7 +49,7 @@ export default async function CasePagina({ params }: { params: Promise<{ slug: s
       <main id="inhoud" tabIndex={-1} className="outline-none flex-1">
         <section className="case-kop container-site">
           <a className="case-terug" href="/work"><span aria-hidden="true">← </span>{casePagina.terug}</a>
-          <h1 className="case-h1">{c.naam}</h1>
+          <h1 className={c.naam.length > 14 ? 'case-h1 case-h1--lang' : 'case-h1'}>{c.naam}</h1>
           <div className="case-omslag beeld">
             <Beeld naam={`${c.slug}-omslag`} {...OMSLAG} sizes="(min-width: 900px) 36vw, 92vw" alt={casePagina.omslagAlt(c.naam)} prioriteit />
           </div>

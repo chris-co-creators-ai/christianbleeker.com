@@ -198,8 +198,7 @@ geen `requestAnimationFrame`-lus, geen `IntersectionObserver`. Lichter dan
 Techniek gezien op christianbleeker.com (24-09-2026): de koptekst "Jouw
 verhaal. / Sterk op het web." komt letter voor letter omhoog via een CSS
 `@keyframes hero-reveal` (`opacity:0;transform:translateY(18px)` →
-`opacity:1;transform:translateY(0)`), gemeten in de bundel
-`../research/christianbleeker/bundles/0vbyedifgybiy.css`: `.hero-letter`
+`opacity:1;transform:translateY(0)`): `.hero-letter`
 draait de keyframe 0,5s per letter, en de tweede regel (`.home-hero-copy`)
 draait diezelfde keyframe als één blok van 0,8s met 1,05s vertraging. Eigen
 implementatie, geen code overgenomen: wij passen 0,8s toe op élke losse

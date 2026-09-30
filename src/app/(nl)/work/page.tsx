@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { og } from '@/lib/og-velden'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld, OMSLAG } from '@/components/Beeld'
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   title: { absolute: werk.titel },
   description: werk.beschrijving,
   alternates: { canonical: '/work' },
-  openGraph: { title: werk.titel, description: werk.beschrijving, url: '/work' },
+  openGraph: og(werk.titel, werk.beschrijving, '/work'),
 }
 
 /** Tegelmaten in het bento-raster: ritme groot · klein · klein · breed … (bento-grid). */

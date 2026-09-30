@@ -7,8 +7,7 @@
  * (`youtube-nocookie.com` of Vimeo met `dnt=1`) erin. Vanilla ES-module,
  * 0 dependencies, SSR-veilig: raakt window/document pas aan binnen `init()`.
  *
- * Herkomst: patroon gezien op christianbleeker.com (research/christianbleeker/
- * OVERZICHT.md, feature C7): een TEDx-video als poster met een ronde
+ * Herkomst: patroon gezien op christianbleeker.com: een TEDx-video als poster met een ronde
  * ▶-knop, de echte YouTube-iframe komt pas na een klik. Eigen implementatie,
  * geen code overgenomen: wij gebruiken bewust `-nocookie.com` (geen
  * trackingcookies vóór een bewuste keuze), zetten preconnect pas bij
@@ -154,15 +153,15 @@ export function init(root, opties = {}) {
       preconnectEl.crossOrigin = '';
       doc.head.appendChild(preconnectEl);
     }
-    // N3-fix (beta-herronde 25-09): `data-placeholder` markeert een facade
+    // `data-placeholder` markeert een facade
     // met een bewust nep-ID (zoals in deze bibliotheek se demo — "VUL-JE-
-    // VIDEO-ID-IN" / "000000000", L1-fix hierboven). Zonder deze afweer laadt
+    // VIDEO-ID-IN" / "000000000"). Zonder deze afweer laadt
     // een klik gewoon een iframe die YouTube/Vimeo's eigen foutscherm toont
     // ("video niet beschikbaar") — verwarrend voor wie de demo bekijkt. Een
     // echte bouwer die zijn eigen `data-id` invult, zet dit attribuut niet.
     const isPlaceholder = facade.hasAttribute('data-placeholder');
 
-    // L3-fix (beta 24-09): op hover/focus ging er al vóór een klik een TLS-
+    // Op hover/focus ging er al vóór een klik een TLS-
     // verbinding (dus het IP-adres van de bezoeker) naar Google, puur van
     // langslopen of Tab-bewegen. `pointerdown`/`keydown` (Enter/Spatie)
     // vuren vlak vóórdat de daadwerkelijke klik het embed laadt — nog steeds
@@ -209,7 +208,7 @@ export function init(root, opties = {}) {
       iframe.className = 'vf__iframe';
       iframe.src = EMBED[provider](id);
       iframe.title = titel;
-      // L2-fix (beta 24-09): alléén het moderne `allow="fullscreen"` gebruiken
+      // Alléén het moderne `allow="fullscreen"` gebruiken
       // gaf een console-warning "Allow attribute will take precedence over
       // 'allowfullscreen'." — het legacy `allowfullscreen`-attribuut (en de
       // IDL-property) weglaten lost dat op; `allow` dekt fullscreen al.

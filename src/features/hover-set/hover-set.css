@@ -124,7 +124,7 @@
   box-shadow: var(--hc-shadow);
 }
 
-/* --- grow (Monkey Fiets: kolom 33% -> 50%) --------------------------- */
+/* --- grow (kolom 33% -> 50%) --------------------------------------- */
 .hover-row {
   display: flex;
   gap: 1.1rem;
@@ -178,7 +178,7 @@
   opacity: 1;
 }
 
-/* --- corners (Sloopteam: technische hoekhaken) ------------------------- */
+/* --- corners (technische hoekhaken) ------------------------- */
 .hover-card[data-hover='corners'] .hover-card__corner {
   position: absolute;
   width: 1.1rem;

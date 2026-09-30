@@ -42,7 +42,7 @@ component-library/effects/page-transitions/
 
 ```html
 <head>
-  <!-- L10, zo vroeg mogelijk in <head>, vóór je andere scripts: in browsers
+  <!-- Zo vroeg mogelijk in <head>, vóór je andere scripts: in browsers
        met native cross-document View Transitions verwerpt de browser soms
        zijn eigen transitie-promise (bv. bij snel opeenvolgend navigeren) met
        een AbortError ("Transition was skipped"). `init()` zelf luistert ook
@@ -160,7 +160,7 @@ thema en laad ze op elke pagina, met `init(document.body)` na
   op het moment van vertrek. De `pageshow`-listener (met `persisted:true`)
   herstelt de overlay dan direct — dit is al ingebouwd, je hoeft er niets
   voor te doen.
-- **De `unhandledrejection`-regel uit "Installatie" overslaan** (L10): dan
+- **De `unhandledrejection`-regel uit "Installatie" overslaan**: dan
   logt een browser met native ondersteuning af en toe een onschuldige
   `AbortError: Transition was skipped` als paginafout zodra de browser zijn
   eigen transitie afbreekt (bijvoorbeeld bij snel opeenvolgend navigeren).
@@ -186,7 +186,7 @@ gebruiken.
 Patroon (cross-document View Transitions + JS-overlay-fallback voor
 oudere browsers) is een generieke, bekende techniek uit de bredere
 webplatform-documentatie over View Transitions — geen specifieke
-Webstijn-referentie. Eigen implementatie. De sessievlag + dubbele-rAF-
+referentie. Eigen implementatie. De sessievlag + dubbele-rAF-
 fasering voor de fallback-aankomst is dezelfde techniek als
 `reveal-on-scroll` en `punt-zoom-intro` in deze bibliotheek gebruiken om
 een "verbergen animeert niet mee"-flits te voorkomen.

@@ -193,9 +193,8 @@ array van `{ src, alt? }`), `diaInterval`, `aspectRatio`, `children`
 
 ## Herkomst
 
-Achtergrondvideo staat op 9 van de 40 Webstijn-sites, Ken Burns-diashow op 6
-(diashow totaal 15) — `../../../research/webstijn/OVERZICHT.md` regel 26-27,
-63-64. Elementor bouwt dit via `background_video_link`/`background video` en
+Achtergrondvideo en Ken Burns-diashow komen op bureausites veel voor.
+Elementor bouwt dit via `background_video_link`/`background video` en
 `background slideshow` + `ken_burns`-instelling; geen code overgenomen. Wat
 wij beter doen: een expliciete, geteste pauzeknop-plus-status-machine (uit
 beeld → handmatig → reduced-motion, met de juiste voorrang), en een

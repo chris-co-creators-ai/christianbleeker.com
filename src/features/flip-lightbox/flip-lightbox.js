@@ -8,13 +8,11 @@
  * / swipe / vorige-volgende-knoppen, teller "3 / 12". Vanilla ES-module,
  * 0 dependencies, SSR-veilig: raakt window/document pas aan binnen init().
  *
- * Herkomst: FLIP-video-lightbox gezien bij kwekerijomejoop.nl (Webstijn,
- * research/webstijn/portfolio/kwekerijomejoop/DOSSIER.md, feature 3,
- * code/js_ab13ac93.js e.a.) — getBoundingClientRect() voor de start-transform
- * en cubic-bezier(.22,1,.36,1) als easing zijn als vertrekpunt genomen. Eigen
- * implementatie (geen code overgenomen), uitgebreid met een echte galerij
+ * Herkomst: eigen implementatie; patroon gezien bij meerdere bureausites.
+ * getBoundingClientRect() voor de start-transform en cubic-bezier(.22,1,.36,1)
+ * als easing zijn als vertrekpunt genomen. Uitgebreid met een echte galerij
  * (vorige/volgende, swipe, teller), toetsenbord-focus-trap en lazy-loading
- * van het volledige beeld — dat had kwekerijomejoop niet.
+ * van het volledige beeld.
  *
  * @typedef {Object} FlipLightboxOptions
  * @property {string} [selector="[data-lightbox]"] CSS-selector voor de tegels binnen `root`.
@@ -49,7 +47,7 @@ export function init(root, options = {}) {
   let touchStartY = 0;
 
   // --- dialog opbouwen (één keer, hergebruikt voor elke tegel) -----------
-  // L8-fix: een <dialog> zonder aria-label/aria-labelledby heeft geen
+  // Een <dialog> zonder aria-label/aria-labelledby heeft geen
   // toegankelijke naam (schermlezers kondigen hem aan als kale "dialog").
   // `aria-labelledby` naar de caption geeft per geopende tegel een eigen
   // naam; `aria-label` is de vaste terugval als een tegel geen caption heeft.

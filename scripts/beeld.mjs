@@ -29,7 +29,7 @@ const REVIEWS = ['sven', 'gina', 'els', 'annemieke', 'bernard', 'edwin', 'ela']
 
 /** [bronbestand, uitvoernaam, breedtes, plafond in KB] */
 const taken = [
-  ['media/tedx-stage-original.png', 'tedx', [768, 1280, 1920], 200],
+  ['media/tedx-stage-original.png', 'tedx', [768, 1280, 1920, 2560], 200],
   ['chris-hero.jpg', 'chris-duimen', [540, 900], 300],
   ['team/chris.png', 'team-chris', [526], 300],
   ['team/brian.jpeg', 'team-brian', [526], 300],
@@ -52,23 +52,27 @@ const taken = [
   ...REVIEWS.map((r) => [`reviews/review_${r}_christian_bleeker_ai_expert.png`, `aanbeveling-${r}`, [800], 300]),
 ]
 
+const RAND = { 'team/lars.png': 4 }
 const SVG = ['digital-waves', 'driftawave', 'radstok-interim', 'souplesse']
 
 let teZwaar = 0
 for (const [bestand, naam, breedtes, plafond] of taken) {
   const invoer = path.join(bron, bestand)
   const meta = await sharp(invoer).metadata()
+  const rand = RAND[bestand] ?? 0 // witte rand in de bron: links wegsnijden
   for (const b of breedtes) {
     const w = Math.min(b, meta.width)
     const achtervoegsel = breedtes.length > 1 ? `-${b}` : ''
     for (const [fmt, opties] of [['avif', { quality: 55, effort: 6 }], ['webp', { quality: 72 }]]) {
       const doel = path.join(uit, `${naam}${achtervoegsel}.${fmt}`)
-      await sharp(invoer).resize({ width: w, withoutEnlargement: true })[fmt](opties).toFile(doel)
+      await sharp(invoer).extract({ left: rand, top: 0, width: meta.width - rand, height: meta.height }).resize({ width: w, withoutEnlargement: true })[fmt](opties).toFile(doel)
       const kb = statSync(doel).size / 1024
       if (kb > plafond) { teZwaar++; console.log(`TE ZWAAR ${path.basename(doel)} ${kb.toFixed(0)} KB > ${plafond} KB`) }
     }
   }
 }
+// Deelplaatje per case (og:image) als JPG: LinkedIn toont geen WebP.
+for (const c of CASES) await sharp(path.join(bron, `projects/${c}-hero.png`)).resize({ width: 1200 }).jpeg({ quality: 78, mozjpeg: true }).toFile(path.join(uit, `${c}-deel.jpg`))
 for (const s of SVG) copyFileSync(path.join(bron, 'brand', `${s}.svg`), path.join(uit, `logo-${s}.svg`))
 console.log(`${taken.length} beelden omgezet, ${SVG.length} svg-logo's gekopieerd, ${teZwaar} boven het plafond`)
 process.exit(teZwaar ? 1 : 0)

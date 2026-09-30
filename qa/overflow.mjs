@@ -20,7 +20,7 @@ for (const breedte of [320, 360, 390, 768, 1024, 1280, 1440, 1920]) {
     await scrollDoor(page, 700, 40)
     const na = await meet()
     if (boven > 0 || na > 0) fouten.push(`${pad} @${breedte}: ${Math.max(boven, na)}px te breed`); else geslaagd++
-    // Woordbreuk (beta 30-09): geen woord in een kop mag over twee regels verdeeld worden (breken op een koppelteken mag).
+    // Woordbreuk: geen woord in een kop mag over twee regels verdeeld worden (breken op een koppelteken mag).
     const gebroken = await page.evaluate(() => {
       const uit = []
       for (const kop of document.querySelectorAll('h1, h2, h3, .volgende-naam')) {

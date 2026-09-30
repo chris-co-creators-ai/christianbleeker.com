@@ -191,10 +191,8 @@ De screenshots staan in `test/bewijs/`.
 
 ## Herkomst
 
-Gezien op de homepage van Co-Creators (onderdeel C2 in
-`research/cocreators/OVERZICHT.md`): twee lijnen (blauw en geel) met stippen per
-sectie en een aftakking naar de open FAQ-vraag, gemeten in de `.journey-*`-regels
-van hun CSS. Zij tekenen een vaste SVG-laag die met een scroll-tijdlijn
+Eigen implementatie; patroon gezien op een andere site: twee lijnen (blauw en geel) met stippen per
+sectie en een aftakking naar de open FAQ-vraag. Daar tekenen ze een vaste SVG-laag die met een scroll-tijdlijn
 meeschuift. Eigen implementatie, geen code overgenomen.
 
 Wat wij anders doen: de lijn ligt in de pagina zelf (één hoge laag, geen vaste

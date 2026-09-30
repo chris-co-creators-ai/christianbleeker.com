@@ -13,11 +13,11 @@
  * instantie in plaats van globaal op <html>, zodat de module herbruikbaar
  * is zonder gedeelde state (zie README).
  *
- * Herkomst: drempelwaarden gezien op faresmasharawi.nl (22-09-2026, CSS
- * `.js [data-reveal]`), eigen implementatie. De gescheiden opacity/transform-
+ * Herkomst: eigen implementatie; drempelwaarden gezien bij meerdere
+ * bureausites (CSS `.js [data-reveal]`). De gescheiden opacity/transform-
  * timing (optie `opacityVertraging`) is een tip van christianbleeker.com
  * (24-09-2026, CSS `[data-reveal]{transition:transform .8s …,opacity .3s
- * .5s}`, gemeten in `../research/christianbleeker/bundles/0vbyedifgybiy.css`).
+ * .5s}`).
  */
 
 /*

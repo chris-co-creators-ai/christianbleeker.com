@@ -406,7 +406,7 @@ async function keurSite(basis, { staPlaceholdersToe }) {
     }
   }
 
-  // `FAQPage`-schema op meer dan één pagina — besluit Lars 25-09-2026: nooit tegelijk op de
+  // `FAQPage`-schema op meer dan één pagina — regel: nooit tegelijk op de
   // homepage én op `/veelgestelde-vragen` (zie `docs/SEO.md` § 10, `app/page.tsx`,
   // `app/veelgestelde-vragen/page.tsx`). Per TAAL gecontroleerd (meertaligheid, docs/SEO.md § 2):
   // elke taal draagt z'n eigen `FAQPage`-schema, dus `/`, `/en` én `/de` samen is geen overtreding
@@ -486,7 +486,7 @@ async function keurSitebreed(basis, sitemapXml, paden) {
   }
 
   // `/veelgestelde-vragen` hoort alleen te bestaan boven de FAQ-drempel (`site.faq.
-  // eigenPaginaVanaf`, besluit Lars 25-09-2026, zie `docs/SEO.md` § 10) — t/m de drempel staat de
+  // eigenPaginaVanaf`, zie `docs/SEO.md` § 10) — t/m de drempel staat de
   // FAQ alleen als sectie op de homepage en geeft die route een 404 (`notFound()` in de pagina
   // zelf). Beide kanten van die afspraak zijn een fout: bestaat terwijl het aantal ≤ de drempel
   // is (het oorspronkelijke gevraagde geval), of ontbreekt terwijl het aantal wél boven de

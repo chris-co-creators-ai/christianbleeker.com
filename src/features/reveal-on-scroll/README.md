@@ -177,7 +177,7 @@ opacity-duur niet via deze optie maar met een eigen `transition`-regel na de
 module — deze optie regelt bewust alleen de **vertraging**, niet een tweede
 duur, om de API klein te houden.
 
-**Let op wat dit in de praktijk oplevert** (beta-ronde 24-09, L7): met de
+**Let op wat dit in de praktijk oplevert** (gemeten op 24-09): met de
 standaard `--ros-duration` (0,95s) is de transform-beweging bij 0,5s
 vertraging al voor zo'n 95% klaar tegen de tijd dat de opacity start te
 veranderen (gemeten: `translateY` nog maar 2,1px bij 450ms, op een start van
@@ -226,8 +226,8 @@ fout.
   veel elementen tegelijk; gebruik dit bewust, niet als default.
 - **`init()` zonder geldig element crasht niet meer** (R5, sinds 24-09):
   `init(null)` of een niet-DOM-waarde geeft een console-waarschuwing en een
-  no-op `destroy()` terug, in plaats van een `throw`. Beta-ronde 24-09 (L8)
-  ving dit als bug (bestond al vóór de `opacityVertraging`-uitbreiding).
+  no-op `destroy()` terug, in plaats van een `throw`. Dit bestond al vóór
+  de `opacityVertraging`-uitbreiding.
 
 ## Performance
 
@@ -237,17 +237,15 @@ Alleen een IntersectionObserver-callback (geen scroll-listener, geen rAF-lus)
 
 ## Herkomst
 
-Techniek gezien op faresmasharawi.nl (22-09-2026) — daar heet de mechaniek
-`RevealObserver` (IntersectionObserver, dezelfde threshold/rootMargin,
-`.js`-klasse op `<html>` voor de no-JS-fallback). Eigen implementatie: geen
-code overgenomen; de `.js`-gating is hier verplaatst van een globale
+Eigen implementatie; techniek gezien bij meerdere bureausites
+(IntersectionObserver, dezelfde threshold/rootMargin,
+`.js`-klasse op `<html>` voor de no-JS-fallback). De `.js`-gating is hier verplaatst van een globale
 `<html>`-klasse naar een per-instantie attribuut op de root, zodat de module
 zonder gedeelde globale state werkt.
 
 **Toevoeging 24-09-2026** (optie `opacityVertraging`): techniek gezien op
 christianbleeker.com, CSS `[data-reveal]{transition:transform .8s
-cubic-bezier(.22,1,.36,1),opacity .3s .5s}` (gemeten in
-`../research/christianbleeker/bundles/0vbyedifgybiy.css`) — daar lopen
+cubic-bezier(.22,1,.36,1),opacity .3s .5s}` — daar lopen
 transform en opacity met een eigen duur/vertraging, zodat het beeld zachter
 "aankomt" dan wanneer beide gelijktijdig veranderen. Eigen implementatie:
 alleen de vertraging is overgenomen als losse, optionele optie

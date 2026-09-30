@@ -13,9 +13,9 @@
  * console.warn onder 4,5:1 (gewone tekst) of 3:1 (grote kop, >= 24px of
  * >= 18,66px vet).
  *
- * Herkomst: marker-highlight in de koppen van xcllence.nl (teal vlak,
- * background-size 0 -> 100% in 0,8 s, IntersectionObserver threshold 0.2).
- * Eigen implementatie; wij voegen contrastmeting, ruwe rand en live
+ * Herkomst: eigen implementatie; patroon gezien bij meerdere bureausites
+ * (teal vlak, background-size 0 -> 100% in 0,8 s, IntersectionObserver
+ * threshold 0.2). Wij voegen contrastmeting, ruwe rand en live
  * "minder beweging" toe.
  *
  * @typedef {Object} MarkerHighlightOptions

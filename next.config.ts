@@ -47,7 +47,7 @@ const nextConfig: NextConfig = {
     }));
   },
 
-  // Beveiligingsheaders, op elk pad. Sinds 29-09 (Lars) mét Content-Security-Policy, zonder nonce
+  // Beveiligingsheaders, op elk pad. Mét Content-Security-Policy, zonder nonce
   // (een nonce maakt elke pagina dynamisch): `'unsafe-inline'` blijft nodig voor de JSON-LD en de
   // toestemmingsscripts, maar de rest (object/base/form/frame/connect) is streng. Zie src/lib/csp.ts.
   async headers() {

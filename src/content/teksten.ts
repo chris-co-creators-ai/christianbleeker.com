@@ -215,7 +215,7 @@ export const contact = {
     bezig: 'Bezig met versturen…', // voorstel
     privacy: 'We gebruiken je gegevens alleen om te reageren.', // voorstel
     privacyLink: 'Lees de privacyverklaring.', // voorstel
-    gelukt: 'Dank je. Je bericht is verstuurd en je krijgt een bevestiging per mail.', // voorstel
+    gelukt: 'Dank je. Je bericht is verstuurd.', // voorstel
     mislukt: 'Versturen lukte niet. Stuur je bericht via LinkedIn, dan komt het toch aan.', // voorstel
     fouten: {
       naam: 'Vul je naam in.', // voorstel

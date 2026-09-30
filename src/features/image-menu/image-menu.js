@@ -9,18 +9,15 @@
  * hoeft te wachten. Ankerlinks sluiten het menu. Vanilla ES-module,
  * 0 dependencies, SSR-veilig: raakt window/document pas aan bij `init()`.
  *
- * Herkomst: gedrag gezien bij Webstijn-klant **Mobisolar**
- * (`research/webstijn/portfolio/mobisolar/DOSSIER.md`, feature 1
- * "Beeldmenu (fullscreen)"): een MDW-snippet die bij hover met jQuery de
- * bijbehorende spacer-widget opzoekt, zijn achtergrondkleur leest en die op
- * het menu zet. Eigen implementatie: hier staat de kleur/afbeelding
+ * Herkomst: eigen implementatie; patroon gezien bij meerdere bureausites
+ * (een fullscreen beeldmenu dat bij hover met jQuery de kleur van een
+ * spacer-widget op het menu zet). Hier staat de kleur/afbeelding
  * gewoon als `data-im-image`/`data-im-color` op de link zelf (geen
  * index-matching tussen twee aparte widget-bomen nodig), de achtergrond-
  * wissel gebeurt via opacity-crossfade tussen vooraf aangemaakte
  * kleurlagen (R18: alleen transform/opacity animeren — geen
  * `background-color`-transitie) en er is een volledige focus-trap +
- * Escape + backdrop-klik toegevoegd (de MDW-snippet regelt geen van
- * drieën).
+ * Escape + backdrop-klik toegevoegd.
  *
  * @param {Element} root Element met daarin `[data-im-button]` en `[data-im-panel]`.
  * @returns {() => void} destroy — sluit het menu, ruimt kleurlagen/listeners op, herstelt aria/inert/scroll. Idempotent.
@@ -175,7 +172,7 @@ export function init(root) {
       return;
     }
     if (e.key !== 'Tab') return;
-    // G10: de sluitknop (`button`) zit buiten `panel` in de DOM, dus hoorde
+    // De sluitknop (`button`) zit buiten `panel` in de DOM, dus hoorde
     // niet bij `panel.querySelectorAll(FOCUSABLE)` — de focusval rondde
     // daardoor alleen over de menu-links en sloot de knop zelf uit. Hij
     // staat daarom vooraan in de vallijst: Shift+Tab vanaf de eerste link

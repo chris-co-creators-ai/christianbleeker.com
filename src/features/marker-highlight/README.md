@@ -74,7 +74,7 @@ import { MarkerHighlight } from '@/component-library/typography/marker-highlight
 - De ruwe rand is een gerekte SVG: bij zeer lange markeringen wordt de ruwheid ook uitgerekt.
 
 ## Herkomst
-Gezien op xcllence.nl (Merkmotief-onderzoek, `portfolio/xcllence/DOSSIER.md`): teal vlak onder `<strong>` in de kop, `background-size` 0 naar 100% in 0,8 s. Eigen implementatie. Wij voegen toe: contrastmeting met waarschuwing, hoogte-keuze, ruwe SVG-rand, live minder-beweging en `destroy()`.
+Eigen implementatie; patroon gezien bij meerdere bureausites: teal vlak onder `<strong>` in de kop, `background-size` 0 naar 100% in 0,8 s. Toegevoegd: contrastmeting met waarschuwing, hoogte-keuze, ruwe SVG-rand, live minder-beweging en `destroy()`.
 
 ## Meten
 `node typography/marker-highlight/test/meet.mjs` (bewijs: `test/bewijs/`).

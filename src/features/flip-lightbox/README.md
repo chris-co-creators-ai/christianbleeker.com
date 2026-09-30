@@ -97,7 +97,7 @@ CSS-variabelen (op `.flb-dialog`):
 | Variabele | Standaard | Omschrijving |
 |---|---|---|
 | `--flb-duration` | `0.42s` | Duur van de FLIP-transitie. |
-| `--flb-ease` | `cubic-bezier(.22,1,.36,1)` | Easing (ease-out-quint, zoals bij kwekerijomejoop.nl). |
+| `--flb-ease` | `cubic-bezier(.22,1,.36,1)` | Easing (ease-out-quint). |
 | `--flb-bg` | `#101012` | Achtergrond van de dialoog. |
 | `--flb-fg` | `#f5f4ef` | Tekst-/iconkleur. |
 
@@ -177,11 +177,9 @@ add_action( 'wp_enqueue_scripts', function () {
 
 ## Herkomst
 
-FLIP-video-lightbox gezien bij kwekerijomejoop.nl (Webstijn,
-`research/webstijn/portfolio/kwekerijomejoop/DOSSIER.md`, feature 3 —
-`code/js_ab13ac93.js` e.a.): `getBoundingClientRect()` voor de start-transform
-en `cubic-bezier(.22,1,.36,1)` als easing zijn als vertrekpunt genomen. Eigen
-implementatie, geen code overgenomen. Wat wij toevoegden dat kwekerijomejoop
-niet had: een echte galerij (vorige/volgende, swipe, pijltjestoetsen, teller),
+Eigen implementatie; patroon gezien bij meerdere bureausites.
+`getBoundingClientRect()` voor de start-transform
+en `cubic-bezier(.22,1,.36,1)` als easing zijn als vertrekpunt genomen.
+Toegevoegd: een echte galerij (vorige/volgende, swipe, pijltjestoetsen, teller),
 een toetsenbord-focus-trap, lazy-loading van de volledige bron, en het
 wachten op `load`/`loadedmetadata` vóór de FLIP start (zie "Valkuilen").

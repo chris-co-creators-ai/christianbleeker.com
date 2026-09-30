@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { og } from '@/lib/og-velden'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { privacy } from '@/content/teksten'
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   title: { absolute: privacy.titel },
   description: privacy.beschrijving,
   alternates: { canonical: '/privacy' },
-  openGraph: { title: privacy.titel, description: privacy.beschrijving, url: '/privacy' },
+  openGraph: og(privacy.titel, privacy.beschrijving, '/privacy'),
 }
 
 export default function Privacy() {

@@ -1,9 +1,8 @@
 /**
  * _kwaliteit/basis.js
  * ------------------------------------------------------------------------
- * Gedeelde bouwstenen voor alle vette features. Hier zitten de lessen uit
- * het Webstijn-onderzoek (research/webstijn/OVERZICHT.md § "Waar het
- * rammelt") als code, zodat een onderdeel ze niet per ongeluk vergeet:
+ * Gedeelde bouwstenen voor alle vette features. Hier staan de gedeelde
+ * kwaliteitsregels als code, zodat een onderdeel ze niet per ongeluk vergeet:
  *
  *  - beweging stopt bij "minder beweging" en reageert live op een wissel
  *  - opslag gooit nooit (privévenster, geblokkeerde cookies)

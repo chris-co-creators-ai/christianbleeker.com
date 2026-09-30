@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { og } from '@/lib/og-velden'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld } from '@/components/Beeld'
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   title: { absolute: contact.titel },
   description: contact.beschrijving,
   alternates: { canonical: '/contact' },
-  openGraph: { title: contact.titel, description: contact.beschrijving, url: '/contact' },
+  openGraph: og(contact.titel, contact.beschrijving, '/contact'),
 }
 
 export default function Contact() {

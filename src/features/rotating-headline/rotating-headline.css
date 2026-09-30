@@ -18,7 +18,7 @@
    opacity:0) hier onvoorwaardelijk, gated via `:not([data-rh-variant])` —
    maar demo's/gebruikers zetten `data-rh-variant` vaak al in de HTML als
    hint, dus die selector matchte nooit en de kop las zonder JS "Wij zijn ."
-   (G4). Nu is de wissel-opmaak pas actief ná `init()`, via het attribuut dat
+   Nu is de wissel-opmaak pas actief ná `init()`, via het attribuut dat
    de JS zelf zet (`data-rh-ready` — zie rotating-headline.js), dus de
    aan/uit-schakeling hangt niet af van wat de auteur toevallig al in de
    HTML zette. */
@@ -64,12 +64,12 @@
   border: 0;
 }
 
-/* G4 (woorden overlappen tijdens de wissel): de leaving- en entering-
+/* Woorden overlappen tijdens de wissel: de leaving- en entering-
    animatie van een paar moeten EXACT dezelfde timing-functie gebruiken.
    Anders legt de ene helft van de wipe een andere voortgangscurve af dan de
    andere, en het (klippende of schuivende) stuk dat "nog zichtbaar" moet
-   zijn overlapt tijdelijk het stuk dat "al zichtbaar" is — precies het
-   dubbele-belichting-effect uit de beta-ronde. Met dezelfde curve tillen
+   zijn overlapt tijdelijk het stuk dat "al zichtbaar" is — precies een
+   dubbele-belichting-effect. Met dezelfde curve tillen
    leaving en entering elkaar op elk moment exact af, zonder gat of overlap. */
 :root {
   --rh-wipe-ease: cubic-bezier(0.65, 0, 0.35, 1);
@@ -124,7 +124,7 @@
 }
 
 /* --- variant: typing (per-teken reveal met steps()) --------------------- */
-/* G4 ("bij typing zweeft de punt los"): de stage-breedte animeert normaal
+/* Bij typing zweeft de punt los: de stage-breedte animeert normaal
    gesproken zelf mee (.rh__stage transition: width 0.35s, andere curve/duur
    dan de steps()-reveal van 0.42s hierbeneden). Voor typing hoort de stage
    meteen op zijn eindbreedte te staan — de reveal-animatie IS de

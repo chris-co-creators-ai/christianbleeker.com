@@ -131,7 +131,7 @@ is, één `setInterval` — geen scroll-/pointerhandlers, geen
 ## Herkomst
 
 Generieke, bekende "come back"-titelwissel-techniek — geen specifieke
-Webstijn-referentie. Eigen implementatie, met de frequentie-/reduced-
+referentie. Eigen implementatie, met de frequentie-/reduced-
 motion-bouwstenen uit de gedeelde `basis.js` zodat hij aan dezelfde
 kwaliteitsregels voldoet als de rest van de bibliotheek (met name: geen
 knipperen bij minder beweging).

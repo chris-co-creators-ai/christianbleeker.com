@@ -9,8 +9,7 @@ website-checklist prompt. Ze wachten op het akkoord van Chris.
 Bewust in de ik-vorm gebleven: de pagina Over, het blok "Over mij" op Home, en de negen casepagina's
 (dat is werk van Chris; in de wij-vorm zouden ze een nieuwe bewering doen).
 
-Op 30-09-2026 toegevoegd: twee websites die we samen maakten (Human Margin en het portfolio-ontwerp
-Hoveniersbedrijf Nijboer) en Co-Creators.ai bij Eigen product. Die teksten staan onderaan, met hun bron.
+Op 30-09-2026 toegevoegd: twee websites die we samen maakten (Human Margin en Hovenier Nijboer) en Co-Creators.ai bij Eigen product. Die teksten staan onderaan, met hun bron.
 
 | Tekst | Waarom |
 |---|---|
@@ -81,7 +80,7 @@ Hoveniersbedrijf Nijboer) en Co-Creators.ai bij Eigen product. Die teksten staan
 | Bezig met versturen… | nieuw |
 | We gebruiken je gegevens alleen om te reageren. | nieuw |
 | Lees de privacyverklaring. | nieuw |
-| Dank je. Je bericht is verstuurd en je krijgt een bevestiging per mail. | nieuw |
+| Dank je. Je bericht is verstuurd. | nieuw |
 | Versturen lukte niet. Stuur je bericht via LinkedIn, dan komt het toch aan. | nieuw |
 | Vul je naam in. | nieuw |
 | Vul een geldig e-mailadres in. | nieuw |
@@ -127,9 +126,8 @@ Hoveniersbedrijf Nijboer) en Co-Creators.ai bij Eigen product. Die teksten staan
 ## Toegevoegd op 30-09-2026: samen gemaakte websites en Co-Creators.ai
 
 De twee cases staan in de wij-vorm. De feiten komen uit het werk zelf: de site van Human Margin en
-de opdracht van Els, en het portfolio-ontwerp dat op nijboer.portfolio.seveke.nl staat (daar
-aangeduid als portfolio-ontwerp met een fictief bedrijf). Human Margin krijgt pas een link naar de
-site als die live staat. De tekst bij Co-Creators.ai komt van co-creators.ai zelf.
+de opdracht van Els, en de site voor Hovenier Nijboer. Beide krijgen pas een link naar de site
+als dat besloten is. De tekst bij Co-Creators.ai komt van co-creators.ai zelf.
 
 | Tekst | Waar | Bron |
 |---|---|---|
@@ -137,8 +135,8 @@ site als die live staat. De tekst bij Co-Creators.ai komt van co-creators.ai zel
 | Human Margin is het bureau van Els Verheirstraeten. Ze begeleidt organisaties bij het gebruik van AI, met een nulmeting, een regietraject, een academie en sparring. We hebben haar site gebouwd in haar eigen huisstijl: zwart, wit en fel geel. | Human Margin | voorstel |
 | De site is zo gebouwd dat Els haar teksten zelf kan bijwerken via ChatGPT. Ze vraagt een wijziging in gewone taal, krijgt een voorstel te zien en keurt het goed voordat het online staat. | Human Margin | voorstel |
 | Eerst de stelling van Els en waarom die nu telt, daarna haar aanbod en de stap naar een kennismaking. De site laat zien waar zij voor staat voordat het over diensten gaat. | Human Margin, ontwerpdoel | voorstel |
-| Een portfolio-ontwerp: zo bouwen we een site voor een hovenier. | Hovenier Nijboer, in het kort | voorstel |
-| Hoveniersbedrijf Nijboer bestaat niet. Het is een portfolio-ontwerp met voorbeeldgegevens, gemaakt om te laten zien hoe we een site voor een lokaal bedrijf opbouwen. | Hoveniersbedrijf Nijboer | voorstel |
+| Een site voor een hovenier, met bellen of appen vanaf het eerste scherm. | Hovenier Nijboer, in het kort | voorstel |
+| Een hovenier wil gebeld worden, niet gelezen. We hebben deze site daarom kort en direct gehouden, in de toon van de hovenier zelf: geen praatjes vooraf, gewoon een tuin die klopt. | Hoveniersbedrijf Nijboer | voorstel |
 | De site opent met wat de hovenier doet en waar hij werkt. Bellen of appen kan meteen vanaf het eerste scherm, en daaronder staat in drie stappen hoe het werkt. | Hoveniersbedrijf Nijboer | voorstel |
 | Een bezoeker ziet bovenaan wie er komt, wat hij doet en hoe je hem bereikt. De rest van de site onderbouwt dat met diensten en projecten. | Hoveniersbedrijf Nijboer, ontwerpdoel | voorstel |
 | Jouw eigen AI-werkplek | Co-Creators.ai | co-creators.ai |

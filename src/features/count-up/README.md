@@ -118,8 +118,7 @@ Geen build-stap nodig.
 
 ## Herkomst
 
-Bij Webstijn-klant Sloopteam telt een teller TikTok-views op door te
-beginnen bij een **willekeurig startgetal** (JavaScripts ingebouwde
+Een teller die TikTok-views optelt begint soms bij een **willekeurig startgetal** (JavaScripts ingebouwde
 random-functie) en daar het "echte" getal bovenop te tellen — het resultaat
 oogt indrukwekkend maar is voor een deel verzonnen. Dat is de reden dat dit
 bestand geen enkele willekeurige-getalfunctie gebruikt: elk getal dat je

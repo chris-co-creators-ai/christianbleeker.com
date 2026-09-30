@@ -27,7 +27,7 @@
   list-style: none;
 }
 
-/* Transparant vóór data-marquee-ready (H7): zonder JS, en zolang "minder
+/* Transparant vóór data-marquee-ready: zonder JS, en zolang "minder
    beweging" de kloonmotor uitschakelt, mag de groep-wrapper geen eigen
    (niet-wrappende) flexrij zijn — anders wordt de hele zin één regel die
    nooit binnen de viewport past. `display: contents` geeft de items terug
@@ -81,7 +81,7 @@
 
 /* --- variant: giant — reuzeletters --------------------------------- */
 /* Basismaat: een gewone, leesbare kop die normaal wrapt. Geldt zowel zonder
-   JS als bij "minder beweging" ([data-marquee-ready] ontbreekt dan) — H7:
+   JS als bij "minder beweging" ([data-marquee-ready] ontbreekt dan) —
    op de volle 20vw-reuzemaat past zelfs één los woord ("Automatisering")
    niet in 390px, en zonder clip/animatie duwt dat de hele pagina breder. */
 [data-marquee][data-marquee-variant='giant'] [data-marquee-item] {
@@ -108,7 +108,7 @@
   transform-origin: center;
   padding-block: 0.75rem;
   /* Een gedraaid blok krijgt een grotere as-uitgelijnde ruimte dan zijn
-     eigen breedte (H7: 395px scrollWidth op een 390px-pagina, ook ná de
+     eigen breedte (395px scrollWidth op een 390px-pagina, ook ná de
      wrap-fix hierboven) — dat telt mee in de scrollbreedte van de pagina,
      ook al staat overflow op dit element zelf op hidden. Een kleine inzet
      geeft de hoeken van de rotatie ruimte zonder dat de pagina breder wordt;

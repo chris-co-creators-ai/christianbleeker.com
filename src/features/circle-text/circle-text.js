@@ -5,11 +5,11 @@
  * optioneel icoon/foto in het midden en klikbaar als link. De rotatie zelf
  * is pure CSS (`animation` + `animation-play-state` op hover/focus).
  *
- * G15: de tekst moet de omtrek precies vullen — te weinig herhalingen laat
+ * De tekst moet de omtrek precies vullen — te weinig herhalingen laat
  * een kaal stuk pad zien, te veel (of te lang) knipt de SVG gewoon af waar
  * het pad ophoudt (geen automatische regelafbreking op een gesloten lus).
  * Vaste, met de hand herhaalde tekst in de markup ("WOORD • WOORD • ") raadt
- * dus altijd: bij de beta-ronde gaf dat een naad zonder scheidingsteken
+ * dus altijd: dat gaf een naad zonder scheidingsteken
  * ("AMBACHTWARE") en een afgekapte herhaling. Deze module meet in plaats
  * daarvan de echte padlengte (`path.getTotalLength()`) en de lengte van één
  * "eenheid" tekst (`getComputedTextLength()`), kiest het rondste aantal
@@ -18,9 +18,8 @@
  * fractie op elkaar, maar de lus sluit altijd exact, zonder gat of overlap.
  * Vanilla ES-module, 0 dependencies, SSR-veilig.
  *
- * Herkomst: draaiende cirkeltekst gezien bij Bij Sidney ("ONTDEK HET MENU"),
- * en verwante draaiende badges/stempels bij Zwaartafelen, Bovenkamp, Prime
- * Padel. Eigen implementatie, geen code overgenomen.
+ * Herkomst: eigen implementatie; draaiende cirkeltekst en verwante draaiende
+ * badges/stempels gezien bij meerdere bureausites.
  *
  * @typedef {Object} CircleTextOptions
  * @property {number} [duration=24] Rotatieduur in seconden.

@@ -178,11 +178,10 @@ CSS-variabelen op `.sd`: `--sd-maat` (96px), `--sd-rand` (16px), `--sd-z` (60),
 
 ## Herkomst
 
-Sectie-dock en magnetische schijven van **socialnextagency.nl** (onderzocht
-29-09-2026, `research/socialnextagency/OVERZICHT.md` rij S4 en S8): schijf met
-draaiende tekst, tekst en actie per sectie via `window.SNA_DOCK`, verdwijnt bij de
-afsluiter, draai gepauzeerd buiten beeld, magneet 140 px / 22 px / pijl 6 px.
-Eigen implementatie, geen code overgenomen; getallen als vertrekpunt.
+Eigen implementatie; sectie-dock en magnetische schijven gezien bij meerdere
+bureausites: schijf met draaiende tekst, tekst en actie per sectie via een
+globaal object, verdwijnt bij de afsluiter, draai gepauzeerd buiten beeld,
+magneet 140 px / 22 px / pijl 6 px. Getallen als vertrekpunt.
 
 **Wat wij beter doen:** de dock is een echte link met een naam die de huidige actie
 noemt (bij hen leest een schermlezer de draaiende tekst); zonder JS een vaste link

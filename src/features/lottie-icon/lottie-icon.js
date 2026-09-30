@@ -23,8 +23,7 @@
  * R1 geldt ook halverwege: `minderBeweging(onChange)` luistert live, dus
  * zet je "minder beweging" aan terwijl een icoon al speelt, dan pauzeert
  * het en springt naar zijn laatste frame (vast eindbeeld) i.p.v. door te
- * blijven lopen (beta-ronde 24-09, G3 — een losse, eenmalige matchMedia-
- * check zag de wissel niet).
+ * blijven lopen (een losse, eenmalige matchMedia-check zag de wissel niet).
  *
  * @typedef {Object} LottieIconOptions
  * @property {string} [src] Pad naar de Lottie-JSON. Overschrijft `data-lottie-src` op root.
@@ -140,8 +139,8 @@ export function init(root, options = {}) {
 
   // R1: reageert live op een halverwege omgezette voorkeur, niet alleen op
   // de stand bij het laden (`minderBeweging(onChange)` i.p.v. een losse
-  // eenmalige matchMedia-check — dat was de fout uit de beta-ronde: de
-  // animatie liep gewoon door nadat de bezoeker "minder beweging" aanzette).
+  // eenmalige matchMedia-check — anders liep de
+  // animatie gewoon door nadat de bezoeker "minder beweging" aanzette).
   function onReduceChange(nowReduced) {
     reduced = nowReduced;
     if (reduced) {

@@ -102,7 +102,7 @@
   display: none;
 }
 
-/* G16: randfade als scrollsignaal — alleen aan de kant(en) waar nog meer
+/* Randfade als scrollsignaal — alleen aan de kant(en) waar nog meer
    lijst te zien valt (klassen gezet door pill-nav.js op basis van
    scrollLeft/scrollWidth). Voorkomt dat een afgekapte link ("Projec…")
    oogt alsof hij zomaar verdwijnt naast de CTA. */
@@ -124,7 +124,7 @@
   margin: 0;
 }
 
-/* Wrapper van de indicator (H6-fix): een echt <li> zodat [data-pn-list] een
+/* Wrapper van de indicator: een echt <li> zodat [data-pn-list] een
    geldige <ul> mag zijn, maar zonder eigen layout-box — de span erin
    positioneert precies als voorheen, rechtstreeks binnen .pn__list. */
 .pn__indicator-item {

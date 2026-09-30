@@ -175,8 +175,7 @@ als je het al gebruikt (het is optioneel, zie hierboven).
 
 ## Herkomst
 
-Layout gezien op christianbleeker.com (`research/christianbleeker/
-OVERZICHT.md`, feature C10): de Werk-sectie toont 2 grote projectkaarten
+Layout gezien op christianbleeker.com: de Werk-sectie toont 2 grote projectkaarten
 plus een blok van 4 kleine ("Meer projecten"), gebouwd met Tailwind-grid.
 Wat wij beter doen: `breed`/`hoog` als generieke, herbruikbare tegelmaten
 naast `groot`/`klein` (niet alleen dat ene vaste patroon), een echte

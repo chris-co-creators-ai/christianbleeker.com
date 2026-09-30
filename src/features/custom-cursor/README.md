@@ -138,7 +138,7 @@ Geen build-stap nodig. Zet de map in je thema, laad `custom-cursor.css` en
 ## Herkomst
 
 Eigen implementatie van een gangbaar patroon (stip + vertraagde ring, lerp-
-gebaseerd) — niet uit een specifieke Webstijn-referentiesite gehaald. Wat wij
+gebaseerd) — niet uit een specifieke referentiesite gehaald. Wat wij
 toevoegen t.o.v. de meeste tutorial-versies van dit patroon: verplicht uit op
 touch én bij `prefers-reduced-motion`, een aparte `textFieldSelector` die de
 systeemcursor teruggeeft op tekstvelden, en een expliciete uitsluiting voor

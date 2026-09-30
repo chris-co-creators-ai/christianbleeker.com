@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: '/favicon.ico', sizes: 'any' }, { url: '/icon.svg', type: 'image/svg+xml' }], apple: '/icoon/180' },
 }
 
-/** Vangt de onschuldige AbortError van een afgebroken native paginaovergang (page-transitions L10). */
+/** Vangt de onschuldige AbortError van een afgebroken native paginaovergang (page-transitions). */
 const vangAfgebrokenOvergang =
   "window.addEventListener('unhandledrejection',function(e){var r=e.reason;if(r&&r.name==='AbortError'&&/transition was skipped/i.test(String(r.message||'')))e.preventDefault();});"
 

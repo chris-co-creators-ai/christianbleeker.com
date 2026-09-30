@@ -5,8 +5,8 @@
  * `data-waarde`. Zonder die waarde toont het component NIETS (verborgen +
  * console-waarschuwing) — er is bewust geen "oplopend" getal zonder bron
  * (R8). Geen enkele willekeurige-getalfunctie in dit bestand, nergens: zie
- * README "Herkomst" voor waarom dat een harde regel is (Webstijn/Sloopteam
- * telde TikTok-views op met een willekeurig startgetal).
+ * README "Herkomst" voor waarom dat een harde regel is (een teller met een
+ * willekeurig startgetal toont een verzonnen aantal).
  *
  * `data-koppel` (CSS-selector) schrijft dezelfde geformatteerde eindtekst
  * ook naar andere elementen, zodat twee plekken op de pagina nooit een

@@ -16,10 +16,9 @@
  * beweging" haalt de module dat attribuut weer weg (en bouwt geen kopieën)
  * — dezelfde statische, wrappende weergave als zonder JS.
  *
- * Herkomst: het gedrag (reuzeletters, gekantelde band, smalle topticker met
- * fade-randen, logo-balk) is gezien bij meerdere Webstijn-klantsites
- * (`../research/webstijn/inline/css_f75d8f6b.css`, `css/post-5242.css`) —
- * eigen implementatie, geen code overgenomen.
+ * Herkomst: eigen implementatie; het gedrag (reuzeletters, gekantelde band,
+ * smalle topticker met fade-randen, logo-balk) is gezien bij meerdere
+ * bureausites.
  *
  * @typedef {Object} MarqueeOptions
  * @property {'giant'|'tilted'|'ticker'|'logos'} [variant] Visuele variant. Standaard: attribuut `data-marquee-variant` op root, anders "ticker".

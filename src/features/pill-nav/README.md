@@ -82,7 +82,7 @@ import { PillNav } from '@/component-library/navigation/pill-nav/PillNav';
   van `[data-pn-list]`. De module markeert zelf de eerste link met
   `aria-current="page"` als geen enkele link dat al heeft. Geen `role`-
   attributen nodig of gewenst op de `<li>`/`<a>` — de native lijst-/link-rol
-  is precies wat een schermlezer nodig heeft (H6: een eerdere versie zette
+  is precies wat een schermlezer nodig heeft (een eerdere versie zette
   `role="listitem"` op de `<a>` zelf, wat de link-rol overschreef en de
   links onvindbaar maakte voor schermlezers en `getByRole('link', …)`).
 - De module voegt zelf een `.pn__indicator-item` (`<li aria-hidden="true">`,
@@ -163,26 +163,22 @@ Geen build-stap nodig.
   overvol. Houd het menu kort. Een randfade (`.pn__list--fade-end` /
   `--fade-start`, gezet door de module zelf) toont wanneer er nog meer te
   scrollen valt, zodat een afgekapte link niet oogt alsof hij onder de CTA
-  verdwijnt (G16).
+  verdwijnt.
 - **`hideOnScroll` + een pagina korter dan het scherm**: er is dan niets om
   in/uit te scrollen — geen probleem, de balk blijft gewoon zichtbaar.
 - **Geen `role="listitem"` op de `<a>` zetten** als je zelf markup schrijft —
-  dat overschrijft de implicit link-rol van het element (zie H6 hierboven).
+  dat overschrijft de implicit link-rol van het element (zie hierboven).
   Elke link hoort in een eigen `<li>`, niet in een `role`-attribuut op de
   link zelf.
 
 ## Herkomst
 
-Positie en glasvorm gezien bij **Dave Herder** (webstijn.nl-klant): zwevende
-pil-navigatie met `border-radius: 1000px` en `backdrop-filter: blur(6px)`
-(zie `research/webstijn/portfolio/daveherder/DOSSIER.md`, signatuur #1). De
-schuivende actief-indicator is geïnspireerd op **Stomerij Barneveld**: een
-cyaan pilletje onder het actieve menu-item (`.elementor-item-active:after`,
-`border-radius: 1000px`, kleur `#48D4FF` — dezelfde hex hebben wij hier als
-`--pn-accent` overgenomen als getal, niet als code).
+Eigen implementatie; patroon gezien bij meerdere bureausites: zwevende
+pil-navigatie met `border-radius: 1000px` en `backdrop-filter: blur(6px)`, met
+een schuivende actief-indicator als cyaan pilletje onder het actieve
+menu-item (`border-radius: 1000px`, kleur `#48D4FF`, hier als `--pn-accent`).
 
-Eigen implementatie: geen CSS/JS van Webstijn gekopieerd. Wat wij beter doen:
-een expliciete backdrop-filter-fallback (Webstijn's variant test niet op
+Toegevoegd: een expliciete backdrop-filter-fallback (via
 `@supports`), een indicator die met `getBoundingClientRect` meebeweegt met
 willekeurige tekstlengtes (niet met vaste breedtes), en een verberg-bij-scroll
 die via `prefers-reduced-motion` altijd een correcte eindstand toont.

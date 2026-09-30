@@ -8,10 +8,9 @@
  * ES-module, 0 dependencies, SSR-veilig: raakt window/document pas aan bij
  * `init()`.
  *
- * Herkomst: positie + glasvorm gezien bij Dave Herder (webstijn.nl-klant,
- * pil-navigatie met blur, border-radius 1000px) en de cyaan actief-indicator
- * bij Stomerij Barneveld (`.elementor-item-active:after` met dezelfde
- * pil-vorm). Eigen implementatie, geen code overgenomen.
+ * Herkomst: eigen implementatie; patroon gezien bij meerdere bureausites
+ * (pil-navigatie met blur, border-radius 1000px, en een cyaan
+ * actief-indicator met dezelfde pil-vorm).
  *
  * @typedef {Object} PillNavOptions
  * @property {'top'|'bottom'} [position="bottom"] Waar de balk zweeft.
@@ -45,13 +44,9 @@ export function init(root, options = {}) {
 
   root.setAttribute('data-pn-position', position);
 
-  if (!links.some((a) => a.getAttribute('aria-current') === 'page')) {
-    links[0].setAttribute('aria-current', 'page');
-  }
-
   // Indicator zit in een eigen <li aria-hidden> (display:contents, dus geen
   // eigen layout-box) zodat [data-pn-list] een echte <ul><li><a> mag zijn
-  // zonder ongeldige HTML (H6: role="listitem" op de <a> zelf overschreef
+  // zonder ongeldige HTML (role="listitem" op de <a> zelf overschreef
   // eerder de link-rol voor schermlezers — dat is nu een echt lijst-item).
   const indicatorItem = doc.createElement('li');
   indicatorItem.className = 'pn__indicator-item';
@@ -62,7 +57,8 @@ export function init(root, options = {}) {
   list.appendChild(indicatorItem);
 
   function positionIndicator() {
-    const active = list.querySelector('a[aria-current="page"]') || links[0];
+    const active = list.querySelector('a[aria-current="page"]');
+    if (!active) { indicator.style.width = '0px'; return; } // pagina buiten het menu: niets markeren
     const listRect = list.getBoundingClientRect();
     const rect = active.getBoundingClientRect();
     indicator.style.width = `${rect.width}px`;
@@ -89,7 +85,7 @@ export function init(root, options = {}) {
   const onResizeThrottled = perFrame(() => { positionIndicator(); updateScrollFade(); }, doc);
   win.addEventListener('resize', onResizeThrottled, { passive: true });
 
-  // G16: op mobiel is [data-pn-list] intern horizontaal scrollbaar
+  // Op mobiel is [data-pn-list] intern horizontaal scrollbaar
   // (overflow-x:auto), maar zonder signaal oogde een halverwege afgekapte
   // link ("Projec…") alsof hij onder de CTA verdween. Een randfade toont nu
   // dat er meer te scrollen valt — alleen aan de kant waar dat ook zo is.

@@ -16,10 +16,9 @@
  * 1 link") en een bekende `data-tegel`-waarde. Bij een afwijking loggen we
  * een waarschuwing in plaats van iets kapot te laten renderen.
  *
- * Herkomst: layout gezien op christianbleeker.com (research/christianbleeker/
- * OVERZICHT.md, feature C10): de Werk-sectie toont 2 grote projectkaarten
- * plus een blok van 4 kleine ("Meer projecten"), met Tailwind-grid. Eigen
- * implementatie (geen code overgenomen): wij voegen `breed`/`hoog` toe als
+ * Herkomst: layout gezien op christianbleeker.com: de Werk-sectie toont 2
+ * grote projectkaarten plus een blok van 4 kleine ("Meer projecten"), met
+ * Tailwind-grid. Eigen implementatie: wij voegen `breed`/`hoog` toe als
  * generieke tegelmaten en een echte stretched-link.
  *
  * @typedef {Object} BentoGridOptions

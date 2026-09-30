@@ -13,7 +13,7 @@
 }
 
 .tegel[data-tegel="groot"] { grid-column: span 2; grid-row: span 2; }
-/* H1-fix (beta 24-09): "span 4" ging uit van precies 4 expliciete kolommen.
+/* "span 4" ging uit van precies 4 expliciete kolommen.
    Op de tablet-grid (2 kolommen) maakte dat 2 IMPLICIETE kolommen erbij —
    het hele raster (ook groot/hoog/klein) rekende toen tegen een 4-koloms-
    grid i.p.v. de bedoelde 2, en tegels werden tot 34px breed geperst.

@@ -28,7 +28,7 @@
   position: relative;
   width: 100%; /* expliciet i.p.v. auto: anders berekent de browser de breedte terug uit
                    min-height/aspect-ratio (16/7 × 20rem min-height = 731px) en breekt hij
-                   uit een smalle container (H1, mobiel 390px → scrollWidth 751px) */
+                   uit een smalle container (mobiel 390px → scrollWidth 751px) */
   aspect-ratio: var(--mh-aspect, 16 / 9);
   min-height: 20rem;
   overflow: hidden;

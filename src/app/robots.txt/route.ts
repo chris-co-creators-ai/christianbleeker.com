@@ -3,7 +3,7 @@ import { site } from '@/content/site'
 
 /**
  * Statisch gegenereerd (force-static). Een route in plaats van `robots.ts`, omdat Next's
- * MetadataRoute.Robots geen eigen regels kent en we `Content-Signal` nodig hebben (Lars 29-09).
+ * MetadataRoute.Robots geen eigen regels kent en we `Content-Signal` nodig hebben.
  *
  * Op een Vercel-preview-deploy (`VERCEL_ENV === 'preview'`, zelfde bouwtijd-check als
  * `layout.tsx`s `isPreviewDeploy`) blokkeert dit bestand ALLES — een preview-URL hoort nooit in
@@ -11,7 +11,7 @@ import { site } from '@/content/site'
  * krijgen de normale, per-crawler regels hieronder.
  *
  * ── AI-crawlers (GEO/AEO) ────────────────────────────────────────────────────────────────────
- * Twee categorieën, met een andere standaardhouding (zie `docs/SEO.md` § "Keuzes voor Lars"):
+ * Twee categorieën, met een andere standaardhouding (zie `docs/SEO.md` § "Keuzes per site"):
  *  - Zoek-/citeer-crawlers (halen een pagina op om 'm in een antwoord te citeren of te tonen in
  *    een zoekresultaat, zoals Googlebot dat al jaren doet) — ALTIJD toegestaan, schakelaar-vrij.
  *    Zonder deze crawlers vindt geen enkele AI-assistent de site nog terug.

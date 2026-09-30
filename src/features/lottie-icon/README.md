@@ -183,8 +183,8 @@ vierkante icoon.
   speelt, dan reageert de module live (`minderBeweging(onChange)`, niet
   alleen een eenmalige check bij het laden): de speler pauzeert en springt
   naar zijn laatste frame, zodat ook dan een vast eindbeeld blijft staan
-  i.p.v. dat de animatie doorloopt (R1 — dit was G3 in de beta-ronde van
-  24-09, gefixt en vastgelegd als regressietest in `test/meet.mjs`). Zet de
+  i.p.v. dat de animatie doorloopt (R1 — vastgelegd als regressietest in
+  `test/meet.mjs`). Zet de
   bezoeker de voorkeur weer terug, dan hervat de animatie.
 - **Contrast**: de meegeleverde iconen zijn `#18181b`-lijnen (donker) op de
   standaard papierkleur van de showcase; op een eigen achtergrond regel je
@@ -235,7 +235,6 @@ dienstkaarten (001–004) met lijnicoontjes die zichzelf tekenen en loopen —
 `ServiceIcon` laadt daar Lottie via `next/dynamic` met `ssr:false` (lui), een
 los JSON-bestand per dienst (`service-1.json` …). Eigen implementatie: geen
 code of JSON van Chris overgenomen — de vier animaties hier (cirkel, kubus,
-raster, vink) zijn zelf getekend/geschreven. Wat wij beter doen (zie
-`../../../research/christianbleeker/OVERZICHT.md` § "Waar het rammelt"): bij
-Chris is niet gezien dat de iconen stilstaan bij "minder beweging"; hier laadt
+raster, vink) zijn zelf getekend/geschreven. Wat wij beter doen: bij
+Chris stonden de iconen niet stil bij "minder beweging"; hier laadt
 de player dan bewust helemaal niet.

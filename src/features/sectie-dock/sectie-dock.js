@@ -11,10 +11,10 @@
  * Vanilla ES-module, 0 dependencies, SSR-veilig (raakt window/document pas
  * in `init()`).
  *
- * Herkomst: "sectie-dock" + "magnetische schijven" bij socialnextagency.nl
- * (29-09-2026): config per sectie, fade bij tekstwissel, draai gepauzeerd
- * buiten beeld, magneet 140 px / max. 22 px / pijl 6 px verder. Eigen
- * implementatie: geen code overgenomen, wel de getallen als vertrekpunt.
+ * Herkomst: eigen implementatie; "sectie-dock" + "magnetische schijven"
+ * gezien bij meerdere bureausites: config per sectie, fade bij tekstwissel,
+ * draai gepauzeerd buiten beeld, magneet 140 px / max. 22 px / pijl 6 px
+ * verder. De getallen zijn als vertrekpunt genomen.
  *
  * Markup: `<a class="sd" href="#contact" data-sectie-dock>Neem contact op</a>`.
  * De inhoud en href zijn de zonder-JS-fallback (een vaste link naar het

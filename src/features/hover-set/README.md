@@ -78,7 +78,7 @@ import { HoverSet, HoverCard } from '@/component-library/cards/hover-set/HoverSe
   direct kind van `.hover-card`.
 - `grow`: kaarten zitten in een `.hover-row` (flex-container); elke kaart
   krijgt `flex: 1 1 0%` en groeit bij hover/focus naar `flex-grow: 3`
-  (bij 3 kolommen: 33% → 50%, bij Webstijn's Monkey Fiets hetzelfde principe).
+  (bij 3 kolommen: 33% → 50%).
 
 ## Opties (`init(root, options)`)
 
@@ -142,12 +142,10 @@ Geen build-stap nodig.
 
 ## Herkomst
 
-Technieken gezien bij Webstijn-klantsites (`research/webstijn/OVERZICHT.md`):
-Monkey Fiets Service (kaart groeit 33% → 50% via `flex-grow` bij hover),
-Sloopteam (hoekhaken-hover op kaarten/knoppen), en het slide-in pijltje bij
-Zwaartafelen/Mardoors. Eigen implementatie, geen code overgenomen — de exacte
-transition-duur/easing van Monkey Fiets en de hoekmaten van Sloopteam stonden
-niet in het onderzoek; die zijn hier een eigen, redelijke keuze. Wat wij beter
-doen: de hele kaart is één toegankelijke stretched-link met werkende
-`:focus-visible`-pariteit (bij Webstijn zelf niet gemeten), en alle hover
+Eigen implementatie; technieken gezien bij meerdere bureausites: een kaart
+die groeit van 33% naar 50% via `flex-grow` bij hover, hoekhaken-hover op
+kaarten/knoppen en een slide-in pijltje. De exacte transition-duur/easing en
+de hoekmaten zijn hier een eigen, redelijke keuze. De hele kaart is één
+toegankelijke stretched-link met werkende
+`:focus-visible`-pariteit, en alle hover
 staat achter `(hover: hover)` zodat touch geen plakkende hover krijgt.

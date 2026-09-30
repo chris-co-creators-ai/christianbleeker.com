@@ -37,11 +37,13 @@ export function isSpamInzending(
   if (geopendOm === null || geopendOm === undefined || geopendOm === '') return false
   const geopend = Number(geopendOm)
   if (!Number.isFinite(geopend)) return false
-  return nu - geopend < MINIMALE_INVULTIJD_MS
+  const verstreken = nu - geopend
+  // Negatief = de klok van de bezoeker loopt voor op de server: dat is geen bot.
+  return verstreken >= 0 && verstreken < MINIMALE_INVULTIJD_MS
 }
 
 /**
- * Optie voor B2B-formulieren (Lars 29-09, gezien bij Merkmotief/Ecobliss): alleen een zakelijk
+ * Optie voor B2B-formulieren: alleen een zakelijk
  * e-mailadres toestaan. Geen spamval in strikte zin (een echte zzp'er met een Gmail-adres is geen
  * spam), dus standaard UIT; zet hem per formulier aan en toon dan een vriendelijke melding
  * ("Gebruik je zakelijke e-mailadres"), nooit een stille weigering.

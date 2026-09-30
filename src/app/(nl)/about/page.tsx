@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { og } from '@/lib/og-velden'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld } from '@/components/Beeld'
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   title: { absolute: over.titel },
   description: over.beschrijving,
   alternates: { canonical: '/about' },
-  openGraph: { title: over.titel, description: over.beschrijving, url: '/about' },
+  openGraph: og(over.titel, over.beschrijving, '/about'),
 }
 
 /** Logo per case: svg waar de bron een svg had, anders webp. */
@@ -69,8 +70,8 @@ export default function Over() {
               <h2 id="bekend-kop" className="bekend-kop"><span className="x" aria-hidden="true">×</span> {over.bekendVan.kop}</h2>
             </div>
             <Marquee variant="logos" speed={40} className="bekend-band">
-              {[...over.bekendVan.namen, ...over.bekendVan.namen].map((n, i) => (
-                <span key={i} className="bekend-item" aria-hidden={i >= over.bekendVan.namen.length ? 'true' : undefined}>
+              {over.bekendVan.namen.map((n) => (
+                <span key={n.naam} className="bekend-item">
                   <span className="bekend-logo"><Beeld naam={n.beeld} breedte={120} hoogte={120} alt="" /></span>
                   <span>{n.naam}</span>
                 </span>
@@ -119,14 +120,17 @@ export default function Over() {
               <h2 id="gesprek-kop">{over.gesprek.kop}</h2>
             </div>
             <VideoFacade className="gesprek">
-              {[{ ...tedx, poster: '/beeld/tedx-1280.webp' }, { ...denktank, poster: '/beeld/denktank.webp' }].map((v) => (
+              {[{ ...tedx, poster: '/beeld/tedx-1280.webp', bron: null }, { ...denktank, poster: '/beeld/denktank.webp', bron: over.bekendVan.namen[0] }].map((v) => (
                 <figure key={v.youtube} className="gesprek-item" data-reveal="">
                   <div className="vf" data-video-facade="" data-provider="youtube" data-id={v.youtube} data-title={v.titel}>
-                    <a className="vf__fallback" data-vf-fallback="" href={`https://www.youtube.com/watch?v=${v.youtube}`}>
+                    <a className="vf__fallback" data-vf-fallback="" aria-label={v.titel} href={`https://www.youtube.com/watch?v=${v.youtube}`}>
                       <img src={v.poster} alt="" width={1280} height={720} loading="lazy" />
                     </a>
                   </div>
-                  <figcaption>{v.titel}</figcaption>
+                  <figcaption>
+                    {v.titel}
+                    {v.bron?.href ? <a className="link" href={v.bron.href} target="_blank" rel="noopener noreferrer">{v.bron.naam} ↗</a> : null}
+                  </figcaption>
                 </figure>
               ))}
               <figure className="gesprek-item gesprek-podcast" data-reveal="">
@@ -137,9 +141,6 @@ export default function Over() {
                 <figcaption>{podcast.titel}</figcaption>
               </figure>
             </VideoFacade>
-            <p className="denk" data-reveal="">
-              <a className="link" href={over.bekendVan.namen[0].href} target="_blank" rel="noopener noreferrer">{over.bekendVan.namen[0].naam} ↗</a>
-            </p>
           </section>
         </RevealOnScroll>
       </main>

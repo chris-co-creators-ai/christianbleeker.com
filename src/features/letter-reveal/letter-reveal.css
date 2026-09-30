@@ -14,7 +14,7 @@
  *
  * Herkomst: keyframe-vorm gezien op christianbleeker.com (24-09-2026,
  * `@keyframes hero-reveal`), eigen implementatie met eigen getallen (zie
- * letter-reveal.js voor de bronvermelding).
+ * letter-reveal.js).
  */
 
 [data-letter-reveal] {
@@ -48,7 +48,7 @@
    inline-block wordt anders (leading+trailing tegelijk) weggecollapst tot 0.
    `pre` behoudt hem, met de normale glyph-breedte van het lettertype — een
    vaste `width` (bv. 0.25em) week meetbaar af van gewone tekstspatiëring
-   (beta-ronde 24-09, L5: 18px tegen 13,2px bij 72px, +37%). */
+   (18px tegen 13,2px bij 72px, +37%). */
 .lr-ch--space {
   white-space: pre;
 }

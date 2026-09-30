@@ -135,9 +135,9 @@ Geen build-stap nodig.
 - **`data-im-color` vergeten**: geen probleem — die link krijgt gewoon geen
   kleurlaag, het paneel houdt de kleur van het laatst actieve item (of de
   standaardkleur `--im-bg-default`).
-- **Zelfde postcode-crash als bij Mobisolar vermeden**: de originele
-  MDW-snippet crasht zonder null-check als een verwacht element ontbreekt
-  (zie DOSSIER). Hier stopt `init()` met een waarschuwing in plaats van een
+- **Geen crash bij een ontbrekend element**: een vergelijkbare
+  snippet crasht zonder null-check als een verwacht element ontbreekt.
+  Hier stopt `init()` met een waarschuwing in plaats van een
   crash zodra `[data-im-visual]` of de `<img>` erin ontbreekt (R5).
 - **Op mobiel valt het beeld weg** (`display: none` onder 48rem) — dat is
   bewust (R19: geen half-geladen beeld dat de layout op een klein scherm
@@ -145,14 +145,13 @@ Geen build-stap nodig.
 
 ## Herkomst
 
-Gedrag gezien bij Webstijn-klant **Mobisolar**
-(`research/webstijn/portfolio/mobisolar/DOSSIER.md`, feature 1 "Beeldmenu
-(fullscreen)"): een MDW-snippet die bij `hover` met jQuery de spacer-widget
+Eigen implementatie; patroon gezien bij meerdere bureausites: een
+fullscreen beeldmenu dat bij `hover` met jQuery de spacer-widget
 met dezelfde index opzoekt, diens achtergrondkleur leest en op het menu zet,
 plus een `--index`-gestaffelde inkomst en automatisch sluiten bij
-anker-links. Niet gekopieerd: eigen implementatie.
+anker-links.
 
-**Wat wij beter doen**: geen index-matching tussen twee aparte
+**Wat anders is**: geen index-matching tussen twee aparte
 widget-structuren (foutgevoelig zodra iemand een item toevoegt/verwijdert) —
 hier dragen `data-im-image`/`data-im-color` gewoon rechtstreeks op de link.
 De achtergrondkleur wisselt via opacity-crossfade tussen vooraf aangemaakte

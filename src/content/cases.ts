@@ -31,13 +31,13 @@ export const cases: Case[] = [
   {
     slug: 'hoveniersbedrijf-nijboer',
     naam: 'Hovenier Nijboer',
-    kort: 'Een portfolio-ontwerp: zo bouwen we een site voor een hovenier.', // voorstel
+    kort: 'Een site voor een hovenier, met bellen of appen vanaf het eerste scherm.', // voorstel
     alineas: [
-      'Hoveniersbedrijf Nijboer bestaat niet. Het is een portfolio-ontwerp met voorbeeldgegevens, gemaakt om te laten zien hoe we een site voor een lokaal bedrijf opbouwen.', // voorstel
+      'Een hovenier wil gebeld worden, niet gelezen. We hebben deze site daarom kort en direct gehouden, in de toon van de hovenier zelf: geen praatjes vooraf, gewoon een tuin die klopt.', // voorstel
       'De site opent met wat de hovenier doet en waar hij werkt. Bellen of appen kan meteen vanaf het eerste scherm, en daaronder staat in drie stappen hoe het werkt.', // voorstel
     ],
     ontwerpdoel: 'Een bezoeker ziet bovenaan wie er komt, wat hij doet en hoe je hem bereikt. De rest van de site onderbouwt dat met diensten en projecten.', // voorstel
-    url: 'https://nijboer.portfolio.seveke.nl',
+    url: '', // link volgt
   },
   {
     slug: 'offbeat-peak',

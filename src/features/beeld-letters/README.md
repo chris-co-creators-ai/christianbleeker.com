@@ -95,7 +95,7 @@ import { BeeldLetters } from '@/component-library/typography/beeld-letters/Beeld
 
 ## Contrast gemeten (demo, letterpixels via masker-screenshot)
 
-Twee screenshots per stand (letters zwart op wit als masker, en zoals de bezoeker het ziet); per letterpixel de WCAG-verhouding tegen de paginakleur. Norm in `test/meet.mjs`: ≥ 3:1 voor ≥ 90% van de letterpixels. Voor de bewaking was de eerste demo: mediaan 2,4–3,2:1, 61–99% onder 4,5:1 (beta-ronde). Nu, desktop en mobiel 390, vijf standen van het drijvende beeld: 92,5–100% ≥ 3:1 met mediaan 4,6–6,2:1 (tint 0,33; de test eist ook mediaan ≤ 7:1, zodat het beeld niet onnodig dichtgesmeerd wordt); video op drie tijdstippen: 98% ≥ 3:1, mediaan 4,9–5,1:1 (tint 0,17–0,20). Met `minContrast: 6` (tint 0,6): 92–99,6% haalt 6:1. Voor video kies je een beeld in middentonen: een bijna zwarte video geeft een egaal donkere kop, een bijna witte vraagt een zware tint.
+Twee screenshots per stand (letters zwart op wit als masker, en zoals de bezoeker het ziet); per letterpixel de WCAG-verhouding tegen de paginakleur. Norm in `test/meet.mjs`: ≥ 3:1 voor ≥ 90% van de letterpixels. Voor de bewaking was de eerste demo: mediaan 2,4–3,2:1, 61–99% onder 4,5:1. Nu, desktop en mobiel 390, vijf standen van het drijvende beeld: 92,5–100% ≥ 3:1 met mediaan 4,6–6,2:1 (tint 0,33; de test eist ook mediaan ≤ 7:1, zodat het beeld niet onnodig dichtgesmeerd wordt); video op drie tijdstippen: 98% ≥ 3:1, mediaan 4,9–5,1:1 (tint 0,17–0,20). Met `minContrast: 6` (tint 0,6): 92–99,6% haalt 6:1. Voor video kies je een beeld in middentonen: een bijna zwarte video geeft een egaal donkere kop, een bijna witte vraagt een zware tint.
 
 ## Valkuilen
 
@@ -109,4 +109,4 @@ Twee screenshots per stand (letters zwart op wit als masker, en zoals de bezoeke
 
 ## Herkomst
 
-Merkmotief.nl (onderzoek `research/merkmotief/OVERZICHT.md`, "De sterkste features" punt 1): de kop "Creatie"/"Merkmotief" wordt getypt met typed.js, de letters zijn gevuld met een foto (`background-clip: text` op `.typed-words`) en de cursor is een knipperende "/". Eigen implementatie zonder typed.js. Wij doen het beter: schermlezertekst één keer, terugvalkleur en contrast gemeten, minder beweging live, pauze uit beeld en op een verborgen tabblad, CLS 0, en een video-variant die het origineel niet heeft.
+Eigen implementatie; patroon gezien bij meerdere bureausites: een kop die wordt getypt, met letters die gevuld zijn met een foto (`background-clip: text`) en een knipperende "/" als cursor. Zonder typed.js. Schermlezertekst één keer, terugvalkleur en contrast gemeten, minder beweging live, pauze uit beeld en op een verborgen tabblad, CLS 0, en een video-variant.

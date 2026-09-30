@@ -64,14 +64,14 @@
 }
 .hero .mh__inhoud {
   position: relative; inset: auto; max-width: 1320px; width: 100%; margin: 0 auto;
-  padding: 140px var(--marge) clamp(32px, 6vh, 64px); background: none; border-radius: 0; color: var(--color-tekst);
+  padding: 140px var(--marge) max(76px, 7vh); background: none; border-radius: 0; color: var(--color-tekst);
 }
 .hero .mh__pauze {
   top: auto; bottom: 16px; right: var(--marge); background: rgba(23, 17, 15, 0.72); border-color: var(--color-lijn-sterk);
   color: var(--color-tekst); font-family: var(--font-tekst);
 }
 .hero-kop {
-  margin: 0 !important; font-weight: 700; font-size: clamp(44px, 8.2vw, 132px); line-height: 0.92; letter-spacing: -0.048em; max-width: 13ch;
+  margin: 0 !important; font-weight: 700; font-size: clamp(44px, 8.2vw, 116px); line-height: 0.92; letter-spacing: -0.048em; max-width: 13ch;
 }
 .hero-regel2 { display: block; }
 .hero-wissel {
@@ -125,6 +125,8 @@
 .doen { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 5vw, 80px); }
 .doen-item { display: grid; grid-template-columns: 88px 1fr; column-gap: 24px; padding-block: 32px 40px; border-top: 1px solid var(--color-lijn); }
 .doen-icoon { grid-row: span 4; }
+/* Het tweede icoon is in de bron klein getekend; de vorige site vergrootte het ook. */
+.doen-item:nth-child(2) .doen-icoon .li-stage, .doen-item:nth-child(2) .doen-icoon [data-lottie-fallback] { transform: scale(1.5); }
 .doen-nr { font: 600 13px/1 var(--font-tekst); letter-spacing: 0.08em; color: var(--color-hoofd); }
 .doen-item h3 { margin-top: 10px; font-size: clamp(26px, 2.6vw, 40px); font-weight: 600; }
 .doen-sub { margin-top: 10px; color: var(--color-accent); font-weight: 600; }
@@ -166,8 +168,10 @@
 .voet { margin-top: clamp(96px, 12vw, 180px); padding-block: clamp(72px, 9vw, 128px) 32px; border-top: 1px solid var(--color-lijn); background: var(--color-grond); }
 .voet--kort { margin-top: clamp(64px, 8vw, 112px); padding-block: 0 32px; border-top: 0; }
 .voet--kort .voet-onder { margin-top: 0; }
-.voet-kop { --lr-secondary: #f0533a; font-size: clamp(44px, 8.4vw, 136px); font-weight: 700; line-height: 0.95; letter-spacing: -0.048em; max-width: 14ch; }
+.voet-kop { --lr-secondary: #f0533a; font-size: clamp(44px, 7.6vw, 112px); font-weight: 700; line-height: 0.95; letter-spacing: -0.048em; max-width: 14ch; }
 .voet-kop [data-lr-line] { display: block; }
+/* Een spatie als inline-block met white-space: pre blijft staan aan het begin van een afgebroken regel (" praten." sprong in). */
+.voet-kop[data-letter-reveal] .lr-ch--space { display: inline; white-space: normal; }
 .voet-acties { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
 .voet-onder { display: grid; grid-template-columns: 1fr auto auto; gap: 20px 40px; align-items: center; margin-top: clamp(64px, 8vw, 112px); padding-top: 24px; border-top: 1px solid var(--color-lijn); font-size: 14px; color: var(--color-tekst-2); }
 .voet-merk { font-family: var(--font-kop); font-weight: 600; color: var(--color-tekst); letter-spacing: -0.02em; }
@@ -179,7 +183,10 @@
 @media (max-width: 899px) { .voet-onder { grid-template-columns: 1fr; } }
 
 /* ── Sectie-dock ────────────────────────────────────────────────────── */
-.sd { --sd-ink: #f0533a; --sd-cream: #17110f; --sd-font: var(--font-tekst); }
+.sd { --sd-ink: #f0533a; --sd-cream: #17110f; --sd-accent: #f0533a; --sd-font: var(--font-tekst); }
+/* De schijf (telefoon en tablet): donkere ringtekst op rood; de pil op desktop houdt zijn eigen kleuren. */
+.sd[data-sd-klaar] { color: #17110f; border-color: #17110f; }
+.sd[data-sd-klaar] .sd__bol { background: #17110f; color: #f5ece3; }
 
 /* ── Over-pagina ────────────────────────────────────────────────────── */
 .over-kop { padding-top: clamp(120px, 16vw, 200px); }
@@ -236,12 +243,12 @@
 .werk-bento .tegel__tekst { position: absolute; inset: auto 0 0 0; z-index: 1; padding: 48px 20px 18px; background: linear-gradient(0deg, rgba(23, 17, 15, 0.92) 30%, rgba(23, 17, 15, 0)); }
 .werk-bento .tegel__titel { font: 600 clamp(20px, 1.8vw, 28px)/1.1 var(--font-kop); letter-spacing: -0.03em; }
 .werk-bento .tegel__tekst p { margin-top: 6px; font-size: 15px; color: var(--color-tekst-2); max-width: 40ch; }
-@media (max-width: 30rem) { .werk-bento.bento { grid-auto-rows: auto; } .werk-bento .tegel__media { aspect-ratio: 4 / 5; } }
+@media (max-width: 30rem) { .werk-bento.bento { grid-auto-rows: auto; } .werk-bento .tegel[data-tegel] .tegel__media { aspect-ratio: 4 / 5; } }
 .vf-cursor, [class*="cursor"] { --vf-cursor-color: #f0533a; --vf-cursor-label-bg: #f0533a; --vf-cursor-label-fg: #17110f; }
 
 /* ── Casepagina ─────────────────────────────────────────────────────── */
 .case-kop { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: end; padding-top: clamp(120px, 14vw, 180px); }
-/* De naam past op één regel: in een smalle kolom brak "FuseLabs" in tweeën (Els-lat 30-09). */
+/* De naam past op één regel: in een smalle kolom brak "FuseLabs" in tweeën. */
 .case-kop { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
 .case-terug { grid-column: 1 / -1; color: var(--color-tekst-2); text-decoration: none; font-weight: 600; font-size: 15px; }
 .case-terug:hover { color: var(--color-tekst); }
@@ -350,7 +357,7 @@ h1, h2, h3 { overflow-wrap: break-word; }
 /* Werk: Eigen product begint in het eerste scherm, direct onder de kop. */
 .werk-intro + * > .eigen:first-child { padding-top: clamp(40px, 5vw, 72px); }
 
-/* Werktegels: duidelijke hover (Els-lat 30-09): rand in mint, beeld zoomt, pijl-signaal via de cursor. */
+/* Werktegels: duidelijke hover: rand in mint, beeld zoomt, pijl-signaal via de cursor. */
 @media (hover: hover) and (pointer: fine) {
   .werk-bento .tegel { transition: border-color 200ms ease, transform 240ms var(--ease-uit); }
   .werk-bento .tegel:hover { border-color: var(--color-accent); transform: translateY(-3px); }
@@ -363,13 +370,21 @@ h1, h2, h3 { overflow-wrap: break-word; }
 .stapel[data-stapelpanelen][data-sp-modus='pin'] [data-sp-stage] { top: 88px; }
 .stapel [data-sp-item] { scroll-margin-top: 84px; }
 .stapel-tekst { padding-right: clamp(16px, 3vw, 40px); }
+/* Gepind: het open paneel is zo hoog als het venster toelaat. Beeld en tekst passen zich daaraan aan
+   (was: beeld 68vh, dus afgesneden, en op een laag venster viel de knop onder de rand). */
+.stapel[data-stapelpanelen][data-sp-modus='pin'] [data-sp-inhoud] { height: 100%; }
+.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-inhoud { height: 100%; box-sizing: border-box; padding: 12px var(--sp-pad) 20px; grid-template-columns: auto minmax(0, 1fr); }
+.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-beeld { height: 100%; max-height: none; width: auto; aspect-ratio: 4 / 5; }
+.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-beeld img { object-position: 50% 0; }
+.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-kort { font-size: clamp(22px, min(2.6vw, 4.4vh), 40px); max-width: 20ch; }
+.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-tekst { padding-right: 0; }
 /* Pauzeer achtergrond: ook de langzame zoom staat stil. */
 .hero.mh[data-modus='diashow'][data-mh-status='gepauzeerd'] .mh__dia.is-actief { animation-play-state: paused; }
 /* Zonder JS staat de pil in het midden (de JS zet anders zelf de positie). */
 .kop-desktop .pn:not([data-pn-position]) { top: 1.25rem; transform: translateX(-50%); }
 .meer-rij .hover-card__body h3 { font-size: clamp(14px, 4.2vw, 18px); }
 
-/* Beta ronde 2 */
+/* Actieve pilknop en wisselwoord */
 .kop-desktop .pn:not([data-pn-position]) .pn__list a[aria-current='page'] { background: var(--color-tekst); color: var(--color-grond); }
 .hero-wissel-woord, .hero-wissel-woord .rh__word { color: var(--color-accent); }
 /* "Klik om te vergroten" belooft op een telefoon te veel: daar vergroot de lightbox niet. */
@@ -378,3 +393,29 @@ h1, h2, h3 { overflow-wrap: break-word; }
 /* De knop naar de echte site is zo breed als zijn tekst, niet als de kolom. */
 .case-halte > .knop { justify-self: start; align-self: flex-start; width: fit-content; margin-top: 16px; }
 .meer-rij .hover-card__media img { object-position: 50% 0; }
+
+/* ── Audit 30-09: brede schermen en leesbaarheid ─────────────────────── */
+/* Tekst over de foto: links een donker verloop, zodat de kop los komt van de letters op het podium. */
+.hero .mh__overlay::after, .ai-foto::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(23, 17, 15, 0.82) 0%, rgba(23, 17, 15, 0.5) 42%, rgba(23, 17, 15, 0) 74%); }
+.ai-foto::before { z-index: 1; }
+.ai-foto::after { z-index: 1; }
+/* Heel breed en laag venster: de uitsnede schuift omhoog, anders valt het hoofd buiten beeld. */
+@media (min-aspect-ratio: 2 / 1) { .hero .mh__dia { object-position: 64% 14%; } .ai-foto img { object-position: 70% 14%; } }
+/* Werktegels: titel leesbaar, ook over tekst in het schermbeeld. */
+.werk-bento .tegel[data-tegel] .tegel__tekst { padding-top: 88px; background: linear-gradient(0deg, rgba(23, 17, 15, 0.97) 0%, rgba(23, 17, 15, 0.92) 52%, rgba(23, 17, 15, 0) 100%); }
+/* Logowand: witte en lichte vlakken achter een logo vallen weg op de crème wand. */
+[data-krachtveld] .kv__logos img { mix-blend-mode: multiply; }
+/* In gesprek: drie gelijke tegels; de podcasthoes vult zijn tegel. */
+.gesprek { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gesprek-item figcaption .link { display: block; margin-top: 8px; font: 400 15px/1.4 var(--font-tekst); letter-spacing: 0; }
+.podcast-link { background: var(--color-grond-2); }
+.podcast-link img { object-fit: cover !important; object-position: 50% 6%; }
+@media (max-width: 899px) { .gesprek { grid-template-columns: 1fr; } }
+/* Lijn onder de tellers zo breed als de inhoud, niet als de kolom met zijn marges. */
+.tel { position: relative; border-bottom: 0; }
+.tel::after { content: ""; position: absolute; left: var(--marge); right: var(--marge); bottom: 0; height: 1px; background: var(--color-lijn); }
+/* Lange casenaam: kleiner, zodat hij in hooguit twee regels past. */
+.case-h1--lang { font-size: clamp(26px, 4.2vw, 64px); text-wrap: balance; }
+/* Hero: de pauzeknop rechtsonder heeft zijn eigen strook; hij lag op een liggende telefoon over de knop. */
+/* Meer projecten: op de smalste telefoons één kolom, twee kolommen van 91 px sneden de tekst af. */
+@media (max-width: 399px) { .meer-rij { grid-template-columns: 1fr; } }

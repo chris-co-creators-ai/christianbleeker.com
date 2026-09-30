@@ -23,9 +23,8 @@
  *  - Schermlezer: de volledige kop staat één keer in `.bl__sr`; alles wat
  *    visueel is (getypte laag, cursor, maten) zit in een `aria-hidden` laag.
  *
- * Herkomst: "Creatie"/"Merkmotief"-kop op merkmotief.nl (typed.js +
- * `.typed-words` met `background-clip: text`, cursor "/"). Eigen
- * implementatie, geen typed.js en geen code overgenomen.
+ * Herkomst: eigen implementatie van een getypte kop met beeld in de letters
+ * (`background-clip: text`, cursor "/"), zonder typed.js.
  *
  * @typedef {Object} BeeldLettersOptions
  * @property {string[]} [woorden] Woorden om te typen (overschrijft `data-bl-woorden`, gescheiden door `|`). Het eerste woord is de tekst in de markup.

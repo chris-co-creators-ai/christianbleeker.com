@@ -45,7 +45,7 @@ function veldLabel(sleutel: string): string {
 
 function mailSjabloon(domein: string, titel: string, alineas: string[]): string {
   const domeinTekst = domein.replace(/^https?:\/\//, '')
-  const body = alineas.map((a) => `<p style="margin:0 0 14px;line-height:1.5;">${a}</p>`).join('\n      ')
+  const body = alineas.map((a) => `<p style="margin:0 0 14px;line-height:1.5;white-space:pre-wrap;">${a}</p>`).join('\n      ')
   return `<!doctype html>
 <html lang="nl">
   <body style="margin:0;padding:32px 16px;background:#f4f4f1;color:#101010;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">

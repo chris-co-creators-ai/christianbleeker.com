@@ -97,7 +97,7 @@ Caveat, **lokaal meegeleverd** in `./fonts/` (`caveat-latin-500-normal.woff2`,
 Font License 1.1, vrij te hergebruiken/herverdelen). `handwritten-accent.css`
 bevat de `@font-face`-regels al (`font-display: swap`), dus er is geen
 externe `<link>` nodig — en dus ook geen request naar
-fonts.googleapis.com/fonts.gstatic.com bij elk paginabezoek (L4, AVG: een
+fonts.googleapis.com/fonts.gstatic.com bij elk paginabezoek (AVG: een
 lettertype van Google Fonts via hun CDN stuurt het IP-adres van de bezoeker
 naar Google, zonder toestemmingsvraag — lokaal hosten voorkomt dat).
 
@@ -161,8 +161,7 @@ add_action( 'wp_enqueue_scripts', function () {
 
 ## Herkomst
 
-Handgeschreven accenten gezien bij ±9 van de 40 onderzochte Webstijn-
-klantsites (Caveat/Shadows Into Light/Pacifico, gekanteld, statisch). Eigen
-implementatie, geen code overgenomen. Wat wij beter doen: bij Webstijn stond
-het label altijd meteen stil; hier "schrijft" het zich bij in beeld komen,
+Eigen implementatie; patroon gezien bij meerdere bureausites
+(Caveat/Shadows Into Light/Pacifico, gekanteld, statisch). Het label staat
+daar altijd meteen stil; hier "schrijft" het zich bij in beeld komen,
 met een schermlezer- en reduced-motion-vaste fallback.

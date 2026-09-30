@@ -61,11 +61,11 @@
   transform: translate(-50%, -50%) scale(1.06);
 }
 
-/* G4-fix (beta 24-09): een enkele lichte ring (#f6f4ee) mat 1,0–1,22:1 tegen
+/* Een enkele lichte ring (#f6f4ee) mat 1,0–1,22:1 tegen
    een lichte poster (#f6f4ee → #e3ded0) — vrijwel onzichtbaar op precies de
    posters uit deze bibliotheek. Een dubbele ring (donker binnen, licht
    buiten) heeft altijd één rand die met elke redelijke posterkleur
-   contrasteert (zelfde patroon als de H2-fix in chatgpt-intake-knop.css). */
+   contrasteert (zelfde patroon als in chatgpt-intake-knop.css). */
 .vf__play:focus-visible {
   outline: none;
   box-shadow:
@@ -90,7 +90,7 @@
   border: 0;
 }
 
-/* N3-fix (beta-herronde 25-09): melding i.p.v. een iframe die YouTube/Vimeo's
+/* Melding i.p.v. een iframe die YouTube/Vimeo's
    eigen foutscherm toont, voor facades met `data-placeholder` (nep-ID). Vult
    dezelfde box als de iframe/poster zou doen — geen layout-shift. */
 .vf__placeholder {

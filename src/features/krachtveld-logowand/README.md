@@ -135,6 +135,6 @@ Genereer de markup met `genereer-paden.mjs`, plak hem in een Aangepaste HTML-blo
 
 ## Herkomst
 
-Social Next Agency (services-pagina, "Krachtveld", onderzoek 2026-09, rij S3): een lime schijf met draaiende tekst en magnetische veldlijnen met klantlogo's, die erin glijden en onder de muis buigen. De wiskunde (dipoolformule, Catmull-Rom) is algemeen bekend; **de code is volledig eigen werk**, niets is overgenomen uit hun bundel.
+Eigen implementatie; patroon gezien bij meerdere bureausites: een lime schijf met draaiende tekst en magnetische veldlijnen met klantlogo's, die erin glijden en onder de muis buigen. De wiskunde (dipoolformule, Catmull-Rom) is algemeen bekend; **de code is volledig eigen werk**.
 
 Wat wij anders doen: de paden staan vooraf berekend in de markup (ook zonder JS en met server-render), het is een echte link met zichtbare focus, minder beweging en touch krijgen een volwaardige statische wand, `destroy()` zet alles terug, en er is een gemeten mobiele variant met een gedraaid veld waarop de logo's aantoonbaar niet overlappen. De demo gebruikt neutrale, verzonnen woordmerken.

@@ -7,12 +7,13 @@ import { voet, home } from '@/content/teksten'
  */
 export function Dock({ verberg }: { verberg?: string }) {
   const bericht = voet.bericht.replace(' ↗', '')
+  const standaard = { tekst: bericht, href: '/contact' }
   return (
     <SectieDock
       href="/contact"
       pil
-      secties={verberg ? {} : { werk: { tekst: home.werk.alle, href: '/work' } }}
-      standaard={{ tekst: bericht, href: '/contact' }}
+      secties={verberg ? {} : { werk: { tekst: home.werk.alle, href: '/work' }, doen: standaard, over: standaard, producten: standaard }}
+      standaard={standaard}
       toonNa={verberg ? 0 : '.hero'}
       {...(verberg ? { verberg: `[data-dock-verberg], ${verberg}` } : {})}
     >

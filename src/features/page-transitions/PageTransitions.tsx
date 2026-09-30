@@ -20,7 +20,7 @@ export interface PageTransitionsProps {
  * navigatie binnen de Next App Router, die is al client-side en heeft
  * zijn eigen (nog experimentele) View Transitions-integratie.
  *
- * L10: zet de `unhandledrejection`-regel uit de README ("Installatie") zo
+ * Zet de `unhandledrejection`-regel uit de README ("Installatie") zo
  * vroeg mogelijk in `<head>` (bv. via `next/script` met
  * `strategy="beforeInteractive"`, of rechtstreeks in `_document`) — anders
  * kan een native browser-transitie die zichzelf afbreekt onterecht als
@@ -36,5 +36,6 @@ export function PageTransitions({ duur, forceerFallback, children }: PageTransit
     return destroy;
   }, [duur, forceerFallback]);
 
-  return <div ref={rootRef}>{children}</div>;
+  // display: contents: de wrapper mag de kolom van <body> (main groeit, voet onderaan) niet breken.
+  return <div ref={rootRef} style={{ display: 'contents' }}>{children}</div>;
 }

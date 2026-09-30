@@ -2,7 +2,7 @@
      {{bedrijf}} en {{site}} hieronder zijn dan nog niet ingevuld — vervang die twee plekken
      handmatig door de eigen bedrijfsnaam en website vóór je de tekst in ChatGPT of Claude
      plakt. Via de knop op de site gebeurt dat automatisch, én wordt dit commentaarblok
-     eruit gefilterd (N1-fix, beta-herronde 25-09) vóórdat het de prompt in gaat. -->
+     eruit gefilterd vóórdat het de prompt in gaat. -->
 
 ROL EN DOEL
 

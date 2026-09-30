@@ -7,7 +7,7 @@
  *
  * Font: Caveat, lokaal meegeleverd in `./fonts/` (SIL Open Font License,
  * zie `./fonts/OFL.txt`) — niet meer van fonts.googleapis.com/fonts.gstatic.com
- * (L4: een externe fontaanroep bij elk paginabezoek is een IP-adres dat naar
+ * (een externe fontaanroep bij elk paginabezoek is een IP-adres dat naar
  * Google gaat zonder toestemmingsvraag, AVG-gevoelig). `font-display: swap`
  * plus een systeemfont-fallback (cursive-stack) houdt de tekst leesbaar,
  * ook vóór het lettertype geladen is of als het niet laadt.

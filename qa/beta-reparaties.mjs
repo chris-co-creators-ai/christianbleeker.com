@@ -12,21 +12,21 @@ const fouten = []
 let geslaagd = 0
 const ok = (v, f) => (v ? geslaagd++ : fouten.push(f))
 
-// G1: een onbekend adres geeft de eigen, Nederlandse 404 met een weg terug.
+// Een onbekend adres geeft de eigen, Nederlandse 404 met een weg terug.
 for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
   const r = await fetch(B + pad)
   const html = await r.text()
   ok(r.status === 404 && /<html lang="nl"/.test(html) && /Deze pagina bestaat niet/.test(html) && /href="\/"/.test(html), `${pad}: geen eigen Nederlandse 404 met een link naar home`)
 }
 
-// G4: de view-transition-opt-in staat in de CSS die de server meestuurt.
+// De view-transition-opt-in staat in de CSS die de server meestuurt.
 {
   const html = await (await fetch(B + '/')).text()
   const css = await Promise.all([...html.matchAll(/href="(\/_next\/static\/[^"]+\.css)"/g)].map(async (m) => (await fetch(B + m[1])).text()))
   ok(css.some((c) => /@view-transition\s*\{\s*navigation:\s*auto/.test(c)), 'geen @view-transition in de CSS van de server')
 }
 
-// G3: "Pauzeer achtergrond" zet de zoom én het wisselwoord stil.
+// "Pauzeer achtergrond" zet de zoom én het wisselwoord stil.
 {
   const { page, sluit } = await pagina()
   await page.goto(B + '/', { waitUntil: 'networkidle' })
@@ -41,7 +41,7 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
   await sluit()
 }
 
-// G2: de koppen van de stapelpanelen vallen niet onder de vaste kop.
+// De koppen van de stapelpanelen vallen niet onder de vaste kop.
 {
   const { page, sluit } = await pagina()
   await page.goto(B + '/', { waitUntil: 'networkidle' })
@@ -57,7 +57,7 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
   await sluit()
 }
 
-// G6: op /work wijst de dock niet naar /work zelf.
+// Op /work wijst de dock niet naar /work zelf.
 {
   const { page, sluit } = await pagina()
   await page.goto(B + '/work', { waitUntil: 'networkidle' })
@@ -99,7 +99,7 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
   ok(!(await page.locator('.ervaringen-hint').isVisible()), 'op 390 staat "Klik om te vergroten" nog in beeld')
   await sluit()
 }
-// Lars 30-09: geen kruisje in de Home-kop; de uitnodiging "Een goed idee?" alleen op Home en /contact;
+// Geen kruisje in de Home-kop; de uitnodiging "Een goed idee?" alleen op Home en /contact;
 // de checklist-knop draagt de hele prompt in de link; Co-Creators.ai linkt naar de wachtlijst.
 {
   const html = async (pad) => (await fetch(B + pad)).text()
@@ -118,13 +118,56 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
     `checklist-knop: de link draagt niet de hele prompt (${knoppen.map((k) => `${k.modus} ${k.href.length}`).join(', ')})`)
   await sluit()
 }
-// Beta ronde 3: op een telefoon is de checklist op elke pagina te vinden (korte voet).
+// Op een telefoon is de checklist op elke pagina te vinden (korte voet).
 {
   const { page, sluit } = await pagina({ breedte: 390, hoogte: 844 })
   for (const pad of ['/about', '/work', '/work/fuselabs', '/privacy']) {
     await page.goto(B + pad, { waitUntil: 'networkidle' })
     ok(await page.locator('footer [data-cik-trigger]').isVisible(), `${pad} @390: geen checklist-link in de voet`)
   }
+  await sluit()
+}
+// Audit 30-09 avond: brede schermen, lage vensters, telefoon liggend, zonder JS.
+{
+  const { page, sluit } = await pagina({ breedte: 1920, hoogte: 900 })
+  await page.goto(B + '/', { waitUntil: 'networkidle' })
+  const kop = await page.$eval('.hero-kop', (k) => k.getBoundingClientRect().height / parseFloat(getComputedStyle(k).fontSize))
+  ok(kop < 2.2, `1920: de Home-kop staat op meer dan twee regels (${kop.toFixed(2)} em hoog)`)
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight)); await page.waitForTimeout(2200)
+  const x = await page.$$eval('.voet-kop [data-lr-line]', (ls) => ls.map((l) => { const r = document.createRange(); r.selectNodeContents(l); return [...r.getClientRects()].filter((q) => q.width > 1).map((q) => Math.round(q.left)) }))
+  const starts = x.flatMap((l) => l.slice(0, 1))
+  ok(new Set(starts).size === 1, `voetkop: regels beginnen op verschillende x (${starts.join(', ')})`)
+  await sluit()
+}
+{
+  const { page, sluit } = await pagina({ breedte: 1440, hoogte: 800 })
+  await page.goto(B + '/', { waitUntil: 'networkidle' })
+  await page.click('.stapel [data-sp-item]:nth-child(2) [data-sp-knop]'); await page.waitForTimeout(1500)
+  const r = await page.$eval('.stapel [data-sp-item][data-sp-actief]', (it) => ({ k: it.querySelector('.stapel-tekst .knop').getBoundingClientRect().bottom, p: it.querySelector('[data-sp-paneel]').getBoundingClientRect().bottom }))
+  ok(r.k <= r.p, `1440x800: "Bekijk de case" valt onder het paneel (${Math.round(r.k)} > ${Math.round(r.p)})`)
+  await page.click('.stapel [data-sp-item]:nth-child(5) [data-sp-knop]'); await page.waitForTimeout(1800)
+  const top = await page.$eval('.stapel [data-sp-item]:nth-child(1) [data-sp-knop]', (e) => e.getBoundingClientRect().top)
+  ok(top >= 80, `klik op kop 05: kop 01 schuift onder de pil (top ${Math.round(top)})`)
+  for (const pad of ['/privacy', '/bestaat-niet']) {
+    await page.goto(B + pad, { waitUntil: 'networkidle' })
+    ok((await page.$$('.pn__list a[aria-current]')).length === 0, `${pad}: een menu-item staat als huidige pagina`)
+  }
+  await sluit()
+}
+{
+  const { page, sluit } = await pagina({ breedte: 844, hoogte: 390 })
+  await page.goto(B + '/', { waitUntil: 'networkidle' })
+  const o = await page.evaluate(() => { const a = document.querySelector('.mh__pauze').getBoundingClientRect(), b = document.querySelector('.hero-rij .knop').getBoundingClientRect(); return Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top)) })
+  ok(o === 0, `844x390: de pauzeknop ligt over "Bekijk alle projecten" (${Math.round(o)} px²)`)
+  await sluit()
+}
+{
+  const { page, sluit } = await pagina({ javaScriptEnabled: false })
+  await page.goto(B + '/', { waitUntil: 'load' })
+  ok((await page.$eval('.mh__dia', (i) => getComputedStyle(i).opacity)) === '1', 'zonder JS: de herofoto is onzichtbaar')
+  await page.goto(B + '/about', { waitUntil: 'load' })
+  ok((await page.$$eval('.bekend-item', (e) => e.filter((x) => x.getBoundingClientRect().width > 0).length)) === 3, 'zonder JS: "Bekend van" staat dubbel')
+  ok((await page.$$eval('a.vf__fallback', (a) => a.every((x) => (x.getAttribute('aria-label') || '').length > 3))), 'zonder JS: een videolink heeft geen naam')
   await sluit()
 }
 uitslag('beta-reparaties', fouten, geslaagd)

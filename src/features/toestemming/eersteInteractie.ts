@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 /**
  * `true` zodra de bezoeker iets doet (scrollen, aanraken, muis, toets) of na `terugvalMs`.
  *
- * Waarom (Lars 29-09, gezien bij Merkmotief/Dance Studio 5678): meetscripts (GA4/GTM/Clarity)
+ * Waarom: meetscripts (GA4/GTM/Clarity)
  * laden dan pas ná de eerste interactie, zodat ze het eerste beeld (LCP) en de eerste
  * interactie (INP) niet vertragen. De terugval zorgt dat een bezoeker die niets doet en weggaat
  * (een "bounce") toch nog meetelt; zonder die terugval mis je juist die bezoekers.
