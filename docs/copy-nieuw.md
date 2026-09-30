@@ -151,7 +151,7 @@ Feiten uit de sites zelf (stratenova-demo, www.seveke.nl) en het dossier van Str
 
 | Tekst | Waar | Bron |
 |---|---|---|
-| Een drietalige site voor een onafhankelijk adviseur in sourcing en contractmanagement. | Stratenova Advisory | voorstel |
+| Een drietalige site voor een onafhankelijk adviseur in sourcing en contracten. | Stratenova Advisory | voorstel |
 | Stratenova Advisory is het adviesbureau van Devi Kencki. Hij helpt bestuurders en teams met sourcingstrategie, commerciële dealarchitectuur, contractmanagement en de transformatie van Finance, IT en Procurement. We hebben zijn site gebouwd in het Nederlands, Engels en Duits. | Stratenova Advisory | voorstel |
 | De toon is die van de boardroom: rustig, met een klassieke letter voor de koppen en uitspraken die groot in beeld komen. De inhoud staat per taal apart, zodat de teksten later makkelijk bij te werken zijn. | Stratenova Advisory | voorstel |
 | Van boardroomstrategie naar werkende deals, contracten en transformaties: de site volgt die lijn, van de expertise naar de stap naar een gesprek. | Stratenova Advisory | voorstel |

@@ -42,7 +42,7 @@ export const cases: Case[] = [
   {
     slug: 'stratenova-advisory',
     naam: 'Stratenova Advisory',
-    kort: 'Een drietalige site voor een onafhankelijk adviseur in sourcing en contractmanagement.', // voorstel
+    kort: 'Een drietalige site voor een onafhankelijk adviseur in sourcing en contracten.', // voorstel
     alineas: [
       'Stratenova Advisory is het adviesbureau van Devi Kencki. Hij helpt bestuurders en teams met sourcingstrategie, commerciële dealarchitectuur, contractmanagement en de transformatie van Finance, IT en Procurement. We hebben zijn site gebouwd in het Nederlands, Engels en Duits.', // voorstel
       'De toon is die van de boardroom: rustig, met een klassieke letter voor de koppen en uitspraken die groot in beeld komen. De inhoud staat per taal apart, zodat de teksten later makkelijk bij te werken zijn.', // voorstel

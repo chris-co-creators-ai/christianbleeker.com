@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: { title: site.naam, description: site.beschrijving, url: site.domein, locale: 'nl_NL', type: 'website', siteName: site.naam },
   twitter: { card: 'summary_large_image' },
   robots: isPreviewDeploy ? { index: false, follow: false } : { index: true, follow: true },
-  icons: { icon: [{ url: '/favicon.ico', sizes: 'any' }, { url: '/icon.svg', type: 'image/svg+xml' }], apple: '/icoon/180' },
+  icons: { icon: [{ url: '/favicon.ico', sizes: 'any' }, { url: '/icoon-192.png', type: 'image/png', sizes: '192x192' }], apple: '/icoon-180.png' },
 }
 
 /** Vangt de onschuldige AbortError van een afgebroken native paginaovergang (page-transitions). */

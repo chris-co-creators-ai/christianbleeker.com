@@ -17,6 +17,7 @@ Productie: https://www.christianbleeker.com (tak `main`). Vernieuwing: tak `vern
 - `npm run keuring` — SEO-, toegankelijkheids- en veiligheidskeuring tegen de gebouwde site
 - `npm run vercel-build` — wat Vercel draait: bouw + keuring. Rode keuring = geen uitrol
 - `node scripts/beeld.mjs --bron <map>` — beeld omzetten naar AVIF/WebP binnen de gewichtsplafonds
+- `node scripts/icoon.mjs --bron <map>` — tabblad- en app-iconen uit het logo van Co-creatie.ai
 
 ## Waar staat wat
 - **Alle tekst** staat in `src/content/`: `teksten.ts` (pagina's), `cases.ts` (de dertien websites),
