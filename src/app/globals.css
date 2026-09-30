@@ -101,6 +101,12 @@ p { text-wrap: pretty; }
 .beeld { border-radius: 16px; overflow: hidden; background: var(--color-grond-2); }
 .beeld img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
+/* Paginaovergangen (page-transitions): de opt-in staat al in de HTML van elke pagina, anders breekt
+   Chromium de overgang af ("ViewTransition opt-in disabled", beta 30-09). */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

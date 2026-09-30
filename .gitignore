@@ -18,3 +18,4 @@ redirects-voorstel.tsv
 
 # uitvoer van de controlereeks (contactbladen, metingen) blijft lokaal
 qa/uitvoer/
+qa/_kijk.mjs

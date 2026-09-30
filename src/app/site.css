@@ -261,7 +261,7 @@
 .ai-foto img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 40%; opacity: 0.55; }
 .ai-foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23, 17, 15, 0.4), rgba(23, 17, 15, 0.2) 40%, #17110f 96%); }
 .ai-kop-tekst { position: relative; padding-block: 140px clamp(40px, 7vh, 72px); }
-.ai-h1 { margin-top: 14px; font-size: clamp(42px, 7.4vw, 120px); font-weight: 700; letter-spacing: -0.05em; max-width: 14ch; }
+.ai-h1 { margin-top: 14px; font-size: clamp(30px, 7.4vw, 120px); font-weight: 700; letter-spacing: -0.05em; max-width: 14ch; }
 .ai-intro { margin-top: 24px; max-width: 46ch; font-size: clamp(19px, 1.6vw, 24px); }
 .ai-tweede { margin-top: 12px; max-width: 52ch; color: var(--color-tekst-2); }
 .ai-lijst { list-style: none; padding: 0; display: grid; }
@@ -350,3 +350,15 @@ h1, h2, h3 { overflow-wrap: break-word; }
   .werk-bento .tegel:hover { border-color: var(--color-accent); transform: translateY(-3px); }
   .werk-bento .tegel:hover .tegel__media img { transform: scale(1.05); }
 }
+
+/* Beta 30-09 */
+/* De vaste kop (pil, ~80 px) valt niet over de koppen van de stapelpanelen. */
+.stapel[data-stapelpanelen] { --sp-vh: calc(100svh - 88px); }
+.stapel[data-stapelpanelen][data-sp-modus='pin'] [data-sp-stage] { top: 88px; }
+.stapel [data-sp-item] { scroll-margin-top: 84px; }
+.stapel-tekst { padding-right: clamp(16px, 3vw, 40px); }
+/* Pauzeer achtergrond: ook de langzame zoom staat stil. */
+.hero.mh[data-modus='diashow'][data-mh-status='gepauzeerd'] .mh__dia.is-actief { animation-play-state: paused; }
+/* Zonder JS staat de pil in het midden (de JS zet anders zelf de positie). */
+.kop-desktop .pn:not([data-pn-position]) { top: 1.25rem; transform: translateX(-50%); }
+.meer-rij .hover-card__body h3 { font-size: clamp(14px, 4.2vw, 18px); }

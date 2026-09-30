@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld } from '@/components/Beeld'
+import { ChecklistKnop } from '@/components/ChecklistKnop'
 import { Dock } from '@/components/Dock'
 import { ai, over } from '@/content/teksten'
 import { site } from '@/content/site'
@@ -54,13 +55,17 @@ export default function AiPagina() {
                   <div>
                     <h3>{it.titel}</h3>
                     <p>{it.tekst}</p>
-                    <a
-                      className="link"
-                      href={it.link.href}
-                      {...(it.link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    >
-                      {it.link.label}
-                    </a>
+                    {it.link.href === 'checklist' ? (
+                      <ChecklistKnop className="link">{it.link.label}</ChecklistKnop>
+                    ) : (
+                      <a
+                        className="link"
+                        href={it.link.href}
+                        {...(it.link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
+                        {it.link.label}
+                      </a>
+                    )}
                   </div>
                 </li>
               ))}

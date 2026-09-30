@@ -7,7 +7,7 @@ import { Dock } from '@/components/Dock'
 import { home, werk, casePagina } from '@/content/teksten'
 import { cases, caseVoor, homeSelectie } from '@/content/cases'
 import { MediaHero } from '@/features/media-hero/MediaHero'
-import { RotatingHeadline } from '@/features/rotating-headline/RotatingHeadline'
+import { HeroWissel } from '@/components/HeroWissel'
 import { CountUp } from '@/features/count-up/CountUp'
 import { Stapelpanelen } from '@/features/stapelpanelen/StapelpanelenBlok'
 import { LottieIcon } from '@/features/lottie-icon/LottieIcon'
@@ -42,7 +42,7 @@ export default function Home() {
           </h1>
           <p className="hero-wissel">
             <span className="x" aria-hidden="true">{home.wissel.voor}</span>
-            <RotatingHeadline as="span" className="hero-wissel-woord" words={home.wissel.woorden} variant="clip" interval={2400} />
+            <HeroWissel woorden={home.wissel.woorden} />
           </p>
           <div className="hero-rij">
             <p className="hero-intro">{home.intro}</p>

@@ -183,7 +183,7 @@ export const ai = {
       {
         titel: 'De website-checklist prompt', // voorstel
         tekst: 'Een intake-assistent in ChatGPT: in 20 tot 30 minuten zet je je bedrijf, je wensen en je materiaal op een rij.', // voorstel (uit de prompt zelf)
-        link: { href: '/contact', label: 'Naar contact' }, // voorstel
+        link: { href: 'checklist', label: 'Website-checklist prompt ↗' },
       },
     ],
   },

@@ -67,7 +67,6 @@ Bewust in de ik-vorm gebleven: de pagina Over, het blok "Over mij" op Home, en d
 | Websites voor MKB-bedrijven, zelfstandig ondernemers en makers, met 15 jaar marketingervaring erachter. | nieuw |
 | De website-checklist prompt | nieuw |
 | Een intake-assistent in ChatGPT: in 20 tot 30 minuten zet je je bedrijf, je wensen en je materiaal op een rij. | uit de prompt zelf |
-| Naar contact | nieuw |
 | De TEDx-talk | nieuw |
 | Chris gaf een TEDx-talk over AI bij TEDxEindhoven. | feit uit Over |
 | Contact — Chris Bleeker | meta |
