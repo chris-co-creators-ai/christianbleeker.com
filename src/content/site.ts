@@ -113,9 +113,9 @@ export const site: SiteInhoud = {
   /* Datum van de laatste inhoudelijke wijziging: voedt lastmod in de sitemap. */
   bijgewerkt: '2026-09-30',
   meting: { ga4: '', gtm: '', clarity: '' },
-  /* `naar` blijft LEEG tot Chris een adres levert: dan meldt het formulier dat verzenden niet
-     lukte (met LinkedIn als uitweg) en is `npm run keuring` rood (regel "formulier-ontvanger"). */
-  mail: { naar: '', van: 'Chris Bleeker via Seveke Creative <formulier@seveke.nl>' },
+  /* Een lege `naar` laat het formulier melden dat verzenden niet lukte (met LinkedIn als uitweg)
+     en maakt `npm run keuring` rood (regel "formulier-ontvanger"). */
+  mail: { naar: 'info@christianbleeker.com', van: 'Chris Bleeker via Seveke Creative <formulier@seveke.nl>' },
 
   voet: {
     /* Onbekend tot Chris ze levert — leeg = niet tonen. */

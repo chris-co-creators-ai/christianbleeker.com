@@ -6,8 +6,7 @@ out/
 .env*
 !.env.example
 tsconfig.tsbuildinfo
-# werkstaat van agents en QA
-qa/
+# werkstaat van agents
 .claude/agent-memory/
 .claude/.cc-writes/
 # de beta-screenshots (±76 MB) blijven lokaal; de rapporten en metingen (md/json) gaan wél mee

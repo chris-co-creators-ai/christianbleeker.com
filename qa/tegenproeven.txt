@@ -1,0 +1,22 @@
+Tegenproeven — elk controlescript één keer expres rood (30-09-2026)
+
+Werkwijze: een kopie van de site met deze gebreken erin gebouwd en elk script ertegen gedraaid.
+Gebreken: tweede <h1> van 2400 px breed op Home, een beeld zonder alt met een tweede
+fetchpriority="high", een beeld van images.example.org op /about, een zin zonder herkomst, de
+spamval op de server uitgezet, de telstrip weggehaald, een paginafout op /privacy.
+
+script              exit  wat het vond
+site                1     /: niet precies één <h1>
+herkomst            1     /: zin zonder herkomst: "over mij zonder enige herkomst bedacht"
+extern              1     /about: 2 externe verzoeken (images.example.org)
+gewicht             1     /: 2× fetchpriority="high"; beelden zonder width/height
+formulier           1     honeypot en te snel ingevuld: niet meer stil "gelukt"
+axe                 1     / @390 en @1440: image-alt; de knop Menu niet te bedienen
+onderdelen          1     stats/count-up weg (en de onderdelen onder de brede kop)
+overflow            1     / @320: 2080px te breed (en echte vondst: twee casekoppen op 320 px, hersteld)
+doorloop            1     privacy-390 en -1440: paginafout
+lighthouse          1     /: toegankelijk 95, vindbaar 85
+openbaar            1     20 vondsten in de eerste versie (interne paden in AGENTS.md, docs/SEO.md,
+                          HERKOMST.md, dossierverwijzingen in css), daarna opgeschoond
+keuring             1     formulier-ontvanger leeg gemaakt → rood (sinds 30-09 ingevuld)
+scripts/beeld.mjs   1     souplesse-runners-boutique-omslag-1086.webp 313 KB > 300 KB (maat verlaagd)

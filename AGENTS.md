@@ -30,8 +30,6 @@ Productie: https://www.christianbleeker.com (tak `main`). Vernieuwing: tak `vern
 - **Beeld** in `public/beeld/` (gegenereerd), Lottie-iconen in `public/lottie/`.
 
 ## Nog open (vóór livegang)
-- `site.mail.naar` is leeg tot Chris een adres levert: het formulier meldt dan dat verzenden niet
-  lukte (met LinkedIn als uitweg) en `npm run keuring` is rood. Dat is de bedoeling.
 - `url` per case in `cases.ts` is leeg tot Chris de adressen bevestigt: dan verschijnt
   "Bekijk de site ↗" vanzelf.
 - Bedrijfsnaam, KvK en e-mail voor de privacyverklaring en het schema.
