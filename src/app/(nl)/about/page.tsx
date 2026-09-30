@@ -96,7 +96,7 @@ export default function Over() {
           <section className="sectie container-site" aria-labelledby="ervaringen-kop">
             <div className="sectie-kop" data-reveal="">
               <h2 id="ervaringen-kop">{over.ervaringen.kop}</h2>
-              <p className="sectie-tekst">{over.ervaringen.hint}</p>
+              <p className="sectie-tekst ervaringen-hint">{over.ervaringen.hint}</p>
             </div>
             <FlipLightbox className="ervaringen">
               {over.ervaringen.namen.map(([bestand, naam]) => (

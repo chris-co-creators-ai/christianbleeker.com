@@ -53,7 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: vangAfgebrokenOvergang }} />
         {/* Zonder JS werkt de menuknop niet: verberg hem, de navigatie staat ook in de voet. */}
-        <noscript><style>{'.kop-mobiel .im{display:none}'}</style></noscript>
+        <noscript><style>{'.kop-mobiel .im,.sd{display:none}'}</style></noscript>
       </head>
       <body className="min-h-dvh flex flex-col">
         <a

@@ -362,3 +362,9 @@ h1, h2, h3 { overflow-wrap: break-word; }
 /* Zonder JS staat de pil in het midden (de JS zet anders zelf de positie). */
 .kop-desktop .pn:not([data-pn-position]) { top: 1.25rem; transform: translateX(-50%); }
 .meer-rij .hover-card__body h3 { font-size: clamp(14px, 4.2vw, 18px); }
+
+/* Beta ronde 2 */
+.kop-desktop .pn:not([data-pn-position]) .pn__list a[aria-current='page'] { background: var(--color-tekst); color: var(--color-grond); }
+.hero-wissel-woord, .hero-wissel-woord .rh__word { color: var(--color-accent); }
+/* "Klik om te vergroten" belooft op een telefoon te veel: daar vergroot de lightbox niet. */
+@media (max-width: 767px) { .ervaringen-hint { display: none; } }
