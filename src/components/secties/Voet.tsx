@@ -4,7 +4,8 @@ import { WijzigToestemmingKnop } from '@/features/toestemming/WijzigToestemmingK
 import { ChecklistKnop } from '@/components/ChecklistKnop'
 
 /**
- * Voet op elke pagina: merk, menu en privacy. Met `uitnodiging` (Home en /contact) staat erboven
+ * Voet op elke pagina: merk, menu, privacy en (in de korte voet) de checklist als gewone link,
+ * zodat hij ook op een telefoon overal te vinden is. Met `uitnodiging` (Home en /contact) staat erboven
  * de slotzin letter voor letter (letter-reveal) met de weg naar contact, LinkedIn en de checklist.
  * `data-dock-verberg`: de sectie-dock heeft hier niets toe te voegen.
  */
@@ -36,6 +37,7 @@ export function Voet({ uitnodiging = false }: { uitnodiging?: boolean }) {
                 <li key={l.href}><a href={l.href}>{l.label}</a></li>
               ))}
               <li><a href="/privacy">{voet.privacy}</a></li>
+              {uitnodiging ? null : <li><ChecklistKnop>{kop.checklist}</ChecklistKnop></li>}
             </ul>
           </nav>
           <div className="voet-rechts">

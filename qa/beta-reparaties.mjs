@@ -118,4 +118,13 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
     `checklist-knop: de link draagt niet de hele prompt (${knoppen.map((k) => `${k.modus} ${k.href.length}`).join(', ')})`)
   await sluit()
 }
+// Beta ronde 3: op een telefoon is de checklist op elke pagina te vinden (korte voet).
+{
+  const { page, sluit } = await pagina({ breedte: 390, hoogte: 844 })
+  for (const pad of ['/about', '/work', '/work/fuselabs', '/privacy']) {
+    await page.goto(B + pad, { waitUntil: 'networkidle' })
+    ok(await page.locator('footer [data-cik-trigger]').isVisible(), `${pad} @390: geen checklist-link in de voet`)
+  }
+  await sluit()
+}
 uitslag('beta-reparaties', fouten, geslaagd)
