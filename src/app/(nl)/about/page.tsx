@@ -88,7 +88,7 @@ export default function Over() {
                 knopTekst={over.websites.schijf}
                 ringTekst={over.websites.ring}
                 lijstLabel={over.websites.kop}
-                logos={cases.map((c) => ({ alt: c.naam, src: `/beeld/${LOGO[c.slug]}` }))}
+                logos={cases.filter((c) => LOGO[c.slug]).map((c) => ({ alt: c.naam, src: `/beeld/${LOGO[c.slug]}` }))}
               />
             </div>
           </section>

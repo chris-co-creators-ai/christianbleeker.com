@@ -37,7 +37,7 @@ export default function Home() {
           dias={[{ src: '/beeld/tedx-1920.webp', alt: home.fotoAlt }]}
         >
           <h1 className="hero-kop">
-            <span>{home.kop[0]}</span> <span className="x hero-x" aria-hidden="true">×</span>
+            <span>{home.kop[0]}</span>{' '}
             <span className="hero-regel2">{home.kop[1]}</span>
           </h1>
           <p className="hero-wissel">
@@ -148,7 +148,7 @@ export default function Home() {
           <EigenProduct nummer="04" />
         </RevealOnScroll>
       </main>
-      <Voet />
+      <Voet uitnodiging />
       <Dock />
     </>
   )

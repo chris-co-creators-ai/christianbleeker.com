@@ -9,6 +9,9 @@ website-checklist prompt. Ze wachten op het akkoord van Chris.
 Bewust in de ik-vorm gebleven: de pagina Over, het blok "Over mij" op Home, en de negen casepagina's
 (dat is werk van Chris; in de wij-vorm zouden ze een nieuwe bewering doen).
 
+Op 30-09-2026 toegevoegd: twee websites die we samen maakten (Human Margin en het portfolio-ontwerp
+Hoveniersbedrijf Nijboer) en Co-Creators.ai bij Eigen product. Die teksten staan onderaan, met hun bron.
+
 | Tekst | Waarom |
 |---|---|
 | AI | nieuwe pagina |
@@ -47,7 +50,7 @@ Bewust in de ik-vorm gebleven: de pagina Over, het blok "Over mij" op Home, en d
 | Dat is wel speciaal | knop |
 | Luister op Spotify ↗ | knop |
 | Werk — websites van Chris Bleeker | meta |
-| Negen websites van kinderopvang en coaching tot teamreizen en AI, plus de eigen producten Dicteren.ai en Co-creatie.ai. | meta |
+| Elf websites van kinderopvang en coaching tot teamreizen en AI, plus de eigen producten Dicteren.ai, Co-creatie.ai en Co-Creators.ai. | meta |
 | Elk merk heeft een eigen verhaal. We helpen het zichtbaar te maken op het web. | wij |
 | Bekijk | label bij de cursor |
 | Volgende case | nieuw |
@@ -120,3 +123,26 @@ Bewust in de ik-vorm gebleven: de pagina Over, het blok "Over mij" op Home, en d
 | Een selectie van websites die ik heb mogen maken, van kinderopvang en coaching tot teamreizen en AI. | Een selectie van websites die Chris heeft mogen maken, van kinderopvang en coaching tot teamreizen en AI. |
 | Elk merk heeft een eigen verhaal. Ik help het zichtbaar te maken op het web. | Elk merk heeft een eigen verhaal. We helpen het zichtbaar te maken op het web. |
 | Met Dicteren.ai bouw ik samen met Brian en Lars aan een app die gesproken ideeën omzet in bruikbare tekst. | Met Dicteren.ai bouwen we, Chris, Brian en Lars, aan een app die gesproken ideeën omzet in bruikbare tekst. |
+
+## Toegevoegd op 30-09-2026: samen gemaakte websites en Co-Creators.ai
+
+De twee cases staan in de wij-vorm. De feiten komen uit het werk zelf: de site van Human Margin en
+de opdracht van Els, en het portfolio-ontwerp dat op nijboer.portfolio.seveke.nl staat (daar
+aangeduid als portfolio-ontwerp met een fictief bedrijf). Human Margin krijgt pas een link naar de
+site als die live staat. De tekst bij Co-Creators.ai komt van co-creators.ai zelf.
+
+| Tekst | Waar | Bron |
+|---|---|---|
+| Een uitgesproken site voor Els Verheirstraeten, die organisaties begeleidt bij het gebruik van AI. | Human Margin, in het kort | voorstel |
+| Human Margin is het bureau van Els Verheirstraeten. Ze begeleidt organisaties bij het gebruik van AI, met een nulmeting, een regietraject, een academie en sparring. We hebben haar site gebouwd in haar eigen huisstijl: zwart, wit en fel geel. | Human Margin | voorstel |
+| De site is zo gebouwd dat Els haar teksten zelf kan bijwerken via ChatGPT. Ze vraagt een wijziging in gewone taal, krijgt een voorstel te zien en keurt het goed voordat het online staat. | Human Margin | voorstel |
+| Eerst de stelling van Els en waarom die nu telt, daarna haar aanbod en de stap naar een kennismaking. De site laat zien waar zij voor staat voordat het over diensten gaat. | Human Margin, ontwerpdoel | voorstel |
+| Een portfolio-ontwerp: zo bouwen we een site voor een hovenier. | Hovenier Nijboer, in het kort | voorstel |
+| Hoveniersbedrijf Nijboer bestaat niet. Het is een portfolio-ontwerp met voorbeeldgegevens, gemaakt om te laten zien hoe we een site voor een lokaal bedrijf opbouwen. | Hoveniersbedrijf Nijboer | voorstel |
+| De site opent met wat de hovenier doet en waar hij werkt. Bellen of appen kan meteen vanaf het eerste scherm, en daaronder staat in drie stappen hoe het werkt. | Hoveniersbedrijf Nijboer | voorstel |
+| Een bezoeker ziet bovenaan wie er komt, wat hij doet en hoe je hem bereikt. De rest van de site onderbouwt dat met diensten en projecten. | Hoveniersbedrijf Nijboer, ontwerpdoel | voorstel |
+| Jouw eigen AI-werkplek | Co-Creators.ai | co-creators.ai |
+| Een AI-team dat jouw bedrijf kent. In een werkplek die je zelf kunt aanpassen. Met je eigen ChatGPT of Claude. | Co-Creators.ai | co-creators.ai |
+| Je kunt je nu aanmelden voor de wachtlijst. | Co-Creators.ai | voorstel, feit van co-creators.ai |
+| Zet mij op de wachtlijst ↗ | Co-Creators.ai, knop | co-creators.ai |
+| De werkplek van Co-Creators.ai: een overzicht met het AI-team, taken en cijfers van de maand | Co-Creators.ai, alt | voorstel |

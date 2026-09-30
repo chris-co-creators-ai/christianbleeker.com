@@ -99,4 +99,23 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
   ok(!(await page.locator('.ervaringen-hint').isVisible()), 'op 390 staat "Klik om te vergroten" nog in beeld')
   await sluit()
 }
+// Lars 30-09: geen kruisje in de Home-kop; de uitnodiging "Een goed idee?" alleen op Home en /contact;
+// de checklist-knop draagt de hele prompt in de link; Co-Creators.ai linkt naar de wachtlijst.
+{
+  const html = async (pad) => (await fetch(B + pad)).text()
+  ok(!/hero-x/.test(await html('/')), 'Home: het kruisje staat nog in de kop')
+  for (const [pad, verwacht] of [['/', true], ['/contact', true], ['/about', false], ['/work', false], ['/work/fuselabs', false], ['/ai', false], ['/privacy', false]]) {
+    const heeft = /class="voet-kop/.test(await html(pad))
+    ok(heeft === verwacht, `${pad}: uitnodiging in de voet ${heeft ? 'staat er' : 'ontbreekt'}, verwacht ${verwacht ? 'wel' : 'niet'}`)
+  }
+  ok(/href="https:\/\/www\.co-creators\.ai\/#wachtlijst"/.test(await html('/')) && /href="https:\/\/www\.co-creators\.ai\/#wachtlijst"/.test(await html('/work')), 'Co-Creators.ai: geen link naar de wachtlijst op Home en /work')
+  const prompt = await (await fetch(B + '/website-checklist-prompt.txt')).text()
+  const { page, sluit } = await pagina()
+  await page.goto(B + '/', { waitUntil: 'networkidle' })
+  await page.waitForSelector('[data-cik-trigger][data-cik-ready]')
+  const knoppen = await page.$$eval('[data-cik-trigger]', (e) => e.map((a) => ({ modus: a.getAttribute('data-cik-modus'), href: a.href })))
+  ok(knoppen.length >= 2 && knoppen.every((k) => k.modus === 'direct' && k.href.startsWith('https://chatgpt.com/?prompt=') && decodeURIComponent(k.href.split('?prompt=')[1]) === prompt),
+    `checklist-knop: de link draagt niet de hele prompt (${knoppen.map((k) => `${k.modus} ${k.href.length}`).join(', ')})`)
+  await sluit()
+}
 uitslag('beta-reparaties', fouten, geslaagd)

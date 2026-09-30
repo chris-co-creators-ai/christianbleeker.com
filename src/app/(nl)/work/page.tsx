@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 /** Tegelmaten in het bento-raster: ritme groot · klein · klein · breed … (bento-grid). */
-const MAAT = ['groot', 'hoog', 'hoog', 'hoog', 'hoog', 'groot', 'groot', 'hoog', 'hoog'] as const
+const MAAT = ['groot', 'groot', 'groot', 'hoog', 'hoog', 'hoog', 'hoog', 'groot', 'groot', 'hoog', 'hoog'] as const
 
 export default function Werk() {
   return (

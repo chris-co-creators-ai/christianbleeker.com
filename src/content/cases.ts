@@ -1,8 +1,8 @@
 /**
- * De negen websites op /work en /work/<naam>. Tekst letterlijk van de vorige versie van de site
- * (in de ik-vorm van Chris: het is zijn werk). `url` blijft leeg tot Chris bevestigt dat het adres
- * klopt, dat hij de site bouwde en dat het de huidige versie is — zonder `url` verschijnt er geen
- * link naar de echte site.
+ * De websites op /work en /work/<naam>. Negen komen letterlijk van de vorige versie van de site
+ * (in de ik-vorm van Chris: het is zijn werk). De eerste twee maakten we samen; hun tekst is een
+ * voorstel in de wij-vorm (docs/copy-nieuw.md). `url` blijft leeg tot het adres bevestigd en de
+ * site live is — zonder `url` verschijnt er geen link naar de echte site.
  */
 export type Case = {
   slug: string
@@ -17,6 +17,28 @@ export type Case = {
 }
 
 export const cases: Case[] = [
+  {
+    slug: 'human-margin',
+    naam: 'Human Margin',
+    kort: 'Een uitgesproken site voor Els Verheirstraeten, die organisaties begeleidt bij het gebruik van AI.', // voorstel
+    alineas: [
+      'Human Margin is het bureau van Els Verheirstraeten. Ze begeleidt organisaties bij het gebruik van AI, met een nulmeting, een regietraject, een academie en sparring. We hebben haar site gebouwd in haar eigen huisstijl: zwart, wit en fel geel.', // voorstel
+      'De site is zo gebouwd dat Els haar teksten zelf kan bijwerken via ChatGPT. Ze vraagt een wijziging in gewone taal, krijgt een voorstel te zien en keurt het goed voordat het online staat.', // voorstel
+    ],
+    ontwerpdoel: 'Eerst de stelling van Els en waarom die nu telt, daarna haar aanbod en de stap naar een kennismaking. De site laat zien waar zij voor staat voordat het over diensten gaat.', // voorstel
+    url: '', // humanmargin.eu toont nog "Coming Soon" (gemeten 30-09-2026); invullen zodra de site live is
+  },
+  {
+    slug: 'hoveniersbedrijf-nijboer',
+    naam: 'Hovenier Nijboer',
+    kort: 'Een portfolio-ontwerp: zo bouwen we een site voor een hovenier.', // voorstel
+    alineas: [
+      'Hoveniersbedrijf Nijboer bestaat niet. Het is een portfolio-ontwerp met voorbeeldgegevens, gemaakt om te laten zien hoe we een site voor een lokaal bedrijf opbouwen.', // voorstel
+      'De site opent met wat de hovenier doet en waar hij werkt. Bellen of appen kan meteen vanaf het eerste scherm, en daaronder staat in drie stappen hoe het werkt.', // voorstel
+    ],
+    ontwerpdoel: 'Een bezoeker ziet bovenaan wie er komt, wat hij doet en hoe je hem bereikt. De rest van de site onderbouwt dat met diensten en projecten.', // voorstel
+    url: 'https://nijboer.portfolio.seveke.nl',
+  },
   {
     slug: 'offbeat-peak',
     naam: 'Offbeat Peak',

@@ -5,6 +5,8 @@
  *   node scripts/beeld.mjs --bron <map met de oude public/chris>
  *
  * De bron is de map `public/chris/` van de vorige versie (tak main). Uitvoer: `public/beeld/`.
+ * Human Margin, Hoveniersbedrijf Nijboer en Co-Creators kwamen er op 30-09-2026 bij: hun bron is
+ * een schermbeeld van de site zelf (omslag 1086 × 1448, scherm 1499 × 1049), in dezelfde mappen.
  * Elke uitvoer wordt gecontroleerd op het plafond uit de PRD (hero ≤ 200 KB, de rest ≤ 300 KB);
  * een bestand erboven laat het script met exit 1 stoppen.
  */
@@ -21,7 +23,7 @@ if (!bron || !existsSync(bron)) {
 const uit = path.join(process.cwd(), 'public', 'beeld')
 mkdirSync(uit, { recursive: true })
 
-const CASES = ['offbeat-peak', 'digital-waves', 'driftawave', 'radstok-interim', 'fuselabs',
+const CASES = ['human-margin', 'hoveniersbedrijf-nijboer', 'offbeat-peak', 'digital-waves', 'driftawave', 'radstok-interim', 'fuselabs',
   'souplesse-runners-boutique', 'kinderopvang-ikke', 'win-instituut', 'co-creatie-ai']
 const REVIEWS = ['sven', 'gina', 'els', 'annemieke', 'bernard', 'edwin', 'ela']
 
@@ -34,6 +36,7 @@ const taken = [
   ['team/lars.png', 'team-lars', [526], 300],
   ['brand/dicteren.png', 'dicteren', [800], 300],
   ['brand/co-creatie.png', 'co-creatie', [600], 300],
+  ['brand/co-creators.png', 'co-creators', [640, 1200], 300],
   ['brand/fuselabs.png', 'logo-fuselabs', [256], 300],
   ['brand/kinderopvang-ikke.png', 'logo-kinderopvang-ikke', [150], 300],
   ['brand/offbeat-peak.png', 'logo-offbeat-peak', [291], 300],

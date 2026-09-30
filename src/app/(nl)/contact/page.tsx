@@ -43,7 +43,7 @@ export default function Contact() {
           </div>
         </section>
       </main>
-      <Voet />
+      <Voet uitnodiging />
     </>
   )
 }

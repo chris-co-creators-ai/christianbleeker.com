@@ -8,6 +8,7 @@
 
 export const linkedin = 'https://www.linkedin.com/in/christianbleeker/'
 export const dicterenUrl = 'https://www.dicteren.ai'
+export const cocreatorsWachtlijst = 'https://www.co-creators.ai/#wachtlijst'
 
 export const kop = {
   merk: 'Chris Bleeker',
@@ -41,7 +42,7 @@ export const home = {
   knop: 'Bekijk alle projecten',
   tellers: [
     { waarde: 15, label: 'jaar marketingervaring' },
-    { waarde: 9, label: 'websites' },
+    { waarde: 11, label: 'websites' },
     { waarde: 1, label: 'TEDx-talk over AI' },
   ],
   werk: {
@@ -81,6 +82,14 @@ export const eigenProduct = {
     naam: 'Co-creatie.ai',
     tekst: 'Een AI-partner is iets anders dan een losse tool of een verzameling prompts.', // voorstel (uit de casetekst, zonder "mijn")
     beeldAlt: 'Logo van Co-creatie.ai', // voorstel (alt)
+  },
+  cocreators: {
+    naam: 'Co-Creators.ai',
+    kicker: 'Jouw eigen AI-werkplek', // van co-creators.ai
+    tekst: 'Een AI-team dat jouw bedrijf kent. In een werkplek die je zelf kunt aanpassen. Met je eigen ChatGPT of Claude.', // van co-creators.ai
+    wachtlijst: 'Je kunt je nu aanmelden voor de wachtlijst.', // voorstel (feit van co-creators.ai)
+    link: 'Zet mij op de wachtlijst ↗', // knoptekst van co-creators.ai
+    beeldAlt: 'De werkplek van Co-Creators.ai: een overzicht met het AI-team, taken en cijfers van de maand', // voorstel (alt)
   },
   team: [
     { naam: 'Chris', beeld: 'team-chris' },
@@ -135,7 +144,7 @@ export const over = {
 
 export const werk = {
   titel: 'Werk — websites van Chris Bleeker', // voorstel (meta)
-  beschrijving: 'Negen websites van kinderopvang en coaching tot teamreizen en AI, plus de eigen producten Dicteren.ai en Co-creatie.ai.', // voorstel (meta)
+  beschrijving: 'Elf websites van kinderopvang en coaching tot teamreizen en AI, plus de eigen producten Dicteren.ai, Co-creatie.ai en Co-Creators.ai.', // voorstel (meta)
   kop: 'Elk merk heeft een eigen verhaal. We helpen het zichtbaar te maken op het web.', // voorstel (wij)
   websites: 'Websites',
   cursor: 'Bekijk', // voorstel (label bij de cursor)

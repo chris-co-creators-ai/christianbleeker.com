@@ -24,7 +24,7 @@ const ONDERDELEN = [
     const later = await p.textContent('.hero-wissel [data-rh-state="active"]')
     return (await p.getAttribute('.hero-wissel-woord', 'data-rh-ready')) !== null && eerst !== later || `woord bleef "${eerst}"`
   }],
-  ['stats/count-up', 2, '/', 1440, async (p) => (await p.$$eval('.tel .cu__waarde', (e) => e.map((x) => x.textContent))).join(' ') === '15 9 1'],
+  ['stats/count-up', 2, '/', 1440, async (p) => (await p.$$eval('.tel .cu__waarde', (e) => e.map((x) => x.textContent))).join(' ') === '15 11 1'],
   ['scroll/stapelpanelen', 3, '/', 1440, async (p) => {
     await p.locator('#werk').scrollIntoViewIfNeeded()
     const voor = await p.$$eval('[data-sp-actief]', (e) => e.length)
@@ -40,7 +40,7 @@ const ONDERDELEN = [
     await p.locator('[data-handwritten-accent]').first().scrollIntoViewIfNeeded(); await p.waitForTimeout(1200)
     return (await p.$$eval('[data-handwritten-accent][data-hwa-ready]', (e) => e.length)) >= 1
   }],
-  ['layouts/bento-grid', 3, '/work', 1440, async (p) => (await p.$$eval('.bento .tegel[data-tegel]', (e) => e.length)) === 9],
+  ['layouts/bento-grid', 3, '/work', 1440, async (p) => (await p.$$eval('.bento .tegel[data-tegel]', (e) => e.length)) === 11],
   ['effects/custom-cursor', 3, '/work', 1440, async (p) => {
     const t = p.locator('.tegel__link').first(); await t.scrollIntoViewIfNeeded()
     const box = await t.boundingBox(); await p.mouse.move(box.x + 40, box.y + 40); await p.mouse.move(box.x + 80, box.y + 80); await p.waitForTimeout(400)

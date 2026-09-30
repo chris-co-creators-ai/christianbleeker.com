@@ -4,14 +4,16 @@ import { WijzigToestemmingKnop } from '@/features/toestemming/WijzigToestemmingK
 import { ChecklistKnop } from '@/components/ChecklistKnop'
 
 /**
- * Voet op elke pagina: de slotzin letter voor letter (letter-reveal), de weg naar contact en
- * LinkedIn. `data-dock-verberg`: de sectie-dock heeft hier niets toe te voegen.
+ * Voet op elke pagina: merk, menu en privacy. Met `uitnodiging` (Home en /contact) staat erboven
+ * de slotzin letter voor letter (letter-reveal) met de weg naar contact, LinkedIn en de checklist.
+ * `data-dock-verberg`: de sectie-dock heeft hier niets toe te voegen.
  */
-export function Voet() {
+export function Voet({ uitnodiging = false }: { uitnodiging?: boolean }) {
   const [eerste, tweede] = voet.kop.split('? ')
   return (
-    <footer className="voet" data-dock-verberg="">
+    <footer className={uitnodiging ? 'voet' : 'voet voet--kort'} data-dock-verberg="">
       <div className="container-site">
+        {uitnodiging ? (<>
         <LetterReveal as="h2" className="voet-kop" lineSelector="[data-lr-line]" duration={0.8} stagger={0.035} lineGap={0.15}>
           <span data-lr-line="">{eerste}?</span>
           <span data-lr-line="secondary">{tweede}</span>
@@ -23,6 +25,7 @@ export function Voet() {
           </a>
           <ChecklistKnop className="knop knop--rand">{kop.checklist}</ChecklistKnop>
         </div>
+        </>) : null}
         <div className="voet-onder">
           <p className="voet-merk">
             {kop.merk} <span className="x" aria-hidden="true">×</span> <span className="voet-sub">{kop.ondertitel}</span>

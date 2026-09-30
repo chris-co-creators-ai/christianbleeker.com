@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Pagina's en vindbaarheid (PRD P-1, P-2, P-7, P-8, B-1, B-3 en [S] Techniek).
- * P-1: precies deze 15 routes (14 uit de PRD + /ai). P-2: één <h1>. Per pagina: canonical, eigen
+ * P-1: precies deze 17 routes (14 uit de PRD, /ai en de twee samen gemaakte sites van 30-09). P-2: één <h1>. Per pagina: canonical, eigen
  * titel, beschrijving, og:image; JSON-LD geldig; Person overal, CreativeWork op elke case;
  * robots.txt, sitemap.xml, llms.txt, 404 met noindex; geen link naar een onbevestigde site.
  *
@@ -10,7 +10,7 @@
 import { routes, uitslag } from './lib.mjs'
 import { lees } from './lib.mjs'
 
-const VERWACHT = ['/', '/about', '/work', '/work/offbeat-peak', '/work/digital-waves', '/work/driftawave',
+const VERWACHT = ['/', '/about', '/work', '/work/human-margin', '/work/hoveniersbedrijf-nijboer', '/work/offbeat-peak', '/work/digital-waves', '/work/driftawave',
   '/work/radstok-interim', '/work/fuselabs', '/work/souplesse-runners-boutique', '/work/kinderopvang-ikke',
   '/work/win-instituut', '/work/co-creatie-ai', '/ai', '/contact', '/privacy']
 const B = process.env.BASIS
