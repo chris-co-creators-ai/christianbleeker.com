@@ -49,7 +49,7 @@ Op 30-09-2026 toegevoegd: twee websites die we samen maakten (Human Margin en Ho
 | Dat is wel speciaal | knop |
 | Luister op Spotify ↗ | knop |
 | Werk — websites van Chris Bleeker | meta |
-| Elf websites van kinderopvang en coaching tot teamreizen en AI, plus de eigen producten Dicteren.ai, Co-creatie.ai en Co-Creators.ai. | meta |
+| Dertien websites van kinderopvang en coaching tot teamreizen en AI, plus de eigen producten Dicteren.ai, Co-creatie.ai en Co-Creators.ai. | meta |
 | Elk merk heeft een eigen verhaal. We helpen het zichtbaar te maken op het web. | wij |
 | Bekijk | label bij de cursor |
 | Volgende case | nieuw |
@@ -142,5 +142,20 @@ als dat besloten is. De tekst bij Co-Creators.ai komt van co-creators.ai zelf.
 | Jouw eigen AI-werkplek | Co-Creators.ai | co-creators.ai |
 | Een AI-team dat jouw bedrijf kent. In een werkplek die je zelf kunt aanpassen. Met je eigen ChatGPT of Claude. | Co-Creators.ai | co-creators.ai |
 | Je kunt je nu aanmelden voor de wachtlijst. | Co-Creators.ai | voorstel, feit van co-creators.ai |
-| Zet mij op de wachtlijst ↗ | Co-Creators.ai, knop | co-creators.ai |
+| Hier wil je op de wachtlijst staan ↗ | Co-Creators.ai, knop | voorstel |
 | De werkplek van Co-Creators.ai: een overzicht met het AI-team, taken en cijfers van de maand | Co-Creators.ai, alt | voorstel |
+
+## Toegevoegd op 30-09-2026 (avond): Stratenova Advisory en Seveke Creative
+
+Feiten uit de sites zelf (stratenova-demo, www.seveke.nl) en het dossier van Stratenova.
+
+| Tekst | Waar | Bron |
+|---|---|---|
+| Een drietalige site voor een onafhankelijk adviseur in sourcing en contractmanagement. | Stratenova Advisory | voorstel |
+| Stratenova Advisory is het adviesbureau van Devi Kencki. Hij helpt bestuurders en teams met sourcingstrategie, commerciële dealarchitectuur, contractmanagement en de transformatie van Finance, IT en Procurement. We hebben zijn site gebouwd in het Nederlands, Engels en Duits. | Stratenova Advisory | voorstel |
+| De toon is die van de boardroom: rustig, met een klassieke letter voor de koppen en uitspraken die groot in beeld komen. De inhoud staat per taal apart, zodat de teksten later makkelijk bij te werken zijn. | Stratenova Advisory | voorstel |
+| Van boardroomstrategie naar werkende deals, contracten en transformaties: de site volgt die lijn, van de expertise naar de stap naar een gesprek. | Stratenova Advisory | voorstel |
+| De site van Seveke Creative, dat maatwerk software en slimme automatisering bouwt voor het mkb. | Seveke Creative | voorstel |
+| Seveke Creative bouwt maatwerk software, AI-agents en slimme workflows voor mkb-organisaties, vanuit Nijmegen. De site zet de vraag van de ondernemer voorop: jij vertelt wat er knelt, wij bouwen wat het oplost. | Seveke Creative | voorstel |
+| Bezoekers kunnen meteen een gratis AI-scan starten en krijgen het rapport in hun inbox. Daarnaast legt de site uit waar elk project op rust, van één eigen systeem tot AI die werk overneemt. | Seveke Creative | voorstel |
+| Minder gedoe, meer resultaat: de site maakt de eerste stap klein, met een scan van vijf minuten. | Seveke Creative | voorstel |

@@ -114,7 +114,8 @@
 .meer { margin-top: clamp(56px, 7vw, 96px); display: grid; gap: 28px; justify-items: start; }
 .meer-kop h3 { font-size: clamp(28px, 3vw, 44px); font-weight: 600; }
 .meer-kop p { margin-top: 8px; color: var(--color-tekst-2); }
-.meer-rij { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; width: 100%; }
+.meer-rij { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; width: 100%; }
+@media (max-width: 1100px) { .meer-rij { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .meer-rij .hover-card { background: var(--color-grond-2); border: 1px solid var(--color-lijn); border-radius: 16px; color: var(--color-tekst); }
 .meer-rij .hover-card__media { aspect-ratio: 4 / 5; }
 .meer-rij .hover-card__body h3 { font: 600 18px/1.2 var(--font-kop); letter-spacing: -0.02em; color: var(--color-tekst); }

@@ -1,6 +1,6 @@
 /**
  * De websites op /work en /work/<naam>. Negen komen letterlijk van de vorige versie van de site
- * (in de ik-vorm van Chris: het is zijn werk). De eerste twee maakten we samen; hun tekst is een
+ * (in de ik-vorm van Chris: het is zijn werk). De eerste vier maakten we samen; hun tekst is een
  * voorstel in de wij-vorm (docs/copy-nieuw.md). `url` blijft leeg tot het adres bevestigd en de
  * site live is — zonder `url` verschijnt er geen link naar de echte site.
  */
@@ -38,6 +38,28 @@ export const cases: Case[] = [
     ],
     ontwerpdoel: 'Een bezoeker ziet bovenaan wie er komt, wat hij doet en hoe je hem bereikt. De rest van de site onderbouwt dat met diensten en projecten.', // voorstel
     url: '', // link volgt
+  },
+  {
+    slug: 'stratenova-advisory',
+    naam: 'Stratenova Advisory',
+    kort: 'Een drietalige site voor een onafhankelijk adviseur in sourcing en contractmanagement.', // voorstel
+    alineas: [
+      'Stratenova Advisory is het adviesbureau van Devi Kencki. Hij helpt bestuurders en teams met sourcingstrategie, commerciële dealarchitectuur, contractmanagement en de transformatie van Finance, IT en Procurement. We hebben zijn site gebouwd in het Nederlands, Engels en Duits.', // voorstel
+      'De toon is die van de boardroom: rustig, met een klassieke letter voor de koppen en uitspraken die groot in beeld komen. De inhoud staat per taal apart, zodat de teksten later makkelijk bij te werken zijn.', // voorstel
+    ],
+    ontwerpdoel: 'Van boardroomstrategie naar werkende deals, contracten en transformaties: de site volgt die lijn, van de expertise naar de stap naar een gesprek.', // voorstel
+    url: '',
+  },
+  {
+    slug: 'seveke-creative',
+    naam: 'Seveke Creative',
+    kort: 'De site van Seveke Creative, dat maatwerk software en slimme automatisering bouwt voor het mkb.', // voorstel
+    alineas: [
+      'Seveke Creative bouwt maatwerk software, AI-agents en slimme workflows voor mkb-organisaties, vanuit Nijmegen. De site zet de vraag van de ondernemer voorop: jij vertelt wat er knelt, wij bouwen wat het oplost.', // voorstel
+      'Bezoekers kunnen meteen een gratis AI-scan starten en krijgen het rapport in hun inbox. Daarnaast legt de site uit waar elk project op rust, van één eigen systeem tot AI die werk overneemt.', // voorstel
+    ],
+    ontwerpdoel: 'Minder gedoe, meer resultaat: de site maakt de eerste stap klein, met een scan van vijf minuten.', // voorstel
+    url: 'https://www.seveke.nl',
   },
   {
     slug: 'offbeat-peak',

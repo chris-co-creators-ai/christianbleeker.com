@@ -19,7 +19,7 @@ Productie: https://www.christianbleeker.com (tak `main`). Vernieuwing: tak `vern
 - `node scripts/beeld.mjs --bron <map>` — beeld omzetten naar AVIF/WebP binnen de gewichtsplafonds
 
 ## Waar staat wat
-- **Alle tekst** staat in `src/content/`: `teksten.ts` (pagina's), `cases.ts` (de elf websites),
+- **Alle tekst** staat in `src/content/`: `teksten.ts` (pagina's), `cases.ts` (de dertien websites),
   `site.ts` (gegevens, mail, SEO), `routes.ts` (alle pagina's: sitemap, llms.txt).
   Geen zichtbare zin in een `.tsx`-bestand.
 - **Nieuwe tekst** die niet van de vorige site komt, staat ook in `docs/copy-nieuw.md` (voorstel,

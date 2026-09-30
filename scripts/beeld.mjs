@@ -23,7 +23,7 @@ if (!bron || !existsSync(bron)) {
 const uit = path.join(process.cwd(), 'public', 'beeld')
 mkdirSync(uit, { recursive: true })
 
-const CASES = ['human-margin', 'hoveniersbedrijf-nijboer', 'offbeat-peak', 'digital-waves', 'driftawave', 'radstok-interim', 'fuselabs',
+const CASES = ['human-margin', 'hoveniersbedrijf-nijboer', 'stratenova-advisory', 'seveke-creative', 'offbeat-peak', 'digital-waves', 'driftawave', 'radstok-interim', 'fuselabs',
   'souplesse-runners-boutique', 'kinderopvang-ikke', 'win-instituut', 'co-creatie-ai']
 const REVIEWS = ['sven', 'gina', 'els', 'annemieke', 'bernard', 'edwin', 'ela']
 

@@ -100,7 +100,7 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
   await sluit()
 }
 // Geen kruisje in de Home-kop; de uitnodiging "Een goed idee?" alleen op Home en /contact;
-// de checklist-knop draagt de hele prompt in de link; Co-Creators.ai linkt naar de wachtlijst.
+// de checklist-knop draagt de hele prompt in de link; Co-Creators.ai linkt naar de bovenkant van co-creators.ai (niet naar het anker onderaan).
 {
   const html = async (pad) => (await fetch(B + pad)).text()
   ok(!/hero-x/.test(await html('/')), 'Home: het kruisje staat nog in de kop')
@@ -108,7 +108,7 @@ for (const pad of ['/bestaat-niet', '/work/bestaat-niet']) {
     const heeft = /class="voet-kop/.test(await html(pad))
     ok(heeft === verwacht, `${pad}: uitnodiging in de voet ${heeft ? 'staat er' : 'ontbreekt'}, verwacht ${verwacht ? 'wel' : 'niet'}`)
   }
-  ok(/href="https:\/\/www\.co-creators\.ai\/#wachtlijst"/.test(await html('/')) && /href="https:\/\/www\.co-creators\.ai\/#wachtlijst"/.test(await html('/work')), 'Co-Creators.ai: geen link naar de wachtlijst op Home en /work')
+  ok(/href="https:\/\/www\.co-creators\.ai\/"/.test(await html('/')) && /href="https:\/\/www\.co-creators\.ai\/"/.test(await html('/work')), 'Co-Creators.ai: geen link naar de wachtlijst op Home en /work')
   const prompt = await (await fetch(B + '/website-checklist-prompt.txt')).text()
   const { page, sluit } = await pagina()
   await page.goto(B + '/', { waitUntil: 'networkidle' })
