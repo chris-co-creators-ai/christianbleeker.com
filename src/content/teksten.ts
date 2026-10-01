@@ -38,7 +38,7 @@ export const home = {
   kop: ['Jouw verhaal.', 'Sterk op het web.'],
   wissel: { voor: '×', woorden: ['websites', 'marketing', 'AI'] },
   fotoAlt: 'Chris Bleeker op het podium van TEDxEindhoven', // voorstel (alt)
-  tedx: 'Official advisor to TEDxEindhoven', // voorstel (feit, aangeleverd 01-10-2026; Engels op verzoek)
+  tedx: 'Official TEDxEindhoven advisor', // voorstel (feit, aangeleverd 01-10-2026; Engels op verzoek)
   intro: 'We bouwen websites voor MKB-bedrijven, zelfstandig ondernemers en makers. Met 15 jaar marketingervaring en een slimme blik op AI.', // voorstel (wij)
   knop: 'Bekijk alle projecten',
   tellers: [
