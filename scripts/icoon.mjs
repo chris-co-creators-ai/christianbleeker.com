@@ -1,22 +1,22 @@
 #!/usr/bin/env node
 /**
- * Tabblad- en app-iconen uit het logo van Co-creatie.ai: het teken in de tekstkleur op de
- * crème grond, met rand (maskable snijdt tot 20% weg). Schrijft src/app/favicon.ico (16, 32, 48)
+ * Tabblad- en app-iconen uit het beeldmerk van Co-Creators.ai (blauwe C, van co-creators.ai) op de
+ * crème grond van de site, met rand (maskable snijdt tot 20% weg). Schrijft src/app/favicon.ico (16, 32, 48)
  * en public/icoon-180.png (Apple), -192.png en -512.png (manifest).
  *
- *   node scripts/icoon.mjs --bron <map met brand/co-creatie.png>
+ *   node scripts/icoon.mjs --bron <map met brand/co-creators-mark.svg>
  */
 import { writeFileSync, existsSync } from 'node:fs'
 import path from 'node:path'
 import sharp from 'sharp'
 
 const i = process.argv.indexOf('--bron')
-const bron = i > 0 ? path.join(process.argv[i + 1], 'brand/co-creatie.png') : null
+const bron = i > 0 ? path.join(process.argv[i + 1], 'brand/co-creators-mark.svg') : null
 if (!bron || !existsSync(bron)) { console.error('Gebruik: node scripts/icoon.mjs --bron <map>'); process.exit(1) }
 const GROND = '#f5ece3'
 
 async function icoon(maat, deel) {
-  const teken = await sharp(bron).trim().resize({ width: Math.round(maat * deel), height: Math.round(maat * deel), fit: 'inside' }).toBuffer()
+  const teken = await sharp(bron, { density: 600 }).trim().resize({ width: Math.round(maat * deel), height: Math.round(maat * deel), fit: 'inside' }).toBuffer()
   return sharp({ create: { width: maat, height: maat, channels: 4, background: GROND } })
     .composite([{ input: teken, gravity: 'center' }]).png().toBuffer()
 }
