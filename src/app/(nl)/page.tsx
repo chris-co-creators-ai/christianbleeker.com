@@ -39,7 +39,7 @@ export default function Home() {
         >
           <p className="hero-tedx">
             <span className="hero-tedx-logo"><Beeld naam="logo-tedxeindhoven" breedte={200} hoogte={200} alt="" /></span>
-            {home.tedx}
+            <span lang="en">{home.tedx}</span>
           </p>
           <h1 className="hero-kop">
             <span>{home.kop[0]}</span>{' '}

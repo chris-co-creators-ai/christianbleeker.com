@@ -191,7 +191,7 @@ for (const breedte of [390, 1600]) {
   const { page, sluit } = await pagina({ breedte, hoogte: breedte < 600 ? 844 : 900 })
   await page.goto(B + '/', { waitUntil: 'networkidle' })
   const r = await page.evaluate(() => { const b = document.querySelector('.hero-tedx'), k = document.querySelector('.hero-kop'); if (!b) return null; const rb = b.getBoundingClientRect(); return { tekst: b.textContent.trim(), boven: rb.bottom <= k.getBoundingClientRect().top, inBeeld: rb.top >= 0 && rb.bottom <= innerHeight } })
-  ok(r && /Officieel advisor van TEDxEindhoven/.test(r.tekst) && r.boven && r.inBeeld, `${breedte}: TEDx-advisor staat niet zichtbaar boven de kop (${JSON.stringify(r)})`)
+  ok(r && /Official advisor to TEDxEindhoven/.test(r.tekst) && r.boven && r.inBeeld, `${breedte}: TEDx-advisor staat niet zichtbaar boven de kop (${JSON.stringify(r)})`)
   await sluit()
 }
 uitslag('beta-reparaties', fouten, geslaagd)

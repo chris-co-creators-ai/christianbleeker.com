@@ -164,4 +164,4 @@ Feiten uit de sites zelf (stratenova-demo, www.seveke.nl) en het dossier van Str
 
 | Tekst | Waar | Bron |
 |---|---|---|
-| Officieel advisor van TEDxEindhoven | Home, boven de kop | feit aangeleverd 01-10-2026 |
+| Official advisor to TEDxEindhoven | Home, boven de kop (Engels, `lang="en"`) | feit aangeleverd 01-10-2026 |
