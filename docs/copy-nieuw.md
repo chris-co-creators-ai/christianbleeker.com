@@ -141,8 +141,10 @@ als dat besloten is. De tekst bij Co-Creators.ai komt van co-creators.ai zelf.
 | Een bezoeker ziet bovenaan wie er komt, wat hij doet en hoe je hem bereikt. De rest van de site onderbouwt dat met diensten en projecten. | Hoveniersbedrijf Nijboer, ontwerpdoel | voorstel |
 | Jouw eigen AI-werkplek | Co-Creators.ai | co-creators.ai |
 | Een AI-team dat jouw bedrijf kent. In een werkplek die je zelf kunt aanpassen. Met je eigen ChatGPT of Claude. | Co-Creators.ai | co-creators.ai |
-| Je kunt je nu aanmelden voor de wachtlijst. | Co-Creators.ai | voorstel, feit van co-creators.ai |
-| Hier wil je op de wachtlijst staan ↗ | Co-Creators.ai, knop | voorstel |
+| Co-Creators.ai is een AI-werkplek op je eigen computer. Je klanten, projecten, bestanden en bedrijfskennis staan bij elkaar, en je eigen ChatGPT of Claude stuurt een team van elf AI-collega's aan, ieder met een eigen vak. | Co-Creators.ai | voorstel, feiten van co-creators.ai |
+| Chris heeft het voorwerk gedaan: de werkwijzen staan klaar als skills die je zelf kunt aanpassen. Per collega en per handeling bepaal je wat zelfstandig mag, wat eerst gevraagd wordt en wat nooit gebeurt. | Co-Creators.ai | voorstel, feiten van co-creators.ai |
+| Bij 1.000 inschrijvingen op de wachtlijst gaat Co-Creators.ai officieel live. | Co-Creators.ai | voorstel, feit van co-creators.ai |
+| Zet mij op de wachtlijst ↗ | Co-Creators.ai, knop | co-creators.ai |
 | De werkplek van Co-Creators.ai: een overzicht met het AI-team, taken en cijfers van de maand | Co-Creators.ai, alt | voorstel |
 
 ## Toegevoegd op 30-09-2026 (avond): Stratenova Advisory en Seveke Creative

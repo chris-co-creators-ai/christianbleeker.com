@@ -57,6 +57,7 @@ export function EigenProduct({ nummer, kopNiveau = 2, prioriteit = false }: { nu
             <p className="kicker">{eigenProduct.cocreators.kicker}</p>
             <h3>{eigenProduct.cocreators.naam}</h3>
             <p>{eigenProduct.cocreators.tekst}</p>
+            {eigenProduct.cocreators.verhaal.map((z) => <p key={z.slice(0, 16)}>{z}</p>)}
             <p>{eigenProduct.cocreators.wachtlijst}</p>
             <a className="knop knop--mint" href={cocreatorsWachtlijst} target="_blank" rel="noopener noreferrer">
               {eigenProduct.cocreators.link}

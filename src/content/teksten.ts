@@ -88,8 +88,12 @@ export const eigenProduct = {
     naam: 'Co-Creators.ai',
     kicker: 'Jouw eigen AI-werkplek', // van co-creators.ai
     tekst: 'Een AI-team dat jouw bedrijf kent. In een werkplek die je zelf kunt aanpassen. Met je eigen ChatGPT of Claude.', // van co-creators.ai
-    wachtlijst: 'Je kunt je nu aanmelden voor de wachtlijst.', // voorstel (feit van co-creators.ai)
-    link: 'Hier wil je op de wachtlijst staan ↗', // voorstel
+    verhaal: [
+      "Co-Creators.ai is een AI-werkplek op je eigen computer. Je klanten, projecten, bestanden en bedrijfskennis staan bij elkaar, en je eigen ChatGPT of Claude stuurt een team van elf AI-collega's aan, ieder met een eigen vak.", // voorstel (feiten van co-creators.ai)
+      'Chris heeft het voorwerk gedaan: de werkwijzen staan klaar als skills die je zelf kunt aanpassen. Per collega en per handeling bepaal je wat zelfstandig mag, wat eerst gevraagd wordt en wat nooit gebeurt.', // voorstel (feiten van co-creators.ai)
+    ],
+    wachtlijst: 'Bij 1.000 inschrijvingen op de wachtlijst gaat Co-Creators.ai officieel live.', // voorstel (feit van co-creators.ai)
+    link: 'Zet mij op de wachtlijst ↗', // knoptekst van co-creators.ai
     beeldAlt: 'De werkplek van Co-Creators.ai: een overzicht met het AI-team, taken en cijfers van de maand', // voorstel (alt)
   },
   team: [
