@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Tabblad- en app-iconen uit het beeldmerk van Co-Creators.ai (blauwe C, van co-creators.ai) op de
- * crème grond van de site, met rand (maskable snijdt tot 20% weg). Schrijft src/app/favicon.ico (16, 32, 48)
+ * crème grond van de site, met rand (maskable snijdt tot 20% weg). Schrijft public/favicon.ico (16, 32, 48)
  * en public/icoon-cc-180.png (Apple), -192.png en -512.png (manifest).
  *
  *   node scripts/icoon.mjs --bron <map met brand/co-creators-mark.svg>
@@ -33,5 +33,5 @@ pngs.forEach((p, n) => {
   kop.writeUInt8(m, o); kop.writeUInt8(m, o + 1); kop.writeUInt16LE(1, o + 4); kop.writeUInt16LE(32, o + 6)
   kop.writeUInt32LE(p.length, o + 8); kop.writeUInt32LE(plek, o + 12); plek += p.length
 })
-writeFileSync('src/app/favicon.ico', Buffer.concat([kop, ...pngs]))
+writeFileSync('public/favicon.ico', Buffer.concat([kop, ...pngs]))
 console.log('iconen geschreven: favicon.ico (16/32/48), icoon-cc-180/192/512.png')
