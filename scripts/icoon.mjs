@@ -2,7 +2,7 @@
 /**
  * Tabblad- en app-iconen uit het beeldmerk van Co-Creators.ai (blauwe C, van co-creators.ai) op de
  * crème grond van de site, met rand (maskable snijdt tot 20% weg). Schrijft src/app/favicon.ico (16, 32, 48)
- * en public/icoon-180.png (Apple), -192.png en -512.png (manifest).
+ * en public/icoon-cc-180.png (Apple), -192.png en -512.png (manifest).
  *
  *   node scripts/icoon.mjs --bron <map met brand/co-creators-mark.svg>
  */
@@ -21,7 +21,7 @@ async function icoon(maat, deel) {
     .composite([{ input: teken, gravity: 'center' }]).png().toBuffer()
 }
 
-for (const [maat, deel] of [[180, 0.7], [192, 0.62], [512, 0.62]]) writeFileSync(`public/icoon-${maat}.png`, await icoon(maat, deel))
+for (const [maat, deel] of [[180, 0.7], [192, 0.62], [512, 0.62]]) writeFileSync(`public/icoon-cc-${maat}.png`, await icoon(maat, deel))
 
 // ICO met PNG-afbeeldingen erin (door alle huidige browsers gelezen).
 const pngs = await Promise.all([16, 32, 48].map((m) => icoon(m, 0.86)))
@@ -34,4 +34,4 @@ pngs.forEach((p, n) => {
   kop.writeUInt32LE(p.length, o + 8); kop.writeUInt32LE(plek, o + 12); plek += p.length
 })
 writeFileSync('src/app/favicon.ico', Buffer.concat([kop, ...pngs]))
-console.log('iconen geschreven: favicon.ico (16/32/48), icoon-180/192/512.png')
+console.log('iconen geschreven: favicon.ico (16/32/48), icoon-cc-180/192/512.png')
