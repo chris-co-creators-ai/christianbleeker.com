@@ -4,6 +4,7 @@ import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld, OMSLAG } from '@/components/Beeld'
 import { Dock } from '@/components/Dock'
+import { ExterneLink } from '@/components/ExterneLink'
 import { EigenProduct } from '@/components/secties/EigenProduct'
 import { werk, casePagina } from '@/content/teksten'
 import { cases } from '@/content/cases'
@@ -54,6 +55,7 @@ export default function Werk() {
                     <a className="tegel__link" href={`/work/${c.slug}`} data-cursor-label={werk.cursor}>
                       <span className="sr-only">{casePagina.omslagAlt(c.naam)}</span>
                     </a>
+                    <ExterneLink c={c} className="knop tegel__extern" />
                   </article>
                 ))}
               </BentoGrid>

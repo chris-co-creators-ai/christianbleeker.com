@@ -1,5 +1,6 @@
 import { Beeld } from '@/components/Beeld'
 import { eigenProduct, dicterenUrl, cocreatorsWachtlijst, werk } from '@/content/teksten'
+import { ExterneLink } from '@/components/ExterneLink'
 import { caseVoor } from '@/content/cases'
 import { HandwrittenAccent } from '@/features/handwritten-accent/HandwrittenAccent'
 
@@ -51,6 +52,7 @@ export function EigenProduct({ nummer, kopNiveau = 2, prioriteit = false }: { nu
           <a className="knop knop--rand" href={`/work/${co.slug}`}>
             {eigenProduct.cocreatie.naam} <span className="pijl" aria-hidden="true">→</span>
           </a>
+          <ExterneLink c={co} className="knop" />
         </article>
         <article className="eigen-kaart eigen-creators" data-reveal="" data-reveal-delay="0.12">
           <div className="eigen-creators-tekst">

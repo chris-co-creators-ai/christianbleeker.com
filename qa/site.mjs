@@ -57,6 +57,16 @@ for (const [pad, eis] of [['/robots.txt', /User-Agent/i], ['/sitemap.xml', /<las
   const r = await fetch(B + pad)
   ok(r.ok && eis.test(await r.text()), `${pad} ontbreekt of klopt niet`)
 }
+// Elke bevestigde url staat in llms-full.txt en in het CreativeWork-schema van de eigen casepagina.
+{
+  const llms = await (await fetch(B + '/llms-full.txt')).text()
+  for (const m of cases.matchAll(/slug: '([^']+)'[\s\S]*?url: '([^']*)'/g)) {
+    if (!m[2]) continue
+    ok(llms.includes(`Website: ${m[2]}`), `llms-full.txt: ${m[2]} ontbreekt`)
+    const html = await (await fetch(`${B}/work/${m[1]}`)).text()
+    ok(html.includes(`"url":"${m[2]}"`), `/work/${m[1]}: CreativeWork-schema mist url ${m[2]}`)
+  }
+}
 const nf = await fetch(B + '/bestaat-niet')
 const nfHtml = await nf.text()
 ok(nf.status === 404 && /noindex/.test(nfHtml), '404 geeft geen status 404 met noindex')

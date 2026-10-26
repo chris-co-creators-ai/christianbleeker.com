@@ -4,9 +4,10 @@ import { notFound } from 'next/navigation'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld, OMSLAG, SCHERM } from '@/components/Beeld'
+import { ExterneLink } from '@/components/ExterneLink'
 import { Dock } from '@/components/Dock'
 import { casePagina } from '@/content/teksten'
-import { cases, caseVoor } from '@/content/cases'
+import { cases, caseVoor, domein } from '@/content/cases'
 import { site } from '@/content/site'
 import { breadcrumbSchema, caseSchema } from '@/lib/schema'
 import { Reislijn } from '@/features/reislijn/ReislijnLijn'
@@ -70,12 +71,15 @@ export default async function CasePagina({ params }: { params: Promise<{ slug: s
               <p className="case-alinea">{c.ontwerpdoel}</p>
             </section>
             <section data-reislijn-halte="" className="case-halte">
-              <div className="case-scherm beeld">
-                <Beeld naam={`${c.slug}-scherm`} {...SCHERM} sizes="(min-width: 900px) 60vw, 92vw" alt={casePagina.schermAlt(c.naam)} />
-              </div>
-              {c.url ? (
-                <a className="knop" href={c.url} target="_blank" rel="noopener noreferrer">{casePagina.bekijk}</a>
-              ) : null}
+              {(() => {
+                const scherm = (
+                  <div className="case-scherm beeld">
+                    <Beeld naam={`${c.slug}-scherm`} {...SCHERM} sizes="(min-width: 900px) 60vw, 92vw" alt={casePagina.schermAlt(c.naam)} />
+                  </div>
+                )
+                return c.url ? <ExterneLink c={c} className="case-scherm-link">{scherm}</ExterneLink> : scherm
+              })()}
+              <ExterneLink c={c} className="knop">{casePagina.bekijk} <span className="case-domein">{c.url ? domein(c.url) : ''}</span></ExterneLink>
             </section>
           </div>
         </Reislijn>

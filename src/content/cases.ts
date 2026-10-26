@@ -1,8 +1,8 @@
 /**
  * De websites op /work en /work/<naam>. Negen komen letterlijk van de vorige versie van de site
  * (in de ik-vorm van Chris: het is zijn werk). De eerste vier maakten we samen; hun tekst is een
- * voorstel in de wij-vorm (docs/copy-nieuw.md). `url` blijft leeg tot het adres bevestigd en de
- * site live is — zonder `url` verschijnt er geen link naar de echte site.
+ * voorstel in de wij-vorm (docs/copy-nieuw.md). `url` is het adres van de echte site; leeg = nog niet
+ * bevestigd, dan verschijnt er geen link naar buiten.
  */
 export type Case = {
   slug: string
@@ -26,7 +26,7 @@ export const cases: Case[] = [
       'De site is zo gebouwd dat Els haar teksten zelf kan bijwerken via ChatGPT. Ze vraagt een wijziging in gewone taal, krijgt een voorstel te zien en keurt het goed voordat het online staat.', // voorstel
     ],
     ontwerpdoel: 'Eerst de stelling van Els en waarom die nu telt, daarna haar aanbod en de stap naar een kennismaking. De site laat zien waar zij voor staat voordat het over diensten gaat.', // voorstel
-    url: '', // humanmargin.eu toont nog "Coming Soon" (gemeten 30-09-2026); invullen zodra de site live is
+    url: 'https://humanmargin.eu',
   },
   {
     slug: 'hoveniersbedrijf-nijboer',
@@ -37,7 +37,7 @@ export const cases: Case[] = [
       'De site opent met wat de hovenier doet en waar hij werkt. Bellen of appen kan meteen vanaf het eerste scherm, en daaronder staat in drie stappen hoe het werkt.', // voorstel
     ],
     ontwerpdoel: 'Een bezoeker ziet bovenaan wie er komt, wat hij doet en hoe je hem bereikt. De rest van de site onderbouwt dat met diensten en projecten.', // voorstel
-    url: '', // link volgt
+    url: 'https://nijboer.portfolio.seveke.nl',
   },
   {
     slug: 'stratenova-advisory',
@@ -70,7 +70,7 @@ export const cases: Case[] = [
       'Bestemmingen, ervaringen en routes nodigen uit om te dwalen, terwijl de navigatie bezoekers ook helpt gericht te plannen. De redactionele toon draagt het gevoel van ontdekking.',
     ],
     ontwerpdoel: 'Eerst ontstaat nieuwsgierigheid naar een plek; daarna komt de stap naar een eigen reisplan in beeld. De site brengt inspiratie en planning samen.',
-    url: '',
+    url: 'https://offbeatpeak.com',
   },
   {
     slug: 'digital-waves',
@@ -92,7 +92,7 @@ export const cases: Case[] = [
       'Retreats, workations en offsites zijn direct herkenbaar, met ruimte voor programma’s, sfeer, ervaringen van klanten en het team erachter. De site brengt inspiratie en praktische oriëntatie bij elkaar.',
     ],
     ontwerpdoel: 'Wie binnenkomt met een eerste idee, kan verder kijken welk type ervaring bij het eigen team past en hoe een gesprek over een offsite begint.',
-    url: '',
+    url: 'https://www.driftawave.com',
   },
   {
     slug: 'radstok-interim',
@@ -103,7 +103,7 @@ export const cases: Case[] = [
       'Bezoekers kunnen zijn aanpak en ervaring verkennen, of direct de stap zetten naar een kennismaking of de Operations Scan. Zo blijft de inhoud praktisch en persoonlijk, net als het werk van Radstok Interim.',
     ],
     ontwerpdoel: 'De site vertaalt ‘Hard én Hart’ naar een duidelijke structuur: eerst de operationele uitdaging, daarna de aanpak, de mens erachter en een concrete volgende stap.',
-    url: '',
+    url: 'https://www.radstokinterim.com',
   },
   {
     slug: 'fuselabs',
@@ -114,7 +114,7 @@ export const cases: Case[] = [
       'Daarna kunnen zij zien hoe strategie, een eerste werkend concept en maatwerksoftware daarop aansluiten. De onderdelen over werkwijze, mogelijkheden, eerder werk en private AI geven verdieping zonder de eerste boodschap te verstoppen.',
     ],
     ontwerpdoel: 'Technologie krijgt pas betekenis als een organisatie er echt mee kan werken. De site houdt die zakelijke uitkomst voorop.',
-    url: '',
+    url: 'https://www.fuselabs.ai',
   },
   {
     slug: 'souplesse-runners-boutique',
@@ -125,7 +125,7 @@ export const cases: Case[] = [
       'Bezoekers kunnen inspiratie opdoen, zich verdiepen in persoonlijk advies of gericht naar een product zoeken. Die combinatie maakt de site bruikbaar voor wie vandaag wil bestellen én voor wie eerst de mensen achter de winkel wil leren kennen.',
     ],
     ontwerpdoel: 'De website verbindt winkelbezoek, community, loopanalyse en online shoppen zonder dat één van die routes de rest verdringt.',
-    url: '',
+    url: 'https://www.souplesserunnersboutique.nl',
   },
   {
     slug: 'kinderopvang-ikke',
@@ -136,7 +136,7 @@ export const cases: Case[] = [
       'De route naar een bezoek is zichtbaar, terwijl de verschillende locaties en opvangvormen ruimte krijgen om hun eigen verhaal te vertellen. Zo helpt de website ouders eerst een gevoel bij Ikke te krijgen en daarna een volgende stap te zetten.',
     ],
     ontwerpdoel: 'De site brengt dagopvang, buitenschoolse opvang, drie locaties en de rondleiding samen. Ouders kunnen zich oriënteren zonder de praktische weg naar een bezoek kwijt te raken.',
-    url: '',
+    url: 'https://kinderopvangikke.nl',
   },
   {
     slug: 'win-instituut',
@@ -147,7 +147,7 @@ export const cases: Case[] = [
       'Bezoekers kunnen zich verdiepen in de visie, therapie en coaching, opleidingen en workshops. Het onderwerp vraagt om meer dan een mooie eerste indruk: iemand moet kunnen herkennen welke ingang voor hem of haar relevant is.',
     ],
     ontwerpdoel: 'De inhoud maakt de integratieve, psychofysieke en systemische aanpak zichtbaar zonder die te reduceren tot één dienst of doelgroep.',
-    url: '',
+    url: 'https://wininstituut.nl',
   },
   {
     slug: 'co-creatie-ai',
@@ -158,7 +158,7 @@ export const cases: Case[] = [
       'Op de website leg ik eerst het herkenbare probleem uit en daarna hoe een persoonlijke partner werkt, wat het traject inhoudt en waar je hem in de praktijk voor gebruikt.',
     ],
     ontwerpdoel: 'De opbouw helpt bezoekers mijn visie te toetsen voordat ze een demo boeken. Het is niet alleen een productpagina, maar ook een uitleg van hoe ik mens en technologie laat samenwerken.',
-    url: '',
+    url: 'https://www.co-creatie.ai',
     eigenProduct: true,
   },
 ]
@@ -167,3 +167,6 @@ export const caseVoor = (slug: string) => cases.find((c) => c.slug === slug)
 
 /** Volgorde op de Home-stapel: vijf uiteenlopende branches. */
 export const homeSelectie = ['radstok-interim', 'fuselabs', 'driftawave', 'kinderopvang-ikke', 'co-creatie-ai']
+
+/** Weergavenaam van een adres: zonder protocol en zonder www. */
+export const domein = (url: string) => new URL(url).hostname.replace(/^www\./, '')

@@ -13,7 +13,7 @@ export function GET() {
     `## ${over.kop}`, ...over.alineas, '',
     `## AI`, ai.kop, ai.intro, ai.tweede, ...ai.wat.items.map((i) => `- ${i.titel}: ${i.tekst}`), '',
     '## Werk',
-    ...cases.flatMap((c) => [`### ${c.naam}`, c.kort, ...c.alineas, `Ontwerpdoel: ${c.ontwerpdoel}`, '']),
+    ...cases.flatMap((c) => [`### ${c.naam}`, c.kort, ...c.alineas, `Ontwerpdoel: ${c.ontwerpdoel}`, ...(c.url ? [`Website: ${c.url}`] : []), '']),
   ]
   return new NextResponse(regels.join('\n') + '\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }

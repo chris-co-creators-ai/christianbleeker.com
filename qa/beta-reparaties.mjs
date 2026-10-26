@@ -5,6 +5,7 @@
  *
  *   BASIS=http://localhost:PORT node qa/beta-reparaties.mjs
  */
+import { readFileSync } from 'node:fs'
 import { pagina, uitslag } from './lib.mjs'
 
 const B = process.env.BASIS
@@ -193,5 +194,61 @@ for (const breedte of [390, 1600]) {
   const r = await page.evaluate(() => { const b = document.querySelector('.hero-tedx'), k = document.querySelector('.hero-kop'); if (!b) return null; const rb = b.getBoundingClientRect(); return { tekst: b.textContent.trim(), boven: rb.bottom <= k.getBoundingClientRect().top, inBeeld: rb.top >= 0 && rb.bottom <= innerHeight } })
   ok(r && /Official TEDxEindhoven advisor/.test(r.tekst) && r.boven && r.inBeeld, `${breedte}: TEDx-advisor staat niet zichtbaar boven de kop (${JSON.stringify(r)})`)
   await sluit()
+}
+// Portfolio-links: elke case met url heeft een externe link (exact dat adres) op /work, op de home en op de detailpagina;
+// zonder url is er geen. Geen geneste <a>, de kaartklik gaat nog naar de detailpagina, op 390 steekt niets uit.
+{
+  const src = readFileSync('src/content/cases.ts', 'utf8')
+  const lijst = [...src.matchAll(/slug: '([^']+)'[\s\S]*?naam: '([^']+)'[\s\S]*?url: '([^']*)'/g)].map((m) => ({ slug: m[1], naam: m[2], url: m[3] }))
+  ok(lijst.length === 13 && lijst.filter((c) => c.url).length === 11, `cases.ts: ${lijst.length} cases, ${lijst.filter((c) => c.url).length} met url (verwacht 13 en 11)`)
+  const extern = (c) => `a[target="_blank"][href="${c.url}"]`
+  const geneste = (html) => /<a\b[^>]*>(?:(?!<\/a>)[\s\S])*<a\b/.test(html)
+  for (const breedte of [1440, 390]) {
+    const { page, sluit } = await pagina({ breedte, hoogte: breedte < 600 ? 844 : 900 })
+    // /work
+    await page.goto(B + '/work', { waitUntil: 'networkidle' })
+    ok(!geneste(await page.content()) && (await page.$$('a a')).length === 0, `${breedte} /work: geneste anchors`)
+    for (const c of lijst) {
+      const kaart = page.locator('article.tegel', { has: page.locator(`a[href="/work/${c.slug}"]`) })
+      const n = await kaart.locator('a[target="_blank"]').count()
+      if (!c.url) { ok(n === 0, `${breedte} /work ${c.slug}: externe link terwijl url leeg is`); continue }
+      const l = kaart.locator(extern(c))
+      ok(n === 1 && (await l.count()) === 1, `${breedte} /work ${c.slug}: geen externe link met exact ${c.url}`)
+      ok(/noopener/.test((await l.getAttribute('rel')) || '') && (await l.getAttribute('aria-label')) === `Bekijk de site van ${c.naam} (opent in een nieuw tabblad)`, `${breedte} /work ${c.slug}: rel of toegankelijke naam klopt niet`)
+    }
+    const bw = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
+    ok(bw <= 0, `${breedte} /work: ${bw}px te breed`)
+    // kaartklik naar de detailpagina (de kaart zelf, niet de externe link)
+    const eerste = page.locator('article.tegel').nth(4)
+    await eerste.scrollIntoViewIfNeeded()
+    const box = await eerste.boundingBox()
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2)
+    await page.waitForURL(/\/work\/[^/]+$/, { timeout: 8000 }).catch(() => {})
+    ok(/\/work\/offbeat-peak$/.test(page.url()), `${breedte} /work: kaartklik gaat niet naar de detailpagina (${page.url()})`)
+    // home
+    await page.goto(B + '/', { waitUntil: 'networkidle' })
+    ok(!geneste(await page.content()) && (await page.$$('a a')).length === 0, `${breedte} /: geneste anchors`)
+    const hrefs = await page.$$eval('a[target="_blank"]', (a) => a.map((x) => x.getAttribute('href')))
+    for (const c of lijst) {
+      const op = (await page.locator(`a[href="/work/${c.slug}"]`).count()) > 0
+      if (op && c.url) ok(hrefs.includes(c.url), `${breedte} /: ${c.slug} staat op de home zonder externe link`)
+      if (!c.url) ok(!hrefs.includes(c.url) && (await page.locator(`a[aria-label*="${c.naam}"][target="_blank"]`).count()) === 0, `${breedte} /: externe link bij ${c.slug} zonder url`)
+    }
+    ok((await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)) <= 0, `${breedte} /: steekt uit`)
+    // detailpagina's: knop én beeld, met domein bij de knop
+    for (const c of lijst) {
+      await page.goto(B + `/work/${c.slug}`, { waitUntil: 'networkidle' })
+      ok(!geneste(await page.content()) && (await page.$$('a a')).length === 0, `${breedte} /work/${c.slug}: geneste anchors`)
+      const ext = page.locator('main a[target="_blank"]')
+      if (!c.url) { ok((await ext.count()) === 0, `${breedte} /work/${c.slug}: externe link terwijl url leeg is`); continue }
+      const l = page.locator(`main ${extern(c)}`)
+      ok((await l.count()) === 2 && (await ext.count()) === 2, `${breedte} /work/${c.slug}: verwacht knop + beeld met ${c.url}`)
+      ok((await page.locator(`main ${extern(c)}.knop`).textContent())?.includes(new URL(c.url).hostname.replace(/^www\./, '')), `${breedte} /work/${c.slug}: domein ontbreekt bij de knop`)
+      const naam = `Bekijk de site van ${c.naam} (opent in een nieuw tabblad)`
+      ok((await page.locator(`main ${extern(c)} img`).count()) >= 1 && (await l.evaluateAll((e, n) => e.every((x) => /noopener/.test(x.rel) && x.getAttribute('aria-label') === n), naam)), `${breedte} /work/${c.slug}: rel of toegankelijke naam klopt niet`)
+      if (breedte < 600) ok((await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)) <= 0, `390 /work/${c.slug}: steekt uit`)
+    }
+    await sluit()
+  }
 }
 uitslag('beta-reparaties', fouten, geslaagd)

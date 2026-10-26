@@ -5,6 +5,7 @@ import { Voet } from '@/components/secties/Voet'
 import { Beeld, OMSLAG } from '@/components/Beeld'
 import { EigenProduct } from '@/components/secties/EigenProduct'
 import { Dock } from '@/components/Dock'
+import { ExterneLink } from '@/components/ExterneLink'
 import { home, werk, casePagina } from '@/content/teksten'
 import { cases, caseVoor, homeSelectie } from '@/content/cases'
 import { MediaHero } from '@/features/media-hero/MediaHero'
@@ -88,9 +89,12 @@ export default function Home() {
                     <div className="stapel-tekst">
                       <p className="kicker">{werk.kort}</p>
                       <p className="stapel-kort">{c.kort}</p>
-                      <a className="knop knop--rand" href={`/work/${c.slug}`}>
-                        {home.werk.naarCase}<span className="sr-only">: {c.naam}</span> <span className="pijl" aria-hidden="true">→</span>
-                      </a>
+                      <div className="stapel-acties">
+                        <a className="knop knop--rand" href={`/work/${c.slug}`}>
+                          {home.werk.naarCase}<span className="sr-only">: {c.naam}</span> <span className="pijl" aria-hidden="true">→</span>
+                        </a>
+                        <ExterneLink c={c} className="knop" />
+                      </div>
                     </div>
                   </div>
                 ),
@@ -103,15 +107,17 @@ export default function Home() {
               </div>
               <HoverSet className="meer-rij">
                 {meer.map((c) => (
-                  <HoverCard
-                    key={c.slug}
-                    hover="lift"
-                    href={`/work/${c.slug}`}
-                    title={c.naam}
-                    description={c.kort}
-                    image={`/beeld/${c.slug}-omslag-480.webp`}
-                    linkLabel={casePagina.omslagAlt(c.naam)}
-                  />
+                  <div key={c.slug} className="meer-kaart">
+                    <HoverCard
+                      hover="lift"
+                      href={`/work/${c.slug}`}
+                      title={c.naam}
+                      description={c.kort}
+                      image={`/beeld/${c.slug}-omslag-480.webp`}
+                      linkLabel={casePagina.omslagAlt(c.naam)}
+                    />
+                    <ExterneLink c={c} className="knop meer-extern" />
+                  </div>
                 ))}
               </HoverSet>
               <a className="knop" href="/work">
