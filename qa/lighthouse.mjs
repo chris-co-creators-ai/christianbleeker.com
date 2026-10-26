@@ -117,7 +117,7 @@ for (const [route, naam] of PAGINAS) {
     // Alleen robots-txt READ_FAILED (de headless shell in de sandbox kan hem niet ophalen; met de
     // gewone Chrome buiten de sandbox gemeten: 100): SEO opnieuw uitgerekend zonder die ene audit.
     vindbaarZonderOmgeving: (() => {
-      const refs = c.seo.auditRefs.filter((x) => x.weight > 0 && !(x.id === "robots-txt" && /READ_FAILED/.test(a["robots-txt"]?.explanation || "")));
+      const refs = c.seo.auditRefs.filter((x) => x.weight > 0 && !(x.id === "robots-txt" && /READ_FAILED|unable to download a robots\.txt/i.test(a["robots-txt"]?.explanation || "")));
       const w = refs.reduce((t, x) => t + x.weight, 0);
       return Math.round((refs.reduce((t, x) => t + (a[x.id].score ?? 1) * x.weight, 0) / w) * 100);
     })(),

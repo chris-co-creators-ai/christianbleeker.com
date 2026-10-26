@@ -52,7 +52,7 @@ export function EigenProduct({ nummer, kopNiveau = 2, prioriteit = false }: { nu
           <a className="knop knop--rand" href={`/work/${co.slug}`}>
             {eigenProduct.cocreatie.naam} <span className="pijl" aria-hidden="true">→</span>
           </a>
-          <ExterneLink c={co} className="knop" />
+          <ExterneLink c={co} className="knop knop--rand" />
         </article>
         <article className="eigen-kaart eigen-creators" data-reveal="" data-reveal-delay="0.12">
           <div className="eigen-creators-tekst">

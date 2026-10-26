@@ -55,7 +55,7 @@ export default function Werk() {
                     <a className="tegel__link" href={`/work/${c.slug}`} data-cursor-label={werk.cursor}>
                       <span className="sr-only">{casePagina.omslagAlt(c.naam)}</span>
                     </a>
-                    <ExterneLink c={c} className="knop tegel__extern" />
+                    <ExterneLink c={c} className="knop knop--rand tegel__extern" />
                   </article>
                 ))}
               </BentoGrid>

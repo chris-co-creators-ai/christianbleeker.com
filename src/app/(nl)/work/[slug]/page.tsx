@@ -79,7 +79,12 @@ export default async function CasePagina({ params }: { params: Promise<{ slug: s
                 )
                 return c.url ? <ExterneLink c={c} className="case-scherm-link">{scherm}</ExterneLink> : scherm
               })()}
-              <ExterneLink c={c} className="knop">{casePagina.bekijk} <span className="case-domein">{c.url ? domein(c.url) : ''}</span></ExterneLink>
+              {c.url ? (
+                <p className="case-extern">
+                  <ExterneLink c={c} className="knop" />
+                  <span className="case-domein">{domein(c.url)}</span>
+                </p>
+              ) : null}
             </section>
           </div>
         </Reislijn>

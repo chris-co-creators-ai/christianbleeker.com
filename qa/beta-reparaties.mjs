@@ -200,7 +200,7 @@ for (const breedte of [390, 1600]) {
 {
   const src = readFileSync('src/content/cases.ts', 'utf8')
   const lijst = [...src.matchAll(/slug: '([^']+)'[\s\S]*?naam: '([^']+)'[\s\S]*?url: '([^']*)'/g)].map((m) => ({ slug: m[1], naam: m[2], url: m[3] }))
-  ok(lijst.length === 13 && lijst.filter((c) => c.url).length === 11, `cases.ts: ${lijst.length} cases, ${lijst.filter((c) => c.url).length} met url (verwacht 13 en 11)`)
+  ok(lijst.length === 13 && lijst.filter((c) => c.url).length === 13, `cases.ts: ${lijst.length} cases, ${lijst.filter((c) => c.url).length} met url (verwacht 13 en 13)`)
   const extern = (c) => `a[target="_blank"][href="${c.url}"]`
   const geneste = (html) => /<a\b[^>]*>(?:(?!<\/a>)[\s\S])*<a\b/.test(html)
   for (const breedte of [1440, 390]) {
@@ -243,9 +243,10 @@ for (const breedte of [390, 1600]) {
       if (!c.url) { ok((await ext.count()) === 0, `${breedte} /work/${c.slug}: externe link terwijl url leeg is`); continue }
       const l = page.locator(`main ${extern(c)}`)
       ok((await l.count()) === 2 && (await ext.count()) === 2, `${breedte} /work/${c.slug}: verwacht knop + beeld met ${c.url}`)
-      ok((await page.locator(`main ${extern(c)}.knop`).textContent())?.includes(new URL(c.url).hostname.replace(/^www\./, '')), `${breedte} /work/${c.slug}: domein ontbreekt bij de knop`)
+      ok((await page.locator('main .case-domein').textContent())?.includes(new URL(c.url).hostname.replace(/^www\./, '')), `${breedte} /work/${c.slug}: domein ontbreekt bij de knop`)
       const naam = `Bekijk de site van ${c.naam} (opent in een nieuw tabblad)`
       ok((await page.locator(`main ${extern(c)} img`).count()) >= 1 && (await l.evaluateAll((e, n) => e.every((x) => /noopener/.test(x.rel) && x.getAttribute('aria-label') === n), naam)), `${breedte} /work/${c.slug}: rel of toegankelijke naam klopt niet`)
+      ok(((await page.locator('main a.case-scherm-link').textContent()) || '').trim() === '', `${breedte} /work/${c.slug}: losse tekst of pijl in de beeldlink`)
       if (breedte < 600) ok((await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)) <= 0, `390 /work/${c.slug}: steekt uit`)
     }
     await sluit()

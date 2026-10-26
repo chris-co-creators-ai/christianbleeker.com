@@ -433,11 +433,14 @@ h1, h2, h3 { overflow-wrap: break-word; }
 @keyframes tedx-in { from { opacity: 0; transform: translateX(-24px) scale(0.96); } to { opacity: 1; transform: none; } }
 @keyframes tedx-logo { from { opacity: 0; transform: rotate(-90deg) scale(0.6); } to { opacity: 1; transform: none; } }
 
-/* Link naar de echte site: op de werktegel in de hoek (boven de stretched-link), op de home naast de case-knop. */
-.tegel__extern { position: absolute; top: 12px; right: 12px; z-index: 2; min-height: 40px; font-size: 14px; }
+/* Link naar de echte site: zelfde knoptaal als de rest (knop--rand + pijl), in het tekstdeel van de kaart, niet als sticker op het beeld. */
+.tegel__extern { position: absolute; left: 20px; bottom: 18px; z-index: 2; min-height: 40px; font-size: 14px; background: var(--color-grond); }
+.werk-bento .tegel:has(.tegel__extern) .tegel__tekst { padding-bottom: 74px; }
 .stapel-acties { display: flex; flex-wrap: wrap; gap: 12px; }
-.meer-kaart { position: relative; }
-.meer-extern { position: absolute; top: 10px; right: 10px; z-index: 3; min-height: 36px; padding: 0 1em; font-size: 13px; }
+.meer-kaart { display: grid; gap: 10px; justify-items: start; align-content: start; }
+.meer-extern { min-height: 36px; padding: 0 1em; font-size: 13px; }
 .case-scherm-link { display: block; }
-.case-domein { font-weight: 400; opacity: 0.85; }
+.case-extern { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.case-domein { color: var(--color-tekst-2); font-size: 15px; overflow-wrap: anywhere; min-width: 0; }
 .eigen-kaart .knop + .knop { margin-top: 0; }
+@media (hover: hover) and (pointer: fine) { .knop:hover .pijl--uit { transform: translate(2px, -2px); } }

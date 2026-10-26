@@ -93,7 +93,7 @@ export default function Home() {
                         <a className="knop knop--rand" href={`/work/${c.slug}`}>
                           {home.werk.naarCase}<span className="sr-only">: {c.naam}</span> <span className="pijl" aria-hidden="true">→</span>
                         </a>
-                        <ExterneLink c={c} className="knop" />
+                        <ExterneLink c={c} className="knop knop--rand" />
                       </div>
                     </div>
                   </div>
@@ -116,7 +116,7 @@ export default function Home() {
                       image={`/beeld/${c.slug}-omslag-480.webp`}
                       linkLabel={casePagina.omslagAlt(c.naam)}
                     />
-                    <ExterneLink c={c} className="knop meer-extern" />
+                    <ExterneLink c={c} className="knop knop--rand meer-extern" />
                   </div>
                 ))}
               </HoverSet>

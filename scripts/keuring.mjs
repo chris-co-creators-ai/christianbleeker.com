@@ -45,8 +45,12 @@ const PLACEHOLDER_PATRONEN = [
   { naam: 'TODO', patroon: /\bTODO\b/ },
 ]
 
+// Portfoliosites die bewust op een voorbeeldadres staan (de klant heeft nog geen eigen domein).
+const BEWUSTE_VOORBEELDADRESSEN = new Set(['stratenova-demo.vercel.app'])
+
 function verdachteHost(hostname) {
   const h = hostname.toLowerCase()
+  if (BEWUSTE_VOORBEELDADRESSEN.has(h)) return false
   return h === 'localhost' || h.endsWith('.vercel.app') || h.includes('staging') || h.startsWith('test.') || h.startsWith('dev.')
 }
 

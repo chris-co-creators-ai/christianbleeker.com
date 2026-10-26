@@ -48,7 +48,7 @@ export const cases: Case[] = [
       'De toon is die van de boardroom: rustig, met een klassieke letter voor de koppen en uitspraken die groot in beeld komen. De inhoud staat per taal apart, zodat de teksten later makkelijk bij te werken zijn.', // voorstel
     ],
     ontwerpdoel: 'Van boardroomstrategie naar werkende deals, contracten en transformaties: de site volgt die lijn, van de expertise naar de stap naar een gesprek.', // voorstel
-    url: '',
+    url: 'https://stratenova-demo.vercel.app',
   },
   {
     slug: 'seveke-creative',
@@ -81,7 +81,7 @@ export const cases: Case[] = [
       'Grote typografie en een uitgesproken ritme geven het merk een eigen gezicht. De inhoud maakt duidelijk waar het bureau voor staat: marketing, content en AI in dienst van ambitieuze merken.',
     ],
     ontwerpdoel: 'De site laat meteen voelen wat voor bureau Digital Waves is en geeft daarna een eenvoudige weg naar de diensten, het werk en een gesprek.',
-    url: '',
+    url: 'https://digitalwaves.agency',
   },
   {
     slug: 'driftawave',

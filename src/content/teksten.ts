@@ -159,7 +159,7 @@ export const werk = {
 export const casePagina = {
   kort: 'In het kort',
   ontwerpdoel: 'Ontwerpdoel',
-  bekijk: 'Bekijk de site ↗',
+  bekijk: 'Bekijk de site',
   bekijkAlt: (naam: string) => `Bekijk de site van ${naam} (opent in een nieuw tabblad)`, // voorstel (toegankelijke naam)
   volgende: 'Volgende case', // voorstel
   terug: 'Alle projecten', // voorstel
