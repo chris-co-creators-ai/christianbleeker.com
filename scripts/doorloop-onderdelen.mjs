@@ -134,7 +134,10 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
       for (let i = 0; i < 40; i++) {
         const d = doel - (await hp.evaluate(() => Math.round(scrollY)))
         if (Math.abs(d) < 3) break
-        await hp.mouse.wheel(0, Math.max(-1200, Math.min(1200, d))); await hp.waitForTimeout(120)
+        // Mobiel WebKit kent geen muiswiel: daar de scrollpositie direct op het scrollelement zetten.
+        if (mobiel && naam === 'webkit') await hp.evaluate((yy) => { document.scrollingElement.scrollTop = yy }, doel)
+        else await hp.mouse.wheel(0, Math.max(-1200, Math.min(1200, d)))
+        await hp.waitForTimeout(120)
       }
       return doel
     }
