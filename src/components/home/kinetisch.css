@@ -1,0 +1,5 @@
+/* kinetic-type op de vier dienstkoppen bij "Wat we doen", in het huisfont (Unbounded: alleen een wght-as,
+   dus vetter en voller richting het midden, niet smaller). Kleur volgt het thema. Zonder JS en bij minder
+   beweging: de gewone kop (600, volle kleur). */
+.doen [data-kinetic-type] { --kt-color-rgb: var(--rgb-tekst); --kt-w: 600; --kt-b: 1; font-weight: normal; }
+@media (prefers-reduced-motion: reduce) { .doen [data-kinetic-type] { --kt-w: 600 !important; --kt-b: 1 !important; } }

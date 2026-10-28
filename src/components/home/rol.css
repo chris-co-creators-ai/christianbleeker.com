@@ -1,0 +1,4 @@
+/* letter-rol in de knoppen van de Home: de kopie die van onder komt is de accentkleur van de knop. */
+.knop [data-letter-rol] { --lr-regel: 1.25em; }
+.knop:not(.knop--rand) [data-letter-rol] { --lr-kleur-2: var(--color-grond); }
+.knop--rand [data-letter-rol] { --lr-kleur-2: var(--color-hoofd); }

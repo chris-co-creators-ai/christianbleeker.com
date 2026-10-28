@@ -7,13 +7,14 @@ import { ChecklistKnop } from '@/components/ChecklistKnop'
  * Voet op elke pagina: merk, menu, privacy en (in de korte voet) de checklist als gewone link,
  * zodat hij ook op een telefoon overal te vinden is. Met `uitnodiging` (Home en /contact) staat erboven
  * de slotzin letter voor letter (letter-reveal) met de weg naar contact, LinkedIn en de checklist.
- * `data-dock-verberg`: de sectie-dock heeft hier niets toe te voegen.
+ * `data-dock-verberg`: de sectie-dock heeft hier niets toe te voegen. Met `opkomst` (alleen Home) zakt de
+ * inhoud bij het inscrollen op zijn plek (footer-opkomst; gestart door HomeEffecten).
  */
-export function Voet({ uitnodiging = false }: { uitnodiging?: boolean }) {
+export function Voet({ uitnodiging = false, opkomst = false }: { uitnodiging?: boolean; opkomst?: boolean }) {
   const [eerste, tweede] = voet.kop.split('? ')
   return (
-    <footer className={uitnodiging ? 'voet' : 'voet voet--kort'} data-dock-verberg="">
-      <div className="container-site">
+    <footer className={uitnodiging ? 'voet' : 'voet voet--kort'} data-dock-verberg="" data-opkomst={opkomst ? '' : undefined}>
+      <div className="container-site" data-opkomst-inhoud={opkomst ? '' : undefined}>
         {uitnodiging ? (<>
         <LetterReveal as="h2" className="voet-kop" lineSelector="[data-lr-line]" duration={0.8} stagger={0.035} lineGap={0.15}>
           <span data-lr-line="">{eerste}?</span>
