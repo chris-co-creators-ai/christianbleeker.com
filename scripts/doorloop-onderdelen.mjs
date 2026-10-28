@@ -123,6 +123,13 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     hp.on('console', (m) => { if (m.type() === 'error') cons.push(m.text()) })
     hp.on('pageerror', (e) => cons.push('pageerror ' + e.message))
     const fout = (wat, info) => fouten.push(`${label} home ${wat}: ${typeof info === 'string' ? info : JSON.stringify(info)}`)
+    // Scrollen als een bezoeker en wachten tot het venster echt stilstaat: html heeft scroll-behavior: smooth,
+    // en WebKit volgt die ook bij behavior 'instant' (vermoedelijk de oorzaak van de rode WebKit-ronde van 28-10).
+    const naar = async (y) => {
+      const doel = await hp.evaluate((yy) => { window.scrollTo({ top: yy, behavior: 'instant' }); return Math.min(Math.round(yy), document.documentElement.scrollHeight - innerHeight) }, y)
+      for (let i = 0; i < 60; i++) { if (Math.abs((await hp.evaluate(() => scrollY)) - doel) < 2) break; await hp.waitForTimeout(50) }
+      return doel
+    }
     await hp.goto(BASIS + '/', { waitUntil: 'domcontentloaded' })
     await hp.waitForTimeout(250)
     const zicht = () => hp.evaluate(() => { const e = document.querySelector('[data-punt-zoom-intro]'); return !!e && !e.hidden && getComputedStyle(e).display !== 'none' })
@@ -155,14 +162,15 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
 
     // beeldexplosie: aan het eind van het spoor staat de reel groot in beeld; stil = vaste compositie.
     const bx = await hp.evaluate(() => { const r = document.querySelector('.werk-explosie'); return { top: r.getBoundingClientRect().top + scrollY, hoog: r.offsetHeight, actief: r.hasAttribute('data-bx-actief'), stil: r.hasAttribute('data-bx-stil'), beelden: r.querySelectorAll('[data-bx-beeld]').length, h2: r.querySelector('h2')?.id } })
-    await hp.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), bx.top + (bx.hoog - h) * 0.97); await hp.waitForTimeout(700)
-    const kaart = await hp.evaluate(() => { const k = document.querySelector('.werk-explosie .bx__kaart').getBoundingClientRect(); return { b: Math.round(k.width), zicht: k.top < innerHeight && k.bottom > 0, aan: document.querySelector('.werk-explosie').hasAttribute('data-bx-kaart-aan'), knop: !!document.querySelector('.werk-explosie [data-bx-pauze]') } })
+    const bxDoel = await naar(bx.top + (bx.hoog - h) * 0.97); await hp.waitForTimeout(700)
+    const kaart = await hp.evaluate(() => { const r = document.querySelector('.werk-explosie'); const k = r.querySelector('.bx__kaart').getBoundingClientRect(); return { b: Math.round(k.width), zicht: k.top < innerHeight && k.bottom > 0, aan: r.hasAttribute('data-bx-kaart-aan'), knop: !!r.querySelector('[data-bx-pauze]'), p: r.style.getPropertyValue('--p'), sy: Math.round(scrollY), spoor: Math.round(r.querySelector('[data-bx-spoor]').getBoundingClientRect().height), podium: r.querySelector('[data-bx-podium]').offsetHeight, ih: innerHeight } })
+    kaart.doel = bxDoel
     if (!bx.actief || bx.beelden !== 11 || bx.h2 !== 'werk-explosie-kop' || bx.stil !== reduced) fout('beeldexplosie', bx)
     if (!(kaart.b > w * 0.5) || !kaart.knop || (!reduced && (!kaart.aan || !kaart.zicht))) fout('beeldexplosie kaart', kaart)
 
     // kinetic-type: in het midden vetter dan bovenin; bij minder beweging de gewone kop (600, vol).
     const kt = async (frac) => {
-      await hp.evaluate((f) => { const e = document.querySelector('.doen [data-kinetic-type]'); window.scrollTo({ top: e.getBoundingClientRect().top + scrollY - innerHeight * f, behavior: 'instant' }) }, frac)
+      await naar(await hp.evaluate((f) => { const e = document.querySelector('.doen [data-kinetic-type]'); return e.getBoundingClientRect().top + scrollY - innerHeight * f }, frac))
       await hp.waitForTimeout(450)
       return hp.evaluate(() => { const e = document.querySelector('.doen [data-kinetic-type]'); const cs = getComputedStyle(e); return { wght: Number((cs.fontVariationSettings.match(/"wght" ([\d.]+)/) || [])[1]), kleur: cs.color } })
     }
@@ -171,7 +179,7 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
 
     // story-word-light: woorden lichten op met de scroll; bij minder beweging meteen alles.
     const swl = async (f) => {
-      await hp.evaluate((ff) => { const s = document.querySelector('.over-swl'); window.scrollTo({ top: s.getBoundingClientRect().top + scrollY + (s.offsetHeight - innerHeight) * ff, behavior: 'instant' }) }, f)
+      await naar(await hp.evaluate((ff) => { const s = document.querySelector('.over-swl'); return s.getBoundingClientRect().top + scrollY + (s.offsetHeight - innerHeight) * ff }, f))
       await hp.waitForTimeout(500)
       return hp.evaluate(() => { const ws = [...document.querySelectorAll('.over-swl [data-story-word]')]; return { n: ws.length, lit: ws.filter((x) => x.classList.contains('is-lit')).length, sticky: getComputedStyle(document.querySelector('.over-swl .swl__sticky')).position } })
     }
@@ -184,7 +192,7 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
 
     // footer-opkomst: de inhoud zakt bij het inscrollen naar 0; bij minder beweging staat hij meteen.
     const fo = async (f) => {
-      await hp.evaluate((ff) => { const v = document.querySelector('footer[data-opkomst]'); window.scrollTo({ top: v.getBoundingClientRect().top + scrollY - innerHeight + v.offsetHeight * ff, behavior: 'instant' }) }, f)
+      await naar(await hp.evaluate((ff) => { const v = document.querySelector('footer[data-opkomst]'); return v.getBoundingClientRect().top + scrollY - innerHeight + v.offsetHeight * ff }, f))
       await hp.waitForTimeout(400)
       return hp.evaluate(() => { const v = document.querySelector('footer[data-opkomst]'); const i = v.querySelector('[data-opkomst-inhoud]'); return Math.round(i.getBoundingClientRect().top - v.getBoundingClientRect().top) })
     }

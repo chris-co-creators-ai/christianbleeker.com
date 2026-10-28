@@ -47,10 +47,10 @@ export function WerkExplosie() {
           </div>
           <div className="bx__kaart" data-bx-kaart="">
             <video muted loop playsInline preload="none" controls poster="/videos/werk-reel-poster.webp" width={1200} height={800} aria-label={t.reelLabel}>
-              <source src="/videos/werk-reel-mobiel.webm" type="video/webm" media="(max-width: 720px)" />
-              <source src="/videos/werk-reel-mobiel.mp4" type="video/mp4" media="(max-width: 720px)" />
-              <source src="/videos/werk-reel.webm" type="video/webm" />
-              <source src="/videos/werk-reel.mp4" type="video/mp4" />
+              <source src="/videos/werk-reel-mobiel.webm" type="video/webm; codecs=vp9" media="(max-width: 720px)" />
+              <source src="/videos/werk-reel-mobiel.mp4" type="video/mp4; codecs=avc1.64001E" media="(max-width: 720px)" />
+              <source src="/videos/werk-reel.webm" type="video/webm; codecs=vp9" />
+              <source src="/videos/werk-reel.mp4" type="video/mp4; codecs=avc1.640020" />
             </video>
           </div>
         </div>
