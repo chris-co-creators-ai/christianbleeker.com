@@ -50,6 +50,9 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /about | hotspots | media/hotspots | 3 | ja | `js:(() => { const b = document.querySelector('.over-hotspots .hotspots__point'); b.click(); const ok = b.getAttribute('aria-expanded') === 'true' && !document.getElementById(b.getAttribute('aria-controls')).hidden; document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); return ok })()` | drie punten op het portret (wie, aan tafel, Dicteren.ai) |
 | /about | justify-fill | typography/justify-fill | 3 | ja | `.statement-tekst[data-jf-ready] .jf__line` | "Een goede website begint bij de mensen erachter." over de volle breedte |
 | /about | schreef-accent | typography/schreef-accent | 2 | ja | `js:getComputedStyle(document.querySelector('.reis-kop h2 em')).fontFamily.includes('Instrument Serif')` | "naar" in de kop van de tijdlijn |
+| /about | eyebrow-lijn | scroll/eyebrow-lijn | 2 | ja | `.verhaal-eerste[data-eyebrow-lijn][data-el-actief] .el__lijn` | "Wie ik ben" met een lijn en pijl naar de eerste zin (v3, ook op /ai) |
+| /about | section-dividers | shapes/section-dividers | 2 | ja | `.logowand > .sdv[data-divider] > svg` | de band "Websites" krijgt een zachte boog boven en onder (v3) |
+| /about | gradient-flow | backgrounds/gradient-flow | 3 | ja | `.statement > .gf[data-gradient-flow] .gf__blob` | warm, traag bewegend kleurveld achter "Een goede website begint bij de mensen erachter." (v3) |
 
 ## AI `/ai`
 
@@ -60,6 +63,9 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /ai | impact-scan | tools/impact-scan | 4 | ja | `.ai-scan-knoppen[data-isc-init] [data-impact-scan-open]` | AI-scan in scoremodus (zeven stellingen) |
 | /ai | kaartenrij-lottie | scroll/kaartenrij-lottie | 4 | ja | `.ai-vragen[data-kaartenrij-aan] [data-kaartenrij-kaart]` | "Zes vragen die AI over jou stelt" |
 | /ai | password-reveal | typography/password-reveal | 4 | ja | `.ai-scan-woord[data-pr-ready] .pr__mask` | "onzichtbaar." onthult zich in de kop van de scan |
+| /ai | diepte-beeld | effects/diepte-beeld | 5 | ja | `.ai-diepte[data-diepte-beeld][data-db-actief] [data-diepte-laag].db-tekst h1` | het TEDx-podium in drie lagen: podium, de kop, het publiek ervoor (v3) |
+| /ai | parallax | scroll/parallax | 3 | ja | `.ai-lijst-diepte .ai-nr[data-parallax-y]` | de grote nummers 01–04 van "Wat we met AI doen" drijven elk in een eigen tempo (v3) |
+| /ai | eyebrow-lijn | scroll/eyebrow-lijn | 2 | nee | `.ai-intro[data-eyebrow-lijn]` | "AI" met lijn en pijl naar de intro onder het podium (telt op /about) |
 
 ## Werk `/work`
 
@@ -71,6 +77,8 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /work | drag-carousel | carousels/drag-carousel | 4 | ja | `.demo-rij[data-carousel-gridlijn] .carousel__slide` | de twintig ontwerp-demo's, sleepbaar op de gridlijn |
 | /work | device-mockup | portfolio/device-mockup | 3 | ja | `.demo-laptop [data-device-screen][style*="--dm-duration"]` | laptop + telefoon per ontwerp-demo |
 | /work | eindeloos-raster | layouts/eindeloos-raster | 4 | ja | `.alles-wand[data-er-actief] .er__raster` | beeldwand onder de showcase: klanten en demo's door elkaar, met de lijst "Alles op een rij" |
+| /work | raster-intro | heroes/raster-intro | 4 | ja | `.werk-raster[data-raster-intro] h1.ri__kop .ri__woord--groot` | opening: een bouwtekening tekent zich, het × verschijnt, "Elk merk heeft een eigen verhaal." schuift in (1× per sessie) (v3) |
+| /work | magneet-beelden | effects/magneet-beelden | 2 | ja | `.werk-magneet[data-magneet-actief] [data-magneet]` | de drie teamfoto's van Dicteren.ai buigen licht naar de muis (v3) |
 
 ## Casepagina `/work/[slug]` (gemeten op `/work/human-margin`)
 
@@ -90,6 +98,9 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /contact | prijzen-per-dienst | pricing/prijzen-per-dienst | 3 | ja | `.prijzen[data-ppd-actief] [role="tab"]` | open prijzen per dienst (voorstel, wacht op Chris) |
 | /contact | agenda-facade | media/agenda-facade | 2 | ja | `.kennismaken .af[data-af-klaar]` | kennismaking plannen; de agenda laadt pas na een klik |
 | /contact | availability-badge | badges/availability-badge | 2 | ja | `.contact-badge [data-ab-maand]` | "Ruimte voor nieuwe projecten in …" onder de kop |
+| /contact | hero-motion | scroll/hero-motion | 3 | ja | `.contact-links[data-hero-stage] .contact-h1 [data-hero-ch]` | "Contact" rijst letter voor letter op, de rest volgt (zonder wegzakken: het formulier staat ernaast) (v3) |
+| /contact | float-decor | effects/float-decor | 3 | ja | `.contact-foto-houder[data-offset-kader]` | verschoven kader in de hoofdkleur achter de foto (v3) |
+| /contact | ghost-text | typography/ghost-text | 2 | ja | `.prijzen-ghost [data-ghost-text]` | een groot, open "€" achter "Wat kost het?" (v3) |
 
 ## Elke pagina `*`
 

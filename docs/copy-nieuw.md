@@ -411,3 +411,15 @@ bevestigen.
 | Kan ik later zelf iets aanpassen? | Ja. Bij elk pakket laten we zien hoe je teksten en beelden zelf bijwerkt. |
 | Moet ik al een website hebben? | Nee. Een plan kan ook het begin zijn van een nieuwe site. |
 | Moet ik technisch zijn? | Nee. We beginnen bij je werk, niet bij de techniek. |
+
+## v3 (maker B, 28-10-2026): beeld en effecten
+
+Geen nieuwe zinnen. Wel:
+
+| Tekst | Waar | Waarom |
+|---|---|---|
+| Wie ik ben | /about, label vóór de eerste alinea (eyebrow-lijn) | voorstel |
+| Elk · merk · heeft een eigen · verhaal. | /work, de kop in de raster-intro | dezelfde eerste zin van de kop, in vier delen |
+| We helpen het zichtbaar te maken op het web. | /work, onder de kop | de tweede zin van dezelfde kop, nu als losse regel |
+| AI | /ai, label vóór de intro (eyebrow-lijn) | het bestaande kicker-woord |
+| € | /contact, groot en open achter "Wat kost het?" | decoratie, voor schermlezers verborgen |

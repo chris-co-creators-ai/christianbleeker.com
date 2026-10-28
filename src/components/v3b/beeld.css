@@ -1,0 +1,102 @@
+/* v3 — beeld en effecten (maker B). Plaatsing en thema-tokens van tien onderdelen op Over, AI, Werk
+   en Contact. Alleen tokens uit globals.css, zodat wit en donker vanzelf kloppen; de onderdelen zelf
+   staan ongewijzigd in src/features/. */
+
+/* ── AI: diepte-beeld (het TEDx-podium in lagen, de kop ertussen) ───────────────────────────── */
+.ai-kop.ai-kop--diepte { min-height: 0; display: block; overflow: visible; }
+.ai-diepte {
+  --db-verhouding: 1920 / 994;
+  --db-uitsnede: 50% 50%;
+  background: #120d0b; /* het podium is donker, in beide thema's */
+  max-height: 92svh;
+  width: 100%;
+}
+/* Op een smal scherm een hoger kader, met de spreker in beeld. */
+@media (max-width: 47.99rem) {
+  .ai-diepte { --db-verhouding: 4 / 5; --db-uitsnede: 74% 50%; }
+}
+.ai-diepte-tekst { display: flex; align-items: flex-start; pointer-events: none; }
+.ai-diepte-tekst .container-site { width: 100%; padding-top: clamp(104px, 13vw, 168px); }
+/* De kop staat op het donkere doek: altijd licht, ook in het witte thema. */
+.ai-kop--diepte .ai-h1 { margin: 0; color: #f5ece3; max-width: 13ch; font-size: clamp(32px, 6.2vw, 104px); text-shadow: 0 1px 24px rgb(18 13 11 / 0.55); }
+.ai-kop--diepte .ai-kop-tekst { padding-block: clamp(32px, 5vw, 64px) clamp(24px, 4vw, 48px); }
+
+/* ── eyebrow-lijn: label + lijn met pijl vóór een grote intro-zin (Over en AI) ─────────────── */
+[data-eyebrow-lijn].ai-intro,
+[data-eyebrow-lijn].verhaal-eerste {
+  --el-lijn-kleur: var(--color-hoofd);
+  --el-label-kleur: var(--color-tekst-2);
+  max-width: none;
+}
+[data-eyebrow-lijn].ai-intro { --el-zin-grootte: clamp(21px, 2.3vw, 36px); margin-top: 0; max-width: 34ch; }
+[data-eyebrow-lijn].ai-intro .el__zin { color: var(--color-tekst); }
+[data-eyebrow-lijn].verhaal-eerste { --el-zin-grootte: clamp(24px, 2.6vw, 38px); --el-zin-regel: 1.2; font: inherit; color: inherit; letter-spacing: normal; }
+[data-eyebrow-lijn].verhaal-eerste .el__zin { font: 500 var(--el-zin-grootte)/var(--el-zin-regel) var(--font-kop); letter-spacing: -0.03em; color: var(--color-tekst); }
+[data-eyebrow-lijn] .el__label { font: 600 13px/1 var(--font-tekst); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ── AI: parallax op de grote nummers ───────────────────────────────────────────────────────── */
+.ai-lijst-diepte { overflow: clip; }
+.ai-nr { display: inline-block; }
+
+/* ── Over: section-dividers aan de band "Websites" ──────────────────────────────────────────── */
+.logowand { position: relative; }
+.logowand .logowand-rand { --sd-kleur: var(--color-grond); --sd-hoogte: clamp(28px, 4.4vw, 64px); z-index: 1; }
+
+/* ── Over: gradient-flow achter de slotzin ──────────────────────────────────────────────────── */
+.statement { position: relative; isolation: isolate; }
+.statement > .statement-tekst { position: relative; z-index: 1; }
+.statement-veld.gf {
+  --gf-basis: transparent;
+  --gf-kleur-1: color-mix(in srgb, var(--color-hoofd) 17%, transparent);
+  --gf-kleur-2: color-mix(in srgb, var(--color-accent) 18%, transparent);
+  --gf-kleur-3: color-mix(in srgb, var(--color-hoofd) 10%, transparent);
+  --gf-kleur-4: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  inset: 0 calc(-1 * clamp(16px, 3vw, 48px));
+  -webkit-mask-image: radial-gradient(closest-side, #000 45%, transparent);
+  mask-image: radial-gradient(closest-side, #000 45%, transparent);
+}
+
+/* ── Werk: raster-intro als opening ─────────────────────────────────────────────────────────── */
+.werk-raster[data-raster-intro] {
+  --ri-bg: transparent;
+  --ri-lijn: var(--color-lijn);
+  --ri-tekst: var(--color-tekst);
+  --ri-accent: var(--color-hoofd);
+  --ri-font-groot: var(--font-kop);
+  --ri-groot: clamp(3rem, min(10.5vw, 19svh), 10rem);
+  --ri-klein: max(1.5rem, calc(var(--ri-groot) * 0.36));
+  --ri-inspring: clamp(0rem, 9vw - 1rem, 9rem);
+  min-height: min(88svh, 860px);
+  padding: clamp(96px, 11vw, 150px) 0 clamp(24px, 4vw, 48px);
+}
+.werk-raster .ri__woord--groot { text-transform: none; font-weight: 700; letter-spacing: -0.05em; line-height: 0.95; padding-top: 0; }
+.werk-raster .ri__woord--klein { color: var(--color-tekst-2); }
+.werk-raster .ri__teken svg { width: clamp(4rem, 7vw, 6.5rem); }
+.werk-raster .ri__merk { font-family: var(--font-kop); font-size: clamp(14px, 1.1vw, 18px); color: var(--color-tekst-2); }
+.werk-raster-tekst .ri__kop::before { inset-inline: -100vw -100vw; }
+.werk-raster-sub { margin-top: clamp(16px, 2vw, 28px); padding-inline-start: var(--ri-inspring); font-size: clamp(19px, 1.6vw, 24px); max-width: 32ch; color: var(--color-tekst-2); box-sizing: content-box; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-ri-actief] .werk-raster-sub { animation: ri-op calc(0.9s * var(--ri-tempo)) var(--ri-circ-out) 1.9s both; }
+  [data-ri-actief]:not([data-ri-loopt]) .werk-raster-sub { animation-play-state: paused; }
+}
+@media (max-width: 40rem) {
+  .werk-raster[data-raster-intro] { --ri-groot: clamp(2.6rem, 15vw, 4.4rem); --ri-inspring: 0rem; min-height: 0; padding-top: 104px; }
+}
+
+/* ── Contact: float-decor (verschoven kader achter de foto) en ghost-text (€) ───────────────── */
+.contact-foto-kader { width: min(100%, 300px); }
+.contact-foto-houder { --fd-kader-kleur: var(--color-hoofd); --fd-kader-x: 14px; --fd-kader-y: 14px; border-radius: 16px; margin-bottom: 14px; }
+.contact-foto-houder .contact-foto { width: 100%; }
+.prijzen-ghost [data-ghost-text] {
+  --ghost-size: clamp(9rem, 26vw, 22rem);
+  --ghost-stroke: var(--color-lijn-sterk);
+  --ghost-inset: -0.12em 0 auto auto;
+  font-family: var(--font-kop);
+}
+.werk-raster .ri__woord--klein[data-ri-naast] { margin-inline-start: 0.35em; }
+/* ── Contact: hero-motion (de kop rijst per letter op; geen recede, het formulier staat ernaast) ── */
+.contact-h1 .hm-line { display: inline-block; vertical-align: bottom; }
+@media (max-width: 40rem) {
+  .prijzen-ghost [data-ghost-text] { --ghost-size: 7.5rem; --ghost-inset: -0.3em -0.04em auto auto; opacity: 0.7; }
+}
+.logowand { overflow-x: clip; }

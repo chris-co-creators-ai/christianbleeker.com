@@ -18,7 +18,11 @@ import { StickyTimeline } from '@/features/sticky-timeline/StickyTimeline'
 import { UitgevuldeZin } from '@/components/UitgevuldeZin'
 import { SchreefAccent } from '@/features/schreef-accent/SchreefAccent'
 import { HotspotsBeeld } from '@/components/HotspotsBeeld'
+import { EyebrowLijn } from '@/features/eyebrow-lijn/EyebrowLijn'
+import { SectionDivider } from '@/features/section-dividers/SectionDivider'
+import { GradientFlow } from '@/features/gradient-flow/GradientFlow'
 import './over-v2.css'
+import '@/components/v3b/beeld.css'
 
 export const metadata: Metadata = {
   title: { absolute: over.titel },
@@ -65,8 +69,10 @@ export default function Over() {
               </HotspotsBeeld>
             </div>
             <div className="verhaal-tekst">
-              {over.alineas.map((a, i) => (
-                <p key={i} className={i === 0 ? 'verhaal-eerste' : undefined} data-reveal="">{a}</p>
+              {over.alineas.map((a, i) => i === 0 ? (
+                <EyebrowLijn key={i} label={over.wie} className="verhaal-eerste">{a}</EyebrowLijn>
+              ) : (
+                <p key={i} data-reveal="">{a}</p>
               ))}
               <a className="knop" href="/contact" data-reveal="">{over.knop} <span className="pijl" aria-hidden="true">→</span></a>
             </div>
@@ -94,6 +100,7 @@ export default function Over() {
           </section>
 
           <section className="logowand" aria-labelledby="websites-kop">
+            <SectionDivider vorm="curve" positie="boven" className="logowand-rand" />
             <div className="container-site">
               <h2 id="websites-kop" className="logowand-kop" data-reveal="">{over.websites.kop}</h2>
               <KrachtveldLogowand
@@ -106,9 +113,11 @@ export default function Over() {
                 logos={cases.filter((c) => LOGO[c.slug]).map((c) => ({ alt: c.naam, src: `/beeld/${LOGO[c.slug]}` }))}
               />
             </div>
+            <SectionDivider vorm="curve" positie="onder" className="logowand-rand" />
           </section>
 
           <section className="sectie container-site statement">
+            <GradientFlow className="statement-veld" />
             <UitgevuldeZin className="statement-tekst">{over.statement}</UitgevuldeZin>
           </section>
 
