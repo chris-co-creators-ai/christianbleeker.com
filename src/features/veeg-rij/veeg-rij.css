@@ -1,0 +1,60 @@
+/* veeg-rij — namespaced op [data-veeg*]. Kleur en maat via variabelen. */
+[data-veeg] {
+  --vr-vlak: var(--veeg-vlak, #26379b);
+  --vr-tekst: var(--veeg-tekst, #14173a);
+  --vr-tekst-hover: var(--veeg-tekst-hover, #fffef9);
+  --vr-schuif: var(--veeg-schuif, 2em);
+  --vr-duur: var(--veeg-duur, .5s);
+  --vr-ease: cubic-bezier(.075, .82, .165, 1); /* outCirc */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--vr-tekst);
+  text-decoration: none;
+  transition: color var(--vr-duur) var(--vr-ease);
+}
+[data-veeg]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--vr-vlak);
+  transform: scaleX(0);
+  transform-origin: var(--veeg-origin, left);
+  transition: transform var(--vr-duur) var(--vr-ease);
+  pointer-events: none;
+}
+[data-veeg] [data-veeg-tekst] {
+  display: block;
+  transition: transform var(--vr-duur) var(--vr-ease);
+}
+[data-veeg]:focus-visible {
+  outline: 2px solid var(--vr-vlak);
+  outline-offset: -2px;
+}
+[data-veeg]:focus-visible::before { transform: scaleX(1); }
+[data-veeg]:focus-visible { color: var(--vr-tekst-hover); outline-color: var(--vr-tekst-hover); }
+[data-veeg]:focus-visible [data-veeg-tekst] { transform: translateX(var(--vr-schuif)); }
+
+@media (hover: hover) {
+  [data-veeg]:hover { color: var(--vr-tekst-hover); }
+  [data-veeg]:hover::before { transform: scaleX(1); }
+  [data-veeg]:hover [data-veeg-tekst] { transform: translateX(var(--vr-schuif)); }
+}
+/* touch: geen hover, wel directe terugkoppeling bij het aantikken */
+@media (hover: none) {
+  [data-veeg]:active { color: var(--vr-tekst-hover); }
+  [data-veeg]:active::before { transform: scaleX(1); }
+  [data-veeg]:active [data-veeg-tekst] { transform: translateX(var(--vr-schuif)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-veeg], [data-veeg]::before, [data-veeg] [data-veeg-tekst] { transition: none !important; }
+}
+@media (forced-colors: active) {
+  [data-veeg]::before { background: Highlight; }
+  [data-veeg]:hover, [data-veeg]:focus-visible { color: HighlightText; }
+}

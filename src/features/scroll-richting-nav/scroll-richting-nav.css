@@ -1,0 +1,18 @@
+/**
+ * scroll-richting-nav.css
+ * Namespace: [data-srn-aan] (gezet door de JS) en [data-srn-weg].
+ * De nav zelf moet sticky of fixed staan; dat bepaal je in je eigen CSS.
+ */
+[data-srn-aan] {
+  transition: translate 0.45s cubic-bezier(0.215, 0.61, 0.355, 1); /* ≈ power3.out */
+}
+[data-srn-aan][data-srn-weg] {
+  translate: 0 -110%;
+}
+/* Vangnet: toetsenbordfocus erin = altijd zichtbaar, ook als de JS een frame te laat is. */
+[data-srn-aan]:has(:focus-visible) {
+  translate: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-srn-aan] { transition: none; }
+}
