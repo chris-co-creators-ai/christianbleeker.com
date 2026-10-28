@@ -191,3 +191,132 @@ eerlijk bij. Namen, beroepen en plaatsen komen uit de lijst van de twintig demo-
 | "Bekijk de ontwerp-demo <naam> (opent in een nieuw tabblad)" | toegankelijke naam |
 | "De homepage van de ontwerp-demo <naam> op een laptop" | alt |
 | "<naam> <in het kort>" | per demo: naam, beroep en plaats (zie src/content/demos.ts) |
+
+## v2 fase 2 (maker C, 28-10-2026): Werk, casepagina's en Contact
+
+Voorstel, lokaal (niet live). **De prijzen, pakketnamen, doorlooptijden en pakketinhoud zijn een voorstel van
+Seveke Creative en nog niet door Chris goedgekeurd**; ze staan op één plek in `src/content/prijzen.ts`. Het adres
+van de agenda (`cal.com/christianbleeker/kennismaking`) is een aanname: het echte adres volgt van Chris. De
+beschikbaarheid ("Ruimte voor nieuwe projecten in <maand>", altijd volgende maand) is een voorstel dat Chris moet
+bevestigen.
+
+### /work: beeldwand onder de showcase
+
+| Tekst | Waarom |
+|---|---|
+| Alles door elkaar | kicker |
+| Blader door alles wat we maakten | kop |
+| Klanten en ontwerp-demo’s in één beeldwand. Blijf scrollen en hij komt terug; onderaan staat alles op een rij. | uitleg |
+| Alles als lijst | uitweg-knop |
+| Alles op een rij | kop van de lijst |
+| Klant | label |
+| Eigen product | label |
+| "Ontwerp-demo · <naam>" | label per demo |
+| "<naam> <soort> · <domein>" | regel in de lijst (klant of eigen product) |
+| "<naam> Ontwerp-demo · <beroep>, <plaats>" | regel in de lijst (demo) |
+| "Bekijk de case <naam>" | toegankelijke naam |
+
+### Casepagina: de echte site in een venster en de volgende cases
+
+| Tekst | Waarom |
+|---|---|
+| Schermbeeld van de echte site | markering in het venster |
+| De echte site, live in dit venster | markering na het laden |
+| Laad de echte site hier | knop (alleen bij sites die zich laten inbedden) |
+| Bekijk de site in dit venster | knop op de telefoon |
+| Sluit het venster | knop |
+| Sla het venster over | overslaanlink |
+| Dit is een schermbeeld. De echte site opent via de knop eronder. | melding |
+| "De website van <naam> in een browservenster" | toegankelijke naam |
+| "De live website van <naam>" | titel van het venster |
+| Verder kijken | kop boven de volgende cases |
+| Dertien websites en twintig ontwerp-demo’s op één pagina. | laatste kaart |
+
+### Contact
+
+| Tekst | Waarom |
+|---|---|
+| "Ruimte voor nieuwe projecten in <maand>" | beschikbaarheid (voorstel, Chris bevestigt) |
+| Eerst even kennismaken | stap 1 |
+| Je bedrijf of project (mag leeg blijven) | veld |
+| "Waar wil <bedrijf> naartoe?" | stap 2 |
+| Een nieuwe website | keuze |
+| Je huidige site past niet meer bij wie je nu bent. | keuze |
+| Meer uit je site halen | keuze |
+| De site staat, maar er komen te weinig goede gesprekken uit. | keuze |
+| Aan de slag met AI | keuze |
+| Je wilt weten wat AI voor jouw werk kan doen, zonder je eigen stem te verliezen. | keuze |
+| Iets anders | keuze |
+| Vertel het in de volgende stap. | keuze |
+| "<voornaam>, wat heb je voor ogen?" | stap 3 |
+| Wat heb je voor ogen? | stap 3 zonder naam |
+| "Stap <n> van <totaal>" | teller |
+| Vorige | knop |
+| Volgende | knop |
+| "Dank je, <voornaam>." | bedankt |
+| Je bericht is verstuurd. Alvast iets doen terwijl je wacht? | bedankt |
+| Zet met de website-checklist prompt je bedrijf, je wensen en je materiaal op een rij. | tip |
+| Kijk rond bij het werk en noteer welke sites je aanspreken, en waarom. | tip |
+| Waar het om gaat / Bedrijf of project / Gekozen pakket | regels bovenaan het bericht in de mail |
+| Welk pakket past bij jou? | kicker |
+| Twee vragen, één advies | kop |
+| Twijfel je wat je nodig hebt? Beantwoord twee korte vragen en je ziet welk pakket past, met een richtprijs. | uitleg |
+| Waar heb je het meest behoefte aan? | vraag |
+| Een website / Marketing en strategie / Aan de slag met AI | keuzes |
+| Hoeveel wil je laten zien? | vraag (website) |
+| Eén verhaal op een paar pagina’s | keuze |
+| Diensten, werk en een blog | keuze |
+| Meerdere talen of iets op maat | keuze |
+| Wat zoek je? | vraag (marketing) |
+| Een frisse blik op wat er is | keuze |
+| Een plan voor de komende maanden | keuze |
+| Waar sta je met AI? | vraag (AI) |
+| Ik wil weten wat het kan | keuze |
+| Ik wil er dagelijks mee werken | keuze |
+| Bekijk advies | knop |
+| Advies wordt berekend… | status |
+| Terug naar de vragen | knop |
+| Bekijk de pakketten en prijzen | knop |
+| "Richtprijs vanaf <bedrag> excl. btw" | prijs bij het advies |
+| Een compacte site die in een paar pagina’s laat zien wie je bent en wat je doet. | advies |
+| Meertalig of met een eigen tool: daar hoort een eigen plan bij, en tijd om het goed te doen. | advies |
+| Eén sessie waarin we samen naar je site en je verhaal kijken, met de eerste stappen op papier. | advies |
+| Een plan met je doelgroep, je boodschap en wat je de komende drie maanden doet. | advies |
+| Een workshop met voorbeelden uit je eigen werk, zodat je morgen kunt beginnen. | advies |
+| Een persoonlijke AI-partner die jouw werk en jouw stem kent. | advies |
+| Een site die je diensten, je werk en je verhaal laat zien, en die vindbaar is vanaf dag één. | advies |
+| Open prijzen | kicker |
+| Wat kost het? | kop |
+| Richtprijzen, exclusief btw. Na een kennismaking krijg je een offerte die past bij wat je echt nodig hebt. | uitleg |
+| Meest gekozen | label |
+| Wat het oplevert / Inbegrepen / Doorlooptijd: | koppen in de kaart |
+| "Vraag <pakket> aan" | knop |
+| "Veelgestelde vragen over <dienst>" | kop |
+| Liever iets op maat? Vertel wat je nodig hebt, dan kijken we samen wat past. | regel |
+| Vertel wat je zoekt | link |
+| Liever eerst even praten? | kop |
+| Kennismaking met Chris | titel van de agenda |
+| Websites, marketing en AI | rol |
+| 30 minuten / Online | feiten |
+| Een vrijblijvend gesprek: je vertelt waar je staat, we denken mee over de volgende stap. | tekst |
+| Kies een moment | knop |
+| Open de agenda in een nieuw tabblad | link |
+
+### Prijzen per dienst (VOORSTEL, nog niet goedgekeurd door Chris)
+
+| Dienst | Pakket | Vanaf (excl. btw) | Doorlooptijd | Wat het oplevert | Inbegrepen |
+|---|---|---|---|---|---|
+| Websites | Start | € 2.450 eenmalig | 3 tot 4 weken | Eén helder verhaal op drie tot vijf pagina’s | Ontwerp in jouw stijl · Teksten samen geschreven · Contactformulier |
+| Websites | Verhaal (meest gekozen) | € 4.950 eenmalig | 5 tot 6 weken | Een site die diensten, werk en jouw verhaal laat zien | Alles uit Start · Tot tien pagina’s · Vindbaar in Google vanaf dag één |
+| Websites | Maatwerk | € 8.950 eenmalig | 8 tot 10 weken | Meerdere talen, een eigen tool of een slimme koppeling | Alles uit Verhaal · Meertalig of maatwerk · Teksten zelf bijwerken met AI |
+| Marketing | Klankbord | € 750 per sessie | Een halve dag | Een frisse blik op je site en je verhaal | Voorbereiding op je huidige site · Sessie van drie uur · Verslag met de eerste stappen |
+| Marketing | Plan (meest gekozen) | € 2.250 eenmalig | 2 tot 3 weken | Een plan voor de komende maanden | Alles uit Klankbord · Doelgroep en boodschap op papier · Contentkalender voor drie maanden |
+| AI | Kennismaking met AI | € 1.250 per workshop | Een dagdeel | Zien wat AI in jouw werk al kan doen | Workshop voor jou of je team · Voorbeelden uit jouw eigen werk · Een lijst om morgen mee te beginnen |
+| AI | Persoonlijke AI-partner (meest gekozen) | € 2.950 eenmalig | 4 weken | Een AI-partner die jouw werk en jouw stem kent | Traject zoals op Co-creatie.ai · Ingericht op jouw werkwijze · Begeleiding in de eerste weken |
+
+| Vraag | Antwoord |
+|---|---|
+| Schrijven jullie ook de teksten? | Ja, samen met jou. Jouw eigen woorden blijven het vertrekpunt; wij maken ze helder voor je bezoekers. |
+| Kan ik later zelf iets aanpassen? | Ja. Bij elk pakket laten we zien hoe je teksten en beelden zelf bijwerkt. |
+| Moet ik al een website hebben? | Nee. Een plan kan ook het begin zijn van een nieuwe site. |
+| Moet ik technisch zijn? | Nee. We beginnen bij je werk, niet bij de techniek. |

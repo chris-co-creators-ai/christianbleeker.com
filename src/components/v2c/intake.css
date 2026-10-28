@@ -1,0 +1,45 @@
+/* stappen-persoonlijk als contactformulier: site-tokens, dus goed in wit én donker. */
+.intake__form {
+  --sp-ink: var(--color-tekst);
+  --sp-ink-soft: var(--color-tekst-2);
+  --sp-accent: var(--color-hoofd);
+  --sp-vlak: var(--color-grond);
+  --sp-lijn: var(--color-lijn-sterk);
+  --sp-fout: var(--color-hoofd);
+  --sp-serif: var(--font-kop);
+  --sp-radius: 18px;
+  --sp-scroll-marge: 96px;
+  max-width: none;
+  margin: 0;
+}
+.intake__form legend { text-align: left; margin-bottom: 20px; }
+.intake__form [data-sp-kop] { font: 600 clamp(26px, 2.6vw, 38px)/1.08 var(--font-kop); letter-spacing: -0.035em; }
+.intake__form .sp-naam { font-style: normal; font-weight: 600; font-size: 1em; }
+.intake__form .sp-teller { color: var(--color-accent); }
+.intake__form fieldset[data-sp-stap] { margin-bottom: 24px; }
+.intake__form .sp-rooster { max-width: none; margin: 0; }
+.intake__form .sp-veld label { font-size: 16px; }
+.intake__form .sp-veld input:not([type="radio"]), .intake__form .sp-veld textarea { border-radius: 12px; border-width: 1px; font-size: 17px; }
+.intake__form .sp-veld input:focus-visible, .intake__form .sp-veld textarea:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; box-shadow: none; }
+.intake__form .sp-kaarten { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.intake__form .sp-kaart { min-height: 0; padding: 18px 18px 20px; border: 1px solid var(--color-lijn); }
+.intake__form .sp-kaart__titel { font: 600 19px/1.15 var(--font-kop); letter-spacing: -0.02em; color: var(--color-tekst); }
+.intake__form .sp-kaart:has(input:checked) .sp-kaart__titel { color: var(--color-hoofd); }
+.intake__form .sp-kaart__tekst { font-size: 15px; }
+.intake__form .sp-nav { justify-content: flex-start; }
+.intake__form .sp-knop { color: var(--color-tekst); border-color: var(--color-lijn-sterk); border-width: 1.5px; }
+.intake__form .sp-knop::before { color: var(--color-grond); }
+.intake__form .sp-knop:hover { background: var(--color-grond-3); color: var(--color-tekst); }
+.intake__form .sp-knop:focus-visible { outline-color: var(--color-accent); }
+.intake__form .sp-fout { text-align: left; color: var(--color-tekst); padding: 14px 16px; border-radius: 12px; background: var(--color-grond-3); box-shadow: inset 0 0 0 1.5px var(--color-hoofd); }
+.intake__form .sp-fout__link { color: var(--color-accent); text-decoration: underline; }
+.intake__privacy { margin-top: 14px; }
+.intake__bedankt { text-align: left; padding: clamp(24px, 3vw, 40px); border-radius: 24px; background: var(--color-grond-2); border: 1px solid var(--color-lijn); --sp-vlak: var(--color-grond); --sp-accent: var(--color-hoofd); }
+.intake__bedankt h2 { font: 600 clamp(28px, 3vw, 44px)/1.05 var(--font-kop); letter-spacing: -0.04em; margin-bottom: 12px; }
+.intake__bedankt .sp-naam { color: var(--color-hoofd); font: inherit; }
+.intake__bedankt > p { color: var(--color-tekst-2); }
+.intake__bedankt .sp-tips li::before { color: var(--color-grond); }
+.intake__verder { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+@media (max-width: 560px) { .intake__form .sp-kaarten { grid-template-columns: 1fr; } }
+/* De stapkop krijgt de focus voor schermlezers (tabindex -1, niet bedienbaar): geen ring nodig. */
+.intake__form [data-sp-kop]:focus-visible, .intake__bedankt [data-sp-kop]:focus-visible { outline: none; }

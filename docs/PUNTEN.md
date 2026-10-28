@@ -54,6 +54,7 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /work | handwritten-accent | typography/handwritten-accent | 2 | ja | `[data-handwritten-accent][data-hwa-ready]` | het handgeschreven label bij het team van Eigen product (ook Home) |
 | /work | drag-carousel | carousels/drag-carousel | 4 | ja | `.demo-rij[data-carousel-gridlijn] .carousel__slide` | de twintig ontwerp-demo's, sleepbaar op de gridlijn |
 | /work | device-mockup | portfolio/device-mockup | 3 | ja | `.demo-laptop [data-device-screen][style*="--dm-duration"]` | laptop + telefoon per ontwerp-demo |
+| /work | eindeloos-raster | layouts/eindeloos-raster | 4 | ja | `.alles-wand[data-er-actief] .er__raster` | beeldwand onder de showcase: klanten en demo's door elkaar, met de lijst "Alles op een rij" |
 
 ## Casepagina `/work/[slug]` (gemeten op `/work/human-margin`)
 
@@ -61,11 +62,18 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 |---|---|---|---|---|---|---|
 | /work/human-margin | reislijn | scroll/reislijn | 4 | ja | `.case-lijn[data-reislijn-modus]` | de lijn langs de haltes van de case |
 | /work/human-margin | marker-highlight | typography/marker-highlight | 1 | nee | `mark[data-marker]` | markeerstift onder de tussenkop |
+| /work/human-margin | live-demo-kader | portfolio/live-demo-kader | 4 | ja | `.case-kader[data-ldk-actief][data-ldk-modus]` | de echte site in een browservenster (live na een klik waar de site dat toelaat) |
+| /work/human-margin | kaartenstapel-zij | scroll/kaartenstapel-zij | 4 | ja | `.volgende-stapel[data-kz-modus]` | de volgende vier cases als zijwaartse stapel |
 
 ## Contact `/contact`
 
 | Pagina | Onderdeel | Map | Punten | Telt | Selector | Waar |
 |---|---|---|---|---|---|---|
+| /contact | stappen-persoonlijk | forms/stappen-persoonlijk | 4 | ja | `#intake-formulier[data-sp-js] [data-sp-stap]` | het contactformulier als intake in drie stappen |
+| /contact | advies-funnel | tools/advies-funnel | 4 | ja | `.pakket-advies .af-widget` | "Welk pakket past bij jou?" |
+| /contact | prijzen-per-dienst | pricing/prijzen-per-dienst | 3 | ja | `.prijzen[data-ppd-actief] [role="tab"]` | open prijzen per dienst (voorstel, wacht op Chris) |
+| /contact | agenda-facade | media/agenda-facade | 2 | ja | `.kennismaken .af[data-af-klaar]` | kennismaking plannen; de agenda laadt pas na een klik |
+| /contact | availability-badge | badges/availability-badge | 2 | ja | `.contact-badge [data-ab-maand]` | "Ruimte voor nieuwe projecten in …" onder de kop |
 
 ## Elke pagina `*`
 

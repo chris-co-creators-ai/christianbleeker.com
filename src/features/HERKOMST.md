@@ -77,3 +77,13 @@ ontwerpkeuzes voor één klant, geen infrastructuur; ze komen terug zodra een PR
   ring rond de schijf van `krachtveld-logowand` (dat onderdeel importeert hem).
 - `src/_kwaliteit/basis.js` komt uit `_kwaliteit/basis.js` van de bibliotheek: tien onderdelen importeren hun gedeelde hulpjes (minder beweging, in beeld, touch) via `../../_kwaliteit/basis.js`.
 - `device-mockup/` was verwijderd (de schermbeelden van de cases staan al in een laptop-mockup) en kwam in v2 terug voor de ontwerp-demo's, waarvan de schermbeelden kaal zijn. De telefoon naast de laptop volgt de markup van het onderdeel zonder `tabindex`: hij is decoratief (`aria-hidden`), de laptop draagt de naam.
+- v2 fase 2 (maker C, 28-10-2026): `live-demo-kader/` (portfolio/), `kaartenstapel-zij/` (scroll/),
+  `eindeloos-raster/` (layouts/), `stappen-persoonlijk/` (forms/), `advies-funnel/` (tools/),
+  `prijzen-per-dienst/` (pricing/), `agenda-facade/` (media/) en `availability-badge/` (badges/), zonder
+  `test/`, `demo.html`, demobeelden en voorbeeldconfigs; de herkomst-alinea van de READMEs is ingekort voor de
+  openbare repo. Twee kleine aanpassingen, als opties zodat de standaard gelijk blijft: `live-demo-kader.js` kreeg
+  `openTekst`, `sluitTekst` en `posterAlt` (een echte klantsite is geen "demo"; er is geen React-wrapper, die zit
+  in `src/components/v2c/CaseKader.tsx`), en `stappen-persoonlijk.js` kreeg `foutTekst` en `foutLink` (een
+  mislukte verzending wijst naar LinkedIn, zoals het oude formulier). `src/_kwaliteit/basis.js` kreeg
+  `zonderUndefined`, letterlijk uit de bibliotheek. Het contactformulier is nu de intake in stappen; hij post naar
+  dezelfde `/api/contact` met dezelfde velden (`ContactFormulier.tsx` is daarom weg).

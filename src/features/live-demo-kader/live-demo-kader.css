@@ -1,0 +1,179 @@
+/**
+ * live-demo-kader.css
+ * Namespace: [data-demo-kader] en de prefix .ldk-. Kleur en maat via variabelen
+ * (zet ze op het root-element of in je eigen CSS). Geen globale selectors.
+ */
+
+@property --ldk-s { syntax: "<number>"; inherits: true; initial-value: 1; }
+
+[data-demo-kader] {
+  container: ldkroot / inline-size;
+  --ldk-bw: 1120px;
+  --ldk-bh: 680px;
+  --ldk-s: 1;
+  --ldk-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --ldk-focus: #2f6fed;
+  --ldk-rand: #d9d5c9;
+  --ldk-straal: 14px;
+  --ldk-balk-bg: #ebe9e2;
+  --ldk-balk-ink: #4a4942;
+  --ldk-venster-bg: #fff;
+  --ldk-nav-bg: #f4f2ec;
+  --ldk-nav-ink: #3a3932;
+  --ldk-nav-actief-bg: #fff;
+  --ldk-nav-actief-ink: #18181b;
+  --ldk-knop-bg: #18181b;
+  --ldk-knop-ink: #fff;
+  position: relative;
+  max-width: var(--ldk-bw);
+  margin-inline: auto;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+[data-demo-kader] *, [data-demo-kader] *::before, [data-demo-kader] *::after { box-sizing: border-box; }
+[data-demo-kader] [hidden] { display: none !important; }
+
+/* --- overslaanlink ---------------------------------------------------- */
+.ldk-skip:not(:focus) {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.ldk-skip {
+  position: absolute; left: 0; top: 0; z-index: 6;
+  padding: 0.55rem 0.9rem; border-radius: 8px;
+  background: #18181b; color: #fff; font-size: 0.875rem; font-weight: 600; text-decoration: none;
+}
+.ldk-skip:focus-visible { outline: 2px solid var(--ldk-focus); outline-offset: 2px; }
+
+/* --- markering "voorbeeld" (nooit meegeschaald, altijd leesbaar) -------- */
+.ldk-kop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 0.75rem; }
+.ldk-markering {
+  display: inline-flex; align-items: center; gap: 0.5rem; margin: 0;
+  padding: 0.4rem 0.85rem 0.4rem 0.7rem; border-radius: 999px;
+  background: #fff1cc; color: #5c3d00; font-size: 0.8125rem; font-weight: 600; line-height: 1.25;
+  box-shadow: inset 0 0 0 1px rgba(150, 100, 0, 0.3);
+}
+.ldk-markering::before { content: ""; flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #d48a00; }
+.ldk-hint { margin: 0; font-size: 0.8125rem; opacity: 0.75; }
+
+/* --- vak + venster ------------------------------------------------------ */
+.ldk-vak { position: relative; border-radius: var(--ldk-straal); box-shadow: 0 2px 4px rgba(24, 24, 27, 0.05), 0 28px 50px -26px rgba(24, 24, 27, 0.38); }
+.ldk-venster {
+  container: ldk / inline-size;
+  display: flex; flex-direction: column; width: 100%;
+  background: var(--ldk-venster-bg); border: 1px solid var(--ldk-rand);
+  border-radius: var(--ldk-straal); overflow: hidden;
+}
+/* schalen als geheel: vak reserveert de geschaalde hoogte, venster blijft op ontwerpmaat */
+[data-ldk-modus="kader"] .ldk-vak { height: calc(var(--ldk-bh) * var(--ldk-s)); overflow: hidden; }
+[data-ldk-modus="kader"] .ldk-venster { width: var(--ldk-bw); height: var(--ldk-bh); transform: scale(var(--ldk-s)); transform-origin: 0 0; }
+
+/* Zonder JS (of vóór init) schaalt hetzelfde kader al puur in CSS, zodat er bij het
+   opstarten geen layoutsprong komt: schaal = min(1, containerbreedte / ontwerpbreedte). */
+@media not ((hover: none) or (pointer: coarse)) {
+@container ldkroot (min-width: 720px) {
+  [data-demo-kader]:not([data-ldk-actief]) .ldk-vak { --ldk-s: min(1, tan(atan2(100cqw, var(--ldk-bw)))); height: calc(var(--ldk-bh) * var(--ldk-s)); overflow: hidden; }
+  [data-demo-kader]:not([data-ldk-actief]) .ldk-venster { width: var(--ldk-bw); height: var(--ldk-bh); transform: scale(var(--ldk-s)); transform-origin: 0 0; }
+}
+}
+/* touch: pas schalen vanaf 85% (952 px bij een ontwerpbreedte van 1120), zoals minSchaalTouch in de JS */
+@media (hover: none), (pointer: coarse) {
+@container ldkroot (min-width: 952px) {
+  [data-demo-kader]:not([data-ldk-actief]) .ldk-vak { --ldk-s: min(1, tan(atan2(100cqw, var(--ldk-bw)))); height: calc(var(--ldk-bh) * var(--ldk-s)); overflow: hidden; }
+  [data-demo-kader]:not([data-ldk-actief]) .ldk-venster { width: var(--ldk-bw); height: var(--ldk-bh); transform: scale(var(--ldk-s)); transform-origin: 0 0; }
+}
+}
+
+/* --- balk (browser: adresbalk; app: titel) ----------------------------- */
+.ldk-balk { flex: none; display: flex; align-items: center; gap: 0.35rem; padding: 0.6rem 0.85rem; background: var(--ldk-balk-bg); border-bottom: 1px solid var(--ldk-rand); color: var(--ldk-balk-ink); font-size: 0.8125rem; }
+.ldk-stippen { display: flex; gap: 0.4rem; margin-right: 0.5rem; }
+.ldk-stip { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #c9c5b8; }
+.ldk-pijl {
+  flex: none; display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 8px;
+  background: transparent; color: inherit; cursor: pointer;
+  transition: background-color 140ms ease-out, transform 140ms var(--ldk-ease), opacity 140ms ease-out;
+}
+.ldk-pijl svg { width: 16px; height: 16px; }
+.ldk-pijl[aria-disabled="true"] { opacity: 0.35; cursor: default; }
+@media (hover: hover) { .ldk-pijl:not([aria-disabled="true"]):hover { background: rgba(24, 24, 27, 0.08); } }
+.ldk-pijl:not([aria-disabled="true"]):active { transform: scale(0.94); }
+.ldk-adres {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 0.5rem; height: 30px; margin-left: 0.35rem; padding: 0 0.8rem;
+  border-radius: 8px; background: #fff; box-shadow: inset 0 0 0 1px var(--ldk-rand); color: #3c3b35;
+}
+.ldk-adres svg { flex: none; width: 12px; height: 12px; opacity: 0.6; }
+.ldk-adres [data-demo-adres] { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+[data-demo-type="app"] .ldk-adres { background: transparent; box-shadow: none; justify-content: center; font-weight: 600; margin-right: 6.2rem; }
+[data-demo-type="app"] .ldk-adres svg { display: none; }
+
+/* --- body: zijbalk + schermen ------------------------------------------ */
+.ldk-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 13.5rem minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+.ldk-nav {
+  display: flex; flex-direction: column; gap: 0.125rem; min-height: 0; overflow: auto; padding: 1rem 0.75rem;
+  background: var(--ldk-nav-bg); color: var(--ldk-nav-ink); border-right: 1px solid var(--ldk-rand);
+}
+.ldk-nav a {
+  display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border-radius: 8px;
+  color: inherit; font-size: 0.9375rem; font-weight: 500; text-decoration: none;
+  transition: background-color 140ms ease-out, color 140ms ease-out, transform 140ms var(--ldk-ease);
+}
+.ldk-nav a:active { transform: scale(0.98); }
+@media (hover: hover) { .ldk-nav a:hover { background: rgba(255, 255, 255, 0.6); } }
+.ldk-nav a[aria-current="page"] { background: var(--ldk-nav-actief-bg); color: var(--ldk-nav-actief-ink); box-shadow: 0 0 0 1px var(--ldk-rand), 0 1px 2px rgba(24, 24, 27, 0.06); }
+.ldk-schermen { position: relative; min-width: 0; min-height: 0; overflow: auto; overscroll-behavior: contain; }
+[data-demo-scherm]:focus { outline: none; }
+
+/* zonder JS: alleen het eerste scherm */
+[data-demo-kader]:not([data-ldk-actief]) [data-demo-scherm] ~ [data-demo-scherm] { display: none; }
+
+/* focus blijft 2 px op het scherm, ook als het kader geschaald is */
+.ldk-venster :focus-visible { outline: calc(2px / var(--ldk-s, 1)) solid var(--ldk-focus); outline-offset: calc(2px / var(--ldk-s, 1)); }
+
+/* smalle kaders (dialoog, of zonder JS op een telefoon): zijbalk wordt een rij */
+@container ldk (max-width: 640px) {
+  .ldk-body { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .ldk-nav { flex-direction: row; overflow-x: auto; padding: 0.5rem 0.6rem; border-right: 0; border-bottom: 1px solid var(--ldk-rand); }
+  .ldk-nav a { flex: none; white-space: nowrap; min-height: 44px; }
+  .ldk-pijl { width: 44px; height: 44px; }
+  .ldk-stippen { display: none; }
+  .ldk-host { display: none; }
+  [data-demo-type="app"] .ldk-adres { margin-right: 0; }
+}
+
+/* --- wisselanimatie (alleen na de eerste wissel, transform + opacity) ---- */
+[data-ldk-beweegt] [data-demo-scherm]:not([hidden]) { animation: ldk-in 200ms var(--ldk-ease); }
+@keyframes ldk-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* --- melding --------------------------------------------------------------- */
+.ldk-melding {
+  position: absolute; left: 50%; bottom: 1rem; z-index: 4; max-width: calc(100% - 2rem);
+  padding: 0.6rem 1rem; border-radius: 10px; background: #18181b; color: #fff; font-size: 0.875rem; font-weight: 500; text-align: center;
+  opacity: 0; transform: translate(-50%, 8px); pointer-events: none;
+  transition: opacity 200ms var(--ldk-ease), transform 200ms var(--ldk-ease);
+}
+.ldk-melding:empty { padding: 0; }
+.ldk-melding[data-open] { opacity: 1; transform: translate(-50%, 0); }
+
+/* --- teaser (smal scherm) ---------------------------------------------------- */
+.ldk-teaser { display: grid; gap: 0.75rem; }
+.ldk-teaser__beeld { display: block; width: 100%; height: auto; aspect-ratio: var(--ldk-ratio, 1120 / 680); object-fit: cover; object-position: top left; border-radius: var(--ldk-straal); border: 1px solid var(--ldk-rand); background: var(--ldk-nav-bg); }
+.ldk-knop {
+  min-height: 48px; padding: 0.7rem 1.25rem; border: 0; border-radius: 10px; background: var(--ldk-knop-bg); color: var(--ldk-knop-ink);
+  font: inherit; font-size: 1rem; font-weight: 600; cursor: pointer; transition: transform 140ms var(--ldk-ease), background-color 140ms ease-out;
+}
+.ldk-knop:active { transform: scale(0.97); }
+.ldk-knop:focus-visible { outline: 2px solid var(--ldk-focus); outline-offset: 2px; }
+.ldk-knop--stil { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px var(--ldk-rand); }
+
+/* --- dialoog ----------------------------------------------------------------- */
+.ldk-dialoog { padding: 0; border: 0; margin: 0; width: 100vw; max-width: none; height: 100vh; height: 100dvh; max-height: none; background: #f6f4ee; color: #18181b; overscroll-behavior: contain; }
+.ldk-dialoog[open] { display: flex; flex-direction: column; }
+.ldk-dialoog__kop { flex: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.6rem 0.75rem; }
+.ldk-dialoog__kop .ldk-knop { min-height: 44px; padding-block: 0.4rem; }
+.ldk-dialoog__inhoud { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 0.5rem 0.5rem; }
+.ldk-dialoog .ldk-vak { flex: 1; min-height: 0; display: flex; flex-direction: column; box-shadow: none; height: auto; }
+.ldk-dialoog .ldk-venster { flex: 1; min-height: 0; width: 100%; height: auto; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ldk-beweegt] [data-demo-scherm]:not([hidden]) { animation: none; }
+  .ldk-melding, .ldk-pijl, .ldk-nav a, .ldk-knop { transition: none; }
+}

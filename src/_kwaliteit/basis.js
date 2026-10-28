@@ -142,3 +142,15 @@ export function vereisRoot(root, naam) {
   }
   return true;
 }
+
+/**
+ * Kopie van `o` zonder de sleutels die `undefined` zijn. Voor `{ ...STANDAARD, ...zonderUndefined(opties) }`:
+ * een React-wrapper geeft een niet-ingevulde prop als `undefined` door, en een gewone spread laat dat de
+ * standaard wissen (NaN, kapotte animatie). Zo werkt het ook voor wie `init()` rechtstreeks aanroept.
+ * @param {object|null|undefined} o
+ */
+export function zonderUndefined(o) {
+  const r = {};
+  for (const k of Object.keys(o || {})) if (o[k] !== undefined) r[k] = o[k];
+  return r;
+}

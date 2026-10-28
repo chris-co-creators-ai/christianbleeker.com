@@ -3,11 +3,21 @@ import { og } from '@/lib/og-velden'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { Beeld } from '@/components/Beeld'
-import { ChecklistKnop } from '@/components/ChecklistKnop'
-import { ContactFormulier } from '@/components/ContactFormulier'
-import { contact, kop, linkedin, home } from '@/content/teksten'
+import { contact, linkedin, home } from '@/content/teksten'
+import { AvailabilityBadge } from '@/features/availability-badge/AvailabilityBadge'
+import { Intake } from '@/components/v2c/Intake'
+import { PakketAdvies } from '@/components/v2c/PakketAdvies'
+import { Prijzen } from '@/components/v2c/Prijzen'
+import { Kennismaken } from '@/components/v2c/Kennismaken'
+import '@/components/v2c/contact-v2.css'
 import { site } from '@/content/site'
 import { breadcrumbSchema } from '@/lib/schema'
+
+/** Maandnaam van volgende maand (Nederlandse tijd) als tekst zonder JS; availability-badge rekent hem in de browser opnieuw uit. */
+const volgendeMaand = () => {
+  const [j, m] = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Amsterdam', year: 'numeric', month: '2-digit' }).format(new Date()).split('-').map(Number)
+  return new Intl.DateTimeFormat('nl-NL', { month: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(j, m, 1)))
+}
 
 export const metadata: Metadata = {
   title: { absolute: contact.titel },
@@ -28,6 +38,7 @@ export default function Contact() {
         <section className="container-site contact">
           <div className="contact-links">
             <h1 className="contact-h1">{contact.kop}<span className="x" aria-hidden="true">×</span></h1>
+            <AvailabilityBadge className="contact-badge" label={contact.badge} standaardMaand={volgendeMaand()} maandenVooruit={1} />
             <p className="contact-tekst">{contact.tekst}</p>
             <div className="contact-foto beeld">
               <Beeld naam="chris-duimen" maten={[540, 900]} breedte={1737} hoogte={3088} sizes="(min-width: 900px) 24vw, 60vw" alt={home.over.fotoAlt} prioriteit />
@@ -35,13 +46,27 @@ export default function Contact() {
             <a className="knop knop--rand" href={linkedin} target="_blank" rel="noopener noreferrer">{contact.linkedin}</a>
           </div>
           <div className="contact-rechts">
-            <ContactFormulier />
-            <div className="contact-checklist">
-              <h2>{contact.checklist.kop}</h2>
-              <p>{contact.checklist.tekst}</p>
-              <ChecklistKnop className="knop knop--mint">{kop.checklist}</ChecklistKnop>
-            </div>
+            <Intake />
           </div>
+        </section>
+        <section id="advies" className="sectie container-site contact-advies" aria-labelledby="advies-kop">
+          <div className="sectie-kop">
+            <p className="kicker">{contact.advies.kicker}</p>
+            <h2 id="advies-kop">{contact.advies.kop}</h2>
+            <p className="sectie-tekst">{contact.advies.tekst}</p>
+          </div>
+          <PakketAdvies />
+        </section>
+        <section id="prijzen" className="sectie container-site contact-prijzen" aria-labelledby="prijzen-kop">
+          <div className="sectie-kop">
+            <p className="kicker">{contact.prijzen.kicker}</p>
+            <h2 id="prijzen-kop">{contact.prijzen.kop}</h2>
+            <p className="sectie-tekst">{contact.prijzen.tekst}</p>
+          </div>
+          <Prijzen />
+        </section>
+        <section className="sectie container-site contact-kennismaken">
+          <Kennismaken />
         </section>
       </main>
       <Voet uitnodiging />
