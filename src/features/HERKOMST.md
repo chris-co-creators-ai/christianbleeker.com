@@ -53,6 +53,14 @@ hieronder in de tabel — inclusief de reden ("gekozen in PRD/stap 5"). Een map 
 | `letter-rol/` | `buttons/letter-rol/` | 2026-10-28 | v2 Home: knoppen |
 | `review-wall/` | `reviews/review-wall/` | 2026-10-28 | v2 Home: voorbeeldreviews |
 | `footer-opkomst/` | `effects/footer-opkomst/` | 2026-10-28 | v2 Home: lange voet |
+| `sticky-timeline/` | `scroll/sticky-timeline/` (e81470a) | 2026-10-28 | v2 Over: "Van marketing naar AI" |
+| `hotspots/` | `media/hotspots/` (e81470a) | 2026-10-28 | v2 Over: punten op het portret (kern van e81470a) |
+| `justify-fill/` | `typography/justify-fill/` (e81470a) | 2026-10-28 | v2 Over: de uitgevulde zin |
+| `schreef-accent/` | `typography/schreef-accent/` (e81470a) | 2026-10-28 | v2 Over: "naar" in de kop van de tijdlijn |
+| `voor-na-verhaal/` | `scroll/voor-na-verhaal/` (e81470a) | 2026-10-28 | v2 AI: deze site, vóór en na |
+| `impact-scan/` | `tools/impact-scan/` (e81470a) | 2026-10-28 | v2 AI: de AI-scan (scoremodus, titel h2) |
+| `kaartenrij-lottie/` | `scroll/kaartenrij-lottie/` (e81470a) | 2026-10-28 | v2 AI: zes vragen; iconen opnieuw gemaakt met maak-iconen.mjs |
+| `password-reveal/` | `typography/password-reveal/` (e81470a) | 2026-10-28 | v2 AI: "onzichtbaar." in de kop van de scan |
 
 ## Hoe je later bijwerkt
 

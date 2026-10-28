@@ -1,0 +1,204 @@
+{
+  "id": "christianbleeker-ai-scan",
+  "titel": "AI-scan: hoe goed kan AI jouw website lezen?",
+  "secPerVraag": 8,
+  "teksten": {
+    "sluiten": "Sluit de AI-scan",
+    "voortgang": "Nog {n} vragen · ongeveer {seconden} seconden",
+    "voortgangEen": "Nog 1 vraag · ongeveer {seconden} seconden",
+    "stapLive": "Vraag {nu} van {totaal}.",
+    "gekozen": "{n} van {max} gekozen",
+    "maxBereikt": "{n} van {max} gekozen: dat is het maximum",
+    "terug": "Terug",
+    "volgende": "Volgende",
+    "laatste": "Bekijk mijn score",
+    "laden": [
+      "Je antwoorden tellen…",
+      "Je score naast de drie uitslagen leggen…"
+    ],
+    "metaLaden": "Even geduld",
+    "metaUitslag": "Op basis van {n} antwoorden",
+    "uitslagLive": "Je score is klaar.",
+    "scoreKop": "Jouw score",
+    "meterLabel": "Hoe goed AI je website kan lezen",
+    "adviesKop": "Hier win je het meest",
+    "samenvattingScore": "Score AI-scan: {totaal}",
+    "samenvattingBand": "Uitslag: {kop}",
+    "samenvattingAdvies": "Aandachtspunten:",
+    "cta": "Bespreek je uitslag",
+    "opnieuw": "Opnieuw beginnen"
+  },
+  "vragen": [
+    {
+      "id": "belofte",
+      "type": "stelling",
+      "gewicht": 2,
+      "vraag": "Bovenaan je homepage staat in één zin wat je doet en voor wie.",
+      "samenvattingLabel": "Eén zin: wat en voor wie",
+      "advies": "Zet bovenaan je homepage één zin met wat je doet en voor wie. Die zin neemt een assistent het eerst over.",
+      "opties": [
+        {
+          "id": "ja",
+          "label": "Ja",
+          "punten": 1
+        },
+        {
+          "id": "nee",
+          "label": "Nee",
+          "punten": 0
+        }
+      ]
+    },
+    {
+      "id": "diensten",
+      "type": "stelling",
+      "gewicht": 1,
+      "vraag": "Elke dienst heeft een eigen naam en een korte uitleg in tekst.",
+      "samenvattingLabel": "Diensten in tekst",
+      "advies": "Geef elke dienst een eigen kop en een paar zinnen uitleg, in gewone tekst en niet alleen in een plaatje.",
+      "opties": [
+        {
+          "id": "ja",
+          "label": "Ja",
+          "punten": 1
+        },
+        {
+          "id": "nee",
+          "label": "Nee",
+          "punten": 0
+        }
+      ]
+    },
+    {
+      "id": "plaats",
+      "type": "stelling",
+      "gewicht": 1,
+      "vraag": "Je plaats of werkgebied staat op je site.",
+      "samenvattingLabel": "Plaats of werkgebied",
+      "advies": "Noem je plaats of regio, of zeg dat je overal online werkt. Zet het ook onderaan elke pagina.",
+      "opties": [
+        {
+          "id": "ja",
+          "label": "Ja",
+          "punten": 1
+        },
+        {
+          "id": "nee",
+          "label": "Nee",
+          "punten": 0
+        }
+      ]
+    },
+    {
+      "id": "prijs",
+      "type": "stelling",
+      "gewicht": 1,
+      "vraag": "Er staat een prijs, een vanafprijs of een bandbreedte.",
+      "samenvattingLabel": "Prijs of prijsindicatie",
+      "advies": "Noem per dienst een vanafprijs of een bandbreedte. Een eerlijke indicatie is genoeg.",
+      "opties": [
+        {
+          "id": "ja",
+          "label": "Ja",
+          "punten": 1
+        },
+        {
+          "id": "nee",
+          "label": "Nee",
+          "punten": 0
+        }
+      ]
+    },
+    {
+      "id": "bewijs",
+      "type": "stelling",
+      "gewicht": 1,
+      "vraag": "Je toont cases of ervaringen van klanten, met naam.",
+      "samenvattingLabel": "Cases en ervaringen met naam",
+      "advies": "Zet twee of drie cases of ervaringen met naam op je site, bij de dienst waar ze over gaan.",
+      "opties": [
+        {
+          "id": "ja",
+          "label": "Ja",
+          "punten": 1
+        },
+        {
+          "id": "nee",
+          "label": "Nee",
+          "punten": 0
+        }
+      ]
+    },
+    {
+      "id": "titels",
+      "type": "stelling",
+      "gewicht": 1,
+      "vraag": "Elke pagina heeft een eigen titel en beschrijving voor zoekmachines.",
+      "samenvattingLabel": "Titel en beschrijving per pagina",
+      "advies": "Geef elke pagina een eigen titel en een beschrijving van één of twee zinnen. Je websitebouwer weet waar dat zit.",
+      "opties": [
+        {
+          "id": "ja",
+          "label": "Ja",
+          "punten": 1
+        },
+        {
+          "id": "nee",
+          "label": "Nee",
+          "punten": 0
+        }
+      ]
+    },
+    {
+      "id": "gegevens",
+      "type": "stelling",
+      "gewicht": 1,
+      "vraag": "Je site heeft gestructureerde gegevens of een llms.txt.",
+      "hint": "Weet je het niet? Kies dan Nee.",
+      "samenvattingLabel": "Gestructureerde gegevens of llms.txt",
+      "advies": "Laat gestructureerde gegevens (schema.org) toevoegen, en eventueel een llms.txt. Zo hoeft een assistent niet te raden.",
+      "opties": [
+        {
+          "id": "ja",
+          "label": "Ja",
+          "punten": 1
+        },
+        {
+          "id": "nee",
+          "label": "Nee",
+          "punten": 0
+        }
+      ]
+    }
+  ],
+  "score": {
+    "totaal": "{score} van {max}",
+    "percentage": "{percentage}%",
+    "maxAdviezen": 3,
+    "meter": true,
+    "metUitslag": false,
+    "banden": [
+      {
+        "id": "laag",
+        "van": 0,
+        "kop": "Voor AI ben je nog grotendeels onzichtbaar",
+        "tekst": "Een assistent vindt nu weinig om over je te vertellen. Met een paar zinnen op de juiste plek verandert dat snel. Dit is een zelftest: de score komt uit je eigen antwoorden."
+      },
+      {
+        "id": "midden",
+        "van": 4,
+        "kop": "De basis staat, AI mist nog details",
+        "tekst": "Een assistent kan je vinden, maar moet nog dingen raden. De adviezen hieronder vullen de gaten. Dit is een zelftest: de score komt uit je eigen antwoorden."
+      },
+      {
+        "id": "hoog",
+        "van": 7,
+        "kop": "AI kan je website goed lezen",
+        "tekst": "Je beantwoordt de vragen die een assistent stelt. Je kunt nu vooral verfijnen. Dit is een zelftest: de score komt uit je eigen antwoorden."
+      }
+    ]
+  },
+  "cta": {
+    "href": "/contact"
+  }
+}

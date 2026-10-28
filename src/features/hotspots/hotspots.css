@@ -1,0 +1,119 @@
+/**
+ * hotspots.css
+ * ------------------------------------------------------------------------
+ * Namespace: klasse `.hotspots` (+ `__media`, `__point`, `__pulse`,
+ * `__panel`). Elk punt positioneert zichzelf via de CSS-variabelen `--hx`/
+ * `--hy` (procenten), gezet als inline `style` op het punt zelf. De module
+ * (`hotspots-kern.js`) berekent alleen de `top`/`left`/`transform` van de
+ * *tooltip* (`.hotspots__panel`), niet van het punt.
+ */
+
+.hotspots__media {
+  position: relative;
+  isolation: isolate;
+}
+
+.hotspots__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.85rem;
+}
+
+.hotspots__point {
+  --hp-accent: #2f6fed;
+
+  position: absolute;
+  left: var(--hx, 50%);
+  top: var(--hy, 50%);
+  transform: translate(-50%, -50%);
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: var(--hp-accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.hotspots__point:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--hp-accent), 0 6px 16px -4px rgba(0, 0, 0, 0.4);
+}
+
+.hotspots__point[aria-expanded='true'] {
+  background: #1c1c1f;
+}
+
+.hotspots__pulse {
+  position: absolute;
+  inset: -0.4rem;
+  border-radius: 50%;
+  border: 2px solid var(--hp-accent);
+  pointer-events: none;
+  animation: hotspots-pulse 2.2s ease-out infinite;
+}
+
+@keyframes hotspots-pulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+.hotspots__panel {
+  position: absolute;
+  z-index: 3;
+  /* Let op: met alleen `left` (geen `right`) gezet, berekent de browser de
+     `width: auto`-breedte via shrink-to-fit op basis van de ruimte die
+     ná `left` overblijft — de `transform: translateX(-100%)` (flip naar
+     links, zie hotspots-kern.js `place()`) is een paint-effect en telt daar
+     niet in mee. Bij een punt dicht bij de rechterrand (90%) bleef er zo
+     nog maar ~10% breedte over: het paneel werd 112px smal, één woord
+     per regel. Een EXPLICIETE breedte (i.p.v. `max-width` op `auto`)
+     omzeilt shrink-to-fit: het paneel krijgt altijd zijn volle breedte en
+     de flip verschuift het daarna gewoon binnen beeld. */
+  width: min(16rem, calc(100% - 1.5rem));
+  min-width: 13rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 20px 38px -18px rgba(24, 24, 27, 0.45);
+}
+
+.hotspots__panel[hidden] {
+  display: none;
+}
+
+.hotspots__panel h4 {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+}
+
+.hotspots__panel p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #6b6a62;
+}
+
+/* --- minder beweging: pulsje stil ----------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hotspots__pulse {
+    animation: none;
+    opacity: 0;
+  }
+}

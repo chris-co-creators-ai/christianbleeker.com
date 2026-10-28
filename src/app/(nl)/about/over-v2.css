@@ -1,0 +1,53 @@
+/* Over (v2): hotspots, sticky-timeline, schreef-accent en justify-fill in de huisstijl.
+   Alleen tokens uit globals.css, zodat wit en donker vanzelf kloppen. */
+
+/* ── Hotspots op het portret ────────────────────────────────────────── */
+.verhaal-foto { border-radius: 16px; }
+.over-hotspots .hotspots__media img { border-radius: 16px; width: 100%; height: auto; }
+.over-hotspots .hotspots__point {
+  --hp-accent: var(--color-hoofd);
+  width: 2rem; height: 2rem;
+  color: var(--color-grond); border-color: var(--color-grond);
+  font: 700 13px/1 var(--font-tekst);
+}
+.over-hotspots .hotspots__point[aria-expanded='true'] { background: var(--color-tekst); color: var(--color-grond); }
+.over-hotspots .hotspots__point:focus-visible { outline-color: var(--color-accent); }
+.over-hotspots .hotspots__panel {
+  background: var(--color-grond); color: var(--color-tekst);
+  border: 1px solid var(--color-lijn-sterk); box-shadow: var(--schaduw);
+}
+.over-hotspots .hotspots__panel h3 { margin: 0 0 0.35rem; font: 600 16px/1.2 var(--font-kop); letter-spacing: -0.02em; }
+.over-hotspots .hotspots__panel p { margin: 0; color: var(--color-tekst-2); font-size: 15px; line-height: 1.5; }
+
+/* ── Van marketing naar AI (sticky-timeline) ────────────────────────── */
+.reis { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 6vw, 96px); align-items: start; }
+.reis-kop { position: sticky; top: 120px; }
+.reis-kop h2 { font-size: clamp(36px, 4vw, 60px); font-weight: 600; line-height: 1; letter-spacing: -0.04em; }
+.reis-kop h2 em { color: var(--color-hoofd); }
+.reis-lijn {
+  --stl-track: var(--color-lijn-sterk);
+  --stl-fill: var(--color-hoofd);
+  --stl-ink-soft: var(--color-tekst-2);
+}
+.reis-lijn [data-sticky-timeline] { gap: clamp(48px, 7vw, 96px); }
+.reis-lijn [data-sticky-timeline-step] { padding-left: clamp(3.25rem, 5vw, 4.5rem); }
+.reis-lijn [data-sticky-timeline-dot] { background: var(--color-grond); }
+.reis-lijn [data-sticky-timeline-num] { font: 500 13px/1 var(--font-tekst); letter-spacing: 0.08em; margin-bottom: 10px; }
+.reis-lijn [data-sticky-timeline-step] h3 { margin: 0 0 12px; font: 600 clamp(26px, 2.8vw, 44px)/1.05 var(--font-kop); letter-spacing: -0.03em; color: var(--color-tekst); }
+.reis-lijn [data-sticky-timeline-step] p { max-width: 46ch; font-size: clamp(17px, 1.3vw, 20px); }
+@media (max-width: 899px) {
+  .reis { grid-template-columns: 1fr; gap: 32px; }
+  .reis-kop { position: static; }
+}
+
+/* ── Statement (justify-fill) ───────────────────────────────────────── */
+/* Gemeten (390–1920): bij ±7,8 % van de kolombreedte valt de zin in drie volle regels: "Een goede website / begint bij de mensen / erachter." */
+.statement { container-type: inline-size; }
+.statement-tekst {
+  font: 700 min(7.8cqi, 110px)/1 var(--font-kop); letter-spacing: -0.045em;
+  color: var(--color-tekst);
+}
+.statement-tekst .jf__line:last-child .jf__word:last-child { color: var(--color-hoofd); }
+/* De stapteller schuift als vaste pil over de stappen (en op mobiel onder de vaste kop door); de vullende lijn en de
+   stippen vertellen hetzelfde, dus hij blijft weg. Hij is aria-hidden, er gaat niets verloren. */
+.reis-lijn [data-sticky-timeline-status] { display: none; }

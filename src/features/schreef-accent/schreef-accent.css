@@ -1,0 +1,51 @@
+/**
+ * schreef-accent.css
+ * ------------------------------------------------------------------------
+ * Een <em> in een kop wordt een contrasterende, échte italic schreefletter
+ * (Instrument Serif Italic, OFL, lokaal in ./fonts) en neemt de kleur van de
+ * kop over. Alleen CSS: geen JavaScript nodig.
+ *
+ * Namespace: attribuut `data-schreef-accent`, op de kop zelf of op een
+ * container erboven (dan gelden alle koppen h1–h6 daarbinnen). Met de
+ * waarde "alles" geldt het voor elke <em> in dat element, ook buiten koppen.
+ *
+ * Herkomst: idee gezien op een bureausite. Daar zet JS een
+ * klasse op elke <em> en wordt een italic-bestand als `normal` geregistreerd,
+ * met `font-style: normal !important` erover. Wij registreren het bestand
+ * gewoon als italic: dan klopt `font-style` vanzelf en is er geen JS nodig.
+ */
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("./fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:is(h1, h2, h3, h4, h5, h6)[data-schreef-accent] em,
+[data-schreef-accent] :is(h1, h2, h3, h4, h5, h6) em,
+/* `data-schreef-accent="alles"`: ook buiten koppen, voor grote intro-zinnen
+   die geen kop zijn (zoals bij scroll/eyebrow-lijn). */
+[data-schreef-accent="alles"] em {
+  /* Instrument Serif heeft een lagere x-hoogte dan een grotesk; met 1.1em
+     staan de kleine letters optisch even hoog als die van de kop. */
+  --sa-font: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --sa-schaal: 1.1em;
+  --sa-spatiering: -0.005em;
+
+  font-family: var(--sa-font);
+  font-style: italic;
+  /* De schreef bestaat alleen in 400: geen nep-vet door de kop (vaak 500–700). */
+  font-weight: 400;
+  font-synthesis: none;
+  font-size: var(--sa-schaal);
+  /* Koppen staan vaak op een strakke regelhoogte; de grotere em mag de regel
+     niet oprekken. */
+  line-height: 0;
+  letter-spacing: var(--sa-spatiering);
+  color: inherit;
+  /* Een italic leunt naar rechts: een haarbreed lucht zodat de laatste letter
+     niet tegen het volgende rechte woord aan hangt. */
+  padding-inline-end: 0.03em;
+}

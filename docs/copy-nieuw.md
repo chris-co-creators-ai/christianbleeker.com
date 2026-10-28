@@ -217,3 +217,69 @@ voor echte reviews zodra Chris die heeft.
 | Oprichter van een sportwinkel | 4 | Hij keek verder dan de mooie pagina: wie komt er binnen en welke stap wil die zetten? Daar is de hele site op gebouwd. |
 | Ondernemer in de zorg | 5 | Ik was sceptisch over AI in mijn werk. Chris liet zien waar het helpt en waar niet, zonder het groter te maken dan het is. |
 | Marketingmanager in het mkb | 5 | Duidelijke planning, eerlijk over wat wel en niet kon, en de site stond er op de afgesproken dag. |
+## v2 (28-10-2026): Over en AI
+
+Voorstel voor v2 (lokaal, niet live). Op Over in de ik-vorm, net als de rest van die pagina; op AI in de wij-vorm.
+Er staan geen nieuwe feiten in: alles komt uit de teksten van Over en de vorige site, uit de nulmeting van de vorige
+site (geen gestructureerde gegevens, geen deelbeeld) en uit wat deze site zelf heeft (gestructureerde gegevens,
+een deelbeeld per pagina, llms.txt, wit en donker). De adviezen in de AI-scan zijn algemene adviezen, geen belofte.
+
+**Over: punten op het portret**
+
+| Tekst | Waarom |
+|---|---|
+| Hoi, ik ben Chris — Vijftien jaar marketeer. Nu maak ik websites en werk ik met AI. | punt 1, uit de alinea's |
+| Aan tafel — Ik begin bij de mensen erachter: wat maakt jullie werk waardevol, en hoe laat je dat online voelen? | punt 2, uit de alinea's |
+| Dicteren.ai — De lachende microfoon is het logo van Dicteren.ai: een app die gesproken ideeën omzet in bruikbare tekst. Ik bouw hem met Brian en Lars. | punt 3, uit Werk en de alt-tekst van het logo |
+
+**Over: de tijdlijn**
+
+| Tekst | Waarom |
+|---|---|
+| Van marketing *naar* AI | kop; "naar" in de schreefletter |
+| Marketing — Vijftien jaar marketingervaring. Daar leerde ik kijken naar de mensen die je wilt bereiken, en de stap die zij willen zetten. | stap 1 |
+| Websites — Die blik zit nu in elke website die ik maak: voor ondernemers, makers en teams die hun verhaal helder op het web willen zetten. | stap 2 |
+| AI en producten — Met Brian en Lars bouw ik Dicteren.ai, en bij TEDxEindhoven gaf ik een talk over AI. Technologie met een menselijk doel. | stap 3 |
+| Jouw verhaal — De volgende stap schrijven we samen. Wil je iets maken dat echt bij jouw verhaal past? | stap 4 |
+| Een goede website begint bij de mensen erachter. | uitgevulde zin, uit de derde alinea |
+
+**AI: deze site, vóór en na**
+
+| Tekst | Waarom |
+|---|---|
+| Deze site, vóór en na | kop |
+| Wat verandert er als je een website bouwt met een slimme blik op AI? We lieten het zien op onze eigen site. De teksten bleven hetzelfde. | intro |
+| Voor — Dezelfde teksten, maar zonder gestructureerde gegevens. Een AI-assistent moest zelf raden wat er stond. | stap 1 (nulmeting: 0 blokken gestructureerde gegevens) |
+| Na — Nu met gestructureerde gegevens, een deelbeeld per pagina en een llms.txt die AI-assistenten de weg wijst. | stap 2 |
+| Wit — Dezelfde site, nu ook in wit. Je kiest zelf met de knop bovenin. | stap 3 |
+| De vorige homepage van Chris Bleeker: witte achtergrond, de kop Jouw verhaal. Sterk op het web. en een foto met duimen omhoog | alt |
+| De nieuwe homepage in donker: dezelfde kop groot over een foto van de TEDx-talk | alt |
+| De nieuwe homepage in wit, met dezelfde kop en foto | alt |
+| Voor en na van christianbleeker.com | naam van het blok |
+
+**AI: zes vragen**
+
+| Tekst | Waarom |
+|---|---|
+| Zes vragen die AI over jou stelt | kop |
+| Vraagt iemand ChatGPT om een goede fysiotherapeut of webbouwer, dan zoekt ChatGPT het antwoord op websites. Staat het daar niet, dan noemt hij een ander. | intro |
+| Voor wie werk je? — Zet in gewone woorden op je site voor wie je er bent. Dan kan een assistent je noemen als iemand precies die vraag stelt. | kaart |
+| Wat bied je aan? — Elke dienst met een eigen naam en een korte uitleg, in tekst. Wat alleen in een plaatje of pdf staat, leest een assistent vaak niet mee. | kaart |
+| Waar werk je? — Je plaats of regio, of dat je overal online werkt. Wie in de buurt zoekt, vindt je alleen als het er staat. | kaart |
+| Wat kost het? — Een vanafprijs of een eerlijke bandbreedte. Zonder prijs vult een assistent het gat zelf in, of slaat hij je over. | kaart |
+| Wat levert het op? — Cases, cijfers en ervaringen van klanten. Bewijs dat op je site staat, kan een assistent aanhalen. | kaart |
+| Waarom jij? — Wat je anders doet dan de rest, in één zin. Die zin vertelt een assistent over je na. | kaart |
+
+**AI: de AI-scan** (alle teksten van de scan staan in `src/content/ai-scan.json`)
+
+| Tekst | Waarom |
+|---|---|
+| Wat niet op je site staat, is voor AI onzichtbaar. | kop; "onzichtbaar." onthult zich bij het scrollen |
+| Zeven stellingen over je eigen website, met Ja of Nee. Je krijgt een score en de drie punten waar je het meest wint. Het is een zelftest: er wordt niets opgeslagen of verstuurd. | intro |
+| Doe de AI-scan · 1 minuut | knop (7 vragen × 8 seconden) |
+| Liever eerst alles op een rij? | verwijzing naar de checklist-prompt |
+| AI-scan: hoe goed kan AI jouw website lezen? | naam van de dialoog |
+| Bovenaan je homepage staat in één zin wat je doet en voor wie. / Elke dienst heeft een eigen naam en een korte uitleg in tekst. / Je plaats of werkgebied staat op je site. / Er staat een prijs, een vanafprijs of een bandbreedte. / Je toont cases of ervaringen van klanten, met naam. / Elke pagina heeft een eigen titel en beschrijving voor zoekmachines. / Je site heeft gestructureerde gegevens of een llms.txt. | de zeven stellingen |
+| Weet je het niet? Kies dan Nee. | hint bij de laatste stelling |
+| Voor AI ben je nog grotendeels onzichtbaar / De basis staat, AI mist nog details / AI kan je website goed lezen | de drie uitslagen (0, 4 en 7 van 8 punten) |
+| Bespreek je uitslag | knop naar /contact, met de samenvatting in `?scan=` |
