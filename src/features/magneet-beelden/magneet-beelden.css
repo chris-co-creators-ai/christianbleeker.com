@@ -1,0 +1,8 @@
+/* magneet-beelden — namespaced op [data-magneet*]. De verschuiving zelf komt van JS (style.translate). */
+[data-magneet-actief] [data-magneet] {
+  will-change: translate; /* alleen zolang het effect aan staat (fijne pointer, geen reduced motion) */
+}
+[data-magneet] { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  [data-magneet] { translate: none !important; will-change: auto; }
+}

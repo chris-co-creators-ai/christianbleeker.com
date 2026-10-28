@@ -1,0 +1,50 @@
+/**
+ * ghost-text.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-ghost-text]` op het decoratieve woord. Geen
+ * globale selectors. De schaal komt uit `clamp()` (meeschalen met de
+ * viewport/container-breedte), geen JS nodig voor het lettertype zelf.
+ *
+ * Plaatsingscontract: `[data-ghost-text]` hoort in een `position:relative`
+ * container en gedraagt zich zelf als `position:absolute` — de auteur zet
+ * `--ghost-inset` (of laat de standaard staan) om de plek te bepalen.
+ */
+
+[data-ghost-text] {
+  --ghost-size: clamp(4rem, 22vw, 13rem);
+  --ghost-color: transparent;
+  --ghost-stroke: rgba(24, 24, 27, 0.14);
+  --ghost-inset: auto auto -0.08em -0.02em;
+  /* L11: één vaste, viewport-brede clamp() kent de tekstlengte niet — "R"
+     en "UITGELICHT" op dezelfde --ghost-size passen totaal anders. Een lang
+     woord viel af ("UITGELICH"). De JS meet na het laden of het woord in
+     zijn host past en zet --ghost-fit (0–1) om het zo nodig terug te
+     schalen; zonder JS blijft dit gewoon 1 (CSS-only fallback, R4). */
+  --ghost-fit: 1;
+
+  position: absolute;
+  inset: var(--ghost-inset);
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  font-size: calc(var(--ghost-size) * var(--ghost-fit, 1));
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: var(--ghost-color);
+  -webkit-text-stroke: 1.5px var(--ghost-stroke);
+  user-select: none;
+  pointer-events: none;
+  transform: translateY(var(--ghost-shift, 0px));
+  will-change: transform;
+}
+
+/* De sectie-inhoud moet boven de ghost-tekst blijven. */
+[data-ghost-text-host] {
+  position: relative;
+}
+[data-ghost-text-host] > :not([data-ghost-text]) {
+  position: relative;
+  z-index: 1;
+}

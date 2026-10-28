@@ -1,0 +1,97 @@
+/**
+ * float-decor.css
+ * -------------------------------------------------------------------------
+ * Namespace: vijf data-attributen, elk zelfstandig te gebruiken.
+ * `data-confetti` en `data-offset-kader` zijn pure CSS (pseudo-elementen —
+ * werken zonder JS). `data-float`/`data-tilt`/`data-badge` gebruiken een
+ * CSS-variabele die de JS-helper zet (met een neutrale standaardwaarde
+ * zodat niets breekt zonder JS: geen tilt, animatie loopt gewoon door,
+ * alleen de buiten-beeld-pauze mist dan).
+ */
+
+/* --- data-tilt: statische kanteling --------------------------------- */
+[data-tilt] {
+  --fd-tilt: 0deg;
+  transform: rotate(var(--fd-tilt));
+}
+
+/* --- data-float: zwevend/dobberend object ---------------------------- */
+@keyframes fd-zweven {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--fd-zweef-amp, -12px));
+  }
+}
+[data-float] {
+  animation: fd-zweven var(--fd-zweef-duur, 4.5s) ease-in-out infinite;
+  will-change: transform;
+}
+[data-float][data-fd-uit-beeld] {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-float] {
+    animation: none;
+  }
+}
+
+/* --- data-badge: draaiende badge/stempel ------------------------------ */
+@keyframes fd-draai {
+  to {
+    transform: rotate(360deg);
+  }
+}
+[data-badge] {
+  animation: fd-draai var(--fd-draai-duur, 22s) linear infinite;
+  will-change: transform;
+}
+[data-badge][data-fd-uit-beeld] {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-badge] {
+    animation: none;
+  }
+}
+
+/* --- data-confetti: gekleurde stippen rond een foto (pure CSS) -------- */
+[data-confetti] {
+  position: relative;
+  isolation: isolate; /* houdt de z-index:-1 van ::before binnen dit element, i.p.v. wegzakken achter een ouder */
+}
+[data-confetti]::before {
+  content: '';
+  position: absolute;
+  inset: -1.75rem;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-image: radial-gradient(circle 5px at 4% 8%, var(--fd-confetti-1, #ea580c) 98%, transparent 100%),
+    radial-gradient(circle 7px at 14% 92%, var(--fd-confetti-2, #2f6fed) 98%, transparent 100%),
+    radial-gradient(circle 4px at 92% 6%, var(--fd-confetti-3, #f2b705) 98%, transparent 100%),
+    radial-gradient(circle 6px at 96% 88%, var(--fd-confetti-1, #ea580c) 98%, transparent 100%),
+    radial-gradient(circle 5px at 50% 2%, var(--fd-confetti-2, #2f6fed) 98%, transparent 100%),
+    radial-gradient(circle 4px at 3% 50%, var(--fd-confetti-3, #f2b705) 98%, transparent 100%),
+    radial-gradient(circle 6px at 98% 45%, var(--fd-confetti-2, #2f6fed) 98%, transparent 100%),
+    radial-gradient(circle 3px at 40% 96%, var(--fd-confetti-3, #f2b705) 98%, transparent 100%),
+    radial-gradient(circle 5px at 78% 4%, var(--fd-confetti-1, #ea580c) 98%, transparent 100%),
+    radial-gradient(circle 4px at 22% 4%, var(--fd-confetti-2, #2f6fed) 98%, transparent 100%);
+}
+
+/* --- data-offset-kader: kader verschoven achter de foto (pure CSS) ---- */
+[data-offset-kader] {
+  position: relative;
+  isolation: isolate;
+}
+[data-offset-kader]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translate(var(--fd-kader-x, 14px), var(--fd-kader-y, 14px));
+  border: 3px solid var(--fd-kader-kleur, currentColor);
+}

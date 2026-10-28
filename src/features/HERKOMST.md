@@ -104,3 +104,11 @@ ontwerpkeuzes voor één klant, geen infrastructuur; ze komen terug zodra een PR
   mislukte verzending wijst naar LinkedIn, zoals het oude formulier). `src/_kwaliteit/basis.js` kreeg
   `zonderUndefined`, letterlijk uit de bibliotheek. Het contactformulier is nu de intake in stappen; hij post naar
   dezelfde `/api/contact` met dezelfde velden (`ContactFormulier.tsx` is daarom weg).
+- v3 (maker B, 28-10-2026), beeld en effecten: `diepte-beeld/` (effects/), `raster-intro/` (heroes/), `gradient-flow/`
+  (backgrounds/), `float-decor/` (effects/), `parallax/` (scroll/), `hero-motion/` (scroll/), `magneet-beelden/` (effects/),
+  `ghost-text/` (typography/), `eyebrow-lijn/` (scroll/) en `section-dividers/` (shapes/), zonder `test/`, `demo.html`,
+  demobeelden en fonts; de herkomstparagrafen zijn weggelaten (openbare repo). Drie aanpassingen: `section-dividers`
+  heet hier `.sdv` in plaats van `.sd` (die klasse is al van `sectie-dock`); `raster-intro.css` laadt geen Anton maar
+  gebruikt de koppenletter van de site, en haalt Instrument Serif uit `schreef-accent/fonts/`. De lagen van het
+  diepte-beeld (`public/beeld/diepte-{achter,voor}-*.webp`) zijn uit de TEDx-foto gesneden: het publiek als voorgrond,
+  het podium met het publiek weggevuld als achtergrond. Plaatsing en thema-tokens: `src/components/v3b/beeld.css`.

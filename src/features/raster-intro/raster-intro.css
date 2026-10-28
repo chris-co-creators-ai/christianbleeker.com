@@ -1,0 +1,260 @@
+/**
+ * raster-intro.css
+ * ------------------------------------------------------------------------
+ * Hero met een lijnenraster dat zich tekent (±3 s), een merkteken in het
+ * midden en een reuzenkop die woord voor woord van links inschuift.
+ *
+ * Namespace: klasse-prefix `ri__` binnen `[data-raster-intro]`. De JS zet
+ * `data-ri-actief` (beginstand verborgen, klok staat stil), daarna
+ * `data-ri-loopt` (klok loopt) en aan het eind `data-ri-klaar`. Zonder die
+ * attributen (geen JS, minder beweging) staat het eindbeeld er gewoon.
+ *
+ * Alleen transform, opacity en stroke-dashoffset (SVG-lijnen tekenen).
+ *
+ */
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("../schreef-accent/fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+[data-raster-intro] {
+  /* kleur */
+  --ri-bg: #1b1aa6;            /* diep ultramarijn */
+  --ri-lijn: rgb(247 243 234 / 0.17);
+  --ri-tekst: #f7f3ea;
+  --ri-accent: #ffc56b;        /* het merkteken */
+  /* letter */
+  --ri-font-groot: "Anton", "Bebas Neue", "Oswald", Impact, sans-serif;
+  --ri-font-klein: "Instrument Serif", Georgia, serif;
+  --ri-groot: clamp(4.6rem, min(19.5vw, 27svh), 19rem);
+  --ri-klein: max(1.6rem, calc(var(--ri-groot) * 0.27));
+  --ri-inspring: clamp(0rem, 17vw - 2rem, 18rem);
+  /* tijd */
+  --ri-tempo: 1;
+  --ri-circ-out: cubic-bezier(0.075, 0.82, 0.165, 1);
+  --ri-teken-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --ri-duur-lijn: 1.25s;
+  --ri-duur-vorm: 1.5s;
+  --ri-duur-teken: 1.2s;
+  --ri-duur-woord-klein: 0.6s;
+  --ri-duur-woord-groot: 0.8s;
+  --ri-woord-afstand: 5rem;
+
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 100svh;
+  padding: clamp(1rem, 3vw, 3rem) clamp(1rem, 4vw, 4rem) clamp(1.25rem, 3.5vw, 3.5rem);
+  background: var(--ri-bg);
+  color: var(--ri-tekst);
+}
+
+/* ---- het raster ---------------------------------------------------------- */
+
+[data-raster-intro] .ri__raster {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 76%;
+  z-index: -1;
+  pointer-events: none;
+  /* het raster loopt onderaan zacht weg onder de kop */
+  -webkit-mask-image: linear-gradient(#000 70%, transparent);
+  mask-image: linear-gradient(#000 70%, transparent);
+}
+[data-raster-intro] .ri__raster svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+[data-raster-intro] .ri__raster :is(line, path, circle, rect) {
+  fill: none;
+  stroke: var(--ri-lijn);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---- merkteken ----------------------------------------------------------- */
+
+[data-raster-intro] .ri__teken {
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  justify-items: center;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  margin-bottom: clamp(1rem, 4svh, 3rem);
+}
+[data-raster-intro] .ri__teken svg {
+  width: clamp(6.5rem, 13vw, 11.5rem);
+  height: auto;
+  overflow: visible;
+  color: var(--ri-accent);
+}
+[data-raster-intro] .ri__teken svg :is(path, circle, rect, line, polyline) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+[data-raster-intro] .ri__merk {
+  margin: 0;
+  font-size: clamp(1.05rem, 0.8rem + 1vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* ---- de kop ---------------------------------------------------------------- */
+
+[data-raster-intro] .ri__kop {
+  position: relative;
+  margin: 0;
+  padding-inline-start: var(--ri-inspring);
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  column-gap: 0.35em;
+  align-items: end;
+  font-weight: 400;
+  color: var(--ri-tekst);
+}
+[data-raster-intro] .ri__woord {
+  display: block;
+  grid-column: 1;
+}
+[data-raster-intro] .ri__woord--groot {
+  font-family: var(--ri-font-groot);
+  font-size: var(--ri-groot);
+  line-height: 0.86;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
+  /* Anton heeft weinig ruimte boven de kapitalen; de onderkant optisch gelijk */
+  padding-top: 0.04em;
+}
+[data-raster-intro] .ri__woord--klein {
+  font-family: var(--ri-font-klein);
+  font-style: italic;
+  font-size: var(--ri-klein);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  padding-bottom: 0.18em;
+}
+[data-raster-intro] [data-ri-rij="1"] { grid-row: 1; }
+[data-raster-intro] [data-ri-rij="2"] { grid-row: 2; }
+[data-raster-intro] [data-ri-rij="3"] { grid-row: 3; }
+[data-raster-intro] [data-ri-rij="4"] { grid-row: 4; }
+[data-raster-intro] .ri__woord[data-ri-naast] { grid-column: 2; }
+[data-raster-intro] .ri__woord[data-ri-rechts] { grid-column: 1 / -1; justify-self: end; }
+/* klein woord naast een groot woord: op de onderkant van de kapitalen */
+[data-raster-intro] .ri__woord--klein[data-ri-naast] { padding-bottom: 0; margin-bottom: -0.04em; }
+
+/* bouwlijnen bij de kop: een haarlijn boven de kop en één langs de linkerrand */
+[data-raster-intro] .ri__kop::before,
+[data-raster-intro] .ri__kop::after {
+  content: "";
+  position: absolute;
+  background: var(--ri-lijn);
+  pointer-events: none;
+}
+[data-raster-intro] .ri__kop::before {
+  inset-inline: calc(-1 * clamp(1rem, 4vw, 4rem)) calc(-1 * clamp(1rem, 4vw, 4rem));
+  top: calc(var(--ri-klein) * 1.05);
+  height: 1px;
+  transform-origin: 0 50%;
+}
+[data-raster-intro] .ri__kop::after {
+  inset-inline-start: calc(var(--ri-inspring) - 0.5px - clamp(0.4rem, 1vw, 0.9rem));
+  top: calc(-1 * clamp(2rem, 8svh, 6rem));
+  bottom: calc(-1 * clamp(1.25rem, 3.5vw, 3.5rem));
+  width: 1px;
+  transform-origin: 50% 0;
+}
+
+/* =========================================================================
+   Beweging. Alles hieronder geldt alleen met data-ri-actief (JS gezet,
+   niet bij minder beweging) én binnen @media no-preference. Elk element krijgt van de JS zijn starttijd
+   in --ri-v (seconden, al met het tempo verrekend).
+   ========================================================================= */
+
+/* Alle beweging hangt aan twee voorwaarden: data-ri-actief (JS) én de media
+   query. Zo schakelt "minder beweging" in hetzelfde moment als de browser het
+   ziet, zonder op het change-event van matchMedia te wachten (dat komt pas bij
+   de volgende rendering-update, onder belasting honderden ms later). */
+@media (prefers-reduced-motion: no-preference) {
+  [data-ri-actief] .ri__raster [data-ri-lijn="h"] {
+    transform-box: fill-box;
+    transform-origin: 0 50%;
+    animation: ri-schaal-x calc(var(--ri-duur-lijn) * var(--ri-tempo)) var(--ri-teken-ease) var(--ri-v, 0s) both;
+  }
+  [data-ri-actief] .ri__raster [data-ri-lijn="v"] {
+    transform-box: fill-box;
+    transform-origin: 50% 0;
+    animation: ri-schaal-y calc(var(--ri-duur-lijn) * var(--ri-tempo)) var(--ri-teken-ease) var(--ri-v, 0s) both;
+  }
+  [data-ri-actief] [data-ri-vorm],
+  [data-ri-actief] [data-ri-streep] {
+    stroke-dasharray: 1 1;
+    animation: ri-teken calc(var(--ri-duur-vorm) * var(--ri-tempo)) var(--ri-teken-ease) var(--ri-v, 0s) both;
+  }
+  [data-ri-actief] [data-ri-streep] {
+    animation-duration: calc(var(--ri-duur-teken) * var(--ri-tempo));
+  }
+  [data-ri-actief] [data-ri-merk] {
+    animation: ri-op calc(0.9s * var(--ri-tempo)) var(--ri-circ-out) var(--ri-v, 0s) both;
+  }
+  [data-ri-actief] .ri__woord {
+    animation: ri-woord calc(var(--ri-duur-woord-groot) * var(--ri-tempo)) var(--ri-circ-out) var(--ri-v, 0s) both;
+  }
+  [data-ri-actief] .ri__woord--klein {
+    animation-duration: calc(var(--ri-duur-woord-klein) * var(--ri-tempo));
+  }
+  [data-ri-actief] .ri__kop::before {
+    animation: ri-schaal-x calc(var(--ri-duur-lijn) * var(--ri-tempo)) var(--ri-teken-ease) calc(0.45s * var(--ri-tempo)) both;
+  }
+  [data-ri-actief] .ri__kop::after {
+    animation: ri-schaal-y calc(var(--ri-duur-lijn) * var(--ri-tempo)) var(--ri-teken-ease) calc(0.6s * var(--ri-tempo)) both;
+  }
+
+  /* Tot het font er is staat de klok stil op frame 0 (JS zet data-ri-loopt),
+     zodat de kop niet halverwege de beweging van letter wisselt. */
+  [data-ri-actief]:not([data-ri-loopt]) :is([data-ri-lijn], [data-ri-vorm], [data-ri-streep], [data-ri-merk], .ri__woord),
+  [data-ri-actief]:not([data-ri-loopt]) .ri__kop::before,
+  [data-ri-actief]:not([data-ri-loopt]) .ri__kop::after {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes ri-schaal-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes ri-schaal-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+/* opacity 0 tot de pen begint: een ronde lijnkap tekent anders al een stip
+   op een streep van lengte 0 */
+@keyframes ri-teken {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  1% { opacity: 1; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes ri-op {
+  from { opacity: 0; transform: translateY(0.6em); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ri-woord {
+  from { opacity: 0; transform: translateX(calc(-1 * var(--ri-woord-afstand))); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---- mobiel ---------------------------------------------------------------- */
+@media (max-width: 40rem) {
+  [data-raster-intro] {
+    --ri-woord-afstand: 2.5rem;
+    /* op een telefoon mag de kop de breedte vullen: 25vw ≈ 7 kapitalen Anton */
+    --ri-groot: clamp(4.6rem, min(23.5vw, 27svh), 19rem);
+    --ri-inspring: 0.75rem;
+  }
+  [data-raster-intro] .ri__raster { height: 68%; }
+}

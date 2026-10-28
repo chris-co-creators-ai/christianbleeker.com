@@ -1,0 +1,64 @@
+/* diepte-beeld — één samengesteld beeld van gestapelde lagen.
+ * Zonder JS: de lagen liggen gewoon op elkaar als één beeld.
+ * Variabelen: --db-verhouding (aspect-ratio), --db-overscan (hoeveel de
+ * beeldlagen buiten het kader steken, zodat schuiven nooit een rand toont),
+ * --db-radius. */
+[data-diepte-beeld] {
+  --db-verhouding: 3 / 2;
+  --db-overscan: 8%;
+  --db-radius: 0;
+  --db-uitsnede: 50% 50%; /* object-position van alle beeldlagen: kies wat er bij een smal kader in beeld blijft */
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  aspect-ratio: var(--db-verhouding);
+  border-radius: var(--db-radius);
+  background: #cfd8dc; /* zichtbaar tot de eerste laag geladen is */
+}
+
+/* Beeldlagen: iets groter dan het kader (overscan) en allemaal identiek
+ * uitgelijnd, dus in rust valt het beeld precies samen. */
+[data-diepte-beeld] > [data-diepte-laag] {
+  position: absolute;
+  inset: calc(-1 * var(--db-overscan));
+}
+[data-diepte-beeld] > [data-diepte-laag] > img,
+[data-diepte-beeld] > [data-diepte-laag] > picture,
+[data-diepte-beeld] > [data-diepte-laag] > picture > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--db-uitsnede);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Tekstlaag: precies het kader, geen overscan; de inhoud bepaal je zelf. */
+[data-diepte-beeld] > [data-diepte-laag].db-tekst {
+  inset: 0;
+}
+
+/* Laden: alle lagen behalve de eerste verschijnen samen, als alles binnen is. Zonder JS bestaat
+ * data-db-laden niet, dus dan staat alles er gewoon. */
+[data-diepte-beeld] > [data-diepte-laag] { transition: opacity 0.5s ease; }
+[data-diepte-beeld][data-db-laden] > [data-diepte-laag]:not(:first-child):not(.db-tekst) { opacity: 0; }
+
+/* Touch: geen muis, dus de lagen mogen meer schuiven met scroll (opties.scrollTouch, 12%). */
+@media (hover: none), (pointer: coarse) {
+  [data-diepte-beeld] { --db-overscan: 14%; }
+}
+
+/* Alleen als JS draait: laag klaarzetten voor GPU-transform. */
+[data-diepte-beeld][data-db-actief] > [data-diepte-laag] {
+  will-change: transform;
+}
+
+/* Minder beweging: nooit een transform, ook niet als JS er een liet staan. */
+@media (prefers-reduced-motion: reduce) {
+  [data-diepte-beeld] > [data-diepte-laag] {
+    transform: none !important;
+    will-change: auto;
+    transition: none;
+  }
+}

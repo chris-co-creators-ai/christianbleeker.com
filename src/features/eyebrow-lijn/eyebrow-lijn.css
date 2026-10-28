@@ -1,0 +1,149 @@
+/**
+ * eyebrow-lijn.css
+ * ------------------------------------------------------------------------
+ * Label (eyebrow) + lijn met pijl in de inspringing van de eerste regel van
+ * een grote intro-zin. Namespace: klasse-prefix `el__` binnen
+ * `[data-eyebrow-lijn]`; de JS zet `data-el-actief` (verborgen beginstand)
+ * en daarna `.is-in` (afspelen).
+ *
+ * De opmaak (inspringing, lijn, pijl) werkt ook zonder JS. Alleen de
+ * beweging hangt aan `data-el-actief`. Zonder dat attribuut is alles gewoon
+ * zichtbaar (R4).
+ *
+ */
+
+[data-eyebrow-lijn] {
+  --el-zin-grootte: clamp(1.3rem, 0.9rem + 2vw, 3.25rem);
+  --el-zin-regel: 1.32;
+  --el-inspring: clamp(8.75rem, 30%, 25rem);
+  --el-tussen: clamp(0.75rem, 1.4vw, 1.5rem);
+  --el-lijn-kleur: currentColor;
+  --el-label-kleur: currentColor;
+  --el-ease: cubic-bezier(0.075, 0.82, 0.165, 1); /* circ.out */
+  --el-duur-label: 0.7s;
+  --el-duur-lijn: 1.05s;
+  --el-duur-zin: 0.95s;
+  --el-start-lijn: 0.12s;
+  --el-start-zin: 0.24s;
+
+  position: relative;
+}
+
+/* Label + lijn staan samen precies in de inspringing van regel 1, verticaal
+   gecentreerd op die regel. */
+[data-eyebrow-lijn] .el__kop {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  width: calc(var(--el-inspring) - var(--el-tussen));
+  height: calc(var(--el-zin-grootte) * var(--el-zin-regel));
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1vw, 1rem);
+}
+
+[data-eyebrow-lijn] .el__label {
+  margin: 0;
+  /* het masker: de tekst komt van onder deze rand omhoog */
+  overflow: clip;
+  padding-block: 0.12em; /* ruimte voor onderstokken binnen het masker */
+  flex: none;
+  max-width: 70%;
+  font-size: clamp(0.72rem, 0.66rem + 0.3vw, 0.95rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--el-label-kleur);
+  white-space: nowrap;
+}
+
+[data-eyebrow-lijn] .el__label > span {
+  display: block;
+}
+
+[data-eyebrow-lijn] .el__lijn {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  height: 0.75rem;
+  color: var(--el-lijn-kleur);
+}
+
+[data-eyebrow-lijn] .el__streep {
+  position: absolute;
+  inset-inline: 0 0.1rem;
+  top: 50%;
+  height: 1px;
+  margin-top: -0.5px;
+  background: currentColor;
+  transform-origin: 0 50%;
+}
+
+/* De pijlpunt rijdt op een eigen baan mee met het uiteinde van de lijn, in
+   plaats van mee te schalen: zo blijft de punt scherp en onvervormd. */
+[data-eyebrow-lijn] .el__baan {
+  position: absolute;
+  inset: 0;
+}
+
+[data-eyebrow-lijn] .el__pijl {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.75rem;
+  margin-top: -0.375rem;
+  overflow: visible;
+}
+
+[data-eyebrow-lijn] .el__zin {
+  margin: 0;
+  font-size: var(--el-zin-grootte);
+  line-height: var(--el-zin-regel);
+  text-indent: var(--el-inspring);
+  text-wrap: pretty;
+}
+
+/* ---- beweging --------------------------------------------------------- */
+
+[data-el-actief]:not(.is-in) .el__label > span { transform: translateY(110%); }
+[data-el-actief]:not(.is-in) .el__streep { transform: scaleX(0); }
+[data-el-actief]:not(.is-in) .el__baan { transform: translateX(-100%); opacity: 0; }
+[data-el-actief]:not(.is-in) .el__zin { transform: translateX(-2em); opacity: 0; }
+
+[data-el-actief].is-in .el__label > span {
+  animation: el-omhoog var(--el-duur-label) var(--el-ease) both;
+}
+[data-el-actief].is-in .el__streep {
+  animation: el-trek var(--el-duur-lijn) var(--el-ease) var(--el-start-lijn) both;
+}
+[data-el-actief].is-in .el__baan {
+  animation: el-rij var(--el-duur-lijn) var(--el-ease) var(--el-start-lijn) both;
+}
+[data-el-actief].is-in .el__zin {
+  animation: el-schuif var(--el-duur-zin) var(--el-ease) var(--el-start-zin) both;
+}
+
+@keyframes el-omhoog { from { transform: translateY(110%); } to { transform: none; } }
+@keyframes el-trek { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes el-rij {
+  from { transform: translateX(-100%); opacity: 0; }
+  12% { opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes el-schuif {
+  from { transform: translateX(-2em); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-el-actief] .el__label > span,
+  [data-el-actief] .el__streep,
+  [data-el-actief] .el__baan,
+  [data-el-actief] .el__zin {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
