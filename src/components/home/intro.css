@@ -4,3 +4,7 @@
 .home-intro__x { stroke: var(--color-hoofd); stroke-width: 9; stroke-linecap: round; fill: none; }
 /* Al gezien deze sessie, minder beweging, of geen JavaScript (dan zet het themascript geen data-thema): geen overlay. */
 .pzi-gezien .home-intro, :root:not([data-thema]) .home-intro { display: none !important; }
+/* De intro zet overflow: hidden op html én body. Op body maakt dat body tot scrollcontainer, waardoor
+   alles wat sticky is (stapelpanelen, beeldexplosie) tijdens de intro verkeerd meet. Het slot op html is
+   genoeg: dat geldt voor het venster. */
+body:has(.home-intro:not([hidden])) { overflow: visible !important; overflow-x: clip !important; }

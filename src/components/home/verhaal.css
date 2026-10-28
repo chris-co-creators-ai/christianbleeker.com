@@ -11,3 +11,8 @@
   .over-swl .over-tekst h2 { margin-top: 10px; }
   .over-swl .over-alinea { margin-block: 16px 20px; font-size: 20px; }
 }
+@media (prefers-reduced-motion: reduce) {
+  /* Alles staat al opgelicht: dan is de scrollbaan alleen lege ruimte. */
+  .over-swl { min-height: 0; }
+  .over-swl .swl__sticky { position: static; min-height: 0; }
+}
