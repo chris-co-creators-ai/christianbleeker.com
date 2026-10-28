@@ -125,7 +125,7 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     const fout = (wat, info) => fouten.push(`${label} home ${wat}: ${typeof info === 'string' ? info : JSON.stringify(info)}`)
     // Scrollen als een bezoeker: eerst wachten tot html/body geen slot meer hebben (de intro houdt html vast),
     // dan scrollTo; staat het venster dan nog niet op het doel, corrigeren met het muiswiel. In WebKit gaf
-    // scrollTo uit een evaluate scrollY 0, het wiel werkt daar wel (gemeten door Lima, 28-10).
+    // scrollTo uit een evaluate scrollY 0, het wiel werkt daar wel (gemeten in WebKit, 28-10).
     const naar = async (y) => {
       for (let i = 0; i < 80; i++) { if (await hp.evaluate(() => ![document.documentElement, document.body].some((e) => getComputedStyle(e).overflowY === 'hidden'))) break; await hp.waitForTimeout(50) }
       const doel = await hp.evaluate((yy) => { window.scrollTo({ top: yy, behavior: 'instant' }); return Math.max(0, Math.min(Math.round(yy), document.documentElement.scrollHeight - innerHeight)) }, y)
