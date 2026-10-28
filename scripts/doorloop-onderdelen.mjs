@@ -407,9 +407,9 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     // stapsgewijs tot de bovenkant van de logowand onder het midden van het merk ligt (de pagina kan onderweg nog groeien)
     for (let i = 0; i < 200; i++) {
       const rest = await page.evaluate(() => { const l = document.querySelector('.ls-logo').getBoundingClientRect(); return document.querySelector('.logowand').getBoundingClientRect().top - (l.top + l.height / 2) + 30 })
-      if (rest <= 0) break
+      if (rest <= -2) break  // 2 px voorbij het midden: op de rand zelf beslist een subpixel
       // het laatste stuk langzaam (4 px per stap): zo kwam de fout boven, dat het merk bij langzaam scrollen bleef hangen
-      await page.evaluate((d) => window.scrollBy(0, d), rest > 70 ? Math.min(300, rest - 60) : 4); await page.waitForTimeout(rest > 70 ? 60 : 30)
+      await page.evaluate((d) => window.scrollBy(0, d), rest > 70 ? Math.min(300, rest - 60) : Math.min(4, rest + 2)); await page.waitForTimeout(rest > 70 ? 60 : 30)
     }
     await page.waitForTimeout(700)
     const lk = await page.evaluate(() => { const l = document.querySelector('.ls-logo'); return { staat: l.dataset.lkStaat, kleur: getComputedStyle(l).color, grond: getComputedStyle(document.body).backgroundColor } })
@@ -427,7 +427,7 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     await page.locator(mobiel ? 'dialog#leesmenu .ls-thema' : '.ls-fsm .ls-thema').click(); await page.waitForTimeout(200)
     await page.keyboard.press('Escape'); await page.waitForTimeout(reduced ? 200 : 700)
     const m2 = await page.evaluate((m) => ({ open: m ? document.querySelector('dialog#leesmenu').open : document.querySelector('.ls-fsm').hasAttribute('data-fsm-open'), focusKnop: document.activeElement === document.querySelector(m ? '.ls-vel-knop' : '.ls-fsm .fsm__button') }), mobiel)
-    if (!m1.open || m1.links !== 5 || !m1.focusIn || m1.expanded !== 'true') fouten.push(`${label} leesmenu open: ${JSON.stringify(m1)}`)
+    if (!m1.open || m1.links !== 6 || !m1.focusIn || m1.expanded !== 'true') fouten.push(`${label} leesmenu open: ${JSON.stringify(m1)}`)
     if (themaVoor === themaNa) fouten.push(`${label} thema-schakelaar in het leesmenu wisselt niet (${themaVoor} → ${themaNa})`)
     if (m2.open || !m2.focusKnop) fouten.push(`${label} leesmenu na Escape: ${JSON.stringify(m2)}`)
     await page.evaluate(() => { localStorage.removeItem('thema'); document.activeElement?.blur() })
@@ -479,7 +479,7 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     let vv = '-'
     if (!mobiel) { await page.hover('.verder [data-veeg]'); await page.waitForTimeout(reduced ? 80 : 700); vv = await vlak() }
     else { await page.focus('.verder [data-veeg]'); vv = await vlak() }
-    if (vr0.join(' ') !== '/about /work /ai /contact' || (!mobiel && vv !== 'matrix(1, 0, 0, 1, 0, 0)')) fouten.push(`${label} veeg-rij: ${JSON.stringify({ vr0, vv })}`)
+    if (vr0.join(' ') !== '/about /work /ai /werkplaats /contact' || (!mobiel && vv !== 'matrix(1, 0, 0, 1, 0, 0)')) fouten.push(`${label} veeg-rij: ${JSON.stringify({ vr0, vv })}`)
     regels.push(`${label} veeg-rij ${vr0.length} regels · vlak bij hover ${vv}`)
 
     // voetlijn: tekent zich bij beweging, eindbeeld bij minder beweging

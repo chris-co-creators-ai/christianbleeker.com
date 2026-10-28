@@ -39,6 +39,7 @@ export function init(root, opties = {}) {
   const raken = new Set();
   let sectieStaat = 'donker';
   let io = null;
+  let band = 0;
   let ro = null;
   let mo = null;
 
@@ -52,12 +53,12 @@ export function init(root, opties = {}) {
 
   // Welke geraakte sectie bevat het midden van het logo? Alleen aangeroepen vanuit de observer.
   function bepaalSectie() {
-    const r = root.getBoundingClientRect();
-    const midden = r.top + r.height / 2;
+    // Zelfde pixelgrens als de band van de observer: met de exacte (subpixel) middenlijn kon een sectie de band al
+    // raken terwijl haar bovenrand er nog net onder lag; daarna meldde de observer niets meer (langzaam scrollen, 29-10).
     sectieStaat = 'donker';
     for (const el of raken) {
       const b = el.getBoundingClientRect();
-      if (b.top <= midden && b.bottom > midden) sectieStaat = waarde(el.getAttribute('data-logo'));
+      if (b.top < band + 1 && b.bottom > band) sectieStaat = waarde(el.getAttribute('data-logo'));
     }
     zet();
   }
@@ -70,6 +71,7 @@ export function init(root, opties = {}) {
     // onderrand en het midden (langzaam scrollen). Nu is "raakt de band" precies "bevat het midden".
     const r = root.getBoundingClientRect();
     const mid = Math.round(r.top + r.height / 2);
+    band = mid;
     const top = Math.max(0, mid);
     const onder = Math.max(0, Math.round(win.innerHeight - mid - 1));
     raken.clear();
