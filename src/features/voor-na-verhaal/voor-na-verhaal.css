@@ -1,0 +1,184 @@
+/* voor-na-verhaal — alles namespaced op [data-vnv] en .vnv-*.
+ * Zonder JS: gewone figuren onder elkaar. Met JS (data-vnv-klaar) wordt het
+ * een sticky podium waarin de foto's over elkaar liggen. */
+
+[data-vnv] {
+  --vnv-top: 0px;                 /* hoogte van een vaste site-header, indien aanwezig */
+  --vnv-fg: #1f2629;              /* tekst en lijnen onder de foto */
+  --vnv-fg-zacht: #4d565b;
+  --vnv-lijn: rgba(31, 38, 41, 0.28);
+  --vnv-vlak: #efece5;            /* achtergrond van de sectie (randje om de duim) */
+  --vnv-accent: #4a5fa8;
+  --vnv-kaart-bg: #efece5;
+  --vnv-kaart-fg: #1f2629;
+  --vnv-kaart-kop: #3f5296;
+  --vnv-radius: 1.25rem;
+  --vnv-pad: clamp(1rem, 3.5vw, 3rem);
+  --vnv-duur: 0.5s;
+  --vnv-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --vnv-focus: 50% 60%;           /* object-position van de foto's */
+}
+
+/* --- zonder JS ---------------------------------------------------------- */
+[data-vnv] [data-vnv-stap] { margin: 0 0 1.75rem; }
+[data-vnv] [data-vnv-stap] img {
+  display: block; width: 100%; height: auto; border-radius: var(--vnv-radius);
+}
+[data-vnv] [data-vnv-stap] figcaption {
+  padding-top: 0.6rem; font-size: 1rem; line-height: 1.5; color: var(--vnv-fg-zacht);
+}
+
+/* --- met JS ------------------------------------------------------------- */
+[data-vnv-klaar] .vnv-spoor {
+  position: relative;
+  height: calc((var(--vnv-som) + 100) * 1vh - var(--vnv-top));
+  height: calc((var(--vnv-som) + 100) * 1svh - var(--vnv-top));
+}
+[data-vnv-klaar] .vnv-pin {
+  position: sticky;
+  top: var(--vnv-top);
+  height: calc(100vh - var(--vnv-top));
+  height: calc(100svh - var(--vnv-top));
+  box-sizing: border-box;
+  padding: var(--vnv-pad);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-content: center;
+  max-width: 96rem;
+  margin-inline: auto;
+  background: transparent;
+}
+[data-vnv-klaar] .vnv-pin:has(> .vnv-titel) { grid-template-rows: auto minmax(0, 1fr) auto; }
+
+.vnv-titel {
+  margin: 0; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--vnv-fg-zacht);
+}
+
+.vnv-podium {
+  user-select: none; -webkit-user-select: none;
+  position: relative; min-height: 0; overflow: hidden; isolation: isolate;
+  border-radius: var(--vnv-radius); background: #1f2629;
+}
+
+[data-vnv-klaar] .vnv-podium [data-vnv-stap] {
+  position: absolute; inset: 0; margin: 0; overflow: hidden;
+  z-index: var(--vnv-i, 1);
+  will-change: opacity, transform;
+}
+[data-vnv-klaar] .vnv-podium [data-vnv-stap] img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--vnv-focus); border-radius: 0;
+  -webkit-user-drag: none; user-drag: none;
+}
+/* de figcaption blijft voor schermlezers, de zichtbare zin staat in de kaart */
+[data-vnv-klaar] .vnv-podium [data-vnv-stap] figcaption {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* crossfade */
+[data-vnv-overgang="fade"] .vnv-podium [data-vnv-stap] { opacity: var(--vnv-q, 1); }
+/* wisveeg: het venster van de foto groeit van links, de foto zelf blijft staan */
+[data-vnv-overgang="veeg"] .vnv-podium [data-vnv-stap] {
+  transform: translate3d(calc((var(--vnv-q, 1) - 1) * 100%), 0, 0);
+}
+[data-vnv-overgang="veeg"] .vnv-podium [data-vnv-stap] img {
+  transform: translate3d(calc((1 - var(--vnv-q, 1)) * 100%), 0, 0);
+}
+
+/* de veeglijn met greep, alleen tijdens een veeg */
+.vnv-lijn { display: none; }
+[data-vnv-overgang="veeg"] .vnv-lijn {
+  display: block; position: absolute; inset: 0; z-index: 40; pointer-events: none;
+  border-right: 2px solid #fff; opacity: 0;
+  transform: translate3d(calc((var(--vnv-lq, 1) - 1) * 100%), 0, 0);
+  transition: opacity 0.3s var(--vnv-ease);
+}
+/* de greep: echt versleepbaar (JS), alleen tijdens een veeg */
+.vnv-greep { display: none; }
+[data-vnv-overgang="veeg"] .vnv-greep {
+  display: grid; place-items: center; position: absolute; right: -1.375rem; top: 50%; margin-top: -1.375rem;
+  width: 2.75rem; height: 2.75rem; border-radius: 50%; background: #fff; color: #1f2629;
+  font-size: 1.1rem; line-height: 1; pointer-events: none; cursor: grab; touch-action: none;
+  user-select: none; -webkit-user-select: none;
+}
+[data-vnv-overgang="veeg"] .vnv-greep::before { content: '\2194'; }
+[data-vnv-overgang="veeg"] .vnv-podium[data-vnv-bezig] .vnv-greep { pointer-events: auto; }
+[data-vnv-overgang="veeg"] .vnv-greep:active { cursor: grabbing; }
+[data-vnv-overgang="veeg"] .vnv-podium[data-vnv-bezig] .vnv-lijn { opacity: 1; }
+
+/* kaart met de zin van de stap */
+.vnv-kaart {
+  position: absolute; left: 1rem; bottom: 1rem; z-index: 60;
+  display: grid; max-width: min(28rem, calc(100% - 2rem));
+  padding: 0.85rem 1.15rem 0.95rem; border-radius: 0.9rem;
+  background: var(--vnv-kaart-bg); color: var(--vnv-kaart-fg);
+}
+.vnv-kaart__stap {
+  grid-area: 1 / 1; margin: 0; display: grid; gap: 0.2rem;
+  opacity: 0; transform: translate3d(0, 6px, 0);
+  transition: opacity var(--vnv-duur) var(--vnv-ease), transform var(--vnv-duur) var(--vnv-ease);
+}
+.vnv-kaart__stap[data-actief] { opacity: 1; transform: none; }
+.vnv-kaart__kop {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--vnv-kaart-kop);
+}
+.vnv-kaart__zin { font-size: clamp(1.05rem, 1.6vw, 1.35rem); line-height: 1.3; letter-spacing: -0.01em; font-weight: 600; }
+
+/* schuif en stappen */
+.vnv-bediening { position: relative; }
+.vnv-schuif {
+  position: relative; height: 2.75rem; cursor: grab; touch-action: pan-y;
+  user-select: none; -webkit-user-select: none; border-radius: 0.5rem;
+}
+.vnv-schuif[data-sleept] { cursor: grabbing; }
+.vnv-schuif:focus-visible { outline: 2px solid var(--vnv-fg); outline-offset: 2px; }
+.vnv-baan { position: absolute; inset: 0 0.75rem; }
+.vnv-rail, .vnv-vulling {
+  position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px;
+}
+.vnv-rail { background: var(--vnv-lijn); }
+.vnv-vulling { background: var(--vnv-accent); transform: scaleX(var(--vnv-v, 0)); transform-origin: left center; }
+.vnv-tik {
+  position: absolute; top: 50%; width: 0.6rem; height: 0.6rem; margin: -0.3rem 0 0 -0.3rem;
+  border-radius: 50%; background: var(--vnv-vlak); border: 2px solid var(--vnv-lijn); box-sizing: border-box;
+}
+.vnv-tik[data-gepasseerd] { border-color: var(--vnv-accent); background: var(--vnv-accent); }
+.vnv-duim {
+  position: absolute; left: 0; top: 50%; width: 1.5rem; height: 1.5rem; margin: -0.75rem 0 0 -0.75rem;
+  border-radius: 50%; background: var(--vnv-accent); border: 3px solid var(--vnv-vlak); box-sizing: border-box;
+  transform: translate3d(calc(var(--vnv-v, 0) * var(--vnv-w, 0px)), 0, 0);
+}
+.vnv-schuif:focus-visible .vnv-duim { outline: 2px solid var(--vnv-fg); outline-offset: 3px; }
+
+.vnv-punten { position: relative; height: 2.5rem; margin-inline: 0.75rem; }
+.vnv-punt {
+  position: absolute; top: 0; min-height: 2.5rem; padding: 0 0.5rem; max-width: 9rem;
+  border: 0; background: none; font: inherit; font-size: 0.875rem; font-weight: 600;
+  color: var(--vnv-fg-zacht); cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transform: translateX(-50%); border-radius: 0.4rem;
+}
+.vnv-punt[data-vnv-rand="begin"] { transform: translateX(-0.75rem); text-align: left; }
+.vnv-punt[data-vnv-rand="eind"] { transform: translateX(calc(-100% + 0.75rem)); text-align: right; }
+.vnv-punt[aria-current="step"] { color: var(--vnv-fg); text-decoration: underline; text-decoration-color: var(--vnv-accent); text-decoration-thickness: 2px; text-underline-offset: 0.4rem; }
+.vnv-punt:focus-visible { outline: 2px solid var(--vnv-fg); outline-offset: 0; }
+@media (hover: hover) { .vnv-punt:hover { color: var(--vnv-fg); } }
+
+/* mobiel: staand kader, zodat het beeld niet tot een smalle reep wordt */
+@media (max-width: 40rem) {
+  [data-vnv-klaar] .vnv-pin,
+  [data-vnv-klaar] .vnv-pin:has(> .vnv-titel) { grid-template-rows: none; grid-auto-rows: auto; gap: 0.75rem; }
+  [data-vnv-klaar] .vnv-podium { aspect-ratio: 3 / 4; max-height: calc(100svh - 12rem); }
+  .vnv-kaart { left: 0.6rem; bottom: 0.6rem; max-width: calc(100% - 1.2rem); padding: 0.7rem 0.9rem 0.8rem; }
+  .vnv-punt { font-size: 0.8125rem; padding: 0 0.35rem; max-width: 6.5rem; }
+}
+
+/* minder beweging: geen overgangen, de stappen wisselen direct */
+[data-vnv-minder] .vnv-kaart__stap,
+[data-vnv-minder] .vnv-lijn { transition: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .vnv-kaart__stap, .vnv-lijn { transition: none; transform: none; }
+}

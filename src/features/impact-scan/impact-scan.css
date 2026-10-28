@@ -1,0 +1,415 @@
+/* impact-scan — alle selectors beginnen met .isc (plus html.isc-lock voor de scrollblokkade).
+ * Kleur en maat via CSS-variabelen op de root van de scan of hoger; alles heeft een standaard.
+ * Alleen transform en opacity animeren (R18); bij "minder beweging" staat alles stil (R1). */
+
+.isc {
+  --isc-ink: #16201a;
+  --isc-zacht: #58615a;
+  --isc-papier: #fbfaf6;
+  --isc-kaart: #ffffff;
+  --isc-lijn: #e4e0d3;
+  --isc-accent: #2c5e3f;
+  --isc-accent-tekst: #ffffff;
+  --isc-tint: #e7eee2;
+  --isc-noot: #f6ecd0;
+  --isc-bezel: #0f1511;
+  --isc-schaduw: 0 30px 80px -20px rgba(9, 16, 11, 0.55), 0 8px 24px -8px rgba(9, 16, 11, 0.3);
+  --isc-font: var(--sc-font, "Bricolage Grotesque", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif);
+  --isc-ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--isc-ink);
+  font-family: var(--isc-font);
+  max-width: none;
+  max-height: none;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.isc[open] { display: flex; align-items: center; justify-content: center; }
+.isc *, .isc *::before, .isc *::after { box-sizing: border-box; }
+.isc [hidden] { display: none !important; }
+
+.isc::backdrop {
+  background: rgba(14, 22, 17, 0.58);
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+.isc[data-isc-open]::backdrop { opacity: 1; }
+
+html.isc-lock { overflow: hidden; }
+
+/* --- frame ----------------------------------------------------------- */
+.isc__frame {
+  position: relative;
+  width: min(34rem, calc(100vw - 2rem));
+  height: min(46rem, calc(100dvh - 2rem));
+  opacity: 0;
+  transform: translateY(14px) scale(0.975);
+  transition: opacity 220ms ease-out, transform 260ms var(--isc-ease);
+}
+.isc[data-isc-open] .isc__frame { opacity: 1; transform: none; }
+
+.isc__scherm {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--isc-papier);
+  border-radius: 1.5rem;
+  box-shadow: var(--isc-schaduw);
+}
+.isc__notch { display: none; }
+
+.isc--telefoon .isc__frame {
+  width: min(24.75rem, calc(100vw - 2rem));
+  height: min(49rem, calc(100dvh - 2rem));
+  padding: 0.6rem;
+  background: var(--isc-bezel);
+  border-radius: 3.1rem;
+  box-shadow: var(--isc-schaduw), inset 0 0 0 1.5px rgba(255, 255, 255, 0.12);
+}
+.isc--telefoon .isc__scherm { border-radius: 2.55rem; box-shadow: none; padding-top: 1.5rem; }
+.isc--telefoon .isc__notch {
+  display: block;
+  position: absolute;
+  z-index: 3;
+  top: 1.2rem;
+  left: 50%;
+  width: 6.4rem;
+  height: 1.55rem;
+  margin-left: -3.2rem;
+  border-radius: 999px;
+  background: var(--isc-bezel);
+}
+
+/* --- kop met voortgang ---------------------------------------------- */
+.isc__kop { padding: 1.15rem 1.35rem 0; flex: none; }
+.isc--telefoon .isc__kop { padding-top: 1.9rem; }
+.isc__segs { display: flex; gap: 0.3rem; }
+.isc__seg {
+  flex: 1;
+  height: 0.25rem;
+  border-radius: 999px;
+  background: var(--isc-lijn);
+  position: relative;
+  overflow: hidden;
+}
+.isc__seg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--isc-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 320ms var(--isc-ease);
+}
+.isc__seg.is-vol::after { transform: scaleX(1); }
+.isc__metarij { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: 2.75rem; }
+.isc__meta {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--isc-zacht);
+  font-variant-numeric: tabular-nums;
+}
+.isc__sluit {
+  position: relative;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-right: -0.7rem;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--isc-ink);
+  transition: background-color 150ms ease-out, transform 140ms var(--isc-ease);
+}
+.isc__kruis::before, .isc__kruis::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1rem;
+  height: 1.5px;
+  margin: -0.75px 0 0 -0.5rem;
+  background: currentColor;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+.isc__kruis::after { transform: rotate(-45deg); }
+.isc__sluit:active { transform: scale(0.94); }
+
+.isc__sr {
+  position: absolute !important;
+  width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* --- body ------------------------------------------------------------ */
+.isc__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.35rem 1.35rem 1.25rem;
+}
+.isc__stap { animation: isc-in 300ms var(--isc-ease) both; }
+@keyframes isc-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.isc__vraag {
+  margin: 0.5rem 0 0.5rem;
+  font-size: clamp(1.45rem, 5.6vw, 1.85rem);
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  outline: none;
+}
+.isc__vraag--groot { font-size: clamp(1.6rem, 6.4vw, 2.05rem); }
+.isc__hint, .isc__intro {
+  margin: 0 0 1.1rem;
+  color: var(--isc-zacht);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.isc__intro { font-size: 1rem; }
+.isc__teller, .isc__reken {
+  min-height: 1.4rem; /* R19: geen verspringen als de regel verschijnt */
+  margin: 0.85rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--isc-accent);
+  font-variant-numeric: tabular-nums;
+}
+.isc__reken { min-height: 1.5rem; font-size: 1rem; }
+
+/* --- opties ------------------------------------------------------------ */
+.isc__opties { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 0.55rem; }
+.isc__opties--getal { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.isc__optie {
+  position: relative;
+  display: block;
+  animation: isc-in 320ms var(--isc-ease) both;
+  animation-delay: calc(var(--i, 0) * 35ms + 40ms);
+}
+.isc__opties--getal .isc__optie { flex: 0 0 auto; }
+.isc__input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+}
+.isc__kaart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  min-height: 3.25rem;
+  padding: 0.8rem 1rem;
+  background: var(--isc-kaart);
+  border: 1px solid var(--isc-lijn);
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 550;
+  line-height: 1.25;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out, transform 140ms var(--isc-ease);
+}
+.isc__opties--getal .isc__kaart { border-radius: 999px; padding: 0.7rem 1.15rem; min-height: 3rem; }
+.isc__opties--getal .isc__vink { display: none; }
+.isc__vink {
+  flex: none;
+  position: relative;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 999px;
+  border: 1.5px solid #b9b5a6;
+  transition: background-color 160ms ease-out, border-color 160ms ease-out;
+}
+.isc__opties--meer .isc__vink { border-radius: 0.4rem; }
+.isc__vink::after {
+  content: "";
+  position: absolute;
+  left: 0.36rem;
+  top: 0.14rem;
+  width: 0.33rem;
+  height: 0.66rem;
+  border: solid var(--isc-accent);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 180ms var(--isc-ease);
+}
+.isc__input:checked + .isc__kaart { background: var(--isc-accent); border-color: var(--isc-accent); color: var(--isc-accent-tekst); }
+.isc__input:checked + .isc__kaart .isc__vink { background: #fff; border-color: #fff; }
+.isc__input:checked + .isc__kaart .isc__vink::after { transform: rotate(45deg) scale(1); }
+.isc__input:focus-visible + .isc__kaart,
+.isc[data-isc-toets] .isc__input:focus + .isc__kaart { outline: 2px solid var(--isc-accent); outline-offset: 3px; }
+.isc__input:disabled + .isc__kaart { opacity: 0.45; cursor: not-allowed; }
+.isc__optie:not(.is-uit) .isc__kaart:active { transform: scale(0.985); }
+@media (hover: hover) and (pointer: fine) {
+  .isc__input:not(:checked):not(:disabled) + .isc__kaart:hover { border-color: var(--isc-accent); background: #f7faf4; }
+  .isc__sluit:hover { background: var(--isc-tint); }
+}
+
+.isc__vrij {
+  display: block;
+  width: 100%;
+  margin-top: 0.7rem;
+  min-height: 3.25rem;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--isc-accent);
+  border-radius: 1rem;
+  background: var(--isc-kaart);
+  font: inherit;
+  font-size: 1rem; /* 16px: iOS zoomt niet in bij focus */
+  color: var(--isc-ink);
+  animation: isc-in 240ms var(--isc-ease) both;
+}
+.isc__vrij:focus-visible { outline: 2px solid var(--isc-accent); outline-offset: 3px; }
+
+/* --- stellingen (Ja/Nee of schaal) ------------------------------------------------ */
+.isc__opties--stelling { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.isc__opties--stelling .isc__optie { flex: 1 1 0; min-width: 3.4rem; }
+.isc__opties--stelling .isc__kaart { justify-content: center; min-height: 3.6rem; font-size: 1.05rem; }
+.isc__opties--stelling .isc__vink { display: none; }
+
+/* --- score en meter ----------------------------------------------------------------- */
+.isc__scoretal { margin: 0 0 0.8rem; font-size: 2.6rem; font-weight: 650; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+.isc__meter { position: relative; height: 0.85rem; border-radius: 999px; background: var(--isc-lijn); overflow: hidden; }
+.isc__metervul {
+  position: absolute; inset: 0; background: var(--isc-accent);
+  transform: scaleX(var(--isc-pct, 0)); transform-origin: left;
+  animation: isc-meter 700ms var(--isc-ease) 180ms both;
+}
+@keyframes isc-meter { from { transform: scaleX(0); } }
+.isc__tik { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--isc-papier); }
+.isc__bandkop { margin: 1rem 0 0.2rem; font-size: 1.15rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.25; text-wrap: balance; }
+.isc__advies { margin: 0; padding: 0; list-style: none; counter-reset: isc-adv; }
+.isc__adviesregel { position: relative; counter-increment: isc-adv; padding: 0.6rem 0 0.6rem 2rem; font-size: 0.98rem; line-height: 1.45; border-top: 1px solid var(--isc-lijn); text-wrap: pretty; }
+.isc__adviesregel:first-child { border-top: 0; padding-top: 0.15rem; }
+.isc__adviesregel::before { content: counter(isc-adv); position: absolute; left: 0; top: 0.6rem; width: 1.4rem; height: 1.4rem; border-radius: 999px; background: var(--isc-tint); color: var(--isc-accent); font-size: 0.78rem; font-weight: 700; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.isc__adviesregel:first-child::before { top: 0.15rem; }
+
+/* --- navigatie --------------------------------------------------------- */
+.isc__nav {
+  flex: none;
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.85rem 1.35rem 1.15rem;
+  border-top: 1px solid var(--isc-lijn);
+  background: var(--isc-papier);
+}
+.isc--telefoon .isc__nav { padding-bottom: 1.5rem; }
+.isc__knop {
+  min-height: 3.25rem;
+  padding: 0 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--isc-lijn);
+  background: var(--isc-kaart);
+  color: var(--isc-ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms ease-out, color 160ms ease-out, opacity 160ms ease-out, transform 140ms var(--isc-ease);
+}
+.isc__knop--hoofd { flex: 1; background: var(--isc-accent); border-color: var(--isc-accent); color: var(--isc-accent-tekst); }
+.isc__knop:disabled { background: var(--isc-tint); border-color: var(--isc-tint); color: #7b8479; cursor: not-allowed; }
+.isc__knop:not(:disabled):active { transform: scale(0.97); }
+.isc__knop:focus-visible, .isc__sluit:focus-visible, .isc__opnieuw:focus-visible { outline: 2px solid var(--isc-accent); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .isc__knop--hoofd:not(:disabled):hover { background: #234c33; }
+  .isc__knop--terug:hover { background: var(--isc-tint); }
+}
+
+/* --- laadmoment -------------------------------------------------------- */
+.isc__laden { min-height: 60%; display: grid; align-content: center; gap: 1.4rem; padding-top: 5rem; animation: isc-in 260ms var(--isc-ease) both; }
+.isc__status { margin: 0; min-height: 2.6em; font-size: 1.3rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; text-wrap: balance; outline: none; }
+.isc__balk { height: 0.25rem; border-radius: 999px; background: var(--isc-lijn); overflow: hidden; }
+.isc__balkvul {
+  display: block;
+  height: 100%;
+  background: var(--isc-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition-property: transform;
+  transition-timing-function: linear;
+}
+.isc__balkvul.is-vol { transform: scaleX(1); }
+
+/* --- uitslag ------------------------------------------------------------ */
+.isc__eyebrow { margin: 0.4rem 0 0; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--isc-accent); }
+.isc__blok { margin: 0 0 0.9rem; padding: 1.05rem 1.1rem 1.15rem; background: var(--isc-kaart); border: 1px solid var(--isc-lijn); border-radius: 1.15rem; }
+.isc__blokkop { margin: 0 0 0.7rem; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--isc-zacht); }
+.isc__lijst { margin: 0; padding: 0; list-style: none; }
+.isc__regel { position: relative; padding: 0.55rem 0 0.55rem 1.15rem; font-size: 0.98rem; line-height: 1.4; border-top: 1px solid var(--isc-lijn); }
+.isc__regel:first-child { border-top: 0; padding-top: 0.15rem; }
+.isc__regel::before { content: ""; position: absolute; left: 0; top: 1.05rem; width: 0.4rem; height: 0.4rem; border-radius: 999px; background: var(--isc-accent); }
+.isc__regel:first-child::before { top: 0.6rem; }
+.isc__chips { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.isc__chip { padding: 0.5rem 0.85rem; border-radius: 999px; background: var(--isc-tint); font-size: 0.92rem; font-weight: 550; line-height: 1.2; }
+.isc__noot { margin: 0 0 0.9rem; padding: 0.95rem 1.1rem; background: var(--isc-noot); border-radius: 1.15rem; font-size: 0.95rem; line-height: 1.5; text-wrap: pretty; }
+.isc__noot strong { font-weight: 700; }
+.isc__case { margin: 0; }
+.isc__poster { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 0.8rem; background: var(--isc-tint); }
+.isc__poster--leeg { display: grid; place-items: center; font-weight: 650; font-size: 1.2rem; color: var(--isc-ink); }
+.isc__caption { display: grid; gap: 0.2rem; padding-top: 0.8rem; }
+.isc__merk { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--isc-zacht); }
+.isc__bewijs { font-size: 1.3rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance; }
+.isc__casetekst { font-size: 0.95rem; line-height: 1.45; color: var(--isc-zacht); text-wrap: pretty; }
+.isc__opnieuw {
+  display: block;
+  margin: 0.5rem auto 0;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--isc-zacht);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* --- smal scherm: geen nepframe, gewoon een vol scherm ------------------------ */
+@media (max-width: 520px) {
+  .isc__frame, .isc--telefoon .isc__frame {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .isc__scherm, .isc--telefoon .isc__scherm { border-radius: 0; padding-top: 0; }
+  .isc--telefoon .isc__notch { display: none; }
+  .isc__kop, .isc--telefoon .isc__kop { padding-top: max(1rem, env(safe-area-inset-top)); }
+  .isc__nav, .isc--telefoon .isc__nav { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+}
+
+/* --- minder beweging (R1) ------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .isc__frame, .isc::backdrop, .isc__seg::after, .isc__kaart, .isc__vink, .isc__vink::after,
+  .isc__knop, .isc__sluit, .isc__balkvul { transition: none !important; }
+  .isc__stap, .isc__optie, .isc__vrij, .isc__laden, .isc__metervul { animation: none !important; }
+  .isc__frame { opacity: 1; transform: none; }
+}

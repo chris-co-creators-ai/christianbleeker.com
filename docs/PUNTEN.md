@@ -38,12 +38,20 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /about | circle-text | typography/circle-text | 3 | ja | `.kv__schijf[data-ct-ready]` | de draaiende ring rond de schijf van de logowand |
 | /about | flip-lightbox | media/flip-lightbox | 4 | ja | `.ervaringen a.ervaring[data-lightbox]` | aanbevelingen die openklappen |
 | /about | video-facade | media/video-facade | 1 | nee | `.gesprek .vf[data-video-facade]` | TEDx-talk en gesprekken (ook /ai) |
+| /about | sticky-timeline | scroll/sticky-timeline | 4 | ja | `.reis-lijn[data-sticky-timeline-ready]` | "Van marketing naar AI": de lijn vult mee langs vier stappen |
+| /about | hotspots | media/hotspots | 3 | ja | `js:(() => { const b = document.querySelector('.over-hotspots .hotspots__point'); b.click(); const ok = b.getAttribute('aria-expanded') === 'true' && !document.getElementById(b.getAttribute('aria-controls')).hidden; document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); return ok })()` | drie punten op het portret (wie, aan tafel, Dicteren.ai) |
+| /about | justify-fill | typography/justify-fill | 3 | ja | `.statement-tekst[data-jf-ready] .jf__line` | "Een goede website begint bij de mensen erachter." over de volle breedte |
+| /about | schreef-accent | typography/schreef-accent | 2 | ja | `js:getComputedStyle(document.querySelector('.reis-kop h2 em')).fontFamily.includes('Instrument Serif')` | "naar" in de kop van de tijdlijn |
 
 ## AI `/ai`
 
 | Pagina | Onderdeel | Map | Punten | Telt | Selector | Waar |
 |---|---|---|---|---|---|---|
 | /ai | video-facade | media/video-facade | 1 | nee | `.ai-video .vf[data-video-facade]` | de video op de AI-pagina |
+| /ai | voor-na-verhaal | scroll/voor-na-verhaal | 5 | ja | `.ai-vnv[data-vnv-klaar] .vnv-podium` | "Deze site, vóór en na": vorige site, nieuwe site, wit |
+| /ai | impact-scan | tools/impact-scan | 4 | ja | `.ai-scan-knoppen[data-isc-init] [data-impact-scan-open]` | AI-scan in scoremodus (zeven stellingen) |
+| /ai | kaartenrij-lottie | scroll/kaartenrij-lottie | 4 | ja | `.ai-vragen[data-kaartenrij-aan] [data-kaartenrij-kaart]` | "Zes vragen die AI over jou stelt" |
+| /ai | password-reveal | typography/password-reveal | 4 | ja | `.ai-scan-woord[data-pr-ready] .pr__mask` | "onzichtbaar." onthult zich in de kop van de scan |
 
 ## Werk `/work`
 

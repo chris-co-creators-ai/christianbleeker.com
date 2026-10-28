@@ -11,6 +11,10 @@
  *     https://<slug>.portfolio.seveke.nl (nieuw tabblad); de pijl naar rechts schuift door en de
  *     statusregel meldt "Dia n van 20"; het laptopscherm is geladen;
  *  4. /work-raadsel: na één keer langs de pagina staat alles van reveal-on-scroll op opacity 1.
+ *  5. /about: tijdlijn vult tot 4/4, schreef-accent in Instrument Serif 400, de zin vult elke regel uit, hotspot
+ *     opent binnen het beeld en sluit met Escape;
+ *  6. /ai: voor-na-schuif Home→End (stap 3 van 3), kaartenrij (6 kaarten; pin alleen met beweging), "onzichtbaar."
+ *     onthuld, AI-scan met 7× Ja geeft "8 van 8" en sluit met Escape.
  */
 import { laadChromium, LAUNCH, BASIS } from './browser.mjs'
 const motor = await laadChromium()
@@ -104,10 +108,77 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
   if (rv.onzichtbaar) fouten.push(`${label} reveal: ${rv.onzichtbaar} van ${rv.n} nog onzichtbaar na scrollen`)
   regels.push(`${label} reveal na scrollen: ${rv.n - rv.onzichtbaar}/${rv.n} zichtbaar`)
 
+  // 5. Over (maker B): sticky-timeline, hotspots, justify-fill, schreef-accent.
+  const langs = async (sel) => {
+    const [top, h] = await page.evaluate((s) => { const r = document.querySelector(s).getBoundingClientRect(); return [scrollY + r.top, r.height] }, sel)
+    for (let y = top - 900; y <= top + h; y += 120) { await page.evaluate((yy) => window.scrollTo({ top: yy, behavior: 'instant' }), y); await page.waitForTimeout(25) }
+    await page.waitForTimeout(500)
+  }
+  await page.goto(BASIS + '/about', { waitUntil: 'networkidle' })
+  await langs('.reis')
+  const o1 = await page.evaluate(() => {
+    const root = document.querySelector('.reis-lijn')
+    const p = Number(getComputedStyle(root).getPropertyValue('--stl-progress'))
+    const stappen = root.querySelectorAll('[data-sticky-timeline-step]')
+    const aan = root.querySelectorAll('[data-sticky-timeline-step].is-active').length
+    const em = document.querySelector('.reis-kop h2 em')
+    return { klaar: root.hasAttribute('data-sticky-timeline-ready'), p: Math.round(p * 100) / 100, stappen: stappen.length, aan, ol: !!root.querySelector('ol[data-sticky-timeline] > li'), schreef: getComputedStyle(em).fontFamily.includes('Instrument Serif'), schreefGewicht: getComputedStyle(em).fontWeight }
+  })
+  if (!(o1.klaar && o1.p > 0.9 && o1.stappen === 4 && o1.aan === 4 && o1.ol)) fouten.push(`${label} sticky-timeline: ${JSON.stringify(o1)}`)
+  if (!(o1.schreef && o1.schreefGewicht === '400')) fouten.push(`${label} schreef-accent: ${JSON.stringify(o1)}`)
+  await langs('.statement')
+  const o2 = await page.evaluate(() => {
+    const el = document.querySelector('.statement-tekst')
+    const regels = [...el.querySelectorAll('.jf__line')].map((l) => { const ws = [...l.querySelectorAll('.jf__word')]; const lb = l.getBoundingClientRect(); const eind = ws.length ? ws[ws.length - 1].getBoundingClientRect().right : 0; return { n: ws.length, gat: Math.round(lb.right - eind) } })
+    return { klaar: el.hasAttribute('data-jf-ready'), tekst: el.innerText.replace(/\s+/g, ' ').trim(), regels }
+  })
+  const volRegels = o2.regels.filter((r) => r.n > 1)
+  if (!(o2.klaar && o2.tekst === 'Een goede website begint bij de mensen erachter.' && volRegels.length && volRegels.every((r) => Math.abs(r.gat) <= 2))) fouten.push(`${label} justify-fill: ${JSON.stringify(o2)}`)
+  const punt = page.locator('.over-hotspots .hotspots__point').first()
+  await punt.scrollIntoViewIfNeeded(); await punt.click(); await page.waitForTimeout(200)
+  const o3 = await page.evaluate(() => {
+    const b = document.querySelector('.over-hotspots .hotspots__point'); const pan = document.getElementById(b.getAttribute('aria-controls'))
+    const m = document.querySelector('.over-hotspots .hotspots__media').getBoundingClientRect(); const r = pan.getBoundingClientRect()
+    return { open: b.getAttribute('aria-expanded'), zichtbaar: !pan.hidden, binnen: r.left >= m.left - 1 && r.right <= m.right + 1 && r.top >= m.top - 1 && r.bottom <= m.bottom + 1, n: document.querySelectorAll('.over-hotspots .hotspots__point').length }
+  })
+  await page.keyboard.press('Escape'); await page.waitForTimeout(150)
+  const o3b = await page.evaluate(() => ({ dicht: document.querySelector('.over-hotspots .hotspots__point').getAttribute('aria-expanded'), focus: document.activeElement?.classList.contains('hotspots__point') }))
+  if (!(o3.open === 'true' && o3.zichtbaar && o3.binnen && o3.n === 3 && o3b.dicht === 'false')) fouten.push(`${label} hotspots: ${JSON.stringify({ ...o3, ...o3b })}`)
+  regels.push(`${label} /about tijdlijn ${o1.aan}/${o1.stappen} aan (vulling ${o1.p}) · schreef ${o1.schreef} · justify ${o2.regels.map((r) => r.n + 'w/' + r.gat + 'px').join(' ')} · hotspots ${o3.n} open ${o3.open} binnen ${o3.binnen} → esc ${o3b.dicht}`)
+
+  // 6. AI (maker B): voor-na-verhaal, kaartenrij-lottie, password-reveal, impact-scan.
+  await page.goto(BASIS + '/ai', { waitUntil: 'networkidle' })
+  await langs('.ai-vnv')
+  const schuif = page.locator('.ai-vnv [role="slider"]')
+  await schuif.focus(); await page.keyboard.press('Home'); await page.waitForTimeout(400)
+  const a0 = await page.evaluate(() => document.querySelector('.ai-vnv').getAttribute('data-vnv-actief'))
+  await page.keyboard.press('End'); await page.waitForTimeout(reduced ? 300 : 900)
+  const a1 = await page.evaluate(() => { const r = document.querySelector('.ai-vnv'); const s = r.querySelector('[role="slider"]'); const img = r.querySelector('[data-vnv-stap] img'); return { klaar: r.hasAttribute('data-vnv-klaar'), actief: r.getAttribute('data-vnv-actief'), nu: s.getAttribute('aria-valuenow'), tekst: s.getAttribute('aria-valuetext'), stappen: r.querySelectorAll('[data-vnv-stap]').length, beeld: img.complete && img.naturalWidth > 0 } })
+  if (!(a1.klaar && a0 === '0' && a1.actief === '2' && a1.nu === '100' && a1.stappen === 3 && a1.beeld)) fouten.push(`${label} voor-na-verhaal: begin ${a0} ${JSON.stringify(a1)}`)
+  await langs('.ai-vragen')
+  const a2 = await page.evaluate(() => { const r = document.querySelector('.ai-vragen'); return { aan: r.hasAttribute('data-kaartenrij-aan'), kaarten: r.querySelectorAll('[data-kaartenrij-kaart]').length, speelt: r.querySelectorAll('[data-kaartenrij-speelt]').length, lotties: r.querySelectorAll('[data-kaartenrij-klaar]').length, h3: r.querySelectorAll('ol > li h3').length } })
+  if (!(a2.kaarten === 6 && a2.h3 === 6 && (reduced ? !a2.aan : a2.aan && a2.lotties > 0))) fouten.push(`${label} kaartenrij-lottie: ${JSON.stringify(a2)}`)
+  await langs('.ai-scan')
+  await page.evaluate(() => window.scrollBy(0, 400)); await page.waitForTimeout(400)
+  const a3 = await page.evaluate(() => { const r = document.querySelector('.ai-scan-woord'); return { klaar: r.hasAttribute('data-pr-ready'), masker: r.querySelector('.pr__mask')?.textContent, echt: r.querySelector('.pr__real')?.textContent } })
+  if (!(a3.klaar && a3.masker === 'onzichtbaar.' && a3.echt === 'onzichtbaar.')) fouten.push(`${label} password-reveal: ${JSON.stringify(a3)}`)
+  await page.locator('.ai-scan-knoppen [data-impact-scan-open]').click(); await page.waitForTimeout(reduced ? 200 : 600)
+  const open = await page.evaluate(() => document.querySelector('.ai-scan-knoppen dialog.isc')?.open)
+  for (let i = 0; i < 7; i++) {
+    await page.locator('dialog.isc[open] .isc__optie').filter({ hasText: /^Ja$/ }).first().click()
+    await page.locator('dialog.isc[open] .isc__knop--hoofd').click(); await page.waitForTimeout(reduced ? 80 : 350)
+  }
+  await page.waitForTimeout(reduced ? 300 : 2200)
+  const a4 = await page.evaluate(() => ({ score: document.querySelector('dialog.isc [data-isc-scoretal]')?.textContent, kop: document.querySelector('dialog.isc [data-isc-uitslag-kop]')?.textContent, meter: document.querySelector('dialog.isc [role="meter"]')?.getAttribute('aria-valuenow') }))
+  await page.keyboard.press('Escape'); await page.waitForTimeout(300)
+  const dicht = await page.evaluate(() => !document.querySelector('dialog.isc')?.open)
+  if (!(open && a4.score === '8 van 8' && a4.meter === '8' && dicht)) fouten.push(`${label} impact-scan: open ${open} ${JSON.stringify(a4)} dicht ${dicht}`)
+  regels.push(`${label} /ai voor-na ${a0}→${a1.actief} (${a1.nu}%, ${a1.stappen} stappen) · kaartenrij ${a2.kaarten} kaarten, pin ${a2.aan}, lotties ${a2.lotties} · onthulling "${a3.masker}" · scan ${a4.score} "${a4.kop}" dicht ${dicht}`)
+
   if (cons.length) fouten.push(`${label}: ${cons.length} consolefout(en): ${cons.slice(0, 3).join(' | ')}`)
   regels.push(`${label} console ${cons.length}`)
   await b.close()
 }
 console.log(regels.join('\n'))
 if (fouten.length) { console.error(`\nONDERDELEN ROOD (${fouten.length}):\n- ${fouten.join('\n- ')}`); process.exit(1) }
-console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen`)
+console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan`)

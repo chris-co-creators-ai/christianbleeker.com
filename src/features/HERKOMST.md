@@ -45,6 +45,14 @@ hieronder in de tabel — inclusief de reden ("gekozen in PRD/stap 5"). Een map 
 | `tab-title-lokker/` | `effects/tab-title-lokker/` | 2026-09-29 | gekozen in PRD/stap 5 |
 | `drag-carousel/` | `carousels/drag-carousel/` (f605c67) | 2026-10-28 | v2: de twintig ontwerp-demo's op /work |
 | `device-mockup/` | `portfolio/device-mockup/` (f605c67) | 2026-10-28 | v2: laptop + telefoon per ontwerp-demo |
+| `sticky-timeline/` | `scroll/sticky-timeline/` (e81470a) | 2026-10-28 | v2 Over: "Van marketing naar AI" |
+| `hotspots/` | `media/hotspots/` (e81470a) | 2026-10-28 | v2 Over: punten op het portret (kern van e81470a) |
+| `justify-fill/` | `typography/justify-fill/` (e81470a) | 2026-10-28 | v2 Over: de uitgevulde zin |
+| `schreef-accent/` | `typography/schreef-accent/` (e81470a) | 2026-10-28 | v2 Over: "naar" in de kop van de tijdlijn |
+| `voor-na-verhaal/` | `scroll/voor-na-verhaal/` (e81470a) | 2026-10-28 | v2 AI: deze site, vóór en na |
+| `impact-scan/` | `tools/impact-scan/` (e81470a) | 2026-10-28 | v2 AI: de AI-scan (scoremodus, titel h2) |
+| `kaartenrij-lottie/` | `scroll/kaartenrij-lottie/` (e81470a) | 2026-10-28 | v2 AI: zes vragen; iconen opnieuw gemaakt met maak-iconen.mjs |
+| `password-reveal/` | `typography/password-reveal/` (e81470a) | 2026-10-28 | v2 AI: "onzichtbaar." in de kop van de scan |
 
 ## Hoe je later bijwerkt
 

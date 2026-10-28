@@ -145,6 +145,22 @@ export const over = {
     denktank: { titel: 'DenkTank bij DenkProducties', youtube: 'ZAmHKw7I4YM' },
     podcast: { titel: 'Dat is wel speciaal', href: 'https://open.spotify.com/episode/3En3qEFfzzAaWAwRslOUJq', knop: 'Luister op Spotify ↗' }, // voorstel (knop)
   },
+  // v2 (28-10-2026): voorstel, zie docs/copy-nieuw.md. Alleen feiten uit de teksten hierboven.
+  punten: [
+    { x: '40%', y: '24%', titel: 'Hoi, ik ben Chris', tekst: 'Vijftien jaar marketeer. Nu maak ik websites en werk ik met AI.' },
+    { x: '58%', y: '90%', titel: 'Aan tafel', tekst: 'Ik begin bij de mensen erachter: wat maakt jullie werk waardevol, en hoe laat je dat online voelen?' },
+    { x: '28%', y: '71%', titel: 'Dicteren.ai', tekst: 'De lachende microfoon is het logo van Dicteren.ai: een app die gesproken ideeën omzet in bruikbare tekst. Ik bouw hem met Brian en Lars.' },
+  ],
+  reis: {
+    kop: ['Van marketing ', 'naar', ' AI'], // [voor, nadruk in de schreefletter, na]
+    stappen: [
+      { titel: 'Marketing', tekst: 'Vijftien jaar marketingervaring. Daar leerde ik kijken naar de mensen die je wilt bereiken, en de stap die zij willen zetten.' },
+      { titel: 'Websites', tekst: 'Die blik zit nu in elke website die ik maak: voor ondernemers, makers en teams die hun verhaal helder op het web willen zetten.' },
+      { titel: 'AI en producten', tekst: 'Met Brian en Lars bouw ik Dicteren.ai, en bij TEDxEindhoven gaf ik een talk over AI. Technologie met een menselijk doel.' },
+      { titel: 'Jouw verhaal', tekst: 'De volgende stap schrijven we samen. Wil je iets maken dat echt bij jouw verhaal past?' },
+    ],
+  },
+  statement: 'Een goede website begint bij de mensen erachter.',
 }
 
 export const werk = {
@@ -217,6 +233,37 @@ export const ai = {
   tedx: {
     kop: 'De TEDx-talk', // voorstel
     tekst: 'Chris gaf een TEDx-talk over AI bij TEDxEindhoven.', // voorstel (feit uit Over)
+  },
+  // v2 (28-10-2026): voorstel, zie docs/copy-nieuw.md.
+  voorNa: {
+    kop: 'Deze site, vóór en na',
+    tekst: 'Wat verandert er als je een website bouwt met een slimme blik op AI? We lieten het zien op onze eigen site. De teksten bleven hetzelfde.',
+    label: 'Voor en na van christianbleeker.com',
+    titel: 'christianbleeker.com',
+    stappen: [
+      { beeld: 'vnv-oud', label: 'Voor', zin: 'Dezelfde teksten, maar zonder gestructureerde gegevens. Een AI-assistent moest zelf raden wat er stond.', alt: 'De vorige homepage van Chris Bleeker: witte achtergrond, de kop Jouw verhaal. Sterk op het web. en een foto met duimen omhoog' },
+      { beeld: 'vnv-nu-donker', label: 'Na', zin: 'Nu met gestructureerde gegevens, een deelbeeld per pagina en een llms.txt die AI-assistenten de weg wijst.', alt: 'De nieuwe homepage in donker: dezelfde kop groot over een foto van de TEDx-talk' },
+      { beeld: 'vnv-nu-licht', label: 'Wit', zin: 'Dezelfde site, nu ook in wit. Je kiest zelf met de knop bovenin.', alt: 'De nieuwe homepage in wit, met dezelfde kop en foto' },
+    ],
+  },
+  vragen: {
+    kop: 'Zes vragen die AI over jou stelt',
+    tekst: 'Vraagt iemand ChatGPT om een goede fysiotherapeut of webbouwer, dan zoekt ChatGPT het antwoord op websites. Staat het daar niet, dan noemt hij een ander.',
+    kaarten: [
+      { icoon: 'doelgroep', titel: 'Voor wie werk je?', tekst: 'Zet in gewone woorden op je site voor wie je er bent. Dan kan een assistent je noemen als iemand precies die vraag stelt.' },
+      { icoon: 'product', titel: 'Wat bied je aan?', tekst: 'Elke dienst met een eigen naam en een korte uitleg, in tekst. Wat alleen in een plaatje of pdf staat, leest een assistent vaak niet mee.' },
+      { icoon: 'plaats', titel: 'Waar werk je?', tekst: 'Je plaats of regio, of dat je overal online werkt. Wie in de buurt zoekt, vindt je alleen als het er staat.' },
+      { icoon: 'prijs', titel: 'Wat kost het?', tekst: 'Een vanafprijs of een eerlijke bandbreedte. Zonder prijs vult een assistent het gat zelf in, of slaat hij je over.' },
+      { icoon: 'prestaties', titel: 'Wat levert het op?', tekst: 'Cases, cijfers en ervaringen van klanten. Bewijs dat op je site staat, kan een assistent aanhalen.' },
+      { icoon: 'positionering', titel: 'Waarom jij?', tekst: 'Wat je anders doet dan de rest, in één zin. Die zin vertelt een assistent over je na.' },
+    ],
+  },
+  scan: {
+    kopVoor: 'Wat niet op je site staat, is voor AI',
+    kopWoord: 'onzichtbaar.',
+    tekst: 'Zeven stellingen over je eigen website, met Ja of Nee. Je krijgt een score en de drie punten waar je het meest wint. Het is een zelftest: er wordt niets opgeslagen of verstuurd.',
+    opener: 'Doe de AI-scan · 1 minuut',
+    of: 'Liever eerst alles op een rij?',
   },
 }
 
