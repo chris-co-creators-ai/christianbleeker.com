@@ -13,6 +13,8 @@ import { inKader } from "./src/content/kader";
 // (agenda-facade, pas na een klik).
 const cspExtra: CspBronnen = {
   "frame-src": ["https://www.youtube-nocookie.com", ...Object.values(inKader), "https://cal.com", "https://app.cal.com"],
+  // v3 Werkplaats: afstand-postcode zoekt een postcode op bij PDOK, pas nadat de bezoeker op Zoek drukt.
+  "connect-src": ["https://api.pdok.nl"],
 };
 
 // Pin the workspace root to this project so a stray package-lock.json in a

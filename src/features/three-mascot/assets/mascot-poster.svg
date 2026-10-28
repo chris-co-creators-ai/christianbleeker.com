@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-hidden="true">
+  <!-- Echte poster i.p.v. een effen beige vlak. Eigen SVG-illustratie
+       van Bee, de studio-bij (geen 3D-render nodig, geen stockfoto), in
+       dezelfde kleuren als het procedurele three.js-model
+       (three-mascot.js buildProceduralMascot(): lijf #ffc83d, strepen
+       #1c1c1c, vleugels #eaf6ff transparant). -->
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="28%" r="80%">
+      <stop offset="0%" stop-color="#fff7df" />
+      <stop offset="55%" stop-color="#f6f0dd" />
+      <stop offset="100%" stop-color="#efe6cd" />
+    </radialGradient>
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#bg)" />
+
+  <!-- schaduw onder de bij -->
+  <ellipse cx="410" cy="560" rx="220" ry="40" fill="url(#shadow)" />
+
+  <!-- vleugels (achter het lijf) -->
+  <ellipse cx="330" cy="330" rx="95" ry="58" fill="#eaf6ff" opacity="0.8" transform="rotate(-18 330 330)" />
+  <ellipse cx="470" cy="330" rx="95" ry="58" fill="#eaf6ff" opacity="0.8" transform="rotate(18 470 330)" />
+  <ellipse cx="330" cy="330" rx="95" ry="58" fill="none" stroke="#cfe6f2" stroke-width="2" transform="rotate(-18 330 330)" />
+  <ellipse cx="470" cy="330" rx="95" ry="58" fill="none" stroke="#cfe6f2" stroke-width="2" transform="rotate(18 470 330)" />
+
+  <!-- lijf -->
+  <g>
+    <ellipse cx="410" cy="440" rx="175" ry="140" fill="#ffc83d" />
+    <!-- strepen -->
+    <path d="M 300 320 A 175 140 0 0 1 300 560 Z" fill="#1c1c1c" transform="translate(30 0)" opacity="0" />
+    <rect x="345" y="305" width="46" height="270" rx="23" fill="#1c1c1c" transform="rotate(4 368 440)" />
+    <rect x="415" y="300" width="46" height="280" rx="23" fill="#1c1c1c" transform="rotate(4 438 440)" />
+    <rect x="485" y="310" width="46" height="260" rx="23" fill="#1c1c1c" transform="rotate(4 508 440)" />
+    <!-- highlight -->
+    <ellipse cx="345" cy="380" rx="60" ry="36" fill="#ffe08a" opacity="0.55" />
+  </g>
+
+  <!-- kop -->
+  <g>
+    <circle cx="255" cy="420" r="92" fill="#ffc83d" />
+    <circle cx="222" cy="400" r="17" fill="#0f0f0f" />
+    <circle cx="228" cy="394" r="5" fill="#ffffff" />
+    <!-- antennes -->
+    <path d="M 245 340 Q 225 290 190 270" fill="none" stroke="#1c1c1c" stroke-width="7" stroke-linecap="round" />
+    <path d="M 280 335 Q 285 280 320 255" fill="none" stroke="#1c1c1c" stroke-width="7" stroke-linecap="round" />
+    <circle cx="190" cy="270" r="10" fill="#1c1c1c" />
+    <circle cx="320" cy="255" r="10" fill="#1c1c1c" />
+    <!-- glimlach -->
+    <path d="M 205 450 Q 230 470 255 452" fill="none" stroke="#7a4a12" stroke-width="6" stroke-linecap="round" />
+  </g>
+
+  <!-- angel -->
+  <path d="M 585 440 L 650 440 L 585 465 Z" fill="#1c1c1c" />
+
+  <!-- pootjes -->
+  <path d="M 360 570 L 340 620" stroke="#1c1c1c" stroke-width="10" stroke-linecap="round" />
+  <path d="M 420 578 L 415 630" stroke="#1c1c1c" stroke-width="10" stroke-linecap="round" />
+  <path d="M 480 570 L 495 620" stroke="#1c1c1c" stroke-width="10" stroke-linecap="round" />
+</svg>

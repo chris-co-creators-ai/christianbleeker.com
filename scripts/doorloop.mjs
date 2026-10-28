@@ -55,7 +55,10 @@ for (const reduced of [false, true]) {
           const uit = []
           for (const el of document.querySelectorAll('main *, footer *')) {
             // Bewust verborgen: "Klik om te vergroten" op een telefoon (daar vergroot de lightbox niet, site.css).
-            if (el.closest('script, style, [aria-hidden="true"], [hidden], [inert], dialog:not([open]), template, .sr-only, .ervaringen-hint')) continue
+            // Werkplaats (v3): de no-JS-terugval van boekingsvelden en rechtenmatrix (JS zet het onderdeel ervoor in de
+            // plaats), de dichte lijst van de zoek-keuzelijst, de filterknoppen en het uitklapbare filterpaneel van de kennisbank
+            // (smal achter "Filters") en de functie onder een rol in de smalle rechtenmatrix (staat ook in het paneel).
+            if (el.closest('script, style, [aria-hidden="true"], [hidden], [inert], dialog:not([open]), template, .sr-only, .ervaringen-hint, [data-bv-actief] .bv__fallback, [data-rm-actief] .rm-fallback, .zk__lijst, .kb-toggle, .kb-klaar, .kb-paneel, .rm-tab__functie')) continue
             if (![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) continue
             let e = el; let op = 1; let vis = true
             while (e && e !== document.body) { const cs = getComputedStyle(e); op *= Number(cs.opacity); if (cs.visibility === 'hidden' || cs.display === 'none') vis = false; e = e.parentElement }

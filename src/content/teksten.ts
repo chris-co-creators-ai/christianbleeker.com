@@ -18,6 +18,7 @@ export const kop = {
     { href: '/about', label: 'Over' },
     { href: '/work', label: 'Werk' },
     { href: '/ai', label: 'AI' }, // voorstel (nieuwe pagina)
+    { href: '/werkplaats', label: 'Werkplaats' }, // voorstel (v3, nieuwe pagina)
     { href: '/contact', label: 'Contact' },
   ],
   checklist: 'Website-checklist prompt ↗',

@@ -1,0 +1,118 @@
+/*
+ * afstand-postcode — stylesheet
+ * ===============================
+ * Gewone CSS, namespaced op `[data-afstand-*]`.
+ */
+
+[data-afstand-postcode] {
+  --apc-ink: #14161a;
+  --apc-muted: #6b7078;
+  --apc-line: #e3e4e7;
+  --apc-line-strong: #c9cbd1;
+  --apc-accent: #2f6fed;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--apc-ink);
+}
+
+[data-afstand-form] {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+[data-afstand-postcode-input] {
+  border: 1px solid var(--apc-line-strong);
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  width: 9rem;
+}
+[data-afstand-postcode-input]:focus-visible {
+  outline: none;
+  border-color: var(--apc-ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--apc-accent) 25%, transparent);
+}
+[data-afstand-form] button,
+[data-afstand-locatie] {
+  border: 1px solid var(--apc-line-strong);
+  background: #fff;
+  color: var(--apc-ink);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+[data-afstand-form] button[type="submit"] {
+  background: var(--apc-ink);
+  color: #fff;
+  border-color: var(--apc-ink);
+}
+[data-afstand-form] button:focus-visible,
+[data-afstand-locatie]:focus-visible,
+[data-afstand-straal]:focus-visible {
+  outline: 2px solid var(--apc-accent);
+  outline-offset: 2px;
+}
+
+[data-afstand-straal] {
+  border: 1px solid var(--apc-line-strong);
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+}
+
+.apc-extra {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+}
+
+[data-afstand-status] {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: var(--apc-muted);
+  min-height: 1.2em;
+}
+[data-afstand-status]:empty {
+  display: none;
+}
+
+[data-afstand-lijst] {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+[data-afstand-lijst] li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 1px solid var(--apc-line);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #fff;
+}
+[data-afstand-lijst] li[hidden] {
+  display: none;
+}
+[data-afstand-lijst] a {
+  color: var(--apc-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+[data-afstand-lijst] a:hover {
+  text-decoration: underline;
+}
+[data-afstand-km] {
+  color: var(--apc-muted);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}

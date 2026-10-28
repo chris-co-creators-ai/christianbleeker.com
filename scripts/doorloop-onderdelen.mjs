@@ -22,8 +22,10 @@
  *     pint op 1440 en is een snap-rij op 390 / bij minder beweging; human-margin (laat zich niet inbedden) zonder laadknop;
  * 10. /contact: badge = volgende maand, ?scan= vult het bericht als platte tekst, ?dienst=&pakket= kiest voor, advies →
  *     tabblad bij de prijzen, prijs-CTA met parameters, agenda zonder verzoek naar cal.com vóór de klik.
+ * 11. Werkplaats (v3, maker A): de twaalf proefstukken op /werkplaats, zie scripts/doorloop-werkplaats.mjs.
  */
 import { laadChromium, LAUNCH, BASIS } from './browser.mjs'
+import { werkplaats } from './doorloop-werkplaats.mjs'
 const motor = await laadChromium()
 const naam = process.env.BROWSER || 'chromium'
 const fouten = [], regels = []
@@ -363,10 +365,13 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     await page.unroute('https://cal.com/**')
   }
 
+  // 11. Werkplaats (v3, maker A): eigen browser, eigen pagina
+  await werkplaats(motor, { w, h, reduced, schema, naam, label }, fouten, regels)
+
   if (cons.length) fouten.push(`${label}: ${cons.length} consolefout(en): ${cons.slice(0, 3).join(' | ')}`)
   regels.push(`${label} console ${cons.length}`)
   await b.close()
 }
 console.log(regels.join('\n'))
 if (fouten.length) { console.error(`\nONDERDELEN ROOD (${fouten.length}):\n- ${fouten.join('\n- ')}`); process.exit(1) }
-console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact`)
+console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact; Werkplaats: twaalf proefstukken`)

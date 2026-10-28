@@ -10,6 +10,7 @@ const MENUBEELD: Record<string, { beeld: string; alt: string }> = {
   '/about': { beeld: '/beeld/chris-duimen-540.webp', alt: 'Chris met twee duimen omhoog' },
   '/work': { beeld: '/beeld/radstok-interim-omslag-480.webp', alt: 'De website van Radstok Interim' },
   '/ai': { beeld: '/beeld/team-chris.webp', alt: 'Chris met de microfoon van Dicteren.ai' },
+  '/werkplaats': { beeld: '/werkplaats/project-keuken.webp', alt: 'Een eiken keuken uit een proefstuk van de Werkplaats' },
   '/contact': { beeld: '/beeld/team-brian.webp', alt: 'Brian' },
 }
 

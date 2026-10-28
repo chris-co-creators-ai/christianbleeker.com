@@ -21,6 +21,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // gevendorde, geminificeerde speler van lottie-icon
     "src/features/lottie-icon/vendor/**",
+    // gevendorde, geminificeerde three.js van three-mascot (v3 Werkplaats)
+    "public/vendor/**",
   ]),
 ]);
 

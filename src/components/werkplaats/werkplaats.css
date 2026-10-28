@@ -1,0 +1,208 @@
+/*
+ * Werkplaats (v3): de pagina met proefstukken per vak. Opmaak van de pagina zelf (hero, groepen, proefstukken)
+ * en het thema van de twaalf onderdelen in wit én donker. De onderdelen zelf blijven ongewijzigd: alles gaat via
+ * hun CSS-variabelen of, waar een onderdeel een vaste kleur heeft, via een regel hieronder.
+ */
+.werkplaats {
+  --wp-bank: var(--color-grond-2);
+  --wp-vlak: var(--color-grond);
+  --wp-op-accent: var(--color-grond);
+  --wp-radius: 20px;
+  --wp-c0: #7fd1a8;
+  --wp-c1: #f0b860;
+  --wp-c2: #ff9488;
+}
+:root[data-thema='licht'] .werkplaats {
+  --wp-vlak: #fbf7f1;
+  --wp-c0: #17603b;
+  --wp-c1: #7d4b00;
+  --wp-c2: #9b2c2c;
+}
+
+/* ---- hero ------------------------------------------------------------------------------------- */
+.wp-hero {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: end;
+  padding-top: clamp(120px, 14vw, 200px);
+}
+.wp-h1 { margin-top: 18px; font-size: clamp(44px, 6.4vw, 104px); font-weight: 700; letter-spacing: -0.05em; }
+.wp-h1 .x { margin-left: 0.08em; }
+.wp-intro { margin-top: 28px; max-width: 54ch; font-size: clamp(18px, 1.45vw, 22px); line-height: 1.5; }
+.wp-eerlijk { margin-top: 18px; max-width: 54ch; color: var(--color-tekst-2); font-size: 16px; padding-left: 16px; border-left: 2px dashed var(--color-hoofd); }
+.wp-inhoud { margin-top: clamp(32px, 4vw, 56px); }
+.wp-inhoud ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.wp-inhoud a {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px;
+  color: var(--color-tekst); text-decoration: none; font-weight: 600; font-size: 15px;
+  box-shadow: inset 0 0 0 1.5px var(--color-lijn-sterk); transition: background-color 200ms ease;
+}
+.wp-inhoud-nr { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 999px; background: var(--color-grond-2); font: 600 12px/1 var(--font-tekst); letter-spacing: 0.04em; color: var(--color-tekst-2); }
+@media (hover: hover) and (pointer: fine) { .wp-inhoud a:hover { background: var(--color-grond-2); } }
+
+.wp-hond { margin: 0; display: grid; gap: 18px; }
+.wp-hond-podium[data-mascot] { --tm-aspect: 4 / 5; background: var(--color-grond-2); border-radius: var(--wp-radius); }
+.wp-hond-podium [data-mascot-poster] { object-fit: contain; padding: 8% 10% 4%; }
+.wp-hond-tekst { display: grid; gap: 8px; justify-items: start; }
+.wp-hond-tekst .demo-label { margin-bottom: 0; }
+
+/* ---- groepen en proefstukken ------------------------------------------------------------------ */
+.wp-groep { scroll-margin-top: 80px; }
+.wp-groep-kop h2 { font-size: clamp(36px, 4.8vw, 76px); }
+.proefstuk {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(24px, 5vw, 80px); align-items: start;
+  padding-block: clamp(32px, 4vw, 56px); border-top: 1px solid var(--color-lijn);
+}
+.proefstuk--breed { grid-template-columns: minmax(0, 1fr); }
+.proefstuk--breed .proefstuk-meta { position: static; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(24px, 5vw, 80px); align-items: start; }
+.proefstuk--breed .proefstuk-meta > * { grid-column: 1; }
+.proefstuk--breed .proefstuk-zin { grid-column: 2; grid-row: 1 / span 3; margin-top: 0; }
+.proefstuk-meta { position: sticky; top: 112px; display: grid; justify-items: start; }
+.proefstuk-kop { margin-top: 6px; font: 600 clamp(24px, 2.2vw, 34px)/1.08 var(--font-kop); letter-spacing: -0.035em; }
+.proefstuk-zin { margin-top: 14px; color: var(--color-tekst-2); max-width: 46ch; font-size: 17px; }
+.proefstuk-demo {
+  margin-top: 18px; color: var(--color-accent); font-weight: 600; font-size: 15px;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em;
+}
+@media (hover: hover) { .proefstuk-demo:hover { text-decoration-thickness: 2px; } }
+.proefstuk-bank { background: var(--wp-bank); border-radius: var(--wp-radius); padding: clamp(20px, 3vw, 40px); min-width: 0; }
+.proefstuk-bank--kaal { background: none; padding: 0; }
+
+/* gedeelde formulieropmaak op de werkbank */
+.proefstuk-bank :where(input:not([type='radio'], [type='checkbox']), select) {
+  font: 500 16px/1.3 var(--font-tekst); color: var(--color-tekst); background: var(--wp-vlak);
+  border: 1px solid var(--color-lijn-sterk); border-radius: 12px; min-height: 48px; padding: 0 14px;
+}
+.proefstuk-bank :where(label) { font-weight: 600; font-size: 15px; }
+.werkplaats .proefstuk-bank input::placeholder { color: var(--color-tekst-2); opacity: 0.8; }
+
+/* ---- werkgebied-kaart ------------------------------------------------------------------------- */
+.werkplaats .wk {
+  --wk-land: var(--color-grond-3); --wk-water: var(--color-grond-2); --wk-kust: var(--color-lijn-sterk);
+  --wk-accent: var(--color-hoofd); --wk-punt: var(--color-tekst); --wk-inkt: var(--color-tekst); --wk-zacht: var(--color-tekst-2);
+  --wk-rand: var(--color-lijn); --sc-paper: var(--color-grond); --sc-font: var(--font-tekst);
+}
+.werkplaats .wk-golf { stroke: var(--color-lijn-sterk); }
+.werkplaats .wk-weg { stroke: var(--color-lijn-sterk); }
+.werkplaats .wk-water-naam { fill: var(--color-tekst-2); }
+.werkplaats .wk-context { fill: var(--color-tekst-2); }
+.werkplaats .wk-stip { stroke: var(--color-grond); }
+.werkplaats .wk-kaartje { background: var(--color-grond-2); }
+.werkplaats .wk-zin { font-size: 18px; }
+.werkplaats .wk-nav-knop { background: var(--color-grond-2); color: var(--color-tekst); border-color: var(--color-lijn-sterk); }
+.werkplaats .wk-nav-knop[aria-current='true'] { background: var(--color-hoofd); border-color: var(--color-hoofd); color: var(--color-grond); }
+
+/* De kaartjes staan op een telefoon en desktop niet een heel scherm uit elkaar: 75 % is genoeg voor de vlucht. */
+@media (min-width: 900px) { .werkplaats .wk-js .wk-project { min-height: 75svh; } }
+
+/* Telefoon: de kop is daar vast (tot 66 px); de vastgezette kaart staat eronder, niet erachter (mobiele ronde 28-10). */
+@media (max-width: 899.98px) {
+  .werkplaats .wk-js .wk-podium { top: 72px; background: var(--color-grond); }
+  .werkplaats .wk-js .wk-project { min-height: calc(100svh - var(--wk-hoogte-mobiel) - 72px); }
+}
+
+/* ---- afstand-postcode ------------------------------------------------------------------------- */
+.wp-afstand { --apc-ink: var(--color-tekst); --apc-muted: var(--color-tekst-2); --apc-line: var(--color-lijn); --apc-line-strong: var(--color-lijn-sterk); --apc-accent: var(--color-accent); font-family: var(--font-tekst); color: var(--color-tekst); display: grid; gap: 16px; }
+.wp-afstand-zoek { display: grid !important; gap: 8px; }
+.wp-afstand-rij { display: flex; gap: 10px; flex-wrap: wrap; }
+.werkplaats .wp-afstand-rij input { width: 11rem; background: var(--wp-vlak); border-radius: 12px; min-height: 48px; }
+.werkplaats .wp-afstand-rij .knop { background: var(--color-accent); color: var(--wp-op-accent); border: 0; padding: 0 1.4em; font-size: 16px; }
+.wp-afstand-straal { display: inline-flex !important; align-items: center; gap: 12px; }
+.wp-afstand-status:empty { display: none; }
+.wp-afstand-status { margin: 0; color: var(--color-tekst-2); font-size: 15px; }
+.werkplaats .wp-afstand-lijst { list-style: none; margin: 0; padding: 0; gap: 0; border-top: 1px solid var(--color-lijn); }
+.werkplaats .wp-afstand-lijst li { display: flex; justify-content: space-between; gap: 12px; padding: 14px 2px; margin: 0; border: 0; border-bottom: 1px solid var(--color-lijn); background: none; border-radius: 0; }
+.wp-afstand-lijst li[hidden] { display: none !important; }
+.wp-afstand-naam { font-weight: 600; }
+.wp-afstand-km { font-variant-numeric: tabular-nums; color: var(--color-tekst-2); }
+
+/* ---- open-status ------------------------------------------------------------------------------ */
+.wp-open { display: grid; gap: 24px; }
+.werkplaats .wp-open-status { --os-open: var(--wp-c0); --os-dicht: var(--color-tekst-2); --os-ink: var(--color-tekst); --os-ink-soft: var(--color-tekst-2); --os-line: var(--color-lijn); font: 600 clamp(22px, 2.2vw, 30px)/1.2 var(--font-kop); letter-spacing: -0.02em; }
+.werkplaats .wp-open-status .os__dot { --os-dot-size: 0.5em; }
+.wp-open-tabel { width: 100%; border-collapse: collapse; font-size: 16px; }
+.wp-open-tabel caption { text-align: left; font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-tekst-2); padding-bottom: 8px; }
+.wp-open-tabel th, .wp-open-tabel td { text-align: left; padding: 12px 0; border-top: 1px solid var(--color-lijn); vertical-align: top; }
+.wp-open-tabel th { font-weight: 500; padding-right: 16px; }
+.wp-open-tabel td { color: var(--color-tekst-2); font-variant-numeric: tabular-nums; text-align: right; }
+
+/* ---- kleur-configurator ----------------------------------------------------------------------- */
+.werkplaats .wp-kleur { --kc-ink: var(--color-tekst); --kc-muted: var(--color-tekst-2); --kc-line: var(--color-grond-3); --kc-line-strong: var(--color-lijn-sterk); --kc-accent: var(--color-accent); font-family: var(--font-tekst); }
+.wp-kleur-onder { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 24px; }
+.werkplaats .wp-kleur .kc-swatch-dot { box-shadow: inset 0 0 0 1px var(--color-lijn-sterk); }
+.werkplaats .wp-kleur .kc-swatch input:checked + .kc-swatch-dot { box-shadow: 0 0 0 2px var(--wp-bank), 0 0 0 4px var(--color-tekst); }
+.werkplaats .wp-kleur .kc-info { text-align: right; }
+.werkplaats .wp-kleur [data-kleur-naam] { font-weight: 600; margin: 0; }
+.werkplaats .wp-kleur [data-kleur-meerprijs] { color: var(--color-tekst-2); margin: 0; }
+
+/* ---- besteldeadline --------------------------------------------------------------------------- */
+.wp-deadline { --bd-line: var(--color-lijn-sterk); --bd-ink: var(--color-tekst); --bd-accent: var(--color-accent); display: grid; gap: 10px; justify-items: start; }
+.werkplaats .wp-deadline input[type='date'] { min-width: 15rem; color-scheme: inherit; }
+.wp-deadline-hint { color: var(--color-tekst-2); font-size: 15px; margin: 0; }
+.werkplaats .wp-deadline-melding { color: var(--color-tekst); font-weight: 600; margin: 0; }
+.wp-deadline-melding:empty { display: none; }
+
+/* ---- drempelteller ---------------------------------------------------------------------------- */
+.werkplaats .wp-drempel { --dt-ink: var(--color-tekst); --dt-zacht: var(--color-tekst-2); --dt-spoor: var(--color-grond-3); --dt-vul: var(--color-accent); --dt-bereikt: var(--color-hoofd); --dt-hoogte: 12px; --dt-getal: 2.4em; font-size: clamp(18px, 1.6vw, 22px); }
+
+/* ---- boekingsvelden --------------------------------------------------------------------------- */
+.werkplaats .wp-boeking { --bv-vlak: var(--wp-bank); --bv-ink: var(--color-tekst); --bv-zacht: var(--color-tekst-2); --bv-lijn: var(--color-lijn-sterk); --bv-accent: var(--color-accent); --bv-accent-hover: var(--color-accent-hover); --bv-accent-fg: var(--wp-op-accent); --bv-focus: var(--color-accent); --bv-schaduw: none; font-family: var(--font-tekst); }
+.werkplaats .wp-boeking .bv__veld { background: var(--wp-vlak); }
+.werkplaats .wp-boeking .bv__invoer { border: 0; min-height: 0; padding: 0; background: transparent; border-radius: 0; }
+.werkplaats .wp-boeking .bv__melding { color: var(--color-hoofd); }
+.bv__dialoog { background: var(--color-grond) !important; color: var(--color-tekst) !important; }
+.bv__dialoog .bv__frame { background: var(--color-grond); }
+.bv__dialoog .bv__noot { color: var(--color-accent); }
+.bv__dialoog .bv__sluit { background: var(--color-grond-2); border-color: var(--color-lijn-sterk); }
+
+/* ---- link-dialog-funnel (de dialoog staat in body, dus de tokens staan op het dialoogelement) ---- */
+.wp-intake { display: flex; flex-wrap: wrap; gap: 12px; }
+.ldf-dialog {
+  --ldf-ink: var(--color-tekst); --ldf-muted: var(--color-tekst-2); --ldf-paper: var(--color-grond);
+  --ldf-line: var(--color-lijn); --ldf-line-strong: var(--color-lijn-sterk); --ldf-accent: var(--color-accent);
+  --ldf-accent-deep: var(--color-hoofd); --ldf-font: var(--font-tekst); --ldf-backdrop: rgb(var(--rgb-grond) / 0.72);
+}
+
+/* ---- zoek-keuzelijst -------------------------------------------------------------------------- */
+.werkplaats .wp-keuzelijst { --zk-ink: var(--color-tekst); --zk-zacht: var(--color-tekst-2); --zk-line: var(--color-lijn-sterk); --zk-bg: var(--wp-vlak); --zk-hover: var(--color-grond-3); --zk-accent: var(--color-accent); --zk-accent-zacht: var(--color-grond-3); --zk-fout: var(--color-hoofd); --zk-hoogte: 48px; font-family: var(--font-tekst); max-width: 30rem; }
+.werkplaats .wp-keuzelijst .zk__veld:hover { border-color: var(--color-tekst-2); }
+
+/* ---- kennisbank-filter ------------------------------------------------------------------------ */
+.werkplaats .wp-kennis { --kb-paper: var(--wp-bank); --kb-surface: var(--wp-vlak); --kb-ink: var(--color-tekst); --kb-soft: var(--color-tekst-2); --kb-line: var(--color-lijn); --kb-accent: var(--color-accent); font-family: var(--font-tekst); }
+.werkplaats .wp-kennis .kb-titel { font: 600 19px/1.2 var(--font-kop); letter-spacing: -0.02em; }
+.werkplaats .wp-kennis .kb-toggle__n { color: var(--wp-op-accent); }
+.werkplaats .wp-kennis .kb-meer { background: var(--color-tekst); border-color: var(--color-tekst); color: var(--color-grond); }
+.werkplaats .wp-kennis .kb-invoer:hover { border-color: var(--color-tekst-2); }
+.werkplaats .wp-kennis .kb-link:hover { transform: none; box-shadow: none; border-color: var(--color-lijn); }
+.werkplaats .wp-kennis .kb-tag { background: var(--color-grond-3); }
+
+/* ---- rechtenmatrix ---------------------------------------------------------------------------- */
+.werkplaats .wp-rechten {
+  --rm-ink: var(--color-tekst); --rm-soft: var(--color-tekst-2); --rm-lijn: var(--color-lijn); --rm-vlak: var(--wp-vlak);
+  --rm-paper: var(--wp-bank); --rm-zij: var(--wp-bank); --rm-track: var(--color-grond-3); --rm-focus: var(--color-accent);
+  --rm-c0: var(--wp-c0); --rm-c1: var(--wp-c1); --rm-c2: var(--wp-c2);
+}
+.werkplaats .wp-rechten .rm-av { --rm-tint: var(--color-accent); background: var(--color-grond-3); color: var(--color-tekst); border-color: var(--color-lijn-sterk); }
+.werkplaats .wp-rechten .rm-thumb { background: var(--wp-vlak); box-shadow: 0 0 0 1px color-mix(in srgb, var(--rm-c) 45%, transparent); }
+.werkplaats .wp-rechten .rm-badge--bewerk { background: var(--color-grond-3); border-color: var(--color-lijn-sterk); color: var(--color-tekst); }
+
+/* ---- smal ------------------------------------------------------------------------------------- */
+@media (max-width: 899px) {
+  .wp-hero { grid-template-columns: 1fr; align-items: start; }
+  .wp-hond { max-width: 420px; }
+  .proefstuk, .proefstuk--breed .proefstuk-meta { grid-template-columns: minmax(0, 1fr); }
+  .proefstuk-meta { position: static; }
+  .proefstuk--breed .proefstuk-zin { grid-column: 1; grid-row: auto; margin-top: 14px; }
+}
+@media (max-width: 599px) {
+  .wp-h1 { font-size: clamp(38px, 11vw, 56px); }
+  .proefstuk-bank { padding: 18px; border-radius: 16px; }
+  .wp-afstand-rij input { width: 100% !important; flex: 1 1 8rem; }
+}
+
+/* rechtenmatrix smal: de tabs krijgen in het onderdeel een witte waas; hier het vlak van de site (contrast in donker) */
+@container (max-width: 46rem) {
+  .werkplaats .wp-rechten .rm-tab { background: transparent; }
+  .werkplaats .wp-rechten .rm-tab[aria-selected='true'] { background: var(--wp-vlak); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .werkplaats .wp-rechten .rm-tab[aria-selected='false']:hover { background: var(--color-grond-3); }
+}

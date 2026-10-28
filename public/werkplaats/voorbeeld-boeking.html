@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Voorbeeld van een boekingsmodule</title>
+<link rel="icon" href="data:," />
+<style>
+  :root { color-scheme: light dark; --grond: #f6efe6; --vlak: #fffaf3; --tekst: #1d1512; --zacht: #5c4f46; --lijn: #1d151224; --hoofd: #b8361d; }
+  @media (prefers-color-scheme: dark) { :root { --grond: #17110f; --vlak: #211916; --tekst: #f5ece3; --zacht: #c9bfb6; --lijn: #f5ece324; --hoofd: #f0533a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.55 ui-sans-serif, -apple-system, "Segoe UI", sans-serif; background: var(--grond); color: var(--tekst); }
+  main { max-width: 34rem; margin: 0 auto; padding: 2rem 1.25rem 2.5rem; }
+  .stempel { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--hoofd); border: 1px dashed var(--hoofd); padding: .3rem .7rem; border-radius: 999px; }
+  h1 { font-size: 1.45rem; line-height: 1.2; margin: 1rem 0 .5rem; letter-spacing: -.01em; }
+  p { color: var(--zacht); margin: 0 0 1.25rem; }
+  table { width: 100%; border-collapse: collapse; background: var(--vlak); border: 1px solid var(--lijn); border-radius: .75rem; overflow: hidden; }
+  th, td { text-align: left; padding: .65rem .9rem; border-bottom: 1px solid var(--lijn); font-size: .9375rem; overflow-wrap: anywhere; }
+  th { width: 45%; color: var(--zacht); font-weight: 600; }
+  tr:last-child th, tr:last-child td { border-bottom: 0; }
+  .leeg { padding: 1rem; background: var(--vlak); border: 1px dashed var(--lijn); border-radius: .75rem; }
+</style>
+</head>
+<body>
+<main>
+  <span class="stempel">Voorbeeld, geen echte boeking</span>
+  <h1>Zo komt jouw keuze aan bij de boekingsmodule</h1>
+  <p>Hier staat normaal de reserveringsmodule van het restaurant. Er is niets geboekt en niets verstuurd. Hieronder staat wat er in het adres meekwam.</p>
+  <div id="uit"></div>
+<script>
+  const uit = document.getElementById('uit');
+  const p = [...new URLSearchParams(location.search)];
+  if (!p.length) { uit.innerHTML = '<p class="leeg">Er kwam niets mee: dit is de link zonder waarden.</p>'; }
+  else {
+    const t = document.createElement('table'); t.id = 'params';
+    for (const [k, v] of p) { const r = t.insertRow(); const a = document.createElement('th'); a.textContent = k; const b = r.insertCell(); b.textContent = v; r.prepend(a); }
+    uit.append(t);
+  }
+</script>
+</main>
+</body>
+</html>

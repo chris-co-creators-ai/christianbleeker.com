@@ -104,3 +104,15 @@ ontwerpkeuzes voor één klant, geen infrastructuur; ze komen terug zodra een PR
   mislukte verzending wijst naar LinkedIn, zoals het oude formulier). `src/_kwaliteit/basis.js` kreeg
   `zonderUndefined`, letterlijk uit de bibliotheek. Het contactformulier is nu de intake in stappen; hij post naar
   dezelfde `/api/contact` met dezelfde velden (`ContactFormulier.tsx` is daarom weg).
+- v3 Werkplaats (maker A, 28-10-2026): `three-mascot/` (effects/), `werkgebied-kaart/` (scroll/),
+  `afstand-postcode/`, `kleur-configurator/`, `boekingsvelden/`, `rechtenmatrix/` en `besteldeadline/` (tools/),
+  `open-status/` en `drempelteller/` (badges/), `zoek-keuzelijst/` (forms/), `link-dialog-funnel/` (modals/) en
+  `kennisbank-filter/` (layouts/), alleen op `/werkplaats`. Zonder `test/`, `demo*.html`, demomedia,
+  `maak-kaart.mjs`, `vacature-jsonld.mjs` en voorbeeldstanden; herkomstalinea's in README's en codecommentaar
+  weggelaten of ingekort (openbare repo). Twee aanpassingen: `three-mascot.js` laadt three.js van een vast pad
+  `/vendor/three/three.module.min.js` (in `public/`; Turbopack hasht `new URL(...)`-assets), alleen het procedurele
+  model (de hond), dus `GLTFLoader` staat er niet bij; `link-dialog-funnel.js` kreeg alleen ingekort commentaar.
+  De kaart (`src/content/werkplaats/kaart.svg`) is de uitvoer van `maak-kaart.mjs` uit de demo van de bibliotheek
+  (West-Friesland, met de hand benaderde omtrek); de projectfoto's staan in `public/werkplaats/`. De voorbeeld-
+  boekingspagina `public/werkplaats/voorbeeld-boeking.html` is de nepdienst van `boekingsvelden`, in de kleuren van
+  de site. Thema-tokens per onderdeel in `src/components/werkplaats/werkplaats.css`.

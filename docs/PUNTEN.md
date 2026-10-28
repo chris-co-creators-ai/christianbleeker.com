@@ -91,6 +91,26 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /contact | agenda-facade | media/agenda-facade | 2 | ja | `.kennismaken .af[data-af-klaar]` | kennismaking plannen; de agenda laadt pas na een klik |
 | /contact | availability-badge | badges/availability-badge | 2 | ja | `.contact-badge [data-ab-maand]` | "Ruimte voor nieuwe projecten in …" onder de kop |
 
+## Werkplaats `/werkplaats` (v3, maker A)
+
+Nieuwe pagina "Wat we voor jouw vak bouwen": twaalf werkende proefstukken per vak, in vier groepen, elk gemarkeerd als
+voorbeeld. Waar een ontwerp-demo bij het vak past, linkt het proefstuk ernaar.
+
+| Pagina | Onderdeel | Map | Punten | Telt | Selector | Waar |
+|---|---|---|---|---|---|---|
+| /werkplaats | three-mascot | effects/three-mascot | 5 | ja | `.wp-hond [data-mascot] canvas.tm-canvas:not([hidden])` | Bobbie, de hond "voor een dierenarts" in de hero (3D op desktop, poster op touch en bij minder beweging) |
+| /werkplaats | werkgebied-kaart | scroll/werkgebied-kaart | 5 | ja | `.wp-kaart.wk-js .wk-nav-knop` | "voor een aannemer of installateur": vier projecten in West-Friesland |
+| /werkplaats | afstand-postcode | tools/afstand-postcode | 4 | ja | `.wp-afstand [data-afstand-lijst] [data-locatie][data-lat]` | "voor een fysiotherapeut met meer praktijken" (PDOK pas na Zoek) |
+| /werkplaats | kleur-configurator | tools/kleur-configurator | 4 | ja | `.wp-kleur[data-kleur-actief] [data-kleur-img]` | "voor een timmerfabriek": de voordeur in vier kleuren |
+| /werkplaats | boekingsvelden | tools/boekingsvelden | 3 | ja | `.wp-boeking[data-bv-actief] form` | "voor een restaurant": door naar een eigen voorbeeldpagina, 0 externe verzoeken |
+| /werkplaats | rechtenmatrix | tools/rechtenmatrix | 3 | ja | `.wp-rechten[data-rm-actief] .rm-app` | "voor een data- en AI-bureau": wat de assistent zelf doet |
+| /werkplaats | besteldeadline | tools/besteldeadline | 2 | ja | `.wp-deadline [data-besteldeadline-input][min]` | "voor een bakker": vóór 12.00 nog vandaag |
+| /werkplaats | open-status | badges/open-status | 2 | ja | `.wp-open-status[data-os-status]` | "voor een tandartspraktijk" |
+| /werkplaats | drempelteller | badges/drempelteller | 2 | ja | `.wp-drempel[data-dt-actief] [role="progressbar"]` | "voor een yogastudio": 9 van 12 aanmeldingen (voorbeeld) |
+| /werkplaats | zoek-keuzelijst | forms/zoek-keuzelijst | 2 | ja | `.wp-keuzelijst[data-zk-actief] .zk__input` | "voor een boekhouder": 151 beroepen met zoekwoorden |
+| /werkplaats | link-dialog-funnel | modals/link-dialog-funnel | 3 | ja | `js:(async () => { document.querySelector('.wp-intake a').click(); await new Promise((r) => setTimeout(r, 400)); const d = document.querySelector('dialog.ldf-dialog[open]'); if (d) d.close(); return !!d })()` | "voor een advocatenkantoor": intake in een dialoog, verstuurt niets |
+| /werkplaats | kennisbank-filter | layouts/kennisbank-filter | 3 | ja | `.wp-kennis [data-kb-controls]:not([hidden])` | "voor een psychologenpraktijk" |
+
 ## Elke pagina `*`
 
 | Pagina | Onderdeel | Map | Punten | Telt | Selector | Waar |
