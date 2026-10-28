@@ -19,3 +19,12 @@
   .werk-explosie .bx__kaart,
   .werk-explosie[data-bx-actief]:not([data-bx-stil]) .bx__kaart { width: min(80vw, 380px, calc(74svh * 3 / 4)); aspect-ratio: 3 / 4; }
 }
+
+/* Poster onder de video; de video wordt pas zichtbaar als hij echt beeld geeft (data-video-speelt). */
+.werk-explosie .werk-explosie__poster, .werk-explosie .werk-explosie__poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.werk-explosie .bx__kaart video { position: relative; z-index: 1; opacity: 0; transition: opacity 0.4s ease; }
+.werk-explosie .bx__kaart[data-video-speelt] video { opacity: 1; }
+.werk-explosie .bx__pauze { z-index: 2; }
+@media (prefers-reduced-motion: reduce) { .werk-explosie .bx__kaart video { transition: none; } }
+/* Zonder JavaScript (geen data-thema): de video met zijn eigen bediening gewoon zichtbaar. */
+:root:not([data-thema]) .werk-explosie .bx__kaart video { opacity: 1; }

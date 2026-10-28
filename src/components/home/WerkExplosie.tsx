@@ -46,6 +46,12 @@ export function WerkExplosie() {
             </div>
           </div>
           <div className="bx__kaart" data-bx-kaart="">
+            {/* De poster als eigen beeld onder de video: hij blijft staan tot de video echt beeld geeft
+                (HomeEffecten zet dan data-video-speelt), ook als een browser het formaat niet afspeelt. */}
+            <picture className="werk-explosie__poster">
+              <source srcSet="/videos/werk-reel-mobiel-poster.webp" media="(max-width: 720px)" />
+              <img src="/videos/werk-reel-poster.webp" alt="" width={1200} height={800} loading="lazy" decoding="async" />
+            </picture>
             <video muted loop playsInline preload="none" controls poster="/videos/werk-reel-poster.webp" width={1200} height={800} aria-label={t.reelLabel}>
               <source src="/videos/werk-reel-mobiel.webm" type="video/webm; codecs=vp9" media="(max-width: 720px)" />
               <source src="/videos/werk-reel-mobiel.mp4" type="video/mp4; codecs=avc1.64001E" media="(max-width: 720px)" />

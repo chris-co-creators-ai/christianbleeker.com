@@ -36,6 +36,18 @@ export function HomeEffecten() {
     op('main', (el) => letterRol(el))
     op('.over-swl', (el) => verhaal(el))
     op('footer[data-opkomst]', (el) => opkomst(el))
+    // beeldexplosie: de poster wijkt pas als de reel echt beeld geeft (breedte bekend en de tijd loopt).
+    // Speelt een browser het formaat niet af, of komt er een fout, dan blijft de poster staan.
+    op<HTMLVideoElement>('.werk-explosie .bx__kaart video', (v) => {
+      const kaart = v.parentElement!
+      const kijk = () => kaart.toggleAttribute('data-video-speelt', !v.error && v.videoWidth > 0 && v.readyState >= 2 && v.currentTime > 0)
+      const fout = () => kaart.removeAttribute('data-video-speelt')
+      const events = ['timeupdate', 'playing', 'loadeddata', 'emptied'] as const
+      events.forEach((e) => v.addEventListener(e, kijk))
+      v.addEventListener('error', fout)
+      v.querySelectorAll('source').forEach((s) => s.addEventListener('error', fout))
+      return () => { events.forEach((e) => v.removeEventListener(e, kijk)); v.removeEventListener('error', fout) }
+    })
     // kinetic-type kent zelf geen "minder beweging": dan blijft de kop gewoon vol (kinetisch.css).
     let stopKt: Stop | undefined
     const start = (reduced: boolean) => {
