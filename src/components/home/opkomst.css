@@ -1,0 +1,2 @@
+/* footer-opkomst op de lange voet van de Home: de inhoud zakt bij het inscrollen op zijn plek. */
+.voet[data-opkomst] { --opkomst-afstand: -18%; }

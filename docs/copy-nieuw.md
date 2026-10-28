@@ -191,3 +191,29 @@ eerlijk bij. Namen, beroepen en plaatsen komen uit de lijst van de twintig demo-
 | "Bekijk de ontwerp-demo <naam> (opent in een nieuw tabblad)" | toegankelijke naam |
 | "De homepage van de ontwerp-demo <naam> op een laptop" | alt |
 | "<naam> <in het kort>" | per demo: naam, beroep en plaats (zie src/content/demos.ts) |
+
+## v2 (28-10-2026): nieuwe teksten op de Home
+
+Voorstel voor v2 (lokaal, niet live). De reviews hieronder zijn **verzonnen voorbeelden**, geen echte
+klanten en geen scores van een reviewplatform. Op de site staan ze gemarkeerd als voorbeeld (label in de
+kop, de toelichting en "Voorbeeld" op elke kaart), zonder datum, bron of gemiddelde score. Ze maken plaats
+voor echte reviews zodra Chris die heeft.
+
+| Tekst | Waarom |
+|---|---|
+| Elk merk heeft / een eigen verhaal. | kop van de beeldexplosie bij Werk (uit Werk) |
+| Showreel van dertien websites die Chris maakte | toegankelijke naam van de video |
+| Wat klanten zeggen | kop |
+| Voorbeeld | label |
+| Deze reviews zijn verzonnen. Ze laten zien hoe deze plek eruitziet en maken plaats voor echte reviews van klanten. | eerlijk tegenover bezoekers |
+
+### Voorbeeldreviews (verzonnen, als voorbeeld gemarkeerd)
+
+| Wie (rol, geen naam) | Sterren | Tekst |
+|---|---|---|
+| Eigenaar van een kinderopvang | 5 | Chris vroeg eerst naar onze ouders en pas daarna naar de website. Dat merk je: de site beantwoordt nu de vragen die we vroeger aan de telefoon kregen. |
+| Directeur van een adviesbureau | 5 | We hadden veel te vertellen en wisten niet waar we moesten beginnen. Na twee gesprekken lag er een opbouw waarin ons hele team zich herkende. |
+| Zelfstandig coach | 5 | Geen jargon, wel scherpe keuzes. Chris schrapte de helft van mijn teksten en de site werd er sterker van. |
+| Oprichter van een sportwinkel | 4 | Hij keek verder dan de mooie pagina: wie komt er binnen en welke stap wil die zetten? Daar is de hele site op gebouwd. |
+| Ondernemer in de zorg | 5 | Ik was sceptisch over AI in mijn werk. Chris liet zien waar het helpt en waar niet, zonder het groter te maken dan het is. |
+| Marketingmanager in het mkb | 5 | Duidelijke planning, eerlijk over wat wel en niet kon, en de site stond er op de afgesproken dag. |

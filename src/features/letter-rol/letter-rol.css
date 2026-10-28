@@ -1,0 +1,39 @@
+/* letter-rol — de kopie van onder is de text-shadow van dezelfde letter.
+   Kleur: --lr-kleur (letter) en --lr-kleur-2 (kopie). */
+[data-letter-rol] {
+  --lr-duur: 0.32s;
+  --lr-ease: cubic-bezier(0.76, 0, 0.24, 1);      /* power4.inOut */
+  --lr-regel: 1.3em;
+  --lr-kleur-2: currentColor;
+}
+[data-letter-rol][data-lr-actief] {
+  display: inline-block;
+  overflow: hidden;                                 /* knipt de kopie weg tot hij rolt */
+  overflow: clip;
+  line-height: var(--lr-regel);
+  height: var(--lr-regel);
+  vertical-align: bottom;
+  white-space: pre;
+}
+[data-letter-rol] .lr-letter {
+  display: inline-block;
+  white-space: pre;
+  text-shadow: 0 var(--lr-regel) 0 var(--lr-kleur-2);
+  transition: transform var(--lr-duur) var(--lr-ease) calc(var(--i) * var(--lr-step, 0s));
+  will-change: transform;
+}
+[data-letter-rol][data-lr-actief]:focus-visible .lr-letter,
+:is(a, button):focus-visible [data-letter-rol][data-lr-actief] .lr-letter {
+  transform: translateY(calc(var(--lr-regel) * -1));
+}
+@media (hover: hover) {
+  [data-letter-rol][data-lr-actief]:hover .lr-letter,
+  :is(a, button):hover [data-letter-rol][data-lr-actief] .lr-letter {
+    transform: translateY(calc(var(--lr-regel) * -1));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-letter-rol] .lr-letter { transition: none; transform: none !important; text-shadow: none; }
+}
+/* Naam voor schermlezers; de letters ernaast zijn aria-hidden. */
+[data-letter-rol] .lr-sr { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

@@ -10,7 +10,9 @@
  *  3. de demo-rij (drag-carousel + device-mockup): 20 demo's met label "Ontwerp-demo" en een link naar
  *     https://<slug>.portfolio.seveke.nl (nieuw tabblad); de pijl naar rechts schuift door en de
  *     statusregel meldt "Dia n van 20"; het laptopscherm is geladen;
- *  4. /work-raadsel: na één keer langs de pagina staat alles van reveal-on-scroll op opacity 1.
+ *  4. /work-raadsel: na één keer langs de pagina staat alles van reveal-on-scroll op opacity 1;
+ *  5. Home (v2-a): punt-zoom-intro, film-grain, letter-rol, beeldexplosie, kinetic-type, story-word-light,
+ *     review-wall en footer-opkomst doen wat ze beloven, en staan stil (maar leesbaar) bij minder beweging.
  */
 import { laadChromium, LAUNCH, BASIS } from './browser.mjs'
 const motor = await laadChromium()
@@ -104,10 +106,91 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
   if (rv.onzichtbaar) fouten.push(`${label} reveal: ${rv.onzichtbaar} van ${rv.n} nog onzichtbaar na scrollen`)
   regels.push(`${label} reveal na scrollen: ${rv.n - rv.onzichtbaar}/${rv.n} zichtbaar`)
 
+
+  // 5. Home (v2-a): de acht onderdelen van maker A. Eigen browser (één pagina per browser in de sandbox): een verse sessie, dus de intro speelt.
+  {
+    const b2 = await motor.launch(LAUNCH)
+    const hp = await b2.newPage({ viewport: { width: w, height: h }, hasTouch: mobiel, isMobile: mobiel && naam !== 'firefox', reducedMotion: reduced ? 'reduce' : 'no-preference', colorScheme: schema })
+    hp.on('console', (m) => { if (m.type() === 'error') cons.push(m.text()) })
+    hp.on('pageerror', (e) => cons.push('pageerror ' + e.message))
+    const fout = (wat, info) => fouten.push(`${label} home ${wat}: ${typeof info === 'string' ? info : JSON.stringify(info)}`)
+    await hp.goto(BASIS + '/', { waitUntil: 'domcontentloaded' })
+    await hp.waitForTimeout(250)
+    const zicht = () => hp.evaluate(() => { const e = document.querySelector('[data-punt-zoom-intro]'); return !!e && !e.hidden && getComputedStyle(e).display !== 'none' })
+    const intro0 = await zicht()
+    await hp.waitForLoadState('networkidle'); await hp.waitForTimeout(2600)
+    const intro1 = await zicht()
+    // punt-zoom-intro: zichtbaar bij binnenkomst en binnen 2,6 s weg; bij minder beweging nooit.
+    if (reduced ? intro0 || intro1 : !intro0 || intro1) fout('punt-zoom-intro', { intro0, intro1 })
+    // tweede bezoek in dezelfde sessie: geen intro
+    await hp.reload({ waitUntil: 'domcontentloaded' }); await hp.waitForTimeout(150)
+    const intro2 = await zicht()
+    if (intro2) fout('punt-zoom-intro', 'tweede bezoek toont de intro nog')
+    await hp.waitForLoadState('networkidle'); await hp.waitForTimeout(600)
+
+    // film-grain: laag in de hero; beweegt, of staat stil bij minder beweging.
+    const fg = async () => hp.evaluate(() => { const l = document.querySelector('.hero > .fg-laag'); return l ? { t: l.style.transform, pos: getComputedStyle(l).position, o: Number(getComputedStyle(l).opacity) } : null })
+    const g0 = await fg(); await hp.waitForTimeout(400); const g1 = await fg()
+    if (!g0 || g0.pos !== 'absolute' || !(g0.o > 0) || (reduced ? g0.t !== g1.t : g0.t === g1.t)) fout('film-grain', { g0, g1 })
+
+    // letter-rol: de knoptekst in letters (de naam blijft heel); bij minder beweging niet geknipt.
+    const lr = await hp.evaluate(() => { const k = document.querySelector('.hero-rij .knop'); return { letters: k.querySelectorAll('.lr-letter').length, actief: !!k.querySelector('[data-letter-rol][data-lr-actief]'), naam: k.textContent.replace(/\s+/g, ' ').trim() } })
+    if (reduced ? lr.letters || lr.actief : lr.letters < 10 || !lr.actief) fout('letter-rol', lr)
+    if (!/Bekijk alle projecten/.test(lr.naam)) fout('letter-rol naam', lr)
+    if (!reduced && !mobiel) {
+      await hp.hover('.hero-rij .knop'); await hp.waitForTimeout(700)
+      const ty = await hp.evaluate(() => new DOMMatrix(getComputedStyle(document.querySelector('.hero-rij .knop .lr-letter:last-of-type')).transform).m42)
+      if (!(ty < -5)) fout('letter-rol hover', `laatste letter ty ${ty}`)
+      await hp.mouse.move(2, 2)
+    }
+
+    // beeldexplosie: aan het eind van het spoor staat de reel groot in beeld; stil = vaste compositie.
+    const bx = await hp.evaluate(() => { const r = document.querySelector('.werk-explosie'); return { top: r.getBoundingClientRect().top + scrollY, hoog: r.offsetHeight, actief: r.hasAttribute('data-bx-actief'), stil: r.hasAttribute('data-bx-stil'), beelden: r.querySelectorAll('[data-bx-beeld]').length, h2: r.querySelector('h2')?.id } })
+    await hp.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), bx.top + (bx.hoog - h) * 0.97); await hp.waitForTimeout(700)
+    const kaart = await hp.evaluate(() => { const k = document.querySelector('.werk-explosie .bx__kaart').getBoundingClientRect(); return { b: Math.round(k.width), zicht: k.top < innerHeight && k.bottom > 0, aan: document.querySelector('.werk-explosie').hasAttribute('data-bx-kaart-aan'), knop: !!document.querySelector('.werk-explosie [data-bx-pauze]') } })
+    if (!bx.actief || bx.beelden !== 11 || bx.h2 !== 'werk-explosie-kop' || bx.stil !== reduced) fout('beeldexplosie', bx)
+    if (!(kaart.b > w * 0.5) || !kaart.knop || (!reduced && (!kaart.aan || !kaart.zicht))) fout('beeldexplosie kaart', kaart)
+
+    // kinetic-type: in het midden vetter dan bovenin; bij minder beweging de gewone kop (600, vol).
+    const kt = async (frac) => {
+      await hp.evaluate((f) => { const e = document.querySelector('.doen [data-kinetic-type]'); window.scrollTo({ top: e.getBoundingClientRect().top + scrollY - innerHeight * f, behavior: 'instant' }) }, frac)
+      await hp.waitForTimeout(450)
+      return hp.evaluate(() => { const e = document.querySelector('.doen [data-kinetic-type]'); const cs = getComputedStyle(e); return { wght: Number((cs.fontVariationSettings.match(/"wght" ([\d.]+)/) || [])[1]), kleur: cs.color } })
+    }
+    const ktMidden = await kt(0.5), ktBoven = await kt(0.02)
+    if (reduced ? ktMidden.wght !== 600 || /0\.\d+\)$/.test(ktMidden.kleur) : !(ktMidden.wght > ktBoven.wght + 150)) fout('kinetic-type', { ktMidden, ktBoven })
+
+    // story-word-light: woorden lichten op met de scroll; bij minder beweging meteen alles.
+    const swl = async (f) => {
+      await hp.evaluate((ff) => { const s = document.querySelector('.over-swl'); window.scrollTo({ top: s.getBoundingClientRect().top + scrollY + (s.offsetHeight - innerHeight) * ff, behavior: 'instant' }) }, f)
+      await hp.waitForTimeout(500)
+      return hp.evaluate(() => { const ws = [...document.querySelectorAll('.over-swl [data-story-word]')]; return { n: ws.length, lit: ws.filter((x) => x.classList.contains('is-lit')).length, sticky: getComputedStyle(document.querySelector('.over-swl .swl__sticky')).position } })
+    }
+    const s0 = await swl(0), s1 = await swl(0.95)
+    if (s0.n < 30 || s1.lit !== s1.n || (!reduced && !(s0.lit < s0.n * 0.6))) fout('story-word-light', { s0, s1 })
+
+    // review-wall: zes voorbeeldreviews, elk gelabeld, zonder score-badge, datum of bron.
+    const rw = await hp.evaluate(() => { const r = document.querySelector('.reviews-wand'); const k = [...r.querySelectorAll('.rw__kaart')]; return { hidden: r.hidden, n: k.length, label: k.filter((x) => getComputedStyle(x.querySelector('.rw__kop'), '::after').content === '"Voorbeeld"').length, score: r.querySelectorAll('.rw__score, [data-rw-score]').length, tijd: r.querySelectorAll('time, .rw__bron').length, toelichting: /verzonnen/.test(document.querySelector('#reviews .sectie-tekst').textContent) } })
+    if (rw.hidden || rw.n !== 6 || rw.label !== 6 || rw.score !== 0 || rw.tijd || !rw.toelichting) fout('review-wall', rw)
+
+    // footer-opkomst: de inhoud zakt bij het inscrollen naar 0; bij minder beweging staat hij meteen.
+    const fo = async (f) => {
+      await hp.evaluate((ff) => { const v = document.querySelector('footer[data-opkomst]'); window.scrollTo({ top: v.getBoundingClientRect().top + scrollY - innerHeight + v.offsetHeight * ff, behavior: 'instant' }) }, f)
+      await hp.waitForTimeout(400)
+      return hp.evaluate(() => { const v = document.querySelector('footer[data-opkomst]'); const i = v.querySelector('[data-opkomst-inhoud]'); return Math.round(i.getBoundingClientRect().top - v.getBoundingClientRect().top) })
+    }
+    const f0 = await fo(0.15), f1 = await fo(1.2)
+    if (reduced ? Math.abs(f0 - f1) > 1 : !(f0 < f1 - 20)) fout('footer-opkomst', { f0, f1 })
+
+    const sw = await hp.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth])
+    if (sw[0] > sw[1]) fout('breedte', sw)
+    regels.push(`${label} home intro ${+intro0}${+intro1}${+intro2} · korrel ${g0?.t !== g1?.t ? 'beweegt' : 'stil'} · rol ${lr.letters} · explosie ${bx.beelden} kaart ${kaart.b}px aan ${+kaart.aan} stil ${+bx.stil} · kinetisch ${ktBoven.wght}→${ktMidden.wght} · verhaal ${s0.lit}/${s0.n}→${s1.lit}/${s1.n} · reviews ${rw.n}/${rw.label} · voet ${f0}→${f1}`)
+    await b2.close()
+  }
   if (cons.length) fouten.push(`${label}: ${cons.length} consolefout(en): ${cons.slice(0, 3).join(' | ')}`)
   regels.push(`${label} console ${cons.length}`)
   await b.close()
 }
 console.log(regels.join('\n'))
 if (fouten.length) { console.error(`\nONDERDELEN ROOD (${fouten.length}):\n- ${fouten.join('\n- ')}`); process.exit(1) }
-console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen`)
+console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen`)

@@ -45,6 +45,14 @@ hieronder in de tabel — inclusief de reden ("gekozen in PRD/stap 5"). Een map 
 | `tab-title-lokker/` | `effects/tab-title-lokker/` | 2026-09-29 | gekozen in PRD/stap 5 |
 | `drag-carousel/` | `carousels/drag-carousel/` (f605c67) | 2026-10-28 | v2: de twintig ontwerp-demo's op /work |
 | `device-mockup/` | `portfolio/device-mockup/` (f605c67) | 2026-10-28 | v2: laptop + telefoon per ontwerp-demo |
+| `beeldexplosie/` | `heroes/beeldexplosie/` | 2026-10-28 | v2 Home: opening van Werk (zonder `media/`; eigen showreel in `public/videos/werk-reel*`) |
+| `kinetic-type/` | `typography/kinetic-type/` | 2026-10-28 | v2 Home: dienstkoppen (zonder `fonts/`: het huisfont Unbounded, alleen wght) |
+| `story-word-light/` | `scroll/story-word-light/` | 2026-10-28 | v2 Home: alinea van "Over mij" |
+| `punt-zoom-intro/` | `effects/punt-zoom-intro/` | 2026-10-28 | v2 Home: intro 1× per sessie |
+| `film-grain/` | `effects/film-grain/` | 2026-10-28 | v2 Home: korrel over de hero-foto |
+| `letter-rol/` | `buttons/letter-rol/` | 2026-10-28 | v2 Home: knoppen |
+| `review-wall/` | `reviews/review-wall/` | 2026-10-28 | v2 Home: voorbeeldreviews |
+| `footer-opkomst/` | `effects/footer-opkomst/` | 2026-10-28 | v2 Home: lange voet |
 
 ## Hoe je later bijwerkt
 
@@ -77,3 +85,4 @@ ontwerpkeuzes voor één klant, geen infrastructuur; ze komen terug zodra een PR
   ring rond de schijf van `krachtveld-logowand` (dat onderdeel importeert hem).
 - `src/_kwaliteit/basis.js` komt uit `_kwaliteit/basis.js` van de bibliotheek: tien onderdelen importeren hun gedeelde hulpjes (minder beweging, in beeld, touch) via `../../_kwaliteit/basis.js`.
 - `device-mockup/` was verwijderd (de schermbeelden van de cases staan al in een laptop-mockup) en kwam in v2 terug voor de ontwerp-demo's, waarvan de schermbeelden kaal zijn. De telefoon naast de laptop volgt de markup van het onderdeel zonder `tabindex`: hij is decoratief (`aria-hidden`), de laptop draagt de naam.
+- De acht v2-onderdelen van de Home (28-10-2026) zijn zonder `test/`, `demo.html`, `media/` en `fonts/` gekopieerd; de herkomstparagraaf van hun README is weggelaten (de repo is openbaar). `_kwaliteit/basis.js` kreeg `zonderUndefined()` uit de bibliotheek, die vijf van hen importeren. Thema-tokens en plaatsing staan per onderdeel in `src/components/home/*.css`.

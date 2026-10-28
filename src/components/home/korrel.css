@@ -1,0 +1,4 @@
+/* film-grain alleen over de TEDx-foto van de hero: de laag hangt in de hero in plaats van over het hele scherm
+   (een korrel over lopende tekst vermoeit). Boven de foto en het verloop, onder de tekst en de pauzeknop. */
+.hero > .fg-laag { position: absolute; z-index: 2; }
+:root[data-thema='licht'] .hero > .fg-laag { opacity: calc(var(--fg-sterkte) * 0.75); }

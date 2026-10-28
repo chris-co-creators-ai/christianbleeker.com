@@ -27,6 +27,14 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | / | reveal-on-scroll | scroll/reveal-on-scroll | 2 | ja | `[data-ros-active] [data-reveal]` | secties komen in beeld (ook /about, /work, /ai) |
 | / | letter-reveal | typography/letter-reveal | 3 | ja | `.voet-kop[data-letter-reveal] [data-lr-ch]` | de slotzin in de lange voet |
 | / | sectie-dock | conversion/sectie-dock | 3 | ja | `.sd[data-sd-klaar]` | vaste CTA die per sectie wisselt |
+| / | beeldexplosie | heroes/beeldexplosie | 5 | ja | `.werk-explosie[data-bx-actief] [data-bx-beeld]` | opening van Werk: elf klantomslagen vliegen uit, de showreel van dertien sites groeit (h2; de hero blijft media-hero) |
+| / | kinetic-type | typography/kinetic-type | 4 | ja | `.doen h3[data-kinetic-type][style*="--kt-w"]` | de vier dienstkoppen bij "Wat we doen" worden vetter richting het midden (Unbounded, alleen wght) |
+| / | story-word-light | scroll/story-word-light | 4 | ja | `.over-swl [data-story-word]` | de alinea van "Over mij" licht woord voor woord op, "verhaal" wordt vet |
+| / | punt-zoom-intro | effects/punt-zoom-intro | 4 | ja | `[data-punt-zoom-intro] [data-zoom-target]` | intro 1× per sessie: het merk, de × opent de site |
+| / | film-grain | effects/film-grain | 3 | ja | `.hero > .fg-laag` | filmkorrel alleen over de TEDx-foto van de hero |
+| / | letter-rol | buttons/letter-rol | 3 | ja | `.knop [data-letter-rol][data-lr-actief]` | de knoppen "Bekijk alle projecten" rollen bij hover/focus |
+| / | review-wall | reviews/review-wall | 3 | ja | `.reviews-wand[data-rw-weergave] .rw__kaart` | "Wat klanten zeggen": zes voorbeeldreviews, als voorbeeld gemarkeerd, zonder score |
+| / | footer-opkomst | effects/footer-opkomst | 2 | ja | `footer.voet[data-opkomst] [data-opkomst-inhoud]` | de lange voet zakt bij het inscrollen op zijn plek |
 
 ## Over `/about`
 

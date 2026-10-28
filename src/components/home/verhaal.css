@@ -1,0 +1,13 @@
+/* story-word-light op "Over mij": foto, kop en alinea blijven staan terwijl de alinea woord voor woord
+   oplicht in de tekstkleur van het thema. Het nadrukwoord wordt vetter (Manrope heeft een wght-as). */
+.over-swl { --swl-ink: var(--color-tekst); --swl-length: 1.6; --swl-em-wght: 500; --swl-em-wght-lit: 800; }
+.over-swl .swl__sticky { padding-block: clamp(48px, 7vw, 96px); }
+.over-swl .over-blok { width: 100%; }
+.over-swl [data-story-word] em { color: var(--color-hoofd); }
+.over-swl [data-story-word]:not(.is-lit) em { color: inherit; }
+@media (max-width: 899px) {
+  /* Op een telefoon moet alles binnen één scherm blijven staan: de foto wordt een klein portret. */
+  .over-swl .over-foto { max-width: 168px; aspect-ratio: 4 / 5; }
+  .over-swl .over-tekst h2 { margin-top: 10px; }
+  .over-swl .over-alinea { margin-block: 16px 20px; font-size: 20px; }
+}

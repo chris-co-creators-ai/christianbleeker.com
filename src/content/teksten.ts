@@ -70,6 +70,28 @@ export const home = {
   },
 }
 
+/** v2 (28-10-2026): nieuwe teksten op de Home. Voorstel; zie docs/copy-nieuw.md. */
+export const homeV2 = {
+  explosie: {
+    kop: ['Elk merk heeft', 'een eigen verhaal.'], // uit Werk ("Elk merk heeft een eigen verhaal.")
+    reelLabel: 'Showreel van dertien websites die Chris maakte', // voorstel (toegankelijke naam)
+  },
+  over: { nadruk: 'verhaal' }, // het woord in de alinea van "Over mij" dat bij het oplichten vetter wordt
+  reviews: {
+    kop: 'Wat klanten zeggen', // voorstel
+    label: 'Voorbeeld', // voorstel
+    toelichting: 'Deze reviews zijn verzonnen. Ze laten zien hoe deze plek eruitziet en maken plaats voor echte reviews van klanten.', // voorstel (eerlijk tegenover bezoekers)
+    items: [
+      { naam: 'Eigenaar van een kinderopvang', score: 5, tekst: 'Chris vroeg eerst naar onze ouders en pas daarna naar de website. Dat merk je: de site beantwoordt nu de vragen die we vroeger aan de telefoon kregen.' },
+      { naam: 'Directeur van een adviesbureau', score: 5, tekst: 'We hadden veel te vertellen en wisten niet waar we moesten beginnen. Na twee gesprekken lag er een opbouw waarin ons hele team zich herkende.' },
+      { naam: 'Zelfstandig coach', score: 5, tekst: 'Geen jargon, wel scherpe keuzes. Chris schrapte de helft van mijn teksten en de site werd er sterker van.' },
+      { naam: 'Oprichter van een sportwinkel', score: 4, tekst: 'Hij keek verder dan de mooie pagina: wie komt er binnen en welke stap wil die zetten? Daar is de hele site op gebouwd.' },
+      { naam: 'Ondernemer in de zorg', score: 5, tekst: 'Ik was sceptisch over AI in mijn werk. Chris liet zien waar het helpt en waar niet, zonder het groter te maken dan het is.' },
+      { naam: 'Marketingmanager in het mkb', score: 5, tekst: 'Duidelijke planning, eerlijk over wat wel en niet kon, en de site stond er op de afgesproken dag.' },
+    ],
+  },
+}
+
 export const eigenProduct = {
   kop: 'Eigen product',
   label: 'met Brian en Lars',

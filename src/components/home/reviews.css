@@ -1,0 +1,24 @@
+/* review-wall met voorbeeldreviews, in de tokens van het thema. Elke kaart draagt het label "Voorbeeld". */
+.reviews-wand {
+  --rw-ink: var(--color-tekst);
+  --rw-ink-soft: var(--color-tekst-2);
+  --rw-line: var(--color-lijn);
+  --rw-star: var(--color-hoofd);
+  --rw-bg: var(--color-grond-2);
+}
+.reviews-wand .rw__lijst { gap: clamp(12px, 1.6vw, 20px); }
+@media (min-width: 1024px) { .reviews-wand .rw__lijst { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.reviews-wand .rw__kaart { border-radius: 18px; padding: clamp(20px, 2vw, 28px); gap: 14px; }
+.reviews-wand .rw__kop { justify-content: space-between; gap: 12px; }
+.reviews-wand .rw__kop::after {
+  content: "Voorbeeld"; font: 600 11px/1 var(--font-tekst); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-tekst-2); border: 1px solid var(--color-lijn-sterk); border-radius: 999px; padding: 6px 10px;
+}
+.reviews-wand .rw__tekst { font-size: clamp(16px, 1.15vw, 18px); line-height: 1.55; }
+.reviews-wand .rw__naam { font-family: var(--font-tekst); }
+.reviews-wand .rw__meer { color: var(--color-accent); min-height: 24px; }
+.reviews-label {
+  display: inline-block; margin-right: 6px; padding: 3px 10px; border-radius: 999px; vertical-align: 2px;
+  font: 600 12px/1.4 var(--font-tekst); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-grond); background: var(--color-accent);
+}
