@@ -104,3 +104,18 @@ ontwerpkeuzes voor één klant, geen infrastructuur; ze komen terug zodra een PR
   mislukte verzending wijst naar LinkedIn, zoals het oude formulier). `src/_kwaliteit/basis.js` kreeg
   `zonderUndefined`, letterlijk uit de bibliotheek. Het contactformulier is nu de intake in stappen; hij post naar
   dezelfde `/api/contact` met dezelfde velden (`ContactFormulier.tsx` is daarom weg).
+| `vel-menu/` | `navigation/vel-menu/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `flip-side-menu/` | `navigation/flip-side-menu/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `scroll-richting-nav/` | `navigation/scroll-richting-nav/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `flip-card/` | `cards/flip-card/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `kader-hover/` | `cards/kader-hover/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `lottie-scrub/` | `media/lottie-scrub/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `veeg-rij/` | `cards/veeg-rij/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `pulse-button/` | `buttons/pulse-button/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `floating-contact-card/` | `conversion/floating-contact-card/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+| `logo-kleurwissel/` | `effects/logo-kleurwissel/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
+
+**Afwijking van de bibliotheek (v3 maker C):** `logo-kleurwissel/logo-kleurwissel.js` meet met een band van 1 px op het
+midden van het logo in plaats van de hele logohoogte. Gemeten op /about (390, 28-10): kwam de logowand binnen tussen
+de onderrand en het midden van het logo, dan bleef het merk de verkeerde kleur houden, omdat de observer daarna niets
+meer meldde. Terug te zetten naar de bibliotheek.

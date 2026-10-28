@@ -15,6 +15,8 @@ import { KaartenrijLottie } from '@/features/kaartenrij-lottie/KaartenrijLottie'
 import { ImpactScan, type ImpactScanConfig } from '@/features/impact-scan/ImpactScan'
 import { PasswordReveal } from '@/features/password-reveal/PasswordReveal'
 import scan from '@/content/ai-scan.json'
+import { KaderHover } from '@/features/kader-hover/KaderHover'
+import { SnelContact } from '@/components/v3c/SnelContact'
 import './ai-v2.css'
 
 export const metadata: Metadata = {
@@ -22,6 +24,12 @@ export const metadata: Metadata = {
   description: ai.beschrijving,
   alternates: { canonical: '/ai' },
   openGraph: og(ai.titel, ai.beschrijving, '/ai'),
+}
+
+/** Maandnaam van volgende maand (Nederlandse tijd), zoals op /contact; de badge rekent hem in de browser opnieuw uit. */
+const volgendeMaand = () => {
+  const [j, m] = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Amsterdam', year: 'numeric', month: '2-digit' }).format(new Date()).split('-').map(Number)
+  return new Intl.DateTimeFormat('nl-NL', { month: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(j, m, 1)))
 }
 
 export default function AiPagina() {
@@ -49,19 +57,22 @@ export default function AiPagina() {
             <p className="ai-tweede">{ai.tweede}</p>
           </div>
         </section>
+        <SnelContact maand={volgendeMaand()} />
         <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px">
           <section className="sectie container-site" aria-labelledby="wat-kop">
             <div className="sectie-kop" data-reveal="">
               <p className="nr">01</p>
               <h2 id="wat-kop">{ai.wat.kop}</h2>
             </div>
+            <KaderHover className="ai-kaders">
             <ol className="ai-lijst">
               {ai.wat.items.map((it, i) => (
-                <li key={it.titel} className="ai-item" data-reveal="" data-reveal-delay={String(i * 0.06)}>
+                <li key={it.titel} className="ai-item" data-kader="" data-reveal="" data-reveal-delay={String(i * 0.06)}>
                   <span className="ai-nr" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                   <div>
                     <h3>{it.titel}</h3>
                     <p>{it.tekst}</p>
+                    <div data-kader-knop=""><div>
                     {it.link.href === 'checklist' ? (
                       <ChecklistKnop className="link">{it.link.label}</ChecklistKnop>
                     ) : (
@@ -73,10 +84,12 @@ export default function AiPagina() {
                         {it.link.label}
                       </a>
                     )}
+                    </div></div>
                   </div>
                 </li>
               ))}
             </ol>
+            </KaderHover>
           </section>
           <section className="sectie ai-vnv-sectie" aria-labelledby="vnv-kop">
             <div className="container-site sectie-kop" data-reveal="">
@@ -143,7 +156,7 @@ export default function AiPagina() {
         </RevealOnScroll>
       </main>
       <Voet />
-      <Dock />
+      <Dock verberg=".ai-snel" />
     </>
   )
 }

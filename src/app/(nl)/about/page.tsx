@@ -93,7 +93,7 @@ export default function Over() {
             <StickyTimeline className="reis-lijn" steps={over.reis.stappen.map((s) => ({ title: s.titel, text: s.tekst }))} activationRatio={0.6} />
           </section>
 
-          <section className="logowand" aria-labelledby="websites-kop">
+          <section className="logowand" aria-labelledby="websites-kop" data-logo="licht">
             <div className="container-site">
               <h2 id="websites-kop" className="logowand-kop" data-reveal="">{over.websites.kop}</h2>
               <KrachtveldLogowand

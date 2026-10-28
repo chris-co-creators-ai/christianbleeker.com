@@ -21,6 +21,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // gevendorde, geminificeerde speler van lottie-icon
     "src/features/lottie-icon/vendor/**",
+    "src/features/lottie-scrub/vendor/**",
   ]),
 ]);
 

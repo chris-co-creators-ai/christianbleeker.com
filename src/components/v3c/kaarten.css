@@ -1,0 +1,106 @@
+@import "../../features/veeg-rij/veeg-rij.css";
+/*
+ * v3, maker C: kaarten en knoppen. Tokens uit globals.css; de gevendorde onderdelen krijgen hun kleuren via
+ * hun eigen variabelen (src/features/HERKOMST.md), in beide thema's.
+ */
+
+/* ── /ai: kader-hover op "Wat we met AI doen" (2×2 vanaf 900 px) ─────── */
+.ai-kaders {
+  --kader-accent: var(--color-hoofd);
+  --kader-bg: var(--color-grond-2);
+  --kader-bg-hover: var(--color-grond-3);
+  --kader-radius: 22px;
+}
+.ai-kaders .ai-lijst { gap: 16px; }
+/* Kaarten in een rij even hoog: een open knop laat de rij groeien, niet één kaart. */
+@media (min-width: 900px) { .ai-kaders .ai-lijst { grid-template-columns: 1fr 1fr; gap: 20px; } }
+.ai-kaders .ai-item { border-top: 0; padding: clamp(24px, 2.6vw, 36px); grid-template-columns: clamp(56px, 6vw, 96px) 1fr; }
+.ai-kaders .ai-nr { font-size: clamp(36px, 4vw, 64px); }
+.ai-kaders .ai-item h3 { font-size: clamp(22px, 2vw, 30px); }
+.ai-kaders [data-kader-knop] a { color: var(--color-tekst); font-weight: 600; }
+.ai-kaders [data-kader-knop] a::before { background: var(--color-hoofd); color: var(--color-grond); }
+.ai-kaders [data-kader-knop] a:focus-visible { outline-color: var(--color-accent); }
+
+/* ── /ai: Snel contact (floating-contact-card) met de pulse-button ───── */
+.ai-snel-rij { display: flex; justify-content: flex-end; }
+.fcc.ai-snel {
+  --fcc-accent: var(--color-hoofd);
+  max-width: 26rem;
+  width: 100%;
+  background: var(--color-grond-2);
+  color: var(--color-tekst);
+  border: 1px solid var(--color-lijn);
+  box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.5);
+  border-radius: 22px;
+}
+@media (max-width: 47.9375rem) { .ai-snel-rij { justify-content: stretch; } .fcc.ai-snel { max-width: none; } }
+.ai-snel .ab { justify-self: start; }
+.ai-snel__acties { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.ai-snel .pulse-button {
+  --pulse-bg: var(--color-hoofd);
+  --pulse-fg: var(--color-grond);
+  --pulse-color: 240, 83, 58; /* --color-hoofd donker, als r, g, b */
+  font-family: var(--font-tekst);
+  font-weight: 700;
+  min-height: 44px;
+  text-decoration: none;
+}
+.ai-snel .pulse-button:focus-visible { outline: 3px solid var(--color-accent); }
+.ai-snel__link { color: var(--color-tekst); font-weight: 600; text-decoration: underline; text-underline-offset: 0.2em; padding-block: 10px; }
+
+/* ── Casepagina: de omslag draait om (flip-card) ─────────────────────── */
+.flip-card.case-flip {
+  --fc-radius: 16px;
+  --fc-border: var(--color-lijn);
+  --fc-accent: var(--color-tekst);
+}
+.case-flip .flip-card__inner { height: 100%; }
+.case-flip .flip-card__face--front { padding: 0; border: 0; background: none; }
+.case-flip__beeld { height: 100%; }
+.case-flip__beeld img { width: 100%; height: 100%; object-fit: cover; }
+.case-flip .flip-card__face--back {
+  justify-content: flex-end;
+  gap: 14px;
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--color-grond-2);
+  color: var(--color-tekst);
+  border: 1px solid var(--color-lijn);
+}
+.case-flip .flip-card__face--back p.case-flip__doel { color: var(--color-tekst); font: 500 clamp(18px, 1.5vw, 22px)/1.35 var(--font-kop); letter-spacing: -0.02em; }
+.case-flip .flip-card__face--back .kicker { color: var(--color-accent); }
+.case-flip__site { color: var(--color-tekst-2); display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 8px; }
+.case-flip__site .case-domein { color: var(--color-tekst-2); font-size: 15px; }
+.case-flip .flip-card__toggle {
+  top: 12px; right: 12px; width: 44px; height: 44px;
+  background: rgb(var(--rgb-grond) / 0.72); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-color: var(--color-lijn-sterk); color: var(--color-tekst); font-size: 18px;
+}
+.case-flip .flip-card__toggle:focus-visible { outline: 3px solid var(--color-accent); }
+
+/* ── 404: veeg-rij ───────────────────────────────────────────────────── */
+.verder { width: 100%; max-width: 720px; margin-top: clamp(32px, 5vw, 56px); }
+.verder-kop { font-size: clamp(20px, 1.8vw, 26px); font-weight: 600; margin-bottom: 12px; }
+.verder-lijst { list-style: none; padding: 0; border-top: 1px solid var(--color-lijn); }
+.verder-lijst li { border-bottom: 1px solid var(--color-lijn); }
+.verder-lijst [data-veeg] {
+  --veeg-vlak: var(--color-hoofd);
+  --veeg-tekst: var(--color-tekst);
+  --veeg-tekst-hover: var(--color-grond);
+  padding: 18px 16px;
+  font: 600 clamp(24px, 3vw, 40px)/1.1 var(--font-kop);
+  letter-spacing: -0.03em;
+}
+
+/* ── Voet: de lijn tekent zich (lottie-scrub) en is de scheiding boven de onderste regel ── */
+.voet-lijn { margin-top: clamp(64px, 8vw, 112px); }
+.voet--kort .voet-lijn { margin-top: 0; }
+.voet-lijn + .voet-onder { margin-top: 12px; border-top: 0; }
+.voet-lijn .vl-lijn, .voet-lijn .vl-lijn path { stroke: var(--color-lijn-sterk); }
+.voet-lijn .vl-kruis, .voet-lijn .vl-kruis path { stroke: var(--color-hoofd); }
+[data-thema='licht'] .ai-snel .pulse-button { --pulse-color: 184, 54, 29; /* --color-hoofd licht */ }
+
+/* Minder beweging: niets veert uit, dus de vervolgstap staat gewoon open (geen tekst die pas bij hover verschijnt). */
+@media (prefers-reduced-motion: reduce) {
+  .ai-kaders[data-kader-actief] [data-kader-knop] { grid-template-rows: 1fr; }
+  .ai-kaders[data-kader-actief] [data-kader-knop] > * { opacity: 1; translate: 0 0; }
+}
