@@ -1,5 +1,5 @@
 // Reproductie WebKit-slot op de Home (maker A, 28-10). Draai vanuit wt-a-home of de site-map:
-//   PLAYWRIGHT_BROWSERS_PATH=/Users/sevekecreative/Documents/bouwen-werk/machine/playwright-browsers BROWSER=webkit BASIS_URL=http://localhost:<poort> node qa/v2-a/webkit-slot.mjs
+//   PLAYWRIGHT_BROWSERS_PATH=<pad naar de browsers> BROWSER=webkit BASIS_URL=http://localhost:<poort> node qa/v2-a/webkit-slot.mjs
 import { laadChromium, LAUNCH, BASIS } from '../../scripts/browser.mjs'
 const motor = await laadChromium()
 for (const [w, h] of [[1440, 900], [390, 844]]) {
