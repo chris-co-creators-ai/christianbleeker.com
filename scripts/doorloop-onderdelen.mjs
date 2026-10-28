@@ -123,13 +123,19 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     hp.on('console', (m) => { if (m.type() === 'error') cons.push(m.text()) })
     hp.on('pageerror', (e) => cons.push('pageerror ' + e.message))
     const fout = (wat, info) => fouten.push(`${label} home ${wat}: ${typeof info === 'string' ? info : JSON.stringify(info)}`)
-    // Scrollen als een bezoeker en wachten tot het venster echt stilstaat: html heeft scroll-behavior: smooth,
-    // en WebKit volgt die ook bij behavior 'instant' (vermoedelijk de oorzaak van de rode WebKit-ronde van 28-10).
+    // Scrollen als een bezoeker: eerst wachten tot html/body geen slot meer hebben (de intro houdt html vast),
+    // dan scrollTo; staat het venster dan nog niet op het doel, corrigeren met het muiswiel. In WebKit gaf
+    // scrollTo uit een evaluate scrollY 0, het wiel werkt daar wel (gemeten in WebKit, 28-10).
     const naar = async (y) => {
-      // eerst wachten tot er geen slot meer op html/body staat (de intro houdt html vast tot hij klaar is)
       for (let i = 0; i < 80; i++) { if (await hp.evaluate(() => ![document.documentElement, document.body].some((e) => getComputedStyle(e).overflowY === 'hidden'))) break; await hp.waitForTimeout(50) }
-      const doel = await hp.evaluate((yy) => { window.scrollTo({ top: yy, behavior: 'instant' }); return Math.min(Math.round(yy), document.documentElement.scrollHeight - innerHeight) }, y)
-      for (let i = 0; i < 60; i++) { if (Math.abs((await hp.evaluate(() => scrollY)) - doel) < 2) break; await hp.waitForTimeout(50) }
+      const doel = await hp.evaluate((yy) => { window.scrollTo({ top: yy, behavior: 'instant' }); return Math.max(0, Math.min(Math.round(yy), document.documentElement.scrollHeight - innerHeight)) }, y)
+      await hp.waitForTimeout(100)
+      await hp.mouse.move(Math.round(w / 2), Math.round(h / 2))
+      for (let i = 0; i < 40; i++) {
+        const d = doel - (await hp.evaluate(() => Math.round(scrollY)))
+        if (Math.abs(d) < 3) break
+        await hp.mouse.wheel(0, Math.max(-1200, Math.min(1200, d))); await hp.waitForTimeout(120)
+      }
       return doel
     }
     await hp.goto(BASIS + '/', { waitUntil: 'domcontentloaded' })
@@ -142,11 +148,9 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     if (reduced ? intro0 || intro1 : !intro0 || intro1) fout('punt-zoom-intro', { intro0, intro1 })
     // Na de intro moet de pagina scrollen: geen slot op html of body achtergelaten (WebKit-ronde 28-10).
     for (let i = 0; i < 80; i++) { if (await hp.evaluate(() => getComputedStyle(document.documentElement).overflowY !== 'hidden')) break; await hp.waitForTimeout(50) }
-    const slot = await hp.evaluate(async () => {
-      window.scrollTo({ top: 600, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 900))
-      const uit = { y: Math.round(scrollY), html: getComputedStyle(document.documentElement).overflowY, body: getComputedStyle(document.body).overflowY }
-      window.scrollTo({ top: 0, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 900)); return uit
-    })
+    await naar(600); await hp.waitForTimeout(300)
+    const slot = await hp.evaluate(() => ({ y: Math.round(scrollY), html: getComputedStyle(document.documentElement).overflowY, body: getComputedStyle(document.body).overflowY }))
+    await naar(0); await hp.waitForTimeout(300)
     if (slot.y < 300 || slot.html === 'hidden' || slot.body === 'hidden') fout('punt-zoom-intro slot', slot)
     // tweede bezoek in dezelfde sessie: geen intro
     await hp.reload({ waitUntil: 'domcontentloaded' }); await hp.waitForTimeout(150)
@@ -175,8 +179,11 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     const bxDoel = await naar(bx.top + (bx.hoog - h) * 0.97); await hp.waitForTimeout(700)
     const kaart = await hp.evaluate(() => { const r = document.querySelector('.werk-explosie'); const k = r.querySelector('.bx__kaart').getBoundingClientRect(); return { b: Math.round(k.width), zicht: k.top < innerHeight && k.bottom > 0, aan: r.hasAttribute('data-bx-kaart-aan'), knop: !!r.querySelector('[data-bx-pauze]'), p: r.style.getPropertyValue('--p'), sy: Math.round(scrollY), spoor: Math.round(r.querySelector('[data-bx-spoor]').getBoundingClientRect().height), podium: r.querySelector('[data-bx-podium]').offsetHeight, ih: innerHeight } })
     kaart.doel = bxDoel
+    await hp.waitForTimeout(1500)
+    // nooit een zwart vlak: of de video geeft beeld, of de poster staat zichtbaar onder de (onzichtbare) video
+    kaart.beeld = await hp.evaluate(() => { const k = document.querySelector('.werk-explosie .bx__kaart'); const img = k.querySelector('.werk-explosie__poster img'); const v = k.querySelector('video'); const speelt = k.hasAttribute('data-video-speelt'); return speelt ? (v.videoWidth > 0 ? 'video' : 'video-zonder-beeld') : (img.complete && img.naturalWidth > 0 && getComputedStyle(v).opacity === '0' ? 'poster' : `leeg (img ${img.complete}/${img.naturalWidth}, video-opacity ${getComputedStyle(v).opacity})`) })
     if (!bx.actief || bx.beelden !== 11 || bx.h2 !== 'werk-explosie-kop' || bx.stil !== reduced) fout('beeldexplosie', bx)
-    if (!(kaart.b > w * 0.5) || !kaart.knop || (!reduced && (!kaart.aan || !kaart.zicht))) fout('beeldexplosie kaart', kaart)
+    if (!(kaart.b > w * 0.5) || !kaart.knop || (!reduced && (!kaart.aan || !kaart.zicht)) || !['video', 'poster'].includes(kaart.beeld)) fout('beeldexplosie kaart', kaart)
 
     // kinetic-type: in het midden vetter dan bovenin; bij minder beweging de gewone kop (600, vol).
     const kt = async (frac) => {
@@ -211,7 +218,7 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
 
     const sw = await hp.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth])
     if (sw[0] > sw[1]) fout('breedte', sw)
-    regels.push(`${label} home intro ${+intro0}${+intro1}${+intro2} scroll ${slot.y} · korrel ${g0?.t !== g1?.t ? 'beweegt' : 'stil'} · rol ${lr.letters} · explosie ${bx.beelden} kaart ${kaart.b}px aan ${+kaart.aan} stil ${+bx.stil} · kinetisch ${ktBoven.wght}→${ktMidden.wght} · verhaal ${s0.lit}/${s0.n}→${s1.lit}/${s1.n} · reviews ${rw.n}/${rw.label} · voet ${f0}→${f1}`)
+    regels.push(`${label} home intro ${+intro0}${+intro1}${+intro2} scroll ${slot.y} · korrel ${g0?.t !== g1?.t ? 'beweegt' : 'stil'} · rol ${lr.letters} · explosie ${bx.beelden} kaart ${kaart.b}px aan ${+kaart.aan} beeld ${kaart.beeld} stil ${+bx.stil} · kinetisch ${ktBoven.wght}→${ktMidden.wght} · verhaal ${s0.lit}/${s0.n}→${s1.lit}/${s1.n} · reviews ${rw.n}/${rw.label} · voet ${f0}→${f1}`)
     await b2.close()
   }
   // 6. Over (maker B): sticky-timeline, hotspots, justify-fill, schreef-accent.
