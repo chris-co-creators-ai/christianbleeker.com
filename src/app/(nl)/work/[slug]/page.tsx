@@ -12,6 +12,9 @@ import { site } from '@/content/site'
 import { breadcrumbSchema, caseSchema } from '@/lib/schema'
 import { Reislijn } from '@/features/reislijn/ReislijnLijn'
 import { MarkerHighlight } from '@/features/marker-highlight/MarkerHighlight'
+import { CaseKader } from '@/components/v2c/CaseKader'
+import { VolgendeCases } from '@/components/v2c/VolgendeCases'
+import { inKader } from '@/content/kader'
 
 export const dynamicParams = false
 export function generateStaticParams() {
@@ -35,8 +38,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CasePagina({ params }: { params: Promise<{ slug: string }> }) {
   const c = caseVoor((await params).slug)
   if (!c) notFound()
-  const i = cases.indexOf(c)
-  const volgende = cases[(i + 1) % cases.length]
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseSchema(site, c)) }} />
@@ -71,14 +72,13 @@ export default async function CasePagina({ params }: { params: Promise<{ slug: s
               <p className="case-alinea">{c.ontwerpdoel}</p>
             </section>
             <section data-reislijn-halte="" className="case-halte">
-              {(() => {
-                const scherm = (
-                  <div className="case-scherm beeld">
-                    <Beeld naam={`${c.slug}-scherm`} {...SCHERM} sizes="(min-width: 900px) 60vw, 92vw" alt={casePagina.schermAlt(c.naam)} />
-                  </div>
-                )
-                return c.url ? <ExterneLink c={c} className="case-scherm-link">{scherm}</ExterneLink> : scherm
-              })()}
+              {c.url ? (
+                <CaseKader slug={c.slug} naam={c.naam} url={c.url} live={inKader[c.slug]} />
+              ) : (
+                <div className="case-scherm beeld">
+                  <Beeld naam={`${c.slug}-scherm`} {...SCHERM} sizes="(min-width: 900px) 60vw, 92vw" alt={casePagina.schermAlt(c.naam)} />
+                </div>
+              )}
               {c.url ? (
                 <p className="case-extern">
                   <ExterneLink c={c} className="knop" />
@@ -88,12 +88,7 @@ export default async function CasePagina({ params }: { params: Promise<{ slug: s
             </section>
           </div>
         </Reislijn>
-        <nav className="case-volgende container-site" aria-label={casePagina.volgende}>
-          <a href={`/work/${volgende.slug}`} className="volgende-link">
-            <span className="kicker">{casePagina.volgende}</span>
-            <span className="volgende-naam">{volgende.naam} <span className="x" aria-hidden="true">×</span></span>
-          </a>
-        </nav>
+        <VolgendeCases huidig={c} />
       </main>
       <Voet />
       <Dock />

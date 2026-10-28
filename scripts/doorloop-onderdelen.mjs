@@ -17,6 +17,11 @@
  *     opent binnen het beeld en sluit met Escape;
  *  7. /ai: voor-na-schuif Home→End (stap 3 van 3), kaartenrij (6 kaarten; pin alleen met beweging), "onzichtbaar."
  *     onthuld, AI-scan met 7× Ja geeft "8 van 8" en sluit met Escape.
+ *  8. /work-beeldwand (eindeloos-raster): lus alleen met beweging, 12 cases + 12 demo's, lijst van 33, uitweg zet de focus;
+ *  9. casepagina: kader (live-demo-kader) laadt pas na een klik de echte site (nagebootst), stapel (kaartenstapel-zij)
+ *     pint op 1440 en is een snap-rij op 390 / bij minder beweging; human-margin (laat zich niet inbedden) zonder laadknop;
+ * 10. /contact: badge = volgende maand, ?scan= vult het bericht als platte tekst, ?dienst=&pakket= kiest voor, advies →
+ *     tabblad bij de prijzen, prijs-CTA met parameters, agenda zonder verzoek naar cal.com vóór de klik.
  */
 import { laadChromium, LAUNCH, BASIS } from './browser.mjs'
 const motor = await laadChromium()
@@ -257,6 +262,98 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
   const dicht = await page.evaluate(() => !document.querySelector('dialog.isc')?.open)
   if (!(open && a4.score === '8 van 8' && a4.meter === '8' && dicht)) fouten.push(`${label} impact-scan: open ${open} ${JSON.stringify(a4)} dicht ${dicht}`)
   regels.push(`${label} /ai voor-na ${a0}→${a1.actief} (${a1.nu}%, ${a1.stappen} stappen) · kaartenrij ${a2.kaarten} kaarten, pin ${a2.aan}, lotties ${a2.lotties} · onthulling "${a3.masker}" · scan ${a4.score} "${a4.kop}" dicht ${dicht}`)
+  // 8. /work: de beeldwand (eindeloos-raster) onder de showcase
+  {
+    await page.goto(BASIS + '/work', { waitUntil: 'networkidle' })
+    const w0 = await page.evaluate(() => {
+      const r = document.querySelector('.alles-wand')
+      return { actief: r.hasAttribute('data-er-actief'), kopie: r.querySelectorAll('[data-er-kloon]').length, case: r.querySelectorAll('.er__raster:not([data-er-kloon]) .er__case').length, tegel: r.querySelectorAll('.er__raster:not([data-er-kloon]) .er__tegel').length, lijst: document.querySelectorAll('.alles-lijst .er__lijst a').length }
+    })
+    await page.locator('.alles-wand .er__uitweg').focus()
+    await page.keyboard.press('Enter'); await page.waitForTimeout(reduced ? 300 : 900)
+    const w1 = await page.evaluate(() => ({ focus: document.activeElement?.id, sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }))
+    if (w0.actief === reduced || (reduced && w0.kopie) || w0.case !== 12 || w0.tegel !== 12 || w0.lijst !== 33) fouten.push(`${label} beeldwand: ${JSON.stringify(w0)}`)
+    if (w1.focus !== 'alles-lijst' || w1.sw > w1.cw) fouten.push(`${label} beeldwand uitweg: ${JSON.stringify(w1)}`)
+    regels.push(`${label} beeldwand lus ${w0.actief} (kopieën ${w0.kopie}) · ${w0.case} cases + ${w0.tegel} demo's · lijst ${w0.lijst} · uitweg → #${w1.focus}`)
+  }
+
+  // 9. Casepagina: de echte site in het venster (live-demo-kader) en de volgende cases (kaartenstapel-zij).
+  // De klantsite zelf wordt hier nagebootst (page.route): de toets meet ons kader, niet hun server.
+  {
+    const nep = []
+    await page.route('https://offbeatpeak.com/**', (r) => { nep.push(r.request().url()); r.fulfill({ contentType: 'text/html', body: '<!doctype html><title>nep</title><h1>Offbeat Peak</h1>' }) })
+    await page.goto(BASIS + '/work/offbeat-peak', { waitUntil: 'networkidle' })
+    const k0 = await page.evaluate(() => { const k = document.querySelector('.case-kader'); return { modus: k.dataset.ldkModus, w: Math.round(k.getBoundingClientRect().width), adres: k.querySelector('[data-demo-adres]').textContent, laad: !!k.querySelector('.case-kader__laad'), iframe: !!k.querySelector('iframe') } })
+    const vooraf = nep.length
+    if (mobiel) {
+      await page.locator('.case-kader .ldk-teaser .ldk-knop').click(); await page.waitForTimeout(800)
+    } else {
+      await page.locator('.case-kader__laad').click(); await page.waitForTimeout(800)
+    }
+    const k1 = await page.evaluate(() => { const k = document.querySelector('.case-kader'); const f = document.querySelector('.case-kader iframe'); return { src: f?.getAttribute('src'), titel: f?.title, markering: k.querySelector('[data-demo-markering]').textContent, dialoog: !!document.querySelector('.ldk-dialoog[open]') } })
+    if (mobiel) { await page.keyboard.press('Escape'); await page.waitForTimeout(300) }
+    const wantModus = mobiel ? 'teaser' : 'kader'
+    if (k0.modus !== wantModus || !k0.w || k0.adres !== 'offbeatpeak.com/' || k0.iframe || vooraf) fouten.push(`${label} kader vooraf: ${JSON.stringify(k0)} verzoeken ${vooraf}`)
+    if (k1.src !== 'https://offbeatpeak.com' || !/live/.test(k1.markering) || (mobiel && !k1.dialoog)) fouten.push(`${label} kader na klik: ${JSON.stringify(k1)}`)
+    regels.push(`${label} kader ${k0.modus} ${k0.w}px "${k0.adres}" · 0 verzoeken vooraf (${vooraf}) · na klik iframe ${k1.src}${mobiel ? ' in dialoog ' + k1.dialoog : ''}`)
+    const st = await page.evaluate(() => { const s = document.querySelector('.volgende-stapel'); return { modus: s.dataset.kzModus, n: s.querySelectorAll('[data-kz-kaart]').length, links: [...s.querySelectorAll('a[data-kz-knop]')].map((a) => a.getAttribute('href')) } })
+    const wantStapel = !mobiel && !reduced ? 'pin' : 'snap'
+    if (st.modus !== wantStapel || st.n !== 5 || st.links.length !== 5 || st.links[0] !== '/work/digital-waves' || st.links[4] !== '/work') fouten.push(`${label} stapel: ${JSON.stringify(st)}`)
+    regels.push(`${label} stapel ${st.modus} · ${st.n} kaarten · ${st.links.join(' ')}`)
+    // Een site die zich niet laat inbedden: alleen het schermbeeld, geen laadknop.
+    await page.goto(BASIS + '/work/human-margin', { waitUntil: 'networkidle' })
+    const hm = await page.evaluate(() => ({ laad: !!document.querySelector('.case-kader__laad'), knop: (() => { const b = document.querySelector('.case-kader .ldk-teaser .ldk-knop'); return b ? getComputedStyle(b).display : 'geen' })() }))
+    if (hm.laad || (mobiel && hm.knop !== 'none')) fouten.push(`${label} kader human-margin: ${JSON.stringify(hm)}`)
+    await page.unroute('https://offbeatpeak.com/**')
+  }
+
+  // 10. Contact: badge, intake (ook ?dienst/&pakket en ?scan van de AI-scan), advies, prijzen en agenda.
+  {
+    const cal = []
+    page.on('request', (r) => { if (/cal\.com/.test(r.url())) cal.push(r.url()) })
+    await page.route('https://cal.com/**', (r) => r.fulfill({ contentType: 'text/html', body: '<!doctype html><title>agenda</title>' }))
+    await page.goto(BASIS + '/contact?scan=' + encodeURIComponent('test <b>vet</b>'), { waitUntil: 'networkidle' })
+    const c0 = await page.evaluate(() => ({
+      maand: document.querySelector('.contact-badge [data-ab-maand]').textContent,
+      scan: document.querySelector('#veld-bericht').value,
+      html: !!document.querySelector('#intake-formulier b'),
+      doel: document.querySelector('#intake-formulier input[name="doel"]:checked')?.value,
+      stappen: document.querySelectorAll('#intake-formulier [data-sp-stap]:not([hidden])').length,
+    }))
+    const volgende = new Intl.DateTimeFormat('nl-NL', { month: 'long' }).format(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)) // badge = volgende maand
+    if (c0.maand !== volgende || c0.scan !== 'test <b>vet</b>' || c0.html || c0.doel !== 'ai' || c0.stappen !== 1) fouten.push(`${label} contact ?scan: ${JSON.stringify(c0)} (badge verwacht ${volgende})`)
+    await page.goto(BASIS + '/contact?dienst=marketing&pakket=plan#intake', { waitUntil: 'networkidle' })
+    const c1 = await page.evaluate(() => ({ doel: document.querySelector('#intake-formulier input[name="doel"]:checked')?.value, pakket: document.querySelector('#intake-formulier input[name="pakket"]').value }))
+    if (c1.doel !== 'marketing' || c1.pakket !== 'plan') fouten.push(`${label} contact ?dienst: ${JSON.stringify(c1)}`)
+    // advies: website → klein geeft Start, en de knop opent het tabblad Websites bij de prijzen
+    await page.evaluate(() => sessionStorage.clear()); await page.reload({ waitUntil: 'networkidle' })
+    const af = page.locator('.pakket-advies')
+    await af.scrollIntoViewIfNeeded()
+    await af.locator('.af-keuze', { hasText: 'Een website' }).click(); await af.locator('.af-next').click()
+    await af.locator('.af-keuze', { hasText: 'Eén verhaal' }).click(); await af.locator('.af-next').click()
+    await page.waitForSelector('.pakket-advies .af-advies-heading', { timeout: 3000 }).catch(() => {})
+    const a0 = await page.evaluate(() => ({ kop: document.querySelector('.af-advies-heading')?.textContent, prijs: document.querySelector('.af-advies-prijs')?.textContent }))
+    await af.locator('.af-cta-link').click(); await page.waitForTimeout(500)
+    const a1 = await page.evaluate(() => ({ hash: location.hash, tab: document.querySelector('.prijzen [role="tab"][aria-selected="true"]')?.textContent }))
+    if (a0.kop !== 'Websites: Start' || !/€ 2\.450/.test(a0.prijs || '') || a1.hash !== '#dienst-website' || a1.tab !== 'Websites') fouten.push(`${label} advies: ${JSON.stringify({ ...a0, ...a1 })}`)
+    // prijzen: tab Marketing, CTA met dienst en pakket
+    await page.locator('.prijzen [role="tab"]', { hasText: 'Marketing' }).click(); await page.waitForTimeout(300)
+    const p0 = await page.evaluate(() => { const pan = document.querySelector('.prijzen [data-dienst="marketing"]'); return { zicht: !pan.hidden, cta: pan.querySelector('[data-ppd-cta]').getAttribute('href'), bedrag: pan.querySelector('.ppd__bedrag').textContent.replace(/\s/g, ' ') } })
+    if (!p0.zicht || !/dienst=marketing&pakket=klankbord/.test(p0.cta) || p0.bedrag !== '€ 750') fouten.push(`${label} prijzen: ${JSON.stringify(p0)}`)
+    // agenda: niets naar cal.com vóór de klik
+    const agendaKnop = page.locator('.kennismaken .af__knop')
+    await agendaKnop.scrollIntoViewIfNeeded(); await page.waitForTimeout(300)
+    const g0 = { verzoeken: cal.length, label: await agendaKnop.getAttribute('aria-label') }
+    let g1 = {}
+    if (!mobiel) {
+      await agendaKnop.click(); await page.waitForTimeout(800)
+      g1 = await page.evaluate(() => ({ src: document.querySelector('.kennismaken iframe')?.getAttribute('src') }))
+      if (!/^https:\/\/cal\.com\/christianbleeker\/kennismaking\?embed=true/.test(g1.src || '')) fouten.push(`${label} agenda na klik: ${JSON.stringify(g1)}`)
+    } else if (!/nieuw tabblad/.test(g0.label || '')) fouten.push(`${label} agenda mobiel: ${JSON.stringify(g0)}`)
+    if (g0.verzoeken) fouten.push(`${label} agenda: ${g0.verzoeken} verzoeken naar cal.com vóór de klik`)
+    regels.push(`${label} contact badge "${c0.maand}" · ?scan → "${c0.scan}" (doel ${c0.doel}) · ?dienst → ${c1.doel}/${c1.pakket} · advies "${a0.kop}" ${a0.prijs} → ${a1.hash} · prijzen ${p0.bedrag} ${p0.cta} · agenda vooraf ${g0.verzoeken} verzoeken${g1.src ? ' → ' + g1.src.slice(0, 48) : ' (mobiel: ' + g0.label + ')'}`)
+    await page.unroute('https://cal.com/**')
+  }
 
   if (cons.length) fouten.push(`${label}: ${cons.length} consolefout(en): ${cons.slice(0, 3).join(' | ')}`)
   regels.push(`${label} console ${cons.length}`)
@@ -264,4 +361,4 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
 }
 console.log(regels.join('\n'))
 if (fouten.length) { console.error(`\nONDERDELEN ROOD (${fouten.length}):\n- ${fouten.join('\n- ')}`); process.exit(1) }
-console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan`)
+console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact`)

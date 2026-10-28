@@ -4,11 +4,16 @@ import { dirname } from "node:path";
 import { redirects as oudeSiteRedirects } from "./src/content/redirects";
 import { site } from "./src/content/site";
 import { bouwCsp, type CspBronnen } from "./src/lib/csp";
+import { inKader } from "./src/content/kader";
 
 // Externe domeinen die een gekozen onderdeel nodig heeft, bv. video-facade:
 // { "frame-src": ["https://www.youtube-nocookie.com"], "img-src": ["https://i.ytimg.com"] }.
 // Standaard leeg: de kale basis laadt niets van buiten.
-const cspExtra: CspBronnen = { "frame-src": ["https://www.youtube-nocookie.com"] };
+// v2: de echte klantsite in het kader op /work/<slug> (pas na een klik) en de kennismakingsagenda op /contact
+// (agenda-facade, pas na een klik).
+const cspExtra: CspBronnen = {
+  "frame-src": ["https://www.youtube-nocookie.com", ...Object.values(inKader), "https://cal.com", "https://app.cal.com"],
+};
 
 // Pin the workspace root to this project so a stray package-lock.json in a
 // parent directory can't hijack Turbopack's root inference.

@@ -204,6 +204,18 @@ export const werk = {
     bekijkAlt: (naam: string) => `Bekijk de ontwerp-demo ${naam} (opent in een nieuw tabblad)`,
     schermAlt: (naam: string) => `De homepage van de ontwerp-demo ${naam} op een laptop`,
   },
+  // v2 fase 2 (maker C): beeldwand onder de showcase (eindeloos-raster). Voorstel, zie docs/copy-nieuw.md.
+  alles: {
+    kicker: 'Alles door elkaar',
+    kop: 'Blader door alles wat we maakten',
+    tekst: 'Klanten en ontwerp-demo’s in één beeldwand. Blijf scrollen en hij komt terug; onderaan staat alles op een rij.',
+    uitweg: 'Alles als lijst',
+    lijstKop: 'Alles op een rij',
+    klant: 'Klant',
+    demo: 'Ontwerp-demo',
+    eigen: 'Eigen product',
+    caseAlt: (naam: string) => `Bekijk de case ${naam}`,
+  },
 }
 
 export const casePagina = {
@@ -217,6 +229,24 @@ export const casePagina = {
   omslagAlt: (naam: string) => `De website van ${naam} op een scherm`, // voorstel (alt)
   titel: (naam: string) => `${naam} — werk van Chris Bleeker`, // voorstel (meta)
   beschrijving: (naam: string, kort: string) => `${naam}: ${kort} Een website van Chris Bleeker.`, // voorstel (meta)
+  // v2 fase 2 (maker C): de echte site in een kader (live-demo-kader) en de volgende cases (kaartenstapel-zij).
+  kader: {
+    label: (naam: string) => `De website van ${naam} in een browservenster`, // voorstel
+    beeld: 'Schermbeeld van de echte site', // voorstel
+    live: 'De echte site, live in dit venster', // voorstel
+    laad: 'Laad de echte site hier', // voorstel
+    open: 'Bekijk de site in dit venster', // voorstel
+    sluit: 'Sluit het venster', // voorstel
+    skip: 'Sla het venster over', // voorstel
+    titel: (naam: string) => `De live website van ${naam}`, // voorstel (iframe-titel)
+    melding: 'Dit is een schermbeeld. De echte site opent via de knop eronder.', // voorstel
+  },
+  stapel: {
+    kop: 'Verder kijken', // voorstel
+    bekijk: 'Bekijk de case',
+    alle: 'Alle projecten',
+    alleTekst: 'Dertien websites en twintig ontwerp-demo’s op één pagina.', // voorstel
+  },
 }
 
 export const ai = {
@@ -314,6 +344,51 @@ export const contact = {
   checklist: {
     kop: 'Liever eerst alles op een rij?', // voorstel
     tekst: 'De website-checklist prompt opent een intake-assistent in ChatGPT. In 20 tot 30 minuten zet je je bedrijf, je wensen en je materiaal op een rij.', // voorstel (uit de prompt zelf)
+  },
+  // v2 fase 2 (maker C). Alles hieronder is een voorstel (docs/copy-nieuw.md); prijzen in src/content/prijzen.ts.
+  badge: 'Ruimte voor nieuwe projecten in',
+  intake: {
+    stap1: 'Eerst even kennismaken',
+    bedrijf: 'Je bedrijf of project (mag leeg blijven)',
+    stap2: 'Waar wil {bedrijf} naartoe?',
+    stap2Terugval: 'Waar wil je bedrijf naartoe?',
+    doelen: [
+      { waarde: 'website', titel: 'Een nieuwe website', tekst: 'Je huidige site past niet meer bij wie je nu bent.' },
+      { waarde: 'marketing', titel: 'Meer uit je site halen', tekst: 'De site staat, maar er komen te weinig goede gesprekken uit.' },
+      { waarde: 'ai', titel: 'Aan de slag met AI', tekst: 'Je wilt weten wat AI voor jouw werk kan doen, zonder je eigen stem te verliezen.' },
+      { waarde: 'anders', titel: 'Iets anders', tekst: 'Vertel het in de volgende stap.' },
+    ],
+    stap3: '{voornaam}, wat heb je voor ogen?',
+    stap3Terugval: 'Wat heb je voor ogen?',
+    bedankt: 'Dank je, {voornaam}.',
+    bedanktTerugval: 'Dank je.',
+    bedanktTekst: 'Je bericht is verstuurd. Alvast iets doen terwijl je wacht?',
+    tips: [
+      'Zet met de website-checklist prompt je bedrijf, je wensen en je materiaal op een rij.',
+      'Kijk rond bij het werk en noteer welke sites je aanspreken, en waarom.',
+    ],
+    vooraf: { doel: 'Waar het om gaat', bedrijf: 'Bedrijf of project', pakket: 'Gekozen pakket' },
+  },
+  advies: {
+    kicker: 'Welk pakket past bij jou?',
+    kop: 'Twee vragen, één advies',
+    tekst: 'Twijfel je wat je nodig hebt? Beantwoord twee korte vragen en je ziet welk pakket past, met een richtprijs.',
+  },
+  prijzen: {
+    kicker: 'Open prijzen',
+    kop: 'Wat kost het?',
+    tekst: 'Richtprijzen, exclusief btw. Na een kennismaking krijg je een offerte die past bij wat je echt nodig hebt.',
+  },
+  agenda: {
+    kop: 'Liever eerst even praten?',
+    titel: 'Kennismaking met Chris',
+    rol: 'Websites, marketing en AI',
+    duur: '30 minuten',
+    waar: 'Online',
+    tekst: 'Een vrijblijvend gesprek: je vertelt waar je staat, we denken mee over de volgende stap.',
+    link: 'Open de agenda in een nieuw tabblad',
+    // VOORSTEL: het echte agenda-adres volgt van Chris (cal.com is een aanname).
+    url: 'https://cal.com/christianbleeker/kennismaking',
   },
 }
 

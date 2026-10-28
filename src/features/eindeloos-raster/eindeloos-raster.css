@@ -1,0 +1,149 @@
+/* eindeloos-raster — alles onder .er; kleur en maat via CSS-variabelen.
+ * Basis (zonder JS en bij minder beweging): één gewoon, eindig raster.
+ * Met JS ([data-er-actief]): het raster ligt in een lus en komt steeds terug. */
+.er {
+  --er-papier: #f3eee4;
+  --er-inkt: #14163f;
+  --er-accent: #2430c4;
+  --er-voet: #fbf8f2;              /* kleur van de schuine voet op een casekaart */
+  --er-label: #14163f;             /* label-pil */
+  --er-label-tekst: #f3eee4;
+  --er-kolommen: 4;
+  --er-gap: clamp(0.75rem, 1.6vw, 1.75rem);
+  --er-rand: clamp(1rem, 3.5vw, 3.25rem);
+  --er-radius: clamp(14px, 1.6vw, 24px);
+  --er-lade: 2.75rem;              /* hoogte van de lade met disciplines */
+  --er-veer: cubic-bezier(.34, 1.56, .64, 1); /* outBack: lade veert iets door */
+  position: relative;
+  background: var(--er-papier);
+  color: var(--er-inkt);
+}
+.er *, .er *::before, .er *::after { box-sizing: border-box; }
+
+/* ---- balk met de uitweg (plakt onderin zolang de sectie in beeld is) ---- */
+.er__balk {
+  position: sticky; top: calc(100svh - 4.6rem); z-index: 5; height: 0;
+  display: flex; justify-content: flex-start; align-items: flex-start; gap: 0.5rem; pointer-events: none;
+  padding-inline: clamp(0.75rem, 2vw, 1.5rem);
+}
+.er__uitweg, .er__knop {
+  pointer-events: auto; display: inline-flex; align-items: center; gap: 0.55rem; height: 3rem; padding: 0 1.25rem;
+  border: 0; border-radius: 999px; font: inherit; font-size: 0.95rem; font-weight: 600; line-height: 1; cursor: pointer;
+  text-decoration: none; white-space: nowrap;
+  transition: transform 0.2s cubic-bezier(.215,.61,.355,1), background-color 0.2s;
+}
+.er__uitweg { background: var(--er-inkt); color: var(--er-papier); box-shadow: 0 10px 30px -12px rgb(20 22 63 / 0.55); }
+.er__uitweg svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2; }
+.er__knop { padding: 0; width: 3rem; justify-content: center; background: color-mix(in srgb, var(--er-papier) 90%, transparent); color: var(--er-inkt); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1.5px var(--er-inkt); }
+.er__uitweg:active, .er__knop:active { transform: scale(0.97); }
+.er__uitweg:focus-visible, .er__knop:focus-visible { outline: 3px solid var(--er-accent); outline-offset: 3px; }
+
+/* ---- het raster: kolommen met groot staand en klein vierkant ------------ */
+.er__loop { position: relative; container-type: inline-size; overflow-anchor: none; }
+.er__raster {
+  margin: 0; padding: 0 var(--er-rand); list-style: none;
+  columns: var(--er-kolommen); column-gap: var(--er-gap);
+}
+.er__item { break-inside: avoid; padding-bottom: var(--er-gap); }
+
+.er__case, .er__tegel {
+  position: relative; margin: 0; overflow: hidden; border-radius: var(--er-radius);
+  background: color-mix(in srgb, var(--er-inkt) 10%, var(--er-papier)); isolation: isolate;
+}
+.er__case { aspect-ratio: 2 / 3; }
+.er__tegel { aspect-ratio: 1 / 1; }
+.er__beeld, .er__case img, .er__tegel img, .er__tegel video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.er__beeld { transition: transform 0.7s cubic-bezier(.22, 1, .36, 1); }
+
+.er__label {
+  position: absolute; top: clamp(0.75rem, 1.4vw, 1.25rem); left: clamp(0.75rem, 1.4vw, 1.25rem); z-index: 2;
+  display: inline-block; padding: 0.42rem 0.8rem; border-radius: 999px;
+  background: var(--er-label); color: var(--er-label-tekst); font-size: 0.85rem; font-weight: 600; line-height: 1.1;
+}
+
+/* casekaart: schuine voet onderin, met de lade erin */
+.er__voet {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: clamp(2.6rem, 4vw, 3.6rem) clamp(1rem, 2vw, 1.75rem) clamp(1rem, 2vw, 1.6rem);
+}
+.er__voet::before {             /* de schuine witte voet zelf; schuift omhoog als de lade opent */
+  content: ""; position: absolute; inset: 0 0 calc(-1 * var(--er-lade)) 0; z-index: -1;
+  background: var(--er-voet);
+  clip-path: polygon(0 1.4rem, 64% 0, 100% 2.1rem, 100% 100%, 0 100%);
+  transform: translateY(var(--er-lade));
+  transition: transform 0.5s var(--er-veer);
+}
+.er__voet .er__label { position: static; margin-bottom: 0.8rem; }
+.er__kopgroep { transform: translateY(var(--er-lade)); transition: transform 0.5s var(--er-veer); }
+.er__titel { margin: 0; font-size: clamp(1.15rem, 1.8vw, 1.65rem); line-height: 1.08; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+.er__titel a { color: inherit; text-decoration: none; }
+.er__titel a::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: var(--er-radius); } /* hele kaart klikbaar */
+.er__titel a:focus-visible { outline: none; }
+.er__titel a:focus-visible::after { outline: 3px solid var(--er-accent); outline-offset: -3px; }
+.er__lade {
+  display: flex; gap: 0.4rem; height: var(--er-lade); align-items: center; overflow: hidden;
+  margin: 0; padding: 0; list-style: none;
+  opacity: 0; transform: translateY(0.75rem);
+  transition: opacity 0.15s linear, transform 0.5s var(--er-veer);
+}
+.er__lade li {
+  padding: 0.38rem 0.75rem; border-radius: 999px; white-space: nowrap;
+  background: color-mix(in srgb, var(--er-inkt) 7%, var(--er-voet)); font-size: 0.82rem; font-weight: 600;
+}
+.er__meer { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; font-weight: 600; font-size: 0.95rem; }
+.er__meer::before {
+  content: "→"; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  background: var(--er-accent); color: #fff; font-size: 0.9rem; line-height: 1;
+}
+
+/* lade open: hover (muis), toetsenbordfocus, en altijd op touch (R3) */
+.er__case:hover .er__voet::before, .er__case:focus-within .er__voet::before { transform: none; }
+.er__case:hover .er__kopgroep, .er__case:focus-within .er__kopgroep { transform: none; }
+.er__case:hover .er__lade, .er__case:focus-within .er__lade { opacity: 1; transform: none; transition-delay: 0.05s, 0s; }
+.er__case:hover .er__beeld, .er__case:focus-within .er__beeld { transform: scale(1.08); }
+@media (hover: none) {
+  .er__voet::before, .er__kopgroep { transform: none; }
+  .er__lade { opacity: 1; transform: none; }
+}
+
+/* ---- einde: lijst met alle cases ----------------------------------------- */
+.er__einde { padding: clamp(3rem, 7vw, 6rem) var(--er-rand) clamp(4rem, 8vw, 7rem); }
+.er__einde:focus { outline: none; }
+.er__einde:focus-visible { outline: 3px solid var(--er-accent); outline-offset: -3px; }
+.er__einde h2 { margin: 0 0 1.5rem; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.03em; line-height: 1; }
+.er__lijst { margin: 0; padding: 0; list-style: none; border-top: 1.5px solid var(--er-inkt); }
+.er__lijst li { border-bottom: 1px solid color-mix(in srgb, var(--er-inkt) 22%, transparent); }
+.er__lijst a {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: baseline;
+  padding: 1rem 0; color: inherit; text-decoration: none; font-size: clamp(1.05rem, 1.8vw, 1.35rem); font-weight: 600;
+}
+.er__lijst a span { font-size: 0.9rem; font-weight: 500; color: color-mix(in srgb, var(--er-inkt) 70%, var(--er-papier)); }
+.er__lijst a:hover { color: var(--er-accent); }
+.er__lijst a:focus-visible { outline: 3px solid var(--er-accent); outline-offset: 2px; }
+
+/* ---- actief: de lus --------------------------------------------------------- */
+.er[data-er-actief] .er__raster { position: absolute; top: 0; left: 0; right: 0; will-change: transform; }
+
+@media (max-width: 720px) {
+  .er { --er-kolommen: 2; --er-lade: 2.4rem; }
+  .er__label { font-size: 0.75rem; padding: 0.35rem 0.65rem; }
+  .er__voet { padding: 2rem 0.8rem 0.85rem; }
+  .er__voet .er__label { margin-bottom: 0.5rem; }
+  .er__titel { font-size: 1.02rem; }
+  .er__meer { font-size: 0.85rem; }
+  .er__meer::before { width: 1.35rem; height: 1.35rem; }
+  .er__lade li { font-size: 0.72rem; padding: 0.3rem 0.55rem; }
+  /* smalle kaart: alleen de eerste discipline in beeld; de rest blijft voor schermlezers */
+  .er__lade li:nth-child(n + 2) { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .er__uitweg, .er__knop { height: 2.5rem; padding: 0 0.85rem; font-size: 0.82rem; }
+  .er__knop { width: 2.5rem; padding: 0; }
+}
+
+/* Heel smal scherm: de uitweg wordt een rond pijltje (de tekst blijft voor schermlezers in de DOM, font-size 0).
+   Zo past de balk in één kolom en kan hij de kaarttekst ontwijken. */
+@media (max-width: 360px) {
+  .er__uitweg { font-size: 0; gap: 0; width: 2.5rem; padding: 0; justify-content: center; }
+  .er__uitweg svg { width: 1.1rem; height: 1.1rem; }
+}

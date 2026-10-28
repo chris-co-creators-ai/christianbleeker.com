@@ -1,0 +1,35 @@
+/* live-demo-kader op /work/<slug>: kleuren uit de site-tokens, dus goed in wit én donker. */
+.case-kader {
+  --ldk-focus: var(--color-accent);
+  --ldk-rand: var(--color-lijn-sterk);
+  --ldk-balk-bg: var(--color-grond-3);
+  --ldk-balk-ink: var(--color-tekst-2);
+  --ldk-venster-bg: var(--color-grond-2);
+  --ldk-nav-bg: var(--color-grond-2);
+  --ldk-knop-bg: var(--color-hoofd);
+  --ldk-knop-ink: var(--color-grond);
+  max-width: none;
+  width: 100%; /* container-type in een grid-cel: zonder breedte wordt hij 0 */
+}
+.case-kader .ldk-body { grid-template-columns: minmax(0, 1fr); }
+.case-kader .ldk-adres { background: var(--color-grond); color: var(--color-tekst); box-shadow: inset 0 0 0 1px var(--color-lijn); }
+.case-kader .ldk-stip { background: var(--color-lijn-sterk); }
+.case-kader .ldk-vak { box-shadow: var(--schaduw); }
+.case-kader .ldk-kop { margin-bottom: 14px; }
+.case-kader .ldk-markering {
+  background: var(--color-grond-2); color: var(--color-tekst); font: 600 14px/1.25 var(--font-tekst);
+  box-shadow: inset 0 0 0 1px var(--color-lijn-sterk);
+}
+.case-kader .ldk-markering::before { background: var(--color-tekst-2); }
+.case-kader[data-live] .ldk-markering::before { background: var(--color-accent); }
+.case-kader__laad { min-height: 44px; border: 0; cursor: pointer; font-size: 15px; }
+.case-kader__scherm { height: 100%; }
+.case-kader__scherm img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.case-kader iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+.case-kader .ldk-teaser__beeld { background: var(--color-grond-2); border-color: var(--color-lijn); }
+.case-kader .ldk-knop { justify-self: start; min-height: 48px; border-radius: 999px; padding-inline: 1.4em; font: 600 16px/1 var(--font-tekst); }
+.case-kader .ldk-knop--stil { background: transparent; color: var(--color-tekst); box-shadow: inset 0 0 0 1.5px var(--color-lijn-sterk); }
+.case-kader .ldk-melding { background: var(--color-tekst); color: var(--color-grond); }
+.case-kader .ldk-skip { background: var(--color-tekst); color: var(--color-grond); }
+.case-kader .ldk-dialoog { background: var(--color-grond); color: var(--color-tekst); }
+.case-kader .ldk-dialoog .case-kader__scherm { height: 100%; }

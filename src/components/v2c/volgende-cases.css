@@ -1,0 +1,19 @@
+/* kaartenstapel-zij onder een case. Kaarten op grond-2, schaduw uit de grondkleur: klopt in wit én donker. */
+.volgende-stapel {
+  --kz-kaart: clamp(16rem, 24vw, 21rem);
+  --kz-rand: var(--marge);
+  --kz-schaduw-kleur: var(--color-grond);
+  padding-top: clamp(80px, 10vw, 140px);
+}
+.volgende-stapel__kop { margin-bottom: clamp(24px, 3vw, 40px); }
+.volgende-stapel__kop h2 { margin-top: 12px; font-size: clamp(34px, 4.6vw, 72px); font-weight: 600; }
+.volgende-stapel [data-kz-rij] { padding-inline: max(var(--marge), calc((100% - 1320px) / 2 + var(--marge))); }
+.volgende-kaart { background: var(--color-grond-2); border: 1px solid var(--color-lijn); }
+.volgende-kaart__binnen { display: flex; flex-direction: column; gap: 12px; height: 100%; padding: 14px 14px 18px; }
+.volgende-kaart__beeld { aspect-ratio: 4 / 3; border-radius: 12px; }
+.volgende-kaart__naam { font: 600 clamp(20px, 1.8vw, 26px)/1.1 var(--font-kop); letter-spacing: -0.03em; padding-inline: 4px; }
+.volgende-kaart__kort { color: var(--color-tekst-2); font-size: 15px; line-height: 1.5; padding-inline: 4px; }
+.volgende-kaart__knop { margin-top: auto; min-height: 48px; padding-inline: 4px; }
+.volgende-kaart__binnen--alle { justify-content: flex-start; padding: 24px 18px 18px; }
+.volgende-kaart__x { font-size: clamp(64px, 8vw, 120px); line-height: 0.8; margin-bottom: 8px; }
+.volgende-stapel[data-kz-modus='pin'] .volgende-kaart { box-shadow: -18px 0 36px -24px rgb(0 0 0 / 0.5); }

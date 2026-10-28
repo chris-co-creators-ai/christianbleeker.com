@@ -1,0 +1,121 @@
+/* prijzen-per-dienst — alle selectors onder .ppd; kleur/maat via variabelen. */
+.ppd {
+  --ppd-ink: #18181b;
+  --ppd-zacht: #5f5e57;
+  --ppd-lijn: #e3ded0;
+  --ppd-vlak: #fffdf8;
+  --ppd-accent: #1f5e4b;
+  --ppd-accent-tekst: #ffffff;
+  --ppd-donker: #18181b;
+  --ppd-straal: 1.25rem;
+  --ppd-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  color: var(--ppd-ink);
+  font-family: inherit;
+  max-width: 76rem;
+  margin: 0 auto;
+}
+.ppd *, .ppd *::before, .ppd *::after { box-sizing: border-box; }
+
+/* Zonder JS: alle diensten onder elkaar, elk met kop. */
+.ppd__paneel { padding-block: 1.5rem 3rem; }
+.ppd__paneelkop { margin: 0 0 1.25rem; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 650; letter-spacing: -0.02em; }
+.ppd__intro { margin: 0 0 1.75rem; max-width: 40rem; color: var(--ppd-zacht); line-height: 1.55; }
+[data-ppd-actief] .ppd__paneelkop { display: none; }
+[data-ppd-actief] .ppd__paneel { padding-block: 2rem 1rem; }
+
+/* Tabs */
+.ppd__tabs {
+  display: flex; gap: 0.25rem; padding: 0.3rem; width: max-content; max-width: 100%;
+  margin: 0 auto; background: #efeadd; border-radius: 999px;
+  overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity;
+}
+.ppd__tabs::-webkit-scrollbar { display: none; }
+.ppd__tab {
+  flex: none; scroll-snap-align: center; min-height: 2.75rem; padding: 0 1.4rem;
+  border: 0; border-radius: 999px; background: transparent; color: var(--ppd-zacht);
+  font: inherit; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: background-color 180ms var(--ppd-ease), color 180ms var(--ppd-ease), transform 120ms var(--ppd-ease);
+}
+.ppd__tab:hover { color: var(--ppd-ink); }
+.ppd__tab:active { transform: scale(0.97); }
+.ppd__tab[aria-selected="true"] { background: var(--ppd-donker); color: #fff; }
+.ppd__tab:focus-visible, .ppd__cta:focus-visible, .ppd__faq summary:focus-visible, .ppd__maat a:focus-visible {
+  outline: 2px solid var(--ppd-accent); outline-offset: 3px;
+}
+
+/* Kaarten */
+.ppd__kaarten {
+  display: grid; gap: 1.25rem; align-items: stretch;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+.ppd__kaart {
+  position: relative; display: flex; flex-direction: column; padding: 1.75rem;
+  background: var(--ppd-vlak); border: 1px solid var(--ppd-lijn); border-radius: var(--ppd-straal);
+  box-shadow: 0 1px 0 rgba(24, 24, 27, 0.04), 0 12px 32px -18px rgba(24, 24, 27, 0.18);
+  transform-origin: 50% 60%;
+}
+.ppd__kaart[data-ppd-kantel] { transition: transform 90ms linear; will-change: transform; }
+.ppd__kaart:not([data-ppd-kantel]) { transition: transform 400ms var(--ppd-ease); }
+.ppd__kaart[data-populair] { background: var(--ppd-donker); color: #f6f4ee; border-color: var(--ppd-donker); --ppd-zacht: #b9b7ac; --ppd-lijn: #38383d; }
+.ppd__badge {
+  align-self: flex-start; margin: 0 0 1rem; padding: 0.25rem 0.7rem; border-radius: 999px;
+  background: #e7f0eb; color: var(--ppd-accent); font-size: 0.8125rem; font-weight: 650;
+}
+.ppd__kaart[data-populair] .ppd__badge { background: #d8efe4; color: #123d30; }
+.ppd__naam { margin: 0; font-size: 1.25rem; font-weight: 650; letter-spacing: -0.01em; }
+.ppd__prijs { margin: 1rem 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.5rem; }
+.ppd__vanaf { color: var(--ppd-zacht); font-size: 0.9375rem; }
+.ppd__bedrag { font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.ppd__eenheid { flex-basis: 100%; color: var(--ppd-zacht); font-size: 0.875rem; }
+.ppd__tijd { margin: 0.75rem 0 0; padding-block: 0.75rem; border-block: 1px solid var(--ppd-lijn); color: var(--ppd-zacht); font-size: 0.9375rem; }
+.ppd__tijd strong { color: inherit; font-weight: 650; }
+.ppd__kop { margin: 1.25rem 0 0.5rem; font-size: 0.8125rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ppd-zacht); }
+.ppd__lijst { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.5rem; font-size: 0.9375rem; line-height: 1.45; }
+.ppd__lijst li { position: relative; padding-left: 1.6rem; }
+.ppd__lijst--vink li::before {
+  content: ""; position: absolute; left: 0.2rem; top: 0.3em; width: 0.35rem; height: 0.65rem;
+  border: solid var(--ppd-accent); border-width: 0 2px 2px 0; transform: rotate(40deg);
+}
+.ppd__kaart[data-populair] .ppd__lijst--vink li::before { border-color: #7ad3ab; }
+.ppd__lijst--punt li::before { content: ""; position: absolute; left: 0.3rem; top: 0.6em; width: 0.3rem; height: 0.3rem; border-radius: 50%; background: currentColor; opacity: 0.5; }
+.ppd__cta {
+  margin-top: auto; display: inline-flex; align-items: center; justify-content: center; min-height: 3rem;
+  padding: 0 1.25rem; border-radius: 999px; border: 1.5px solid var(--ppd-ink); color: var(--ppd-ink);
+  font-weight: 650; text-decoration: none; transition: transform 120ms var(--ppd-ease), background-color 180ms var(--ppd-ease);
+}
+.ppd__lijst + .ppd__cta, .ppd__lijst--vink { margin-bottom: 0; }
+.ppd__kaart > .ppd__cta { margin-top: 1.75rem; }
+.ppd__kaart:not([data-populair]) .ppd__cta:hover { background: var(--ppd-ink); color: #fff; }
+.ppd__cta:active { transform: scale(0.97); }
+.ppd__kaart[data-populair] .ppd__cta { background: #f6f4ee; color: var(--ppd-ink); border-color: #f6f4ee; }
+.ppd__kaart[data-populair] .ppd__cta:hover { background: #fff; }
+.ppd__kaart[data-populair] .ppd__cta:focus-visible { outline-color: #7ad3ab; }
+
+/* FAQ en maatwerk */
+.ppd__onder { margin-top: 2.5rem; display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 60rem) { .ppd__onder { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+.ppd__faqkop { margin: 0 0 0.75rem; font-size: 1.125rem; font-weight: 650; }
+.ppd__faq details { border-top: 1px solid var(--ppd-lijn); }
+.ppd__faq details:last-child { border-bottom: 1px solid var(--ppd-lijn); }
+.ppd__faq summary { list-style: none; cursor: pointer; padding: 1rem 2rem 1rem 0; position: relative; font-weight: 600; min-height: 2.75rem; }
+.ppd__faq summary::-webkit-details-marker { display: none; }
+.ppd__faq summary::after { content: "+"; position: absolute; right: 0.25rem; top: 0.85rem; font-size: 1.25rem; font-weight: 400; transition: transform 200ms var(--ppd-ease); }
+.ppd__faq details[open] summary::after { transform: rotate(45deg); }
+.ppd__faq details p { margin: 0 0 1rem; color: var(--ppd-zacht); line-height: 1.55; max-width: 44rem; }
+.ppd__maat { margin: 0; padding: 1.5rem; border: 1px dashed var(--ppd-lijn); border-radius: var(--ppd-straal); color: var(--ppd-zacht); line-height: 1.5; }
+.ppd__maat a { color: var(--ppd-ink); font-weight: 650; text-underline-offset: 0.2em; }
+
+/* Paneel wisselt met een korte fade (alleen opacity/transform). */
+@media (prefers-reduced-motion: no-preference) {
+  [data-ppd-actief] .ppd__paneel:not([hidden]) { animation: ppd-in 320ms var(--ppd-ease); }
+  @keyframes ppd-in { from { opacity: 0; transform: translateY(8px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ppd__kaart, .ppd__tab, .ppd__cta { transition: none !important; }
+}
+@media (max-width: 40rem) {
+  .ppd__tabs { width: 100%; border-radius: 1.5rem; gap: 0.125rem; }
+  .ppd__tab { flex: 1 1 auto; padding: 0 0.5rem; font-size: 0.9375rem; }
+  .ppd__kaart { padding: 1.4rem; }
+}
+@media (max-width: 24rem) { .ppd__tab { font-size: 0.875rem; padding: 0 0.35rem; } }

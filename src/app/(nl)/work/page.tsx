@@ -16,6 +16,7 @@ import { RevealOnScroll } from '@/features/reveal-on-scroll/RevealOnScroll'
 import { WerkFilter } from '@/components/WerkFilter'
 import { Demos } from '@/components/secties/Demos'
 import { demos } from '@/content/demos'
+import { AllesWand } from '@/components/v2c/AllesWand'
 
 export const metadata: Metadata = {
   title: { absolute: werk.titel },
@@ -67,9 +68,10 @@ export default function Werk() {
         </RevealOnScroll>
         <Demos />
         </WerkFilter>
+        <AllesWand />
       </main>
       <Voet />
-      <Dock verberg="#werk, #producten, #demos" />
+      <Dock verberg="#werk, #producten, #demos, .alles-wand, .alles-lijst" />
       <CustomCursor variant="crosshair" interactiveSelector=".tegel__link" magnetic={false} />
     </>
   )

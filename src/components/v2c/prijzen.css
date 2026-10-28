@@ -1,0 +1,29 @@
+/* prijzen-per-dienst op /contact. Populair = de rode kaart; beide thema's via tokens. */
+.prijzen {
+  --ppd-ink: var(--color-tekst);
+  --ppd-zacht: var(--color-tekst-2);
+  --ppd-lijn: var(--color-lijn);
+  --ppd-vlak: var(--color-grond-2);
+  --ppd-accent: var(--color-accent);
+  --ppd-donker: var(--color-tekst);
+  --ppd-straal: 20px;
+  max-width: none;
+}
+.prijzen .ppd__tabs { background: var(--color-grond-2); box-shadow: inset 0 0 0 1px var(--color-lijn); margin: 0; }
+.prijzen .ppd__tab { font-size: 16px; }
+.prijzen .ppd__tab[aria-selected="true"] { background: var(--color-tekst); color: var(--color-grond); }
+.prijzen .ppd__naam, .prijzen .ppd__bedrag, .prijzen .ppd__paneelkop { font-family: var(--font-kop); letter-spacing: -0.03em; }
+.prijzen .ppd__kaart { box-shadow: none; }
+.prijzen .ppd__badge { background: var(--color-grond); color: var(--color-accent); box-shadow: inset 0 0 0 1px var(--color-lijn-sterk); }
+.prijzen .ppd__kaart:not([data-populair]) .ppd__cta:hover { background: var(--color-tekst); color: var(--color-grond); }
+/* populair: omgekeerde kaart in tekstkleur, in beide thema's de sterkste */
+.prijzen .ppd__kaart[data-populair] { background: var(--color-tekst); color: var(--color-grond); border-color: var(--color-tekst); --ppd-zacht: var(--color-on-ink-muted); --ppd-lijn: rgb(var(--rgb-grond) / 0.18); }
+.prijzen .ppd__kaart[data-populair] .ppd__badge { background: var(--color-hoofd); color: var(--color-grond); box-shadow: none; }
+.prijzen .ppd__kaart[data-populair] .ppd__lijst--vink li::before { border-color: var(--color-hoofd); }
+.prijzen .ppd__kaart[data-populair] .ppd__cta { background: var(--color-hoofd); color: var(--color-grond); border-color: var(--color-hoofd); }
+.prijzen .ppd__kaart[data-populair] .ppd__cta:hover { background: var(--color-hoofd-hover); }
+.prijzen .ppd__kaart[data-populair] .ppd__cta:focus-visible { outline-color: var(--color-hoofd); }
+.prijzen .ppd__maat { border-color: var(--color-lijn-sterk); }
+.prijzen .ppd__maat a { color: var(--color-accent); }
+/* Met tabs is de paneelkop dubbel in beeld, maar een schermlezer houdt hem graag als kop van het paneel. */
+.prijzen[data-ppd-actief] .ppd__paneelkop { display: block; position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
