@@ -1,0 +1,387 @@
+/*
+ * Link Dialog Funnel — stylesheet
+ * ================================
+ * Gewone CSS, geen Tailwind nodig. Alle instelbare waarden staan als CSS-variabelen
+ * bovenaan onder `.ldf-dialog` — overschrijf ze per site door dezelfde variabelen op
+ * een voorouder-element (of nogmaals op `.ldf-dialog`) te zetten.
+ *
+ * Eigen implementatie.
+ */
+
+.ldf-dialog {
+  /* --- knoppen: dit zijn de variabelen om per site te overschrijven --- */
+  --ldf-ink: #14161a;
+  --ldf-muted: #6b7078;
+  --ldf-paper: #ffffff;
+  --ldf-paper-2: #f4f4f5;
+  --ldf-line: #e3e4e7;
+  --ldf-line-strong: #c9cbd1;
+  --ldf-accent: #2f6fed;
+  --ldf-accent-deep: #b3261e;
+  --ldf-radius: 1.1rem;
+  --ldf-radius-field: 0.7rem;
+  --ldf-font: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ldf-backdrop: rgba(10, 12, 16, 0.62);
+  --ldf-backdrop-blur: 8px;
+  --ldf-shadow: 0 28px 80px rgba(10, 12, 16, 0.35);
+
+  font-family: var(--ldf-font);
+  color: var(--ldf-ink);
+  background: var(--ldf-paper);
+  border: 0;
+  border-radius: var(--ldf-radius);
+  padding: 0;
+  margin: auto;
+  width: min(28rem, calc(100vw - 1.5rem));
+  max-height: min(38rem, calc(100svh - 2.5rem));
+  overflow-y: auto;
+  box-shadow: var(--ldf-shadow);
+}
+
+.ldf-dialog::backdrop {
+  background: var(--ldf-backdrop);
+  -webkit-backdrop-filter: blur(var(--ldf-backdrop-blur));
+  backdrop-filter: blur(var(--ldf-backdrop-blur));
+}
+
+.ldf-dialog:focus {
+  outline: none;
+}
+
+.ldf-panel {
+  position: relative;
+}
+
+.ldf-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--ldf-line-strong);
+  background: transparent;
+  color: var(--ldf-ink);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.ldf-close:hover {
+  background: var(--ldf-paper-2);
+}
+.ldf-close:focus-visible {
+  outline: 2px solid var(--ldf-accent);
+  outline-offset: 2px;
+}
+
+.ldf-form {
+  padding: 1.5rem 1.75rem 1.5rem;
+  padding-right: 2.75rem;
+}
+
+/* Honeypot: onzichtbaar voor mensen, wél in de DOM voor formulier-bots. */
+.ldf-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.ldf-head {
+  margin-bottom: 1rem;
+}
+
+.ldf-heading {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.ldf-progress {
+  margin: 0.6rem 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.ldf-progress::before {
+  content: '';
+}
+.ldf-progress[hidden] {
+  display: none;
+}
+
+.ldf-step {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.ldf-step[hidden] {
+  display: none;
+}
+.ldf-step-extra,
+.ldf-step-contact {
+  margin-top: 1rem;
+}
+
+.ldf-row + .ldf-row {
+  margin-top: 0.85rem;
+}
+.ldf-row[hidden] {
+  display: none;
+}
+
+.ldf-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.ldf-row input:not([type='radio']),
+.ldf-row textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--ldf-line-strong);
+  border-radius: var(--ldf-radius-field);
+  background: var(--ldf-paper);
+  color: var(--ldf-ink);
+  padding: 0.55rem 0.8rem;
+  font: inherit;
+  font-size: 0.9375rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ldf-row textarea {
+  min-height: 4rem;
+  resize: vertical;
+}
+.ldf-row input:focus-visible,
+.ldf-row textarea:focus-visible {
+  outline: none;
+  border-color: var(--ldf-ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ldf-accent) 25%, transparent);
+}
+.ldf-row input[aria-invalid='true'],
+.ldf-row textarea[aria-invalid='true'] {
+  border-color: var(--ldf-accent-deep);
+}
+
+.ldf-error-text {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--ldf-accent-deep);
+  min-height: 0;
+}
+.ldf-error-text:empty {
+  display: none;
+}
+
+.ldf-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.ldf-choice {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--ldf-line-strong);
+  border-radius: 0.85rem;
+  padding: 0.55rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+.ldf-choice:hover {
+  border-color: color-mix(in srgb, var(--ldf-ink) 40%, var(--ldf-line-strong));
+}
+.ldf-choice.is-checked {
+  border-color: var(--ldf-ink);
+  background: var(--ldf-ink);
+  color: var(--ldf-paper);
+}
+.ldf-choice:has(:focus-visible) {
+  outline: 2px solid var(--ldf-accent);
+  outline-offset: 2px;
+}
+
+.ldf-choice-dot {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 2px solid var(--ldf-line-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ldf-choice.is-checked .ldf-choice-dot {
+  border-color: var(--ldf-paper);
+}
+.ldf-choice-dot::after {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--ldf-accent);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+.ldf-choice.is-checked .ldf-choice-dot::after {
+  transform: scale(1);
+}
+
+.ldf-choice-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.ldf-actions {
+  margin-top: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.ldf-back {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--ldf-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.ldf-back:hover {
+  color: var(--ldf-ink);
+}
+.ldf-back[hidden] {
+  visibility: hidden;
+}
+
+.ldf-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ldf-ink);
+  color: var(--ldf-paper);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0.6rem 1.3rem;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+.ldf-submit:hover {
+  opacity: 0.9;
+}
+.ldf-submit:active {
+  transform: translateY(1px);
+}
+.ldf-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+.ldf-submit:focus-visible {
+  outline: 2px solid var(--ldf-accent);
+  outline-offset: 2px;
+}
+
+.ldf-privacy {
+  margin: 0.9rem 0 0;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: var(--ldf-muted);
+}
+.ldf-privacy[hidden] {
+  display: none;
+}
+.ldf-privacy-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.ldf-privacy-link:hover {
+  color: var(--ldf-ink);
+}
+
+.ldf-form-error {
+  margin: 0.85rem 0 0;
+  font-size: 0.875rem;
+  color: var(--ldf-accent-deep);
+}
+.ldf-form-error[hidden] {
+  display: none;
+}
+.ldf-form-error a {
+  color: inherit;
+}
+
+.ldf-success {
+  padding: 2rem 1.75rem 2.25rem;
+  text-align: left;
+}
+.ldf-success[hidden] {
+  display: none;
+}
+.ldf-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: var(--ldf-accent);
+  color: var(--ldf-paper);
+}
+.ldf-success .ldf-heading {
+  margin-top: 1.1rem;
+}
+.ldf-success-body {
+  margin: 0.5rem 0 0;
+  font-size: 0.9375rem;
+  color: var(--ldf-muted);
+}
+
+.ldf-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 30rem) {
+  .ldf-choice-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark mode: alleen als de host-pagina dat vraagt en geen eigen variabelen zet. */
+@media (prefers-color-scheme: dark) {
+  .ldf-dialog:not([style*='--ldf-ink']) {
+    --ldf-ink: #f2f3f5;
+    --ldf-muted: #9a9ea6;
+    --ldf-paper: #1b1d22;
+    --ldf-paper-2: #24262c;
+    --ldf-line: #33353c;
+    --ldf-line-strong: #46484f;
+  }
+}

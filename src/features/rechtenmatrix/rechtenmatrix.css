@@ -1,0 +1,216 @@
+/* rechtenmatrix — namespaced op [data-rechtenmatrix] en .rm-*.
+ * Kleur/maat aanpassen via de --rm-* variabelen op het root-element.
+ * Animatie alleen met transform en opacity (R18); niets beweegt bij
+ * "minder beweging" (R1). */
+
+[data-rechtenmatrix] {
+  --rm-ink: #18181b;
+  --rm-soft: #5b594f;
+  --rm-lijn: #e3ded0;
+  --rm-vlak: #fff;
+  --rm-paper: #f6f4ee;
+  --rm-zij: #f1eee5;
+  --rm-track: #ece8dc;
+  --rm-focus: #2c5e3f;
+  --rm-radius: 20px;
+  /* Stand-kleuren op volgorde; donker genoeg voor 4,5:1 op hun eigen lichte tint. */
+  --rm-c0: #17603b;
+  --rm-c1: #7d4b00;
+  --rm-c2: #9b2c2c;
+  --rm-c3: #1f4fbf;
+  --rm-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  container-type: inline-size;
+  color: var(--rm-ink);
+  font-family: inherit;
+}
+[data-rechtenmatrix] *,
+[data-rechtenmatrix] *::before,
+[data-rechtenmatrix] *::after { box-sizing: border-box; }
+[data-rechtenmatrix] [hidden] { display: none !important; }
+[data-rechtenmatrix] button { font: inherit; color: inherit; }
+[data-rechtenmatrix] :focus-visible { outline: 2px solid var(--rm-focus); outline-offset: 2px; }
+[data-rechtenmatrix] .rm-sr {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+[data-rechtenmatrix] .rm-ico { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---- zonder JavaScript: leesbare tabel ------------------------------------ */
+[data-rechtenmatrix] .rm-fallback {
+  overflow-x: auto;
+  background: var(--rm-vlak);
+  border: 1px solid var(--rm-lijn);
+  border-radius: 16px;
+}
+[data-rechtenmatrix][data-rm-actief] > .rm-fallback { display: none; }
+[data-rechtenmatrix] .rm-tabel { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+[data-rechtenmatrix] .rm-tabel caption { padding: 1rem 1.1rem; text-align: left; font-weight: 650; font-size: 1.05rem; }
+[data-rechtenmatrix] .rm-tabel th,
+[data-rechtenmatrix] .rm-tabel td { padding: 0.65rem 1.1rem; text-align: left; border-top: 1px solid var(--rm-lijn); vertical-align: top; }
+[data-rechtenmatrix] .rm-tabel thead th { font-weight: 650; white-space: nowrap; }
+[data-rechtenmatrix] .rm-tabel thead th span { display: block; font-weight: 450; font-size: 0.8125rem; color: var(--rm-soft); }
+[data-rechtenmatrix] .rm-tabel tbody th[scope="row"] { font-weight: 500; min-width: 12rem; }
+[data-rechtenmatrix] .rm-tabel__cat th { background: var(--rm-zij); font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--rm-soft); }
+
+/* ---- de kaart ---------------------------------------------------------------- */
+[data-rechtenmatrix] .rm-app {
+  display: grid;
+  grid-template-columns: 17.5rem minmax(0, 1fr);
+  background: var(--rm-vlak);
+  border: 1px solid var(--rm-lijn);
+  border-radius: var(--rm-radius);
+  box-shadow: 0 1px 2px rgb(24 24 27 / 0.04), 0 12px 32px -12px rgb(24 24 27 / 0.12);
+  overflow: clip;
+  text-align: left;
+}
+
+/* rollenlijst */
+[data-rechtenmatrix] .rm-lijst { background: var(--rm-zij); border-right: 1px solid var(--rm-lijn); padding: 1.25rem 0.85rem 1.25rem; }
+[data-rechtenmatrix] .rm-lijst__kop { margin: 0 0.5rem 0.75rem; font-size: 0.75rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rm-soft); }
+[data-rechtenmatrix] .rm-tabs { display: flex; flex-direction: column; gap: 0.25rem; }
+[data-rechtenmatrix] .rm-tab {
+  display: flex; align-items: center; gap: 0.75rem; width: 100%; min-height: 3.5rem;
+  padding: 0.55rem 0.65rem; border: 1px solid transparent; border-radius: 14px; background: transparent;
+  text-align: left; cursor: pointer;
+  transition: background-color 160ms ease-out, box-shadow 160ms ease-out, transform 140ms var(--rm-ease);
+}
+[data-rechtenmatrix] .rm-tab:active { transform: scale(0.98); }
+[data-rechtenmatrix] .rm-tab[aria-selected="true"] {
+  background: var(--rm-vlak); border-color: var(--rm-lijn);
+  box-shadow: 0 1px 2px rgb(24 24 27 / 0.06), 0 6px 14px -8px rgb(24 24 27 / 0.18);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-rechtenmatrix] .rm-tab[aria-selected="false"]:hover { background: rgb(255 255 255 / 0.6); }
+}
+[data-rechtenmatrix] .rm-tab__tekst { display: flex; flex-direction: column; min-width: 0; }
+[data-rechtenmatrix] .rm-tab__naam { font-weight: 650; font-size: 0.9375rem; letter-spacing: -0.01em; }
+[data-rechtenmatrix] .rm-tab__functie { font-size: 0.8125rem; color: var(--rm-soft); line-height: 1.3; }
+
+/* avatar: foto, icoon of initialen op een getinte ondergrond */
+[data-rechtenmatrix] .rm-av {
+  --rm-tint: #2c5e3f;
+  flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 12px; overflow: hidden;
+  background: color-mix(in srgb, var(--rm-tint) 15%, #fff);
+  color: color-mix(in srgb, var(--rm-tint) 78%, #000);
+  border: 1px solid color-mix(in srgb, var(--rm-tint) 22%, #fff);
+  font-size: 0.875rem; font-weight: 700; letter-spacing: 0.02em;
+}
+[data-rechtenmatrix] .rm-av img { width: 100%; height: 100%; object-fit: cover; }
+[data-rechtenmatrix] .rm-av .rm-ico { width: 1.35rem; height: 1.35rem; }
+
+/* paneel */
+[data-rechtenmatrix] .rm-paneel { padding: 1.75rem clamp(1rem, 3.2cqi, 2rem) 1.5rem; min-width: 0; }
+[data-rechtenmatrix] .rm-paneel__kop { display: flex; align-items: center; gap: 0.9rem; }
+[data-rechtenmatrix] .rm-paneel__av .rm-av { width: 3.25rem; height: 3.25rem; border-radius: 15px; font-size: 1.05rem; }
+[data-rechtenmatrix] .rm-paneel__titel { min-width: 0; flex: 1; }
+[data-rechtenmatrix] .rm-paneel__naam { margin: 0; font-size: clamp(1.4rem, 1.1rem + 1cqi, 1.85rem); line-height: 1.1; letter-spacing: -0.025em; font-weight: 650; }
+[data-rechtenmatrix] .rm-paneel__functie { margin: 0.2rem 0 0; font-size: 0.9375rem; color: var(--rm-soft); }
+[data-rechtenmatrix] .rm-paneel__uitleg { margin: 1rem 0 0; max-width: 42rem; font-size: 0.9688rem; line-height: 1.55; color: var(--rm-soft); text-wrap: pretty; }
+[data-rechtenmatrix] .rm-badge {
+  flex: none; display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.65rem; border-radius: 999px;
+  background: var(--rm-zij); border: 1px solid var(--rm-lijn); font-size: 0.75rem; font-weight: 600; color: var(--rm-soft);
+}
+[data-rechtenmatrix] .rm-badge--bewerk { background: color-mix(in srgb, var(--rm-focus) 10%, #fff); border-color: color-mix(in srgb, var(--rm-focus) 30%, #fff); color: var(--rm-focus); }
+[data-rechtenmatrix] .rm-badge .rm-ico { width: 0.9rem; height: 0.9rem; }
+
+/* samenvatting */
+[data-rechtenmatrix] .rm-sam { margin-top: 1.25rem; padding: 0.95rem 1.1rem 1rem; background: var(--rm-paper); border: 1px solid var(--rm-lijn); border-radius: 14px; }
+[data-rechtenmatrix] .rm-sam__kop { margin: 0 0 0.35rem; font-size: 0.75rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rm-soft); }
+[data-rechtenmatrix] .rm-sam__tekst { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0.55rem; font-size: 1rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+[data-rechtenmatrix] .rm-sam__punt { color: var(--rm-soft); }
+[data-rechtenmatrix] .rm-chip { display: inline-flex; align-items: center; gap: 0.3rem; }
+[data-rechtenmatrix] .rm-chip .rm-ico { width: 1.05rem; height: 1.05rem; }
+[data-rechtenmatrix] .rm-chip[data-i="0"], [data-rechtenmatrix] .rm-bar__deel[data-i="0"] { --rm-c: var(--rm-c0); }
+[data-rechtenmatrix] .rm-chip[data-i="1"], [data-rechtenmatrix] .rm-bar__deel[data-i="1"] { --rm-c: var(--rm-c1); }
+[data-rechtenmatrix] .rm-chip[data-i="2"], [data-rechtenmatrix] .rm-bar__deel[data-i="2"] { --rm-c: var(--rm-c2); }
+[data-rechtenmatrix] .rm-chip[data-i="3"], [data-rechtenmatrix] .rm-bar__deel[data-i="3"] { --rm-c: var(--rm-c3); }
+[data-rechtenmatrix] .rm-chip { color: var(--rm-c); }
+[data-rechtenmatrix] .rm-bar { display: flex; gap: 3px; height: 6px; margin-top: 0.75rem; border-radius: 999px; overflow: hidden; }
+[data-rechtenmatrix] .rm-bar__deel { flex: 0 1 0; min-width: 0; background: var(--rm-c); border-radius: 999px; opacity: 0.85; }
+[data-rechtenmatrix] .rm-bar__deel[style*="flex-grow: 0"] { display: none; }
+
+/* categorieën */
+[data-rechtenmatrix] .rm-cats { margin-top: 1.25rem; display: grid; gap: 0.6rem; }
+[data-rechtenmatrix] .rm-cat { border: 1px solid var(--rm-lijn); border-radius: 14px; background: var(--rm-vlak); }
+[data-rechtenmatrix] .rm-cat__kop { margin: 0; font: inherit; }
+[data-rechtenmatrix] .rm-cat__knop {
+  display: flex; align-items: center; gap: 0.6rem; width: 100%; min-height: 3.25rem; padding: 0.5rem 1rem;
+  border: 0; background: transparent; border-radius: 13px; text-align: left; cursor: pointer;
+  transition: background-color 160ms ease-out;
+}
+@media (hover: hover) and (pointer: fine) { [data-rechtenmatrix] .rm-cat__knop:hover { background: var(--rm-paper); } }
+[data-rechtenmatrix] .rm-cat__knop .rm-ico { flex: none; width: 1rem; height: 1rem; color: var(--rm-soft); transition: transform 200ms var(--rm-ease); }
+[data-rechtenmatrix] .rm-cat__knop[aria-expanded="true"] .rm-ico { transform: rotate(90deg); }
+[data-rechtenmatrix] .rm-cat__naam { font-weight: 650; font-size: 1rem; letter-spacing: -0.01em; }
+[data-rechtenmatrix] .rm-count { display: inline-grid; place-items: center; min-width: 1.5rem; height: 1.5rem; padding: 0 0.4rem; border-radius: 999px; background: var(--rm-zij); font-size: 0.75rem; font-weight: 650; color: var(--rm-soft); font-variant-numeric: tabular-nums; }
+[data-rechtenmatrix] .rm-cat__sam { margin-left: auto; padding: 0 0 0 0.5rem; font-size: 0.8125rem; font-weight: 500; color: var(--rm-soft); white-space: nowrap; }
+[data-rechtenmatrix] .rm-cat__lijst { padding: 0 1rem 0.5rem; animation: rm-in 200ms var(--rm-ease); }
+@keyframes rm-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* rij: naam links, schakelaar rechts */
+[data-rechtenmatrix] .rm-rij { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.7rem 0; border-top: 1px solid var(--rm-lijn); }
+[data-rechtenmatrix] .rm-rij__tekst { display: flex; flex-direction: column; min-width: 0; flex: 1 1 12rem; }
+[data-rechtenmatrix] .rm-rij__naam { font-size: 0.9688rem; font-weight: 550; }
+[data-rechtenmatrix] .rm-rij__uitleg { font-size: 0.8125rem; line-height: 1.4; color: var(--rm-soft); margin-top: 0.1rem; }
+
+/* de schakelaar: radiogroep met glijdende thumb */
+[data-rechtenmatrix] .rm-keuze {
+  --rm-c: var(--rm-c0); --rm-i: 0;
+  position: relative; flex: none; display: grid; grid-template-columns: repeat(var(--rm-n), minmax(0, 1fr));
+  width: calc(var(--rm-n) * 7.6rem); padding: 3px; background: var(--rm-track); border-radius: 12px;
+}
+[data-rechtenmatrix] .rm-keuze[data-i="0"] { --rm-c: var(--rm-c0); }
+[data-rechtenmatrix] .rm-keuze[data-i="1"] { --rm-c: var(--rm-c1); }
+[data-rechtenmatrix] .rm-keuze[data-i="2"] { --rm-c: var(--rm-c2); }
+[data-rechtenmatrix] .rm-keuze[data-i="3"] { --rm-c: var(--rm-c3); }
+[data-rechtenmatrix] .rm-thumb {
+  position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc((100% - 6px) / var(--rm-n));
+  transform: translateX(calc(var(--rm-i) * 100%));
+  border-radius: 9px; background: color-mix(in srgb, var(--rm-c) 12%, #fff);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--rm-c) 32%, #fff), 0 2px 5px -2px rgb(24 24 27 / 0.2);
+  transition: transform 220ms var(--rm-ease), background-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+[data-rechtenmatrix] .rm-zonder-overgang .rm-thumb,
+[data-rechtenmatrix] .rm-zonder-overgang .rm-opt { transition: none; }
+[data-rechtenmatrix] .rm-opt {
+  position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  min-height: 2.5rem; padding: 0.3rem 0.4rem; border: 0; border-radius: 9px; background: transparent;
+  color: var(--rm-soft); font-size: 0.8125rem; font-weight: 550; line-height: 1.15; text-align: center; cursor: default;
+  transition: color 160ms ease-out, transform 140ms var(--rm-ease);
+}
+[data-rechtenmatrix] .rm-opt .rm-ico { flex: none; width: 1.05rem; height: 1.05rem; }
+[data-rechtenmatrix] .rm-opt[aria-checked="true"] { color: var(--rm-c); font-weight: 650; }
+[data-rechtenmatrix] .rm-opt:focus-visible { outline-offset: 0; }
+[data-rechtenmatrix] .rm-app[data-modus="bewerk"] .rm-opt { cursor: pointer; }
+[data-rechtenmatrix] .rm-app[data-modus="bewerk"] .rm-opt:active { transform: scale(0.96); }
+@media (hover: hover) and (pointer: fine) {
+  [data-rechtenmatrix] .rm-app[data-modus="bewerk"] .rm-opt[aria-checked="false"]:hover { color: var(--rm-ink); }
+}
+/* alleen lezen: de niet-gekozen standen zijn rustig, de gekozen blijft leesbaar */
+[data-rechtenmatrix] .rm-app[data-modus="toon"] .rm-opt[aria-checked="false"] { color: #6c6a60; }
+
+/* ---- smal (container query, dus ook in een smalle kolom) ---------------------- */
+@container (max-width: 46rem) {
+  [data-rechtenmatrix] .rm-app { grid-template-columns: minmax(0, 1fr); }
+  [data-rechtenmatrix] .rm-lijst { border-right: 0; border-bottom: 1px solid var(--rm-lijn); padding: 1rem 0.75rem; }
+  [data-rechtenmatrix] .rm-tabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); }
+  [data-rechtenmatrix] .rm-tab { min-height: 3.25rem; border-color: var(--rm-lijn); background: rgb(255 255 255 / 0.55); }
+  [data-rechtenmatrix] .rm-tab__functie { display: none; }
+  [data-rechtenmatrix] .rm-paneel { padding: 1.25rem 1rem 1rem; }
+  [data-rechtenmatrix] .rm-paneel__kop { flex-wrap: wrap; }
+  [data-rechtenmatrix] .rm-cat__sam { display: none; }
+  [data-rechtenmatrix] .rm-cat__knop { padding: 0.5rem 0.85rem; }
+  [data-rechtenmatrix] .rm-cat__lijst { padding: 0 0.85rem 0.6rem; }
+  [data-rechtenmatrix] .rm-rij { flex-direction: column; align-items: stretch; gap: 0.55rem; }
+  [data-rechtenmatrix] .rm-rij__tekst { flex: none; }
+  [data-rechtenmatrix] .rm-keuze { width: 100%; }
+  [data-rechtenmatrix] .rm-opt { flex-direction: column; gap: 0.15rem; min-height: 2.9rem; font-size: 0.78rem; }
+}
+
+/* ---- minder beweging: alles direct, geen animatie ------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  [data-rechtenmatrix] *, [data-rechtenmatrix] *::before, [data-rechtenmatrix] *::after {
+    transition: none !important; animation: none !important;
+  }
+}

@@ -1,0 +1,35 @@
+<svg class="wk-svg" data-wk-kaart="" viewBox="0 0 800 969" role="group" aria-label="Kaart van het werkgebied met 4 projecten" xmlns="http://www.w3.org/2000/svg">
+  <defs><pattern id="wk-golf" width="28" height="14" patternUnits="userSpaceOnUse"><path class="wk-golf" d="M0 7q7-6 14 0t14 0" fill="none"/></pattern></defs>
+  <g class="wk-wereld" data-wk-wereld="">
+    <rect class="wk-golven" x="-800" y="-969" width="2400" height="2907" fill="url(#wk-golf)" aria-hidden="true"/>
+    <path class="wk-land" d="M203.9 48L279.5 48L374 94.8L468.5 63.6L506.3 141.5L487.4 235L525.2 313L581.9 359.7L657.5 375.3L733.1 422.1L752 484.4L657.5 515.6L563 562.4L506.3 640.3L506.3 733.8L496.9 811.7L430.7 874.1L355.1 920.9L260.6 905.3L185 889.7L90.5 827.3L71.6 733.8L90.5 609.1L109.4 484.4L128.3 359.7L147.2 235L166.1 141.5L203.9 48Z" fill-rule="evenodd" aria-hidden="true"/>
+    <path class="wk-weg" d="M411.8 749.4L440.2 671.5L478 593.5L506.3 539L468.5 484.4L430.7 422.1L392.9 359.7M213.4 546.8L232.3 437.7L260.6 328.6L241.7 203.9L222.8 79.2M260.6 313L336.2 375.3L411.8 422.1L468.5 484.4L506.3 539M723.7 445.5L638.6 484.4L563 515.6L506.3 539M506.3 539L525.2 437.7L544.1 344.1M544.1 344.1L638.6 375.3L723.7 445.5M213.4 546.8L185 687.1L128.3 796.2M213.4 546.8L307.9 577.9L411.8 749.4" aria-hidden="true"/>
+    <text class="wk-water-naam" x="657.5" y="274" text-anchor="middle" aria-hidden="true">IJsselmeer</text>
+    <text class="wk-water-naam" x="629.2" y="632.5" text-anchor="middle" aria-hidden="true">Markermeer</text>
+    <text class="wk-water-naam" x="48" y="453.3" text-anchor="middle" aria-hidden="true">Noordzee</text>
+    <g transform="translate(216.6 558.6)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Alkmaar</text></g></g>
+    <g transform="translate(411.5 757.2)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Purmerend</text></g></g>
+    <g transform="translate(222.9 53.8)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Den Helder</text></g></g>
+    <g transform="translate(166.1 504.7)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Bergen</text></g></g>
+    <g transform="translate(289 504.7)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Heerhugowaard</text></g></g>
+    <g transform="translate(612.1 457.9)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Hoogkarspel</text></g></g>
+    <g transform="translate(456.2 496.9)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Wognum</text></g></g>
+    <g transform="translate(449.6 284.9)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Middenmeer</text></g></g>
+    <g transform="translate(289 203.9)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Anna Paulowna</text></g></g>
+    <g transform="translate(515.8 772.8)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Volendam</text></g></g>
+    <g transform="translate(591.4 398.7)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Wervershoof</text></g></g>
+    <g transform="translate(100 577.9)" aria-hidden="true"><g class="wk-schaal"><circle class="wk-kern" r="3.5"/><text class="wk-context" x="8" y="4">Egmond aan Zee</text></g></g>
+    <a class="wk-punt" tabindex="0" href="#wk-hoorn" data-wk-punt="hoorn" data-x="506" data-y="542.9" aria-label="Hoorn">
+      <g transform="translate(506 542.9)"><g class="wk-schaal"><circle class="wk-ring" r="17"/><circle class="wk-raak" r="22"/><circle class="wk-stip" r="7"/><text class="wk-naam" x="13" y="-11">Hoorn</text></g></g>
+    </a>
+    <a class="wk-punt" tabindex="0" href="#wk-enkhuizen" data-wk-punt="enkhuizen" data-x="725" data-y="447.6" aria-label="Enkhuizen">
+      <g transform="translate(725 447.6)"><g class="wk-schaal"><circle class="wk-ring" r="17"/><circle class="wk-raak" r="22"/><circle class="wk-stip" r="7"/><text class="wk-naam" x="-13" y="-11" text-anchor="end">Enkhuizen</text></g></g>
+    </a>
+    <a class="wk-punt" tabindex="0" href="#wk-medemblik" data-wk-punt="medemblik" data-x="549.4" data-y="342.6" aria-label="Medemblik">
+      <g transform="translate(549.4 342.6)"><g class="wk-schaal"><circle class="wk-ring" r="17"/><circle class="wk-raak" r="22"/><circle class="wk-stip" r="7"/><text class="wk-naam" x="-13" y="-11" text-anchor="end">Medemblik</text></g></g>
+    </a>
+    <a class="wk-punt" tabindex="0" href="#wk-schagen" data-wk-punt="schagen" data-x="259.3" data-y="316.7" aria-label="Schagen">
+      <g transform="translate(259.3 316.7)"><g class="wk-schaal"><circle class="wk-ring" r="17"/><circle class="wk-raak" r="22"/><circle class="wk-stip" r="7"/><text class="wk-naam" x="13" y="-11">Schagen</text></g></g>
+    </a>
+  </g>
+</svg>

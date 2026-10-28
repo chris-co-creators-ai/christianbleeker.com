@@ -1,0 +1,41 @@
+/**
+ * three-mascot.css
+ * ------------------------------------------------------------------------
+ * Namespace: attribuut `[data-mascot]` op de root, `[data-mascot-poster]`
+ * op de fallback-/poster-afbeelding, klasse-prefix `.tm-` op wat de module
+ * zelf toevoegt (het canvas). Geen globale selectors.
+ */
+
+[data-mascot] {
+  --tm-aspect: 1 / 1;
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--tm-aspect);
+  overflow: hidden;
+  border-radius: 1rem;
+  background: radial-gradient(circle at 30% 20%, #fff7df, #f6f0dd 55%, #efe6cd 100%);
+}
+
+[data-mascot-poster] {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+[data-mascot-poster][hidden] {
+  display: none;
+}
+
+.tm-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.tm-canvas[hidden] {
+  display: none;
+}

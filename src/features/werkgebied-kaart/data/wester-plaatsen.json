@@ -1,0 +1,107 @@
+{
+ "breedte": 800,
+ "plaatsen": [
+  {
+   "id": "hoorn",
+   "naam": "Hoorn",
+   "lat": 52.6425,
+   "lon": 5.0597
+  },
+  {
+   "id": "enkhuizen",
+   "naam": "Enkhuizen",
+   "lat": 52.7036,
+   "lon": 5.2914
+  },
+  {
+   "id": "medemblik",
+   "naam": "Medemblik",
+   "lat": 52.771,
+   "lon": 5.1056
+  },
+  {
+   "id": "schagen",
+   "naam": "Schagen",
+   "lat": 52.7876,
+   "lon": 4.7986
+  },
+  {
+   "naam": "Alkmaar",
+   "lat": 52.6324,
+   "lon": 4.7534
+  },
+  {
+   "naam": "Purmerend",
+   "lat": 52.505,
+   "lon": 4.9597
+  },
+  {
+   "naam": "Den Helder",
+   "lat": 52.9563,
+   "lon": 4.7601
+  },
+  {
+   "naam": "Bergen",
+   "lat": 52.667,
+   "lon": 4.7
+  },
+  {
+   "naam": "Heerhugowaard",
+   "lat": 52.667,
+   "lon": 4.83
+  },
+  {
+   "naam": "Hoogkarspel",
+   "lat": 52.697,
+   "lon": 5.172
+  },
+  {
+   "naam": "Wognum",
+   "lat": 52.672,
+   "lon": 5.007
+  },
+  {
+   "naam": "Middenmeer",
+   "lat": 52.808,
+   "lon": 5.0
+  },
+  {
+   "naam": "Anna Paulowna",
+   "lat": 52.86,
+   "lon": 4.83
+  },
+  {
+   "naam": "Volendam",
+   "lat": 52.495,
+   "lon": 5.07
+  },
+  {
+   "naam": "Wervershoof",
+   "lat": 52.735,
+   "lon": 5.15
+  },
+  {
+   "naam": "Egmond aan Zee",
+   "lat": 52.62,
+   "lon": 4.63
+  },
+  {
+   "naam": "IJsselmeer",
+   "lat": 52.815,
+   "lon": 5.22,
+   "water": true
+  },
+  {
+   "naam": "Markermeer",
+   "lat": 52.585,
+   "lon": 5.19,
+   "water": true
+  },
+  {
+   "naam": "Noordzee",
+   "lat": 52.7,
+   "lon": 4.575,
+   "water": true
+  }
+ ]
+}

@@ -438,3 +438,188 @@ Geen nieuwe zinnen. Wel:
 | We helpen het zichtbaar te maken op het web. | /work, onder de kop | de tweede zin van dezelfde kop, nu als losse regel |
 | AI | /ai, label vóór de intro (eyebrow-lijn) | het bestaande kicker-woord |
 | € | /contact, groot en open achter "Wat kost het?" | decoratie, voor schermlezers verborgen |
+
+## v3 (28-10-2026, maker A): de Werkplaats `/werkplaats`
+
+Voorstel, lokaal (niet live). Een nieuwe pagina met werkende proefstukken per vak. **Alles op de pagina is een
+voorbeeld**: de praktijken, projecten, openingstijden, prijzen, aanmeldingen en kennisbankartikelen zijn verzonnen
+en staan zo gemarkeerd (label "Voorbeeld" bij elk proefstuk en de zin bovenaan). Er wordt niets verstuurd: de
+intake wacht even en meldt "Dit was een voorbeeld", de reservering opent een eigen voorbeeldpagina. Waar een
+ontwerp-demo bij het vak past, linkt het proefstuk naar die demo. De bron van alle tekst is `src/content/werkplaats.ts`.
+
+| Tekst | Waarom |
+|---|---|
+| Werkplaats — wat we voor jouw vak bouwen | werkplaats |
+| Werkende proefstukken per vak: een werkgebied-kaart voor een aannemer, openingstijden voor een tandarts, een intake voor een advocaat. Allemaal voorbeelden om zelf te proberen. | werkplaats |
+| Werkplaats | werkplaats |
+| Wat we voor jouw vak bouwen | werkplaats |
+| Een goede website vertelt niet alleen wie je bent. Hij helpt je bezoeker ook verder: een keuze, een afspraak, een antwoord. Hieronder staan proefstukken die we per vak bouwen. Ze werken echt, dus probeer ze gerust. | werkplaats |
+| Alles op deze pagina is een voorbeeld. Namen, tijden en getallen zijn verzonnen, en er wordt niets verstuurd. | werkplaats |
+| Voorbeeld | werkplaats |
+| Op deze pagina | werkplaats |
+| Voor een dierenarts | werkplaats |
+| Bobbie kijkt met je muis mee en draait mee als je scrolt. Een mascotte die bij de praktijk hoort, in 3D en zonder video. | werkplaats |
+| Bobbie, de bruine hond van de dierenartspraktijk, zittend met een groene halsband | werkplaats |
+| In de buurt | werkplaats |
+| Laat zien waar je werkt | werkplaats |
+| Voor wie in de eigen regio werkt: waar je projecten zitten, hoe ver het rijden is en of je nu open bent. | werkplaats |
+| Kiezen en bestellen | werkplaats |
+| Kiezen zonder te bellen | werkplaats |
+| Een kleur, een ophaaldag, een plek in de groep. De bezoeker regelt het zelf, op de pagina. | werkplaats |
+| Afspreken en aanvragen | werkplaats |
+| De eerste stap zo kort mogelijk | werkplaats |
+| Datum en tijd al ingevuld, een aanvraag zonder nieuwe pagina en een keuzelijst die je vak kent. | werkplaats |
+| Kennis en vertrouwen | werkplaats |
+| Laat zien wat je weet | werkplaats |
+| Een kennisbank die je doorzoekt zonder zoekmachine, en eerlijk over wat een AI-assistent wel en niet zelf doet. | werkplaats |
+| Voor een aannemer of installateur | werkplaats |
+| Scroll langs de projecten en de kaart vliegt mee van plaats naar plaats. Getekend, zonder Google Maps en zonder cookies. | werkplaats |
+| Hoorn | werkplaats |
+| Eiken keuken met kookeiland in een jaren-dertigwoning | werkplaats |
+| Eiken keuken in een jaren-dertigwoning in de binnenstad, van sloop tot eerste kop koffie in zes weken. | werkplaats |
+| Enkhuizen | werkplaats |
+| Badkamer met terrazzovloer en inloopdouche | werkplaats |
+| Badkamer van vier vierkante meter met terrazzovloer en een inloopdouche, alles op maat gezaagd. | werkplaats |
+| Medemblik | werkplaats |
+| Nieuwe dakkapel op een pannendak | werkplaats |
+| Dakkapel over de volle breedte, in één dag geplaatst. De melding bij de gemeente regelden we mee. | werkplaats |
+| Schagen | werkplaats |
+| Houten veranda met glazen schuifwanden aan de achterkant van een woning | werkplaats |
+| Houten veranda met glazen schuifwanden: de tuin is al in maart bruikbaar. | werkplaats |
+| Voor een fysiotherapeut met meer praktijken | werkplaats |
+| Vul een postcode in en de praktijken staan op volgorde van afstand, met de kilometers erbij. | werkplaats |
+| Postcode | werkplaats |
+| Zoek | werkplaats |
+| Straal | werkplaats |
+| Alles | werkplaats |
+| Praktijk Zwolle | werkplaats |
+| Praktijk Kampen | werkplaats |
+| Praktijk Dalfsen | werkplaats |
+| Praktijk Hattem | werkplaats |
+| Praktijk Raalte | werkplaats |
+| Voor een tandartspraktijk | werkplaats |
+| Nu open of dicht, met de lunchpauze en de feestdagen erin. Altijd in Nederlandse tijd, ook voor wie vanaf de camping kijkt. | werkplaats |
+| Openingstijden laden… | werkplaats |
+| Openingstijden | werkplaats |
+| Maandag tot en met donderdag | werkplaats |
+| 8.00–12.30 en 13.30–17.00 | werkplaats |
+| Vrijdag | werkplaats |
+| 8.00–13.00 | werkplaats |
+| Zaterdag en zondag | werkplaats |
+| Gesloten | werkplaats |
+| Voor een timmerfabriek | werkplaats |
+| Kies een kleur en de voordeur verandert mee, met de meerprijs erbij. De keuze staat in het adres, dus je kunt hem delen. | werkplaats |
+| Kies een kleur | werkplaats |
+| Voordeur met bovenlicht in de gekozen kleur | werkplaats |
+| Gebroken wit | werkplaats |
+| Antraciet | werkplaats |
+| Monumentengroen | werkplaats |
+| Ossenbloed | werkplaats |
+| Voor een bakker | werkplaats |
+| Vóór twaalf uur besteld kan nog vandaag, daarna vanaf morgen. Een dag waarop de winkel dicht is, kun je niet kiezen. | werkplaats |
+| Ophaaldag voor je taart | werkplaats |
+| Bestellen tot 12.00 uur voor dezelfde dag. Op zondag en maandag zijn we dicht. | werkplaats |
+| Voor een yogastudio | werkplaats |
+| Een nieuwe beginnersgroep start bij twaalf aanmeldingen. De teller laat zien hoe ver het is, met een echt getal of helemaal niets. | werkplaats |
+| Aanmeldingen voor de nieuwe beginnersgroep | werkplaats |
+| 9 van de 12 aanmeldingen voor de nieuwe beginnersgroep. | werkplaats |
+| Voor een restaurant | werkplaats |
+| Datum, tijd en aantal personen kies je al op de eigen site. De reserveringsmodule opent daarna met alles ingevuld. | werkplaats |
+| Reserveer een tafel | werkplaats |
+| Voor een advocatenkantoor | werkplaats |
+| Elke knop opent hetzelfde korte formulier, met de juiste vraag al aangevinkt. Geen nieuwe pagina, geen zoeken. | werkplaats |
+| Plan een intake | werkplaats |
+| Vraag een second opinion | werkplaats |
+| Een intakegesprek | werkplaats |
+| Een second opinion | werkplaats |
+| Een contract laten nakijken | werkplaats |
+| Je naam | werkplaats |
+| Je e-mailadres | werkplaats |
+| Waar gaat het over? | werkplaats |
+| Afspraak aanvragen (voorbeeld) | werkplaats |
+| Waarmee kunnen we helpen? | werkplaats |
+| Volgende | werkplaats |
+| Terug | werkplaats |
+| Aanvraag versturen | werkplaats |
+| Even geduld… | werkplaats |
+| Sluiten | werkplaats |
+| Dit was een voorbeeld | werkplaats |
+| Er is niets verstuurd. Op een echte site komt je aanvraag nu binnen bij het kantoor. | werkplaats |
+| Dat ging mis | werkplaats |
+| Probeer het nog eens. | werkplaats |
+| Er wordt niets verstuurd of bewaard. Meer staat in de | werkplaats |
+| Vul dit veld in. | werkplaats |
+| Vul een geldig e-mailadres in. | werkplaats |
+| Kies een onderwerp. | werkplaats |
+| Voor een boekhouder | werkplaats |
+| Een nieuwe klant typt "kapper" en vindt Haarstylist. Honderdeenenvijftig beroepen met zoekwoorden, en een uitweg als het zijne er niet bij staat. | werkplaats |
+| Wat is je beroep? | werkplaats |
+| Typ je beroep | werkplaats |
+| Mijn beroep staat er niet tussen | werkplaats |
+| Vul je beroep zelf in | werkplaats |
+| Voor een psychologenpraktijk | werkplaats |
+| Artikelen, podcasts en video’s filteren op onderwerp en zoeken zonder op hoofdletters te letten. De stand staat in het adres. | werkplaats |
+| Piekeren voor het slapengaan | werkplaats |
+| Waarom je hoofd juist in bed aan gaat, en drie dingen die helpen. | werkplaats |
+| Wat gebeurt er in een eerste gesprek? | werkplaats |
+| Van de eerste vraag tot het plan: zo ziet een intake eruit. | werkplaats |
+| Praktisch | werkplaats |
+| Ademhalen bij paniek | werkplaats |
+| Een rustige oefening van vier minuten om mee te doen. | werkplaats |
+| Angst | werkplaats |
+| Somberheid in de winter | werkplaats |
+| Licht, ritme en beweging: wat je zelf kunt doen als de dagen kort worden. | werkplaats |
+| Stemming | werkplaats |
+| Werkstress herkennen | werkplaats |
+| Een gesprek over de signalen die je vaak pas achteraf ziet. | werkplaats |
+| Stress | werkplaats |
+| Vergoeding uit de basisverzekering | werkplaats |
+| Wanneer je zorg vergoed wordt en wat het eigen risico betekent. | werkplaats |
+| Als je kind faalangst heeft | werkplaats |
+| Twee ouders en een psycholoog over toetsen, verwachtingen en rust. | werkplaats |
+| Slaapritme na een nachtdienst | werkplaats |
+| Hoe je weer in slaap komt als de rest van de wereld wakker is. | werkplaats |
+| Slaap | werkplaats |
+| Rouw heeft geen schema | werkplaats |
+| Over verlies, en waarom verdriet niet in vijf fases past. | werkplaats |
+| Artikel | werkplaats |
+| Podcast | werkplaats |
+| Video | werkplaats |
+| Voor een data- en AI-bureau | werkplaats |
+| Wat doet de AI-assistent zelf, wat vraagt hij eerst en wat nooit? Zet de standen om en de samenvatting rekent mee. | werkplaats |
+| Doet dit zelf | werkplaats |
+| Vraagt eerst | werkplaats |
+| vraagt eerst | werkplaats |
+| Nooit | werkplaats |
+| De assistenten | werkplaats |
+| Samenvatting | werkplaats |
+| Wie mag wat | werkplaats |
+| Handeling | werkplaats |
+| Inbox | werkplaats |
+| Mail | werkplaats |
+| Leest mee in de gedeelde mailbox. | werkplaats |
+| IN | werkplaats |
+| Planner | werkplaats |
+| Agenda | werkplaats |
+| Houdt de agenda van het team bij. | werkplaats |
+| PL | werkplaats |
+| Schrijver | werkplaats |
+| Teksten | werkplaats |
+| Maakt eerste versies van rapporten. | werkplaats |
+| SC | werkplaats |
+| Mail sorteren | werkplaats |
+| Antwoord opstellen | werkplaats |
+| Antwoord versturen | werkplaats |
+| Afspraak voorstellen | werkplaats |
+| Afspraak verzetten | werkplaats |
+| Geld | werkplaats |
+| Factuur klaarzetten | werkplaats |
+| Betaling doen | werkplaats |
+| eerste kerstdag | werkplaats |
+| tweede kerstdag | werkplaats |
+| "Bekijk de ontwerp-demo <naam>" | werkplaats (sjabloon) |
+| "Bekijk de ontwerp-demo <naam> (opent in een nieuw tabblad)" | werkplaats (sjabloon) |
+| "Nog <aantal> aanmeldingen tot de nieuwe groep start" | werkplaats (sjabloon) |
+| "De nieuwe groep is vol: <aantal> aanmeldingen" | werkplaats (sjabloon) |
+| "<rol>: <handeling> staat nu op <stand>" | werkplaats (sjabloon) |
+| "<aantal> handelingen" | werkplaats (sjabloon) |

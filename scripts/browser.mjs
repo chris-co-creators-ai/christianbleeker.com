@@ -57,5 +57,5 @@ export const CASES = ['human-margin', 'hoveniersbedrijf-nijboer', 'stratenova-ad
 
 /** Alle routes; PAGINAS=kort meet alleen de hoofdpagina's + één case (snelle ronde). */
 export const PAGINAS = process.env.PAGINAS === 'kort'
-  ? ['/', '/about', '/work', '/work/human-margin', '/ai', '/contact', '/privacy', '/bestaat-niet']
-  : ['/', '/about', '/work', ...CASES.map((c) => `/work/${c}`), '/ai', '/contact', '/privacy', '/bestaat-niet']
+  ? ['/', '/about', '/work', '/work/human-margin', '/ai', '/werkplaats', '/contact', '/privacy', '/bestaat-niet']
+  : ['/', '/about', '/work', ...CASES.map((c) => `/work/${c}`), '/ai', '/werkplaats', '/contact', '/privacy', '/bestaat-niet']

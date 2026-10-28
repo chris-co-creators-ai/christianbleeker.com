@@ -39,7 +39,7 @@ for (const pad of await routes()) {
   const blokken = await page.evaluate(() => {
     const uit = []
     document.querySelectorAll('body h1, body h2, body h3, body p, body li, body a, body button, body label, body figcaption, body blockquote')
-      .forEach((el) => { if (!el.closest('[aria-hidden="true"], .sr-only')) uit.push(el.innerText) })
+      .forEach((el) => { if (!el.closest('[aria-hidden="true"], .sr-only')) uit.push(el.innerText ?? el.textContent) }) // SVG-links (werkgebied-kaart) kennen geen innerText
     return uit
   })
   const tekst = blokken.join('\n')
