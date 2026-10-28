@@ -13,6 +13,9 @@ import { breadcrumbSchema } from '@/lib/schema'
 import { BentoGrid } from '@/features/bento-grid/BentoGrid'
 import { CustomCursor } from '@/features/custom-cursor/CustomCursor'
 import { RevealOnScroll } from '@/features/reveal-on-scroll/RevealOnScroll'
+import { WerkFilter } from '@/components/WerkFilter'
+import { Demos } from '@/components/secties/Demos'
+import { demos } from '@/content/demos'
 
 export const metadata: Metadata = {
   title: { absolute: werk.titel },
@@ -36,7 +39,8 @@ export default function Werk() {
         <section className="werk-intro container-site">
           <h1 className="werk-h1">{werk.kop}</h1>
         </section>
-        <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px">
+        <WerkFilter labels={werk.filter} aantallen={{ alles: cases.length + demos.length, klanten: cases.length, demos: demos.length }}>
+        <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px" className="klant-groep">
           <EigenProduct prioriteit />
           <section id="werk" className="sectie container-site" aria-labelledby="websites-kop">
             <div className="sectie-kop" data-reveal="">
@@ -61,9 +65,11 @@ export default function Werk() {
               </BentoGrid>
           </section>
         </RevealOnScroll>
+        <Demos />
+        </WerkFilter>
       </main>
       <Voet />
-      <Dock verberg="#werk, #producten" />
+      <Dock verberg="#werk, #producten, #demos" />
       <CustomCursor variant="crosshair" interactiveSelector=".tegel__link" magnetic={false} />
     </>
   )

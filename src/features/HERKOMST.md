@@ -43,6 +43,8 @@ hieronder in de tabel — inclusief de reden ("gekozen in PRD/stap 5"). Een map 
 | `letter-reveal/` | `typography/letter-reveal/` | 2026-09-29 | gekozen in PRD/stap 5 |
 | `reveal-on-scroll/` | `scroll/reveal-on-scroll/` | 2026-09-29 | gekozen in PRD/stap 5 |
 | `tab-title-lokker/` | `effects/tab-title-lokker/` | 2026-09-29 | gekozen in PRD/stap 5 |
+| `drag-carousel/` | `carousels/drag-carousel/` (f605c67) | 2026-10-28 | v2: de twintig ontwerp-demo's op /work |
+| `device-mockup/` | `portfolio/device-mockup/` (f605c67) | 2026-10-28 | v2: laptop + telefoon per ontwerp-demo |
 
 ## Hoe je later bijwerkt
 
@@ -74,4 +76,4 @@ ontwerpkeuzes voor één klant, geen infrastructuur; ze komen terug zodra een PR
 - `circle-text/` (css + js) komt uit `typography/circle-text/`: de draaiende
   ring rond de schijf van `krachtveld-logowand` (dat onderdeel importeert hem).
 - `src/_kwaliteit/basis.js` komt uit `_kwaliteit/basis.js` van de bibliotheek: tien onderdelen importeren hun gedeelde hulpjes (minder beweging, in beeld, touch) via `../../_kwaliteit/basis.js`.
-- `device-mockup/` is verwijderd: de schermbeelden van de cases staan al in een laptop-mockup.
+- `device-mockup/` was verwijderd (de schermbeelden van de cases staan al in een laptop-mockup) en kwam in v2 terug voor de ontwerp-demo's, waarvan de schermbeelden kaal zijn. De telefoon naast de laptop volgt de markup van het onderdeel zonder `tabindex`: hij is decoratief (`aria-hidden`), de laptop draagt de naam.

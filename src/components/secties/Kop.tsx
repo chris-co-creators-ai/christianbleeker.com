@@ -2,6 +2,7 @@ import { kop } from '@/content/teksten'
 import { PillNav } from '@/features/pill-nav/PillNav'
 import { ImageMenu } from '@/features/image-menu/ImageMenu'
 import { ChecklistKnop } from '@/components/ChecklistKnop'
+import { ThemaKnop } from '@/components/ThemaKnop'
 
 /** Per menu-item een eigen foto in het schermvullende menu (image-menu, mobiel en tablet). */
 const MENUBEELD: Record<string, { beeld: string; alt: string }> = {
@@ -31,6 +32,7 @@ export function Kop({ pad }: { pad: string }) {
             ))}
           </ul>
           <ChecklistKnop className="pn__cta">{kop.checklist}</ChecklistKnop>
+          <ThemaKnop />
         </PillNav>
       </div>
       <div className="kop-mobiel container-site">
@@ -38,13 +40,14 @@ export function Kop({ pad }: { pad: string }) {
           <span>{kop.merk}</span>{" "}
           <small aria-hidden="true">{kop.ondertitel}</small>
         </a>
+        <ThemaKnop className="thema-knop--mobiel" />
         <ImageMenu
           links={kop.links.map((l) => ({
             href: l.href,
             label: l.label,
             image: MENUBEELD[l.href].beeld,
             imageAlt: MENUBEELD[l.href].alt,
-            color: '#17110f',
+            color: 'var(--color-grond)',
             active: actief(l.href),
           }))}
         />

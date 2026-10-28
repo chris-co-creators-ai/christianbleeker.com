@@ -154,6 +154,18 @@ export const werk = {
   websites: 'Websites',
   cursor: 'Bekijk', // voorstel (label bij de cursor)
   kort: 'In het kort',
+  // v2 (28-10-2026): filter en ontwerp-demo's naast de echte klanten. Voorstel, zie docs/copy-nieuw.md.
+  filter: { label: 'Toon werk', alles: 'Alles', klanten: 'Klanten', demos: "Demo's" },
+  demos: {
+    kicker: "Ontwerp-demo's",
+    kop: 'Twintig vakken, twintig eigen gezichten',
+    tekst: 'Dit zijn geen klanten. Het zijn ontwerpen die we maakten om te laten zien hoe een site voor een vak kan voelen, van fysiotherapeut tot ingenieursbureau. Elke demo is een werkende site: klik door en kijk rond.',
+    label: 'Ontwerp-demo',
+    carousel: "Twintig ontwerp-demo's",
+    bekijk: 'Bekijk de demo',
+    bekijkAlt: (naam: string) => `Bekijk de ontwerp-demo ${naam} (opent in een nieuw tabblad)`,
+    schermAlt: (naam: string) => `De homepage van de ontwerp-demo ${naam} op een laptop`,
+  },
 }
 
 export const casePagina = {

@@ -38,6 +38,47 @@
 :root {
   --marge: clamp(16px, 4vw, 56px);
   color-scheme: dark;
+  /* RGB-drietallen voor transparante lagen (verlopen, glas): rgb(var(--rgb-grond) / 0.7). */
+  --rgb-grond: 23 17 15;
+  --rgb-tekst: 245 236 227;
+  --color-hoofd-hover: #ff6a50;
+  --color-accent-hover: #c2ece4;
+  --schaduw: 0 30px 60px -28px rgba(0, 0, 0, 0.6);
+}
+
+/**
+ * Wit thema "Papier": warm papier in plaats van een omgekeerd palet. Rood en mint zijn dieper gezet
+ * zodat ze als tekst AA halen. Contrast op de grond #f6efe6 (gemeten): tekst 15,8:1 · tekst-2 6,9:1 ·
+ * hoofd 5,1:1 · accent 6,2:1; op grond-2 #ece2d5: tekst-2 6,2:1 · hoofd 4,6:1 · accent 5,5:1.
+ * Knoppen: papier op hoofd 5,1:1, papier op accent 6,2:1. Het inline script in layout.tsx zet
+ * data-thema vóór de eerste paint (geen flits); zonder JS blijft het donker.
+ */
+:root[data-thema='licht'] {
+  color-scheme: light;
+  --rgb-grond: 246 239 230;
+  --rgb-tekst: 29 21 18;
+  --color-grond: #f6efe6;
+  --color-grond-2: #ece2d5;
+  --color-grond-3: #e2d5c4;
+  --color-tekst: #1d1512;
+  --color-tekst-2: #5c4f46;
+  --color-hoofd: #b8361d;
+  --color-accent: #1a6358;
+  --color-lijn: #1d151224;
+  --color-lijn-sterk: #1d151257;
+  --color-paper: #f6efe6;
+  --color-paper-2: #ece2d5;
+  --color-ink: #1d1512;
+  --color-muted: #5c4f46;
+  --color-line: #1d151224;
+  --color-line-strong: #1d151257;
+  --color-on-ink: #f6efe6;
+  --color-on-ink-muted: #f6efe6b0;
+  --color-accent-deep: #b8361d;
+  --color-accent-soft: #ece2d5;
+  --color-hoofd-hover: #9a2b15;
+  --color-accent-hover: #134c43;
+  --schaduw: 0 30px 60px -30px rgba(60, 38, 24, 0.35);
 }
 
 .container-site {
@@ -81,9 +122,9 @@ p { text-wrap: pretty; }
 .knop--rand { background: transparent; color: var(--color-tekst); box-shadow: inset 0 0 0 1.5px var(--color-lijn-sterk); }
 .knop--mint { background: var(--color-accent); color: var(--color-grond); }
 @media (hover: hover) and (pointer: fine) {
-  .knop:hover { background: #ff6a50; }
+  .knop:hover { background: var(--color-hoofd-hover); }
   .knop--rand:hover { background: var(--color-grond-2); }
-  .knop--mint:hover { background: #c2ece4; }
+  .knop--mint:hover { background: var(--color-accent-hover); }
   .knop .pijl { transition: transform 200ms var(--ease-uit); }
   .knop:hover .pijl { transform: translateX(3px); }
 }

@@ -167,3 +167,27 @@ Feiten uit de sites zelf (stratenova-demo, www.seveke.nl) en het dossier van Str
 | Tekst | Waar | Bron |
 |---|---|---|
 | Official TEDxEindhoven advisor | Home, boven de kop (Engels, `lang="en"`) | feit aangeleverd 01-10-2026 |
+
+## v2 (28-10-2026): thema-schakelaar en ontwerp-demo's op /work
+
+Voorstel voor v2 (lokaal, niet live). De demo's zijn ontwerpen van Seveke Creative, geen klanten; dat staat er
+eerlijk bij. Namen, beroepen en plaatsen komen uit de lijst van de twintig demo-sites.
+
+| Tekst | Waarom |
+|---|---|
+| Wit thema | schakelaar (toegankelijke naam) |
+| Naar het witte thema | schakelaar (tooltip) |
+| Naar het donkere thema | schakelaar (tooltip) |
+| Toon werk | filter (groepslabel) |
+| Alles | filter |
+| Klanten | filter |
+| Demo's | filter |
+| Ontwerp-demo's | kicker |
+| Twintig vakken, twintig eigen gezichten | kop |
+| Dit zijn geen klanten. Het zijn ontwerpen die we maakten om te laten zien hoe een site voor een vak kan voelen, van fysiotherapeut tot ingenieursbureau. Elke demo is een werkende site: klik door en kijk rond. | eerlijk tegenover bezoekers |
+| Ontwerp-demo | label per demo |
+| Twintig ontwerp-demo's | naam van de carrousel |
+| Bekijk de demo | knop |
+| "Bekijk de ontwerp-demo <naam> (opent in een nieuw tabblad)" | toegankelijke naam |
+| "De homepage van de ontwerp-demo <naam> op een laptop" | alt |
+| "<naam> <in het kort>" | per demo: naam, beroep en plaats (zie src/content/demos.ts) |
