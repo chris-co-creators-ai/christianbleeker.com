@@ -126,6 +126,8 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     // Scrollen als een bezoeker en wachten tot het venster echt stilstaat: html heeft scroll-behavior: smooth,
     // en WebKit volgt die ook bij behavior 'instant' (vermoedelijk de oorzaak van de rode WebKit-ronde van 28-10).
     const naar = async (y) => {
+      // eerst wachten tot er geen slot meer op html/body staat (de intro houdt html vast tot hij klaar is)
+      for (let i = 0; i < 80; i++) { if (await hp.evaluate(() => ![document.documentElement, document.body].some((e) => getComputedStyle(e).overflowY === 'hidden'))) break; await hp.waitForTimeout(50) }
       const doel = await hp.evaluate((yy) => { window.scrollTo({ top: yy, behavior: 'instant' }); return Math.min(Math.round(yy), document.documentElement.scrollHeight - innerHeight) }, y)
       for (let i = 0; i < 60; i++) { if (Math.abs((await hp.evaluate(() => scrollY)) - doel) < 2) break; await hp.waitForTimeout(50) }
       return doel
@@ -138,6 +140,14 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     const intro1 = await zicht()
     // punt-zoom-intro: zichtbaar bij binnenkomst en binnen 2,6 s weg; bij minder beweging nooit.
     if (reduced ? intro0 || intro1 : !intro0 || intro1) fout('punt-zoom-intro', { intro0, intro1 })
+    // Na de intro moet de pagina scrollen: geen slot op html of body achtergelaten (WebKit-ronde 28-10).
+    for (let i = 0; i < 80; i++) { if (await hp.evaluate(() => getComputedStyle(document.documentElement).overflowY !== 'hidden')) break; await hp.waitForTimeout(50) }
+    const slot = await hp.evaluate(async () => {
+      window.scrollTo({ top: 600, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 900))
+      const uit = { y: Math.round(scrollY), html: getComputedStyle(document.documentElement).overflowY, body: getComputedStyle(document.body).overflowY }
+      window.scrollTo({ top: 0, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 900)); return uit
+    })
+    if (slot.y < 300 || slot.html === 'hidden' || slot.body === 'hidden') fout('punt-zoom-intro slot', slot)
     // tweede bezoek in dezelfde sessie: geen intro
     await hp.reload({ waitUntil: 'domcontentloaded' }); await hp.waitForTimeout(150)
     const intro2 = await zicht()
@@ -201,7 +211,7 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
 
     const sw = await hp.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth])
     if (sw[0] > sw[1]) fout('breedte', sw)
-    regels.push(`${label} home intro ${+intro0}${+intro1}${+intro2} · korrel ${g0?.t !== g1?.t ? 'beweegt' : 'stil'} · rol ${lr.letters} · explosie ${bx.beelden} kaart ${kaart.b}px aan ${+kaart.aan} stil ${+bx.stil} · kinetisch ${ktBoven.wght}→${ktMidden.wght} · verhaal ${s0.lit}/${s0.n}→${s1.lit}/${s1.n} · reviews ${rw.n}/${rw.label} · voet ${f0}→${f1}`)
+    regels.push(`${label} home intro ${+intro0}${+intro1}${+intro2} scroll ${slot.y} · korrel ${g0?.t !== g1?.t ? 'beweegt' : 'stil'} · rol ${lr.letters} · explosie ${bx.beelden} kaart ${kaart.b}px aan ${+kaart.aan} stil ${+bx.stil} · kinetisch ${ktBoven.wght}→${ktMidden.wght} · verhaal ${s0.lit}/${s0.n}→${s1.lit}/${s1.n} · reviews ${rw.n}/${rw.label} · voet ${f0}→${f1}`)
     await b2.close()
   }
   // 6. Over (maker B): sticky-timeline, hotspots, justify-fill, schreef-accent.

@@ -12,7 +12,20 @@ import './intro.css'
  */
 export function HomeIntro({ merk }: { merk: string }) {
   const ref = useRef<HTMLDivElement | null>(null)
-  useEffect(() => (ref.current ? init(ref.current, { startVertraging: 450, duur: 1100 }) : undefined), [])
+  useEffect(() => {
+    const root = ref.current
+    if (!root) return
+    const html = document.documentElement
+    const body = document.body
+    const destroy = init(root, { startVertraging: 450, duur: 1100 })
+    // De intro zet overflow: hidden op html én body. Op body maakt dat body tot scrollcontainer, waardoor
+    // sticky (stapelpanelen, beeldexplosie) tijdens de intro verkeerd meet; het slot op html is genoeg.
+    body.style.overflow = ''
+    // Terugval: hoe de intro ook eindigt (klik, toets, faalveilig of een gemist frame), na 3 s is het slot weg.
+    const ontgrendel = () => { if (html.style.overflow === 'hidden') html.style.overflow = ''; body.style.overflow = '' }
+    const terugval = window.setTimeout(() => { destroy(); ontgrendel() }, 3000)
+    return () => { window.clearTimeout(terugval); destroy(); ontgrendel() }
+  }, [])
   return (
     <div ref={ref} data-punt-zoom-intro="" aria-hidden="true" className="home-intro">
       <div className="pzi-logo-wrap">
