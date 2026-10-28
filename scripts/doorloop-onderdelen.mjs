@@ -27,6 +27,7 @@
  *     tabblad bij de prijzen, prijs-CTA met parameters, agenda zonder verzoek naar cal.com vóór de klik.
  */
 import { laadChromium, LAUNCH, BASIS } from './browser.mjs'
+import { toetsV3b } from './doorloop-v3b.mjs'
 const motor = await laadChromium()
 const naam = process.env.BROWSER || 'chromium'
 const fouten = [], regels = []
@@ -489,10 +490,13 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     regels.push(`${label} voetlijn ${reduced ? 'eindbeeld' : 'lottie ' + vl.klaar} · kruis ${vl.kruis} (hoofd ${vl.hoofd})`)
   }
 
+  // 12. v3 beeld en effecten (maker B): zie doorloop-v3b.mjs.
+  await toetsV3b(page, { label, reduced, mobiel, fouten, regels })
+
   if (cons.length) fouten.push(`${label}: ${cons.length} consolefout(en): ${cons.slice(0, 3).join(' | ')}`)
   regels.push(`${label} console ${cons.length}`)
   await b.close()
 }
 console.log(regels.join('\n'))
 if (fouten.length) { console.error(`\nONDERDELEN ROOD (${fouten.length}):\n- ${fouten.join('\n- ')}`); process.exit(1) }
-console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact; v3-C: leesstand (wijkende kop, merk, zijmenu/vel), kader-hover, snel contact + pulse, omslag, veeg-rij, voetlijn`)
+console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact; v3-C: leesstand (wijkende kop, merk, zijmenu/vel), kader-hover, snel contact + pulse, omslag, veeg-rij, voetlijn; v3b: diepte-beeld, eyebrow, parallax, randen, kleurveld, raster-intro, magneet, hero-motion, kader, €`)

@@ -426,3 +426,15 @@ Chris heeft geen telefoonnummer op de site, dus "Snel contact" toont de beschikb
 | Stuur me een bericht | knop in Snel contact (uit de voet) |
 | "Draai de omslag van <naam> om" | toegankelijke naam van de omdraaiknop op de casepagina |
 | Misschien zocht je dit | kop boven de pagina's op de 404 |
+
+## v3 (maker B, 28-10-2026): beeld en effecten
+
+Geen nieuwe zinnen. Wel:
+
+| Tekst | Waar | Waarom |
+|---|---|---|
+| Wie ik ben | /about, label vóór de eerste alinea (eyebrow-lijn) | voorstel |
+| Elk · merk · heeft een eigen · verhaal. | /work, de kop in de raster-intro | dezelfde eerste zin van de kop, in vier delen |
+| We helpen het zichtbaar te maken op het web. | /work, onder de kop | de tweede zin van dezelfde kop, nu als losse regel |
+| AI | /ai, label vóór de intro (eyebrow-lijn) | het bestaande kicker-woord |
+| € | /contact, groot en open achter "Wat kost het?" | decoratie, voor schermlezers verborgen |

@@ -17,6 +17,9 @@ import { WerkFilter } from '@/components/WerkFilter'
 import { Demos } from '@/components/secties/Demos'
 import { demos } from '@/content/demos'
 import { AllesWand } from '@/components/v2c/AllesWand'
+import { WerkRaster } from '@/components/v3b/WerkRaster'
+import { MagneetBeelden } from '@/features/magneet-beelden/MagneetBeelden'
+import '@/components/v3b/beeld.css'
 
 export const metadata: Metadata = {
   title: { absolute: werk.titel },
@@ -37,12 +40,12 @@ export default function Werk() {
       />
       <Kop pad="/work" />
       <main id="inhoud" tabIndex={-1} className="outline-none flex-1">
-        <section className="werk-intro container-site">
-          <h1 className="werk-h1">{werk.kop}</h1>
-        </section>
+        <WerkRaster />
         <WerkFilter labels={werk.filter} aantallen={{ alles: cases.length + demos.length, klanten: cases.length, demos: demos.length }}>
         <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px" className="klant-groep">
-          <EigenProduct prioriteit />
+          <MagneetBeelden radius={220} sterkte={14} className="werk-magneet">
+            <EigenProduct prioriteit magneet />
+          </MagneetBeelden>
           <section id="werk" className="sectie container-site" aria-labelledby="websites-kop">
             <div className="sectie-kop" data-reveal="">
               <h2 id="websites-kop">{werk.websites}</h2>

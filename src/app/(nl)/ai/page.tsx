@@ -5,7 +5,7 @@ import { Voet } from '@/components/secties/Voet'
 import { Beeld } from '@/components/Beeld'
 import { ChecklistKnop } from '@/components/ChecklistKnop'
 import { Dock } from '@/components/Dock'
-import { ai, over } from '@/content/teksten'
+import { ai, over, home } from '@/content/teksten'
 import { site } from '@/content/site'
 import { breadcrumbSchema, videoSchema } from '@/lib/schema'
 import { VideoFacade } from '@/features/video-facade/VideoFacade'
@@ -14,9 +14,13 @@ import { VoorNaVerhaal } from '@/features/voor-na-verhaal/VoorNaVerhaal'
 import { KaartenrijLottie } from '@/features/kaartenrij-lottie/KaartenrijLottie'
 import { ImpactScan, type ImpactScanConfig } from '@/features/impact-scan/ImpactScan'
 import { PasswordReveal } from '@/features/password-reveal/PasswordReveal'
+import { DiepteBeeld } from '@/features/diepte-beeld/DiepteBeeld'
+import { EyebrowLijn } from '@/features/eyebrow-lijn/EyebrowLijn'
+import { Parallax } from '@/features/parallax/Parallax'
 import scan from '@/content/ai-scan.json'
 import { KaderHover } from '@/features/kader-hover/KaderHover'
 import { SnelContact } from '@/components/v3c/SnelContact'
+import '@/components/v3b/beeld.css'
 import './ai-v2.css'
 
 export const metadata: Metadata = {
@@ -32,6 +36,12 @@ const volgendeMaand = () => {
   return new Intl.DateTimeFormat('nl-NL', { month: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(j, m, 1)))
 }
 
+/** srcset van een laag van het diepte-beeld (zelfde uitsnede, drie breedtes). */
+const DIEPTE = (laag: 'achter' | 'voor') => [768, 1280, 1920].map((w) => `/beeld/diepte-${laag}-${w}.webp ${w}w`).join(', ')
+
+/** parallax: de grote nummers drijven elk in een eigen tempo langs hun regel (alleen decoratie, aria-hidden). */
+const DRIFT = ['-36', '28', '-22', '40']
+
 export default function AiPagina() {
   const tedx = over.gesprek.tedx
   return (
@@ -46,14 +56,23 @@ export default function AiPagina() {
       />
       <Kop pad="/ai" />
       <main id="inhoud" tabIndex={-1} className="outline-none flex-1">
-        <section className="ai-kop">
-          <div className="ai-foto" aria-hidden="true">
-            <Beeld naam="tedx" maten={[768, 1280, 1920, 2560]} breedte={3216} hoogte={1666} alt="" prioriteit />
-          </div>
+        <section className="ai-kop ai-kop--diepte" aria-labelledby="ai-kop-titel">
+          {/* diepte-beeld: het TEDx-podium in drie lagen (podium, kop, publiek) die licht verschuiven */}
+          <DiepteBeeld className="ai-diepte" muis={0.012} scroll={0.035} scrollTouch={0.1}>
+            <div data-diepte-laag="" data-diepte="0.12">
+              <img src="/beeld/diepte-achter-1920.webp" srcSet={DIEPTE('achter')} sizes="100vw" width={1920} height={994} alt={home.fotoAlt} fetchPriority="high" decoding="async" />
+            </div>
+            <div data-diepte-laag="" data-diepte="0.45" className="db-tekst ai-diepte-tekst">
+              <div className="container-site">
+                <h1 className="ai-h1" id="ai-kop-titel">{ai.kop}</h1>
+              </div>
+            </div>
+            <div data-diepte-laag="" data-diepte="1">
+              <img src="/beeld/diepte-voor-1920.webp" srcSet={DIEPTE('voor')} sizes="100vw" width={1920} height={994} alt="" aria-hidden="true" decoding="async" />
+            </div>
+          </DiepteBeeld>
           <div className="container-site ai-kop-tekst">
-            <p className="kicker">{ai.kicker} <span className="x" aria-hidden="true">×</span></p>
-            <h1 className="ai-h1">{ai.kop}</h1>
-            <p className="ai-intro">{ai.intro}</p>
+            <EyebrowLijn label={ai.kicker} className="ai-intro" rootMargin="0px 0px -2% 0px">{ai.intro}</EyebrowLijn>
             <p className="ai-tweede">{ai.tweede}</p>
           </div>
         </section>
@@ -65,10 +84,11 @@ export default function AiPagina() {
               <h2 id="wat-kop">{ai.wat.kop}</h2>
             </div>
             <KaderHover className="ai-kaders">
+            <Parallax className="ai-lijst-diepte">
             <ol className="ai-lijst">
               {ai.wat.items.map((it, i) => (
                 <li key={it.titel} className="ai-item" data-kader="" data-reveal="" data-reveal-delay={String(i * 0.06)}>
-                  <span className="ai-nr" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="ai-nr" aria-hidden="true" data-parallax-y={DRIFT[i % DRIFT.length]}>{String(i + 1).padStart(2, '0')}</span>
                   <div>
                     <h3>{it.titel}</h3>
                     <p>{it.tekst}</p>
@@ -89,6 +109,7 @@ export default function AiPagina() {
                 </li>
               ))}
             </ol>
+            </Parallax>
             </KaderHover>
           </section>
           <section className="sectie ai-vnv-sectie" aria-labelledby="vnv-kop">

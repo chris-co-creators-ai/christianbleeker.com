@@ -183,12 +183,16 @@ export const over = {
     ],
   },
   statement: 'Een goede website begint bij de mensen erachter.',
+  wie: 'Wie ik ben', // voorstel (v3): label van de eerste alinea
 }
 
 export const werk = {
   titel: 'Werk — websites van Chris Bleeker', // voorstel (meta)
   beschrijving: 'Dertien websites van kinderopvang en coaching tot teamreizen en AI, plus de eigen producten Dicteren.ai, Co-creatie.ai en Co-Creators.ai.', // voorstel (meta)
   kop: 'Elk merk heeft een eigen verhaal. We helpen het zichtbaar te maken op het web.', // voorstel (wij)
+  // v3: dezelfde kop, verdeeld over de woorden van de raster-intro (samen precies de eerste zin) + de tweede zin eronder
+  kopRaster: ['Elk', 'merk', 'heeft een eigen', 'verhaal.'] as const,
+  kopRasterSub: 'We helpen het zichtbaar te maken op het web.',
   websites: 'Websites',
   cursor: 'Bekijk', // voorstel (label bij de cursor)
   kort: 'In het kort',

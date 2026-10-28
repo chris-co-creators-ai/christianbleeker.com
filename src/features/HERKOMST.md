@@ -119,3 +119,12 @@ ontwerpkeuzes voor één klant, geen infrastructuur; ze komen terug zodra een PR
 midden van het logo in plaats van de hele logohoogte. Gemeten op /about (390, 28-10): kwam de logowand binnen tussen
 de onderrand en het midden van het logo, dan bleef het merk de verkeerde kleur houden, omdat de observer daarna niets
 meer meldde. Terug te zetten naar de bibliotheek.
+
+- v3 (maker B, 28-10-2026), beeld en effecten: `diepte-beeld/` (effects/), `raster-intro/` (heroes/), `gradient-flow/`
+  (backgrounds/), `float-decor/` (effects/), `parallax/` (scroll/), `hero-motion/` (scroll/), `magneet-beelden/` (effects/),
+  `ghost-text/` (typography/), `eyebrow-lijn/` (scroll/) en `section-dividers/` (shapes/), zonder `test/`, `demo.html`,
+  demobeelden en fonts; de herkomstparagrafen zijn weggelaten (openbare repo). Drie aanpassingen: `section-dividers`
+  heet hier `.sdv` in plaats van `.sd` (die klasse is al van `sectie-dock`); `raster-intro.css` laadt geen Anton maar
+  gebruikt de koppenletter van de site, en haalt Instrument Serif uit `schreef-accent/fonts/`. De lagen van het
+  diepte-beeld (`public/beeld/diepte-{achter,voor}-*.webp`) zijn uit de TEDx-foto gesneden: het publiek als voorgrond,
+  het podium met het publiek weggevuld als achtergrond. Plaatsing en thema-tokens: `src/components/v3b/beeld.css`.
