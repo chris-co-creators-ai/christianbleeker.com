@@ -2,6 +2,7 @@ import { voet, kop, linkedin } from '@/content/teksten'
 import { LetterReveal } from '@/features/letter-reveal/LetterReveal'
 import { WijzigToestemmingKnop } from '@/features/toestemming/WijzigToestemmingKnop'
 import { ChecklistKnop } from '@/components/ChecklistKnop'
+import { VoetLijn } from '@/components/v3c/VoetLijn'
 
 /**
  * Voet op elke pagina: merk, menu, privacy en (in de korte voet) de checklist als gewone link,
@@ -28,6 +29,7 @@ export function Voet({ uitnodiging = false, opkomst = false }: { uitnodiging?: b
           <ChecklistKnop className="knop knop--rand">{kop.checklist}</ChecklistKnop>
         </div>
         </>) : null}
+        <VoetLijn />
         <div className="voet-onder">
           <p className="voet-merk">
             {kop.merk} <span className="x" aria-hidden="true">×</span> <span className="voet-sub">{kop.ondertitel}</span>

@@ -20,6 +20,9 @@
  *  8. /work-beeldwand (eindeloos-raster): lus alleen met beweging, 12 cases + 12 demo's, lijst van 33, uitweg zet de focus;
  *  9. casepagina: kader (live-demo-kader) laadt pas na een klik de echte site (nagebootst), stapel (kaartenstapel-zij)
  *     pint op 1440 en is een snap-rij op 390 / bij minder beweging; human-margin (laat zich niet inbedden) zonder laadknop;
+ * 11. v3-C: de kop wijkt bij omlaag scrollen, merk (kleurwissel boven de logowand) en zijmenu/vel blijven; menu met Enter,
+ *     thema erin, Escape zet de focus terug; kader-hover (focus/hover), snel contact over de AI-kop met pulse, omslag-
+ *     flip met Enter, veeg-rij op de 404, voetlijn tekent (eindbeeld bij minder beweging).
  * 10. /contact: badge = volgende maand, ?scan= vult het bericht als platte tekst, ?dienst=&pakket= kiest voor, advies →
  *     tabblad bij de prijzen, prijs-CTA met parameters, agenda zonder verzoek naar cal.com vóór de klik.
  */
@@ -363,10 +366,113 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     await page.unroute('https://cal.com/**')
   }
 
+  // 11. v3 maker C: leesstand (scroll-richting-nav, logo-kleurwissel, flip-side-menu / vel-menu), kader-hover,
+  //     snel contact (floating-contact-card + pulse-button), omslag (flip-card), 404 (veeg-rij), voetlijn (lottie-scrub).
+  {
+    const zicht = (sel) => page.evaluate((s) => { const e = document.querySelector(s); if (!e) return 'geen'; const c = getComputedStyle(e); return c.visibility === 'visible' && Number(c.opacity) > 0.9 ? 'zichtbaar' : 'weg' }, sel)
+    const kopSel = mobiel ? '.kop-mobiel' : '.kop-desktop .pn'
+    const knopSel = mobiel ? '.ls-vel-knop' : '.ls-fsm .fsm__button'
+    await page.goto(BASIS + '/about', { waitUntil: 'networkidle' })
+    const l0 = { logo: await zicht('.ls-logo'), knop: await zicht(knopSel) }
+    for (let i = 0; i < 8; i++) { await page.evaluate(() => window.scrollBy(0, 150)); await page.waitForTimeout(60) }
+    await page.waitForTimeout(700)
+    const l1 = await page.evaluate((k) => ({ weg: document.querySelector(k).hasAttribute('data-srn-weg'), onder: Math.round(document.querySelector(k).getBoundingClientRect().bottom) }), kopSel)
+    l1.logo = await zicht('.ls-logo'); l1.knop = await zicht(knopSel)
+    if (l0.logo !== 'weg' || l0.knop !== 'weg') fouten.push(`${label} leesstand bovenaan: ${JSON.stringify(l0)}`)
+    if (!l1.weg || l1.onder > 0 || l1.logo !== 'zichtbaar' || l1.knop !== 'zichtbaar') fouten.push(`${label} leesstand na omlaag: ${JSON.stringify(l1)}`)
+    // logo-kleurwissel: boven de omgekeerde logowand keert het merk om
+    // stapsgewijs tot de bovenkant van de logowand onder het midden van het merk ligt (de pagina kan onderweg nog groeien)
+    for (let i = 0; i < 200; i++) {
+      const rest = await page.evaluate(() => { const l = document.querySelector('.ls-logo').getBoundingClientRect(); return document.querySelector('.logowand').getBoundingClientRect().top - (l.top + l.height / 2) + 30 })
+      if (rest <= 0) break
+      // het laatste stuk langzaam (4 px per stap): zo kwam de fout boven, dat het merk bij langzaam scrollen bleef hangen
+      await page.evaluate((d) => window.scrollBy(0, d), rest > 70 ? Math.min(300, rest - 60) : 4); await page.waitForTimeout(rest > 70 ? 60 : 30)
+    }
+    await page.waitForTimeout(700)
+    const lk = await page.evaluate(() => { const l = document.querySelector('.ls-logo'); return { staat: l.dataset.lkStaat, kleur: getComputedStyle(l).color, grond: getComputedStyle(document.body).backgroundColor } })
+    if (lk.staat !== 'licht' || lk.kleur !== lk.grond) fouten.push(`${label} logo-kleurwissel boven de logowand: ${JSON.stringify(lk)}`)
+    // het menu van de leesstand: openen met het toetsenbord, thema wisselen, Escape, focus terug
+    await page.focus(knopSel); await page.keyboard.press('Enter'); await page.waitForTimeout(reduced ? 450 : 900)
+    const m1 = await page.evaluate((m) => {
+      const paneel = m ? document.querySelector('dialog#leesmenu') : document.querySelector('.ls-fsm [data-fsm-panel]')
+      const open = m ? paneel.open : document.querySelector('.ls-fsm').hasAttribute('data-fsm-open')
+      return { open, links: paneel.querySelectorAll(m ? '.ls-vel-lijst a' : '.fsm__list a').length, focusIn: paneel.contains(document.activeElement), expanded: document.querySelector(m ? '.ls-vel-knop' : '.ls-fsm .fsm__button').getAttribute('aria-expanded') }
+    }, mobiel)
+    const themaVoor = await page.evaluate(() => document.documentElement.dataset.thema)
+    await page.locator(mobiel ? 'dialog#leesmenu .ls-thema' : '.ls-fsm .ls-thema').click(); await page.waitForTimeout(200)
+    const themaNa = await page.evaluate(() => document.documentElement.dataset.thema)
+    await page.locator(mobiel ? 'dialog#leesmenu .ls-thema' : '.ls-fsm .ls-thema').click(); await page.waitForTimeout(200)
+    await page.keyboard.press('Escape'); await page.waitForTimeout(reduced ? 200 : 700)
+    const m2 = await page.evaluate((m) => ({ open: m ? document.querySelector('dialog#leesmenu').open : document.querySelector('.ls-fsm').hasAttribute('data-fsm-open'), focusKnop: document.activeElement === document.querySelector(m ? '.ls-vel-knop' : '.ls-fsm .fsm__button') }), mobiel)
+    if (!m1.open || m1.links !== 5 || !m1.focusIn || m1.expanded !== 'true') fouten.push(`${label} leesmenu open: ${JSON.stringify(m1)}`)
+    if (themaVoor === themaNa) fouten.push(`${label} thema-schakelaar in het leesmenu wisselt niet (${themaVoor} → ${themaNa})`)
+    if (m2.open || !m2.focusKnop) fouten.push(`${label} leesmenu na Escape: ${JSON.stringify(m2)}`)
+    await page.evaluate(() => { localStorage.removeItem('thema'); document.activeElement?.blur() })
+    // omhoog: de volle kop komt terug en de leesstand verdwijnt
+    for (let i = 0; i < 3; i++) { await page.evaluate(() => window.scrollBy(0, -60)); await page.waitForTimeout(60) }
+    await page.waitForTimeout(700)
+    const l2 = { weg: await page.evaluate((k) => document.querySelector(k).hasAttribute('data-srn-weg'), kopSel), knop: await zicht(knopSel) }
+    if (l2.weg || l2.knop !== 'weg') fouten.push(`${label} leesstand na omhoog: ${JSON.stringify(l2)}`)
+    regels.push(`${label} leesstand boven ${JSON.stringify(l0)} → omlaag kop weg (onderkant ${l1.onder}px), merk + ${mobiel ? 'vel' : 'zijmenu'}-knop zichtbaar → logowand: merk ${lk.staat} → menu (Enter) ${m1.links} links, focus erin, thema ${themaVoor}→${themaNa} → Escape focus terug ${m2.focusKnop} → omhoog kop terug`)
+
+    // kader-hover + snel contact op /ai
+    await page.goto(BASIS + '/ai', { waitUntil: 'networkidle' })
+    const knopHoogte = (i) => page.evaluate((n) => Math.round(document.querySelectorAll('.ai-kaders [data-kader-knop]')[n].getBoundingClientRect().height), i)
+    const kh0 = await page.evaluate(() => ({ actief: document.querySelector('.ai-kaders').hasAttribute('data-kader-actief'), n: document.querySelectorAll('.ai-kaders [data-kader]').length }))
+    await page.locator('.ai-kaders [data-kader]').nth(1).scrollIntoViewIfNeeded(); await page.waitForTimeout(300)
+    const rust = await knopHoogte(1)
+    await page.focus('.ai-kaders [data-kader]:nth-child(2) [data-kader-knop] a'); await page.waitForTimeout(reduced ? 100 : 800)
+    const focus = await knopHoogte(1)
+    if (!kh0.actief || kh0.n !== 4 || focus < 20 || (!mobiel && !reduced && rust > 2) || ((mobiel || reduced) && rust < 20)) fouten.push(`${label} kader-hover: ${JSON.stringify({ ...kh0, rust, focus })}`)
+    let hover = '-'
+    if (!mobiel) { await page.evaluate(() => document.activeElement?.blur()); await page.hover('.ai-kaders [data-kader]:nth-child(3)'); await page.waitForTimeout(reduced ? 100 : 800); hover = await knopHoogte(2); if (hover < 20) fouten.push(`${label} kader-hover bij hover: knop ${hover}px`) }
+    regels.push(`${label} kader-hover 4 kaarten · knop in rust ${rust}px · bij focus ${focus}px · bij hover ${hover}px`)
+    await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(400)
+    const fc = await page.evaluate(() => { const k = document.querySelector('.ai-snel'); const r = k.getBoundingClientRect(); const knop = k.querySelector('.pulse-button'); return { marge: parseFloat(getComputedStyle(k).marginTop), overlapTekst: [...document.querySelectorAll('.ai-kop-tekst > *')].some((e) => { const t = e.getBoundingClientRect(); return r.left < t.right && r.right > t.left && r.top < t.bottom && r.bottom > t.top }), kopOnder: Math.round(document.querySelector('.ai-kop').getBoundingClientRect().bottom), kaartBoven: Math.round(r.top), maand: k.querySelector('[data-ab-maand]')?.textContent, href: knop?.getAttribute('href') } })
+    if ((!mobiel && (fc.marge > -40 || fc.kaartBoven >= fc.kopOnder)) || (mobiel && fc.marge < 0) || fc.overlapTekst || !fc.maand || fc.href !== '/contact') fouten.push(`${label} snel contact: ${JSON.stringify(fc)}`)
+    await page.locator('.ai-snel').scrollIntoViewIfNeeded(); await page.waitForTimeout(600)
+    const pb = await page.evaluate(() => { const b = document.querySelector('.ai-snel .pulse-button'); return { pulst: b.classList.contains('is-pulsing') || b.dataset.pulseDone === '1', animatie: getComputedStyle(b).animationName } })
+    if (reduced ? pb.animatie !== 'none' : !pb.pulst) fouten.push(`${label} pulse-button: ${JSON.stringify(pb)}`)
+    regels.push(`${label} snel contact marge ${fc.marge}px (kaart ${fc.kaartBoven} / kop tot ${fc.kopOnder}) · "${fc.maand}" · tekst vrij ${!fc.overlapTekst} · pulse ${reduced ? 'stil (' + pb.animatie + ')' : pb.pulst}`)
+
+    // flip-card op de casepagina: Enter draait om, de verborgen kant is inert
+    await page.goto(BASIS + '/work/human-margin', { waitUntil: 'networkidle' })
+    const flip = () => page.evaluate(() => { const c = document.querySelector('.case-flip'); return { pressed: c.querySelector('.flip-card__toggle').getAttribute('aria-pressed'), voorInert: c.querySelector('.flip-card__face--front').inert, achterInert: c.querySelector('.flip-card__face--back').inert } })
+    const f0 = await flip()
+    await page.focus('.case-flip .flip-card__toggle'); await page.keyboard.press('Enter'); await page.waitForTimeout(reduced ? 350 : 750)
+    const f1 = await flip()
+    const achterZicht = await page.evaluate(() => { const b = document.querySelector('.case-flip .flip-card__face--back'); return { opacity: getComputedStyle(b).opacity, tekst: b.textContent.length > 40 } })
+    await page.keyboard.press('Enter'); await page.waitForTimeout(reduced ? 350 : 750)
+    const f2 = await flip()
+    if (f0.pressed !== 'false' || !f0.achterInert || f1.pressed !== 'true' || f1.achterInert || !f1.voorInert || !achterZicht.tekst || (reduced && achterZicht.opacity !== '1') || f2.pressed !== 'false') fouten.push(`${label} flip-card: ${JSON.stringify({ f0, f1, achterZicht, f2 })}`)
+    regels.push(`${label} flip-card Enter → pressed ${f1.pressed}, achterkant ${f1.achterInert ? 'inert' : 'bereikbaar'} (opacity ${achterZicht.opacity}) → Enter → ${f2.pressed}`)
+
+    // veeg-rij op de 404
+    const consVoor = cons.length
+    await page.goto(BASIS + '/bestaat-niet', { waitUntil: 'networkidle' })
+    cons.splice(consVoor, cons.length - consVoor, ...cons.slice(consVoor).filter((t) => !/status of 404/.test(t)))
+    const vr0 = await page.evaluate(() => [...document.querySelectorAll('.verder [data-veeg]')].map((a) => a.getAttribute('href')))
+    const vlak = () => page.evaluate(() => getComputedStyle(document.querySelector('.verder [data-veeg]'), '::before').transform)
+    let vv = '-'
+    if (!mobiel) { await page.hover('.verder [data-veeg]'); await page.waitForTimeout(reduced ? 80 : 700); vv = await vlak() }
+    else { await page.focus('.verder [data-veeg]'); vv = await vlak() }
+    if (vr0.join(' ') !== '/about /work /ai /contact' || (!mobiel && vv !== 'matrix(1, 0, 0, 1, 0, 0)')) fouten.push(`${label} veeg-rij: ${JSON.stringify({ vr0, vv })}`)
+    regels.push(`${label} veeg-rij ${vr0.length} regels · vlak bij hover ${vv}`)
+
+    // voetlijn: tekent zich bij beweging, eindbeeld bij minder beweging
+    await page.goto(BASIS + '/contact', { waitUntil: 'networkidle' })
+    await page.locator('.voet-lijn').scrollIntoViewIfNeeded()
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight)); await page.waitForTimeout(1800)
+    const vl = await page.evaluate(() => { const v = document.querySelector('.voet-lijn'); const fb = v.querySelector('[data-lottie-scrub-fallback]'); return { klaar: v.hasAttribute('data-lottie-scrub-klaar'), stil: v.hasAttribute('data-lottie-scrub-stil'), stage: !!v.querySelector('.ls-stage svg'), fallback: getComputedStyle(fb).visibility, kruis: (() => { const p = v.querySelector(v.hasAttribute('data-lottie-scrub-klaar') && !v.hasAttribute('data-lottie-scrub-stil') ? '.ls-stage .vl-kruis path' : '.vl-kruis'); return p ? getComputedStyle(p).stroke : 'geen' })(), hoofd: getComputedStyle(document.documentElement).getPropertyValue('--color-hoofd').trim() } })
+    const goedVl = reduced ? vl.fallback === 'visible' && !vl.stage : vl.klaar && vl.stage && vl.fallback === 'hidden'
+    if (!goedVl || vl.kruis === 'geen') fouten.push(`${label} voetlijn (lottie-scrub): ${JSON.stringify(vl)}`)
+    regels.push(`${label} voetlijn ${reduced ? 'eindbeeld' : 'lottie ' + vl.klaar} · kruis ${vl.kruis} (hoofd ${vl.hoofd})`)
+  }
+
   if (cons.length) fouten.push(`${label}: ${cons.length} consolefout(en): ${cons.slice(0, 3).join(' | ')}`)
   regels.push(`${label} console ${cons.length}`)
   await b.close()
 }
 console.log(regels.join('\n'))
 if (fouten.length) { console.error(`\nONDERDELEN ROOD (${fouten.length}):\n- ${fouten.join('\n- ')}`); process.exit(1) }
-console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact`)
+console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact; v3-C: leesstand (wijkende kop, merk, zijmenu/vel), kader-hover, snel contact + pulse, omslag, veeg-rij, voetlijn`)

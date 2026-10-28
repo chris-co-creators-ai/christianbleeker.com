@@ -3,6 +3,7 @@ import { PillNav } from '@/features/pill-nav/PillNav'
 import { ImageMenu } from '@/features/image-menu/ImageMenu'
 import { ChecklistKnop } from '@/components/ChecklistKnop'
 import { ThemaKnop } from '@/components/ThemaKnop'
+import { Leesstand } from '@/components/v3c/Leesstand'
 
 /** Per menu-item een eigen foto in het schermvullende menu (image-menu, mobiel en tablet). */
 const MENUBEELD: Record<string, { beeld: string; alt: string }> = {
@@ -20,6 +21,7 @@ const MENUBEELD: Record<string, { beeld: string; alt: string }> = {
 export function Kop({ pad }: { pad: string }) {
   const actief = (href: string) => (href === '/' ? pad === '/' : pad.startsWith(href))
   return (
+    <>
     <header className="kop-site" id="top">
       <div className="kop-desktop">
         <PillNav links={kop.links.map((l) => ({ ...l, active: actief(l.href) }))} brand={kop.merk} brandHref="/" className="pt-share" position="top" hideOnScroll={false} hideThreshold={0}>
@@ -53,5 +55,8 @@ export function Kop({ pad }: { pad: string }) {
         />
       </div>
     </header>
+    {/* v3: leesstand — de kop wijkt bij omlaag scrollen; merk en één menuknop blijven staan. */}
+    <Leesstand pad={pad} />
+    </>
   )
 }

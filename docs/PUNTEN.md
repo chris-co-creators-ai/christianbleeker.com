@@ -60,6 +60,9 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /ai | impact-scan | tools/impact-scan | 4 | ja | `.ai-scan-knoppen[data-isc-init] [data-impact-scan-open]` | AI-scan in scoremodus (zeven stellingen) |
 | /ai | kaartenrij-lottie | scroll/kaartenrij-lottie | 4 | ja | `.ai-vragen[data-kaartenrij-aan] [data-kaartenrij-kaart]` | "Zes vragen die AI over jou stelt" |
 | /ai | password-reveal | typography/password-reveal | 4 | ja | `.ai-scan-woord[data-pr-ready] .pr__mask` | "onzichtbaar." onthult zich in de kop van de scan |
+| /ai | kader-hover | cards/kader-hover | 3 | ja | `.ai-kaders[data-kader-actief] [data-kader] [data-kader-knop]` | "Wat we met AI doen" als vier kaarten: selectiekader met handvatjes, de vervolgstap veert uit (v3-C) |
+| /ai | floating-contact-card | conversion/floating-contact-card | 2 | ja | `.ai-snel[data-floating-contact-card][style*="--fcc-overlap"]` | "Snel contact" zweeft over de onderrand van de AI-kop: beschikbaarheid en de weg naar contact; de dock wijkt zolang hij in beeld is (v3-C) |
+| /ai | pulse-button | buttons/pulse-button | 2 | ja | `.ai-snel a.pulse-button[href="/contact"]` | de knop in Snel contact: drie ringen, alleen in beeld, stil bij minder beweging (v3-C) |
 
 ## Werk `/work`
 
@@ -80,6 +83,7 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /work/human-margin | marker-highlight | typography/marker-highlight | 1 | nee | `mark[data-marker]` | markeerstift onder de tussenkop |
 | /work/human-margin | live-demo-kader | portfolio/live-demo-kader | 4 | ja | `.case-kader[data-ldk-actief][data-ldk-modus]` | de echte site in een browservenster (live na een klik waar de site dat toelaat) |
 | /work/human-margin | kaartenstapel-zij | scroll/kaartenstapel-zij | 4 | ja | `.volgende-stapel[data-kz-modus]` | de volgende vier cases als zijwaartse stapel |
+| /work/human-margin | flip-card | cards/flip-card | 3 | ja | `.case-flip .flip-card__face--back[inert]` | de omslag draait om naar het ontwerpdoel en de link naar de echte site (op elke casepagina; v3-C) |
 
 ## Contact `/contact`
 
@@ -99,6 +103,12 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | * | image-menu | navigation/image-menu | 4 | ja | `.kop-mobiel [data-im-panel]` | schermvullend menu met foto per item (mobiel/tablet) |
 | * | chatgpt-intake-knop | tools/chatgpt-intake-knop | 2 | ja | `[data-cik-ready]` | "Website-checklist prompt" in de kop |
 | * | page-transitions | effects/page-transitions | 3 | ja | `.pt-overlay` | paginaovergangen |
+| * | scroll-richting-nav | navigation/scroll-richting-nav | 2 | ja | `.kop-desktop .pn[data-srn-aan]` | de pil (en de mobiele kop) wijkt bij omlaag scrollen en komt terug bij omhoog (v3-C, leesstand) |
+| * | flip-side-menu | navigation/flip-side-menu | 3 | ja | `.ls-fsm [data-fsm-panel][aria-hidden="true"]` | desktop, leesstand: is de pil weg, dan klapt de knop MENU/SLUIT om en opent het zijmenu (v3-C) |
+| * | vel-menu | navigation/vel-menu | 3 | ja | `.ls-vel-knop[aria-haspopup="dialog"][aria-controls="leesmenu"]` | telefoon/tablet, leesstand: is de kop weg, dan opent de menuknop het vel; bovenaan blijft het beeldmenu (v3-C) |
+| * | logo-kleurwissel | effects/logo-kleurwissel | 2 | ja | `.ls-logo[data-lk-staat]` | het merk in de leesstand; boven de omgekeerde logowand op /about keert het om (v3-C) |
+| * | lottie-scrub | media/lottie-scrub | 3 | ja | `footer .voet-lijn[data-lottie-scrub-klaar]` | de voetlijn "— × — × —" tekent zich mee met de scroll; eindbeeld bij minder beweging (v3-C) |
+| /bestaat-niet | veeg-rij | cards/veeg-rij | 2 | ja | `.verder [data-veeg] [data-veeg-tekst]` | 404: "Misschien zocht je dit", vier pagina's als regels waar een kleurvlak overheen veegt (v3-C) |
 | * | tab-title-lokker | effects/tab-title-lokker | 2 | ja | `js:(async (t) => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => true }); document.dispatchEvent(new Event('visibilitychange')); await new Promise((r) => setTimeout(r, 300)); const anders = document.title !== t; delete document.hidden; document.dispatchEvent(new Event('visibilitychange')); return anders })(document.title)` | lokzin in een verborgen tabblad |
 
 Niet in de catalogus en dus zonder punten: `toestemming/` (cookiemelding, infrastructuur). De thema-schakelaar

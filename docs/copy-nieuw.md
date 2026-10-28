@@ -411,3 +411,18 @@ bevestigen.
 | Kan ik later zelf iets aanpassen? | Ja. Bij elk pakket laten we zien hoe je teksten en beelden zelf bijwerkt. |
 | Moet ik al een website hebben? | Nee. Een plan kan ook het begin zijn van een nieuwe site. |
 | Moet ik technisch zijn? | Nee. We beginnen bij je werk, niet bij de techniek. |
+
+## v3 maker C (28-10-2026): leesstand, kaarten en knoppen
+
+Voorstel, lokaal (niet live). Geen nieuwe feiten: de meeste teksten zijn hergebruik (menu, voet, contact, casepagina).
+Chris heeft geen telefoonnummer op de site, dus "Snel contact" toont de beschikbaarheid in plaats van een nummer.
+
+| Tekst | Waarom |
+|---|---|
+| Leesmenu | naam van het menu in de leesstand (zijmenu en vel) |
+| Sluit | knop van het zijmenu (MENU klapt om naar SLUIT) |
+| Chris Bleeker, naar de homepage | toegankelijke naam van het merk in de leesstand |
+| Snel contact | label van de kaart over de AI-kop |
+| Stuur me een bericht | knop in Snel contact (uit de voet) |
+| "Draai de omslag van <naam> om" | toegankelijke naam van de omdraaiknop op de casepagina |
+| Misschien zocht je dit | kop boven de pagina's op de 404 |
