@@ -526,7 +526,7 @@ h1, h2, h3 { overflow-wrap: break-word; }
 [data-thema='licht'] .doen-icoon [data-lottie-fallback] { filter: invert(1) sepia(0.15); }
 
 /* Hero op papier: een egale papierwas links (kop en intro) en minder grijze nevel in het midden. */
-/* Lars 29-10: minder wit over de foto, zodat het beeld tot zijn recht komt; de leesbaarheid van de kop komt van het verloop links. */
+/* 29-10: minder wit over de foto, zodat het beeld tot zijn recht komt; de leesbaarheid van de kop komt van het verloop links. */
 [data-thema='licht'] .hero .mh__overlay { background: linear-gradient(180deg, rgb(var(--rgb-grond) / 0.35) 0%, rgb(var(--rgb-grond) / 0.04) 30%, rgb(var(--rgb-grond) / 0.18) 62%, var(--color-grond) 97%); }
 [data-thema='licht'] .hero .mh__overlay::after, [data-thema='licht'] .ai-foto::before { background: linear-gradient(90deg, rgb(var(--rgb-grond) / 0.86) 0%, rgb(var(--rgb-grond) / 0.55) 34%, rgb(var(--rgb-grond) / 0) 60%); }
 @media (max-width: 599px) {
