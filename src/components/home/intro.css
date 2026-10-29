@@ -1,6 +1,0 @@
-/* punt-zoom-intro op de Home: grond en inkt volgen het thema; de × in de hoofdkleur. */
-.home-intro { --pzi-kleur: var(--color-grond); --pzi-logo-kleur: var(--color-tekst); --pzi-logo-breedte: min(560px, 78vw); }
-.home-intro__merk { font-family: var(--font-kop); font-size: 74px; font-weight: 600; letter-spacing: -0.03em; fill: currentColor; }
-.home-intro__x { stroke: var(--color-hoofd); stroke-width: 9; stroke-linecap: round; fill: none; }
-/* Al gezien deze sessie, minder beweging, of geen JavaScript (dan zet het themascript geen data-thema): geen overlay. */
-.pzi-gezien .home-intro, :root:not([data-thema]) .home-intro { display: none !important; }

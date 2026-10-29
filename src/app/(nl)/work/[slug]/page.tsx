@@ -12,12 +12,6 @@ import { site } from '@/content/site'
 import { breadcrumbSchema, caseSchema } from '@/lib/schema'
 import { Reislijn } from '@/features/reislijn/ReislijnLijn'
 import { MarkerHighlight } from '@/features/marker-highlight/MarkerHighlight'
-import { CaseKader } from '@/components/v2c/CaseKader'
-import { VolgendeCases } from '@/components/v2c/VolgendeCases'
-import { inKader } from '@/content/kader'
-import { FlipCard } from '@/features/flip-card/FlipCard'
-import { v3c } from '@/content/v3c'
-import '@/components/v3c/kaarten.css'
 
 export const dynamicParams = false
 export function generateStaticParams() {
@@ -41,6 +35,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CasePagina({ params }: { params: Promise<{ slug: string }> }) {
   const c = caseVoor((await params).slug)
   if (!c) notFound()
+  const i = cases.indexOf(c)
+  const volgende = cases[(i + 1) % cases.length]
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseSchema(site, c)) }} />
@@ -55,17 +51,9 @@ export default async function CasePagina({ params }: { params: Promise<{ slug: s
         <section className="case-kop container-site">
           <a className="case-terug" href="/work"><span aria-hidden="true">← </span>{casePagina.terug}</a>
           <h1 className={c.naam.length > 14 ? 'case-h1 case-h1--lang' : 'case-h1'}>{c.naam}</h1>
-          {/* v3: de omslag draait om naar het ontwerpdoel en de link naar de echte site (flip-card). */}
-          <FlipCard
-            className="case-omslag case-flip"
-            toggleLabel={v3c.omslag.draai(c.naam)}
-            front={<div className="case-flip__beeld beeld"><Beeld naam={`${c.slug}-omslag`} {...OMSLAG} sizes="(min-width: 900px) 36vw, 92vw" alt={casePagina.omslagAlt(c.naam)} prioriteit /></div>}
-            back={<>
-              <p className="kicker">{casePagina.ontwerpdoel}</p>
-              <p className="case-flip__doel">{c.ontwerpdoel}</p>
-              {c.url ? <p className="case-flip__site"><span className="case-domein">{domein(c.url)}</span><ExterneLink c={c} className="knop knop--rand" /></p> : null}
-            </>}
-          />
+          <div className="case-omslag beeld">
+            <Beeld naam={`${c.slug}-omslag`} {...OMSLAG} sizes="(min-width: 900px) 36vw, 92vw" alt={casePagina.omslagAlt(c.naam)} prioriteit />
+          </div>
         </section>
         <Reislijn className="case-lijn container-site" kolom=".case-kolom" mobiel="dun">
           <div className="case-kolom">
@@ -83,13 +71,14 @@ export default async function CasePagina({ params }: { params: Promise<{ slug: s
               <p className="case-alinea">{c.ontwerpdoel}</p>
             </section>
             <section data-reislijn-halte="" className="case-halte">
-              {c.url ? (
-                <CaseKader slug={c.slug} naam={c.naam} url={c.url} live={inKader[c.slug]} />
-              ) : (
-                <div className="case-scherm beeld">
-                  <Beeld naam={`${c.slug}-scherm`} {...SCHERM} sizes="(min-width: 900px) 60vw, 92vw" alt={casePagina.schermAlt(c.naam)} />
-                </div>
-              )}
+              {(() => {
+                const scherm = (
+                  <div className="case-scherm beeld">
+                    <Beeld naam={`${c.slug}-scherm`} {...SCHERM} sizes="(min-width: 900px) 60vw, 92vw" alt={casePagina.schermAlt(c.naam)} />
+                  </div>
+                )
+                return c.url ? <ExterneLink c={c} className="case-scherm-link">{scherm}</ExterneLink> : scherm
+              })()}
               {c.url ? (
                 <p className="case-extern">
                   <ExterneLink c={c} className="knop" />
@@ -99,7 +88,12 @@ export default async function CasePagina({ params }: { params: Promise<{ slug: s
             </section>
           </div>
         </Reislijn>
-        <VolgendeCases huidig={c} />
+        <nav className="case-volgende container-site" aria-label={casePagina.volgende}>
+          <a href={`/work/${volgende.slug}`} className="volgende-link">
+            <span className="kicker">{casePagina.volgende}</span>
+            <span className="volgende-naam">{volgende.naam} <span className="x" aria-hidden="true">×</span></span>
+          </a>
+        </nav>
       </main>
       <Voet />
       <Dock />

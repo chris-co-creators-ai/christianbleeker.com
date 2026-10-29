@@ -6,7 +6,7 @@ import { Beeld, OMSLAG } from '@/components/Beeld'
 import { EigenProduct } from '@/components/secties/EigenProduct'
 import { Dock } from '@/components/Dock'
 import { ExterneLink } from '@/components/ExterneLink'
-import { home, homeV2, werk, casePagina, kop } from '@/content/teksten'
+import { home, werk, casePagina } from '@/content/teksten'
 import { cases, caseVoor, homeSelectie } from '@/content/cases'
 import { MediaHero } from '@/features/media-hero/MediaHero'
 import { HeroWissel } from '@/components/HeroWissel'
@@ -15,16 +15,6 @@ import { Stapelpanelen } from '@/features/stapelpanelen/StapelpanelenBlok'
 import { LottieIcon } from '@/features/lottie-icon/LottieIcon'
 import { HoverSet, HoverCard } from '@/features/hover-set/HoverSet'
 import { RevealOnScroll } from '@/features/reveal-on-scroll/RevealOnScroll'
-import { HomeIntro } from '@/components/home/HomeIntro'
-import { HomeEffecten } from '@/components/home/HomeEffecten'
-import { WerkExplosie } from '@/components/home/WerkExplosie'
-import { Reviews } from '@/components/home/Reviews'
-
-/** punt-zoom-intro: al gezien in deze sessie of minder beweging → vóór de eerste paint weg (geen flits). */
-const INTRO_AL_GEZIEN = `try{if(sessionStorage.getItem('vf:punt-zoom-intro')==='1'||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('pzi-gezien')}catch(e){}`
-
-/** Knoptekst die letter voor letter rolt (letter-rol); de pijl staat erbuiten. */
-const Rol = ({ children }: { children: string }) => <span data-letter-rol="">{children}</span>
 
 export const metadata: Metadata = {
   title: { absolute: home.titel },
@@ -36,12 +26,9 @@ export const metadata: Metadata = {
 export default function Home() {
   const selectie = homeSelectie.map((s) => caseVoor(s)!)
   const meer = cases.filter((c) => !homeSelectie.includes(c.slug))
-  const [voorNadruk, naNadruk] = home.over.tekst.split(homeV2.over.nadruk)
 
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: INTRO_AL_GEZIEN }} />
-      <HomeIntro merk={kop.merk} />
       <Kop pad="/" />
       <main id="inhoud" tabIndex={-1} className="outline-none flex-1">
         <MediaHero
@@ -66,7 +53,7 @@ export default function Home() {
           <div className="hero-rij">
             <p className="hero-intro">{home.intro}</p>
             <a className="knop" href="/work">
-              <Rol>{home.knop}</Rol> <span className="pijl" aria-hidden="true">→</span>
+              {home.knop} <span className="pijl" aria-hidden="true">→</span>
             </a>
           </div>
         </MediaHero>
@@ -77,8 +64,6 @@ export default function Home() {
               <CountUp key={t.label} waarde={t.waarde} label={t.label} className="tel-item" />
             ))}
           </div>
-
-          <WerkExplosie />
 
           <section id="werk" className="sectie container-site">
             <div className="sectie-kop" data-reveal="">
@@ -136,7 +121,7 @@ export default function Home() {
                 ))}
               </HoverSet>
               <a className="knop" href="/work">
-                <Rol>{home.werk.alle}</Rol> <span className="pijl" aria-hidden="true">→</span>
+                {home.werk.alle} <span className="pijl" aria-hidden="true">→</span>
               </a>
             </div>
           </section>
@@ -151,7 +136,7 @@ export default function Home() {
                 <li key={d.nr} className="doen-item" data-reveal="" data-reveal-delay={String(i * 0.06)}>
                   <LottieIcon src={`/lottie/${d.lottie}.json`} fallbackSrc={`/lottie/${d.lottie}.svg`} size={88} loop className="doen-icoon" />
                   <p className="doen-nr">{d.nr}</p>
-                  <h3 data-kinetic-type="y">{d.titel}</h3>
+                  <h3>{d.titel}</h3>
                   <p className="doen-sub">{d.sub}</p>
                   <p className="doen-tekst">{d.tekst}</p>
                 </li>
@@ -159,30 +144,23 @@ export default function Home() {
             </ol>
           </section>
 
-          <section id="over" className="swl over-swl" aria-labelledby="over-kop">
-            <div className="swl__sticky">
-              <div className="container-site over-blok">
-                <div className="beeld over-foto" data-reveal="left">
-                  <Beeld naam="chris-duimen" maten={[540, 900]} breedte={1737} hoogte={3088} sizes="(min-width: 900px) 34vw, 168px" alt={home.over.fotoAlt} />
-                </div>
-                <div className="over-tekst">
-                  <p className="nr">03</p>
-                  <h2 id="over-kop">{home.over.kop}</h2>
-                  <p className="over-alinea" data-story-text="">{voorNadruk}<em>{homeV2.over.nadruk}</em>{naNadruk}</p>
-                  <a className="link" href="/about">{home.over.link}</a>
-                </div>
-              </div>
+          <section id="over" className="sectie container-site over-blok">
+            <div className="beeld over-foto" data-reveal="left">
+              <Beeld naam="chris-duimen" maten={[540, 900]} breedte={1737} hoogte={3088} sizes="(min-width: 900px) 34vw, 80vw" alt={home.over.fotoAlt} />
+            </div>
+            <div className="over-tekst" data-reveal="right">
+              <p className="nr">03</p>
+              <h2>{home.over.kop}</h2>
+              <p className="over-alinea">{home.over.tekst}</p>
+              <a className="link" href="/about">{home.over.link}</a>
             </div>
           </section>
 
-          <Reviews nummer="04" />
-
-          <EigenProduct nummer="05" />
+          <EigenProduct nummer="04" />
         </RevealOnScroll>
       </main>
-      <Voet uitnodiging opkomst />
+      <Voet uitnodiging />
       <Dock />
-      <HomeEffecten />
     </>
   )
 }

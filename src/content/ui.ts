@@ -28,7 +28,6 @@ export type UiInhoud = {
   /** `{naam}` wordt vervangen door `site.naam` — zie `vulSjabloonIn` in `src/lib/i18n.ts`. */
   veelgesteldeVragenPagina: { titel: string; beschrijvingTemplate: string }
   breadcrumb: { veelgesteldeVragen: string }
-  thema: { label: string; naarLicht: string; naarDonker: string }
 }
 
 export const ui: UiInhoud = {
@@ -57,5 +56,4 @@ export const ui: UiInhoud = {
   breadcrumb: {
     veelgesteldeVragen: 'Veelgestelde vragen',
   },
-  thema: { label: 'Wit thema', naarLicht: 'Naar het witte thema', naarDonker: 'Naar het donkere thema' }, // voorstel (schakelaar v2)
 }

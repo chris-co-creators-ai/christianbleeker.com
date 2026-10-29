@@ -9,7 +9,7 @@ import { HandwrittenAccent } from '@/features/handwritten-accent/HandwrittenAcce
  * (PRD P-4: 0 px verschil in bovenkant), en daaronder over de volle breedte Co-Creators.ai met de
  * link naar de wachtlijst. Staat op Home en bovenaan /work.
  */
-export function EigenProduct({ nummer, kopNiveau = 2, prioriteit = false, magneet = false }: { nummer?: string; kopNiveau?: 2 | 3; prioriteit?: boolean; magneet?: boolean }) {
+export function EigenProduct({ nummer, kopNiveau = 2, prioriteit = false }: { nummer?: string; kopNiveau?: 2 | 3; prioriteit?: boolean }) {
   const Kop = `h${kopNiveau}` as 'h2'
   const co = caseVoor('co-creatie-ai')!
   return (
@@ -29,7 +29,7 @@ export function EigenProduct({ nummer, kopNiveau = 2, prioriteit = false, magnee
             <ul className="team" aria-label={eigenProduct.label}>
               {eigenProduct.team.map((t) => (
                 <li key={t.naam} className="team-lid">
-                  <span className="beeld team-foto" data-magneet={magneet ? '' : undefined}>
+                  <span className="beeld team-foto">
                     <Beeld naam={t.beeld} breedte={526} hoogte={736} alt="" />
                   </span>
                   <span className="team-naam">{t.naam}</span>

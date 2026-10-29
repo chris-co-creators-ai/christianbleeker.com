@@ -14,16 +14,6 @@ import { KrachtveldLogowand } from '@/features/krachtveld-logowand/KrachtveldLog
 import { FlipLightbox } from '@/features/flip-lightbox/FlipLightbox'
 import { VideoFacade } from '@/features/video-facade/VideoFacade'
 import { RevealOnScroll } from '@/features/reveal-on-scroll/RevealOnScroll'
-import { StickyTimeline } from '@/features/sticky-timeline/StickyTimeline'
-import { UitgevuldeZin } from '@/components/UitgevuldeZin'
-import { SchreefAccent } from '@/features/schreef-accent/SchreefAccent'
-import { HotspotsBeeld } from '@/components/HotspotsBeeld'
-import { EyebrowLijn } from '@/features/eyebrow-lijn/EyebrowLijn'
-import { SectionDivider } from '@/features/section-dividers/SectionDivider'
-import { GradientFlow } from '@/features/gradient-flow/GradientFlow'
-import { TeamHub } from '@/components/v3x/TeamHub'
-import './over-v2.css'
-import '@/components/v3b/beeld.css'
 
 export const metadata: Metadata = {
   title: { absolute: over.titel },
@@ -64,16 +54,12 @@ export default function Over() {
 
         <RevealOnScroll once threshold={0.01} rootMargin="0px 0px -6% 0px">
           <section className="sectie container-site verhaal">
-            <div className="verhaal-foto" data-reveal="left">
-              <HotspotsBeeld punten={over.punten} className="over-hotspots">
-                <Beeld naam="team-chris" breedte={526} hoogte={736} alt={over.portretAlt} prioriteit />
-              </HotspotsBeeld>
+            <div className="beeld verhaal-foto" data-reveal="left">
+              <Beeld naam="team-chris" breedte={526} hoogte={736} alt={over.portretAlt} prioriteit />
             </div>
             <div className="verhaal-tekst">
-              {over.alineas.map((a, i) => i === 0 ? (
-                <EyebrowLijn key={i} label={over.wie} className="verhaal-eerste">{a}</EyebrowLijn>
-              ) : (
-                <p key={i} data-reveal="">{a}</p>
+              {over.alineas.map((a, i) => (
+                <p key={i} className={i === 0 ? 'verhaal-eerste' : undefined} data-reveal="">{a}</p>
               ))}
               <a className="knop" href="/contact" data-reveal="">{over.knop} <span className="pijl" aria-hidden="true">→</span></a>
             </div>
@@ -93,42 +79,7 @@ export default function Over() {
             </Marquee>
           </section>
 
-          <section className="sectie container-site reis" aria-labelledby="reis-kop">
-            <SchreefAccent className="reis-kop">
-              <h2 id="reis-kop" data-reveal="">{over.reis.kop[0]}<em>{over.reis.kop[1]}</em>{over.reis.kop[2]}</h2>
-            </SchreefAccent>
-            <StickyTimeline className="reis-lijn" steps={over.reis.stappen.map((s) => ({ title: s.titel, text: s.tekst }))} activationRatio={0.6} />
-          </section>
-
-          <section id="team" className="sectie container-site over-team" aria-labelledby="team-kop">
-            <div className="sectie-kop" data-reveal="">
-              <h2 id="team-kop">{over.team.kop}</h2>
-              <p className="sectie-tekst">{over.team.tekst}</p>
-            </div>
-            <ul className="team-kaarten">
-              {over.team.leden.map((l) => (
-                <li key={l.naam} className="eigen-kaart team-kaart" data-reveal="">
-                  <span className="beeld team-foto team-kaart-foto">
-                    <Beeld naam={l.beeld} breedte={526} hoogte={790} alt={over.team.fotoAlt(l.naam)} />
-                  </span>
-                  <div className="team-kaart-tekst">
-                    <p className="kicker">{l.rol}</p>
-                    <h3>{l.naam}</h3>
-                    <p>{l.tekst}</p>
-                    <p className="team-kaart-links">
-                      {l.links.map((k) => (
-                        <a key={k.href} className="link" href={k.href} {...(k.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{k.label}</a>
-                      ))}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <TeamHub />
-          </section>
-
-          <section className="logowand" aria-labelledby="websites-kop" data-logo="licht">
-            <SectionDivider vorm="curve" positie="boven" className="logowand-rand" />
+          <section className="logowand" aria-labelledby="websites-kop">
             <div className="container-site">
               <h2 id="websites-kop" className="logowand-kop" data-reveal="">{over.websites.kop}</h2>
               <KrachtveldLogowand
@@ -141,12 +92,6 @@ export default function Over() {
                 logos={cases.filter((c) => LOGO[c.slug]).map((c) => ({ alt: c.naam, src: `/beeld/${LOGO[c.slug]}` }))}
               />
             </div>
-            <SectionDivider vorm="curve" positie="onder" className="logowand-rand" />
-          </section>
-
-          <section className="sectie container-site statement">
-            <GradientFlow className="statement-veld" />
-            <UitgevuldeZin className="statement-tekst">{over.statement}</UitgevuldeZin>
           </section>
 
           <section className="sectie container-site" aria-labelledby="ervaringen-kop">

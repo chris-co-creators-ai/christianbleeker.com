@@ -11,7 +11,6 @@ import { alternatesVoor } from '@/lib/i18n'
 import { Toestemming } from '@/features/toestemming/Toestemming'
 import { PageTransitions } from '@/features/page-transitions/PageTransitions'
 import { TabTitleLokker } from '@/features/tab-title-lokker/TabTitleLokker'
-import { Effecten } from '@/components/v3e/Effecten'
 
 const unbounded = localFont({
   src: '../fonts/unbounded-latin-wght-normal.woff2',
@@ -31,7 +30,7 @@ const manrope = localFont({
 /** `true` op een Vercel-preview-deploy: dan `noindex`. Productie en lokaal: `index`. */
 const isPreviewDeploy = process.env.VERCEL_ENV === 'preview'
 
-export const viewport: Viewport = { themeColor: '#17110f', colorScheme: 'dark light' }
+export const viewport: Viewport = { themeColor: '#17110f', colorScheme: 'dark' }
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.domein),
@@ -44,22 +43,14 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: '/favicon.ico?v=cc', sizes: 'any' }, { url: '/icoon-cc-192.png', type: 'image/png', sizes: '192x192' }], apple: '/icoon-cc-180.png' },
 }
 
-/**
- * Thema vóór de eerste paint (geen flits): de opgeslagen keuze, anders de voorkeur van het systeem.
- * Zonder JS blijft het donker (de basis).
- */
-const zetThema =
-  "(function(){var t;try{t=localStorage.getItem('thema')}catch(e){}if(t!=='licht'&&t!=='donker')t=window.matchMedia('(prefers-color-scheme: light)').matches?'licht':'donker';var d=document.documentElement;d.dataset.thema=t;if(t==='licht'){var m=document.querySelector('meta[name=\"theme-color\"]');if(m)m.content='#f6efe6'}})();"
-
 /** Vangt de onschuldige AbortError van een afgebroken native paginaovergang (page-transitions). */
 const vangAfgebrokenOvergang =
   "window.addEventListener('unhandledrejection',function(e){var r=e.reason;if(r&&r.name==='AbortError'&&/transition was skipped/i.test(String(r.message||'')))e.preventDefault();});"
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="nl" className={`${unbounded.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang="nl" className={`${unbounded.variable} ${manrope.variable}`}>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: zetThema }} />
         <script dangerouslySetInnerHTML={{ __html: vangAfgebrokenOvergang }} />
         {/* Zonder JS werkt de menuknop niet: verberg hem, de navigatie staat ook in de voet. */}
         <noscript><style>{'.kop-mobiel .im,.sd{display:none}'}</style></noscript>
@@ -75,7 +66,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema(site)) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', ...personSchema(site) }) }} />
         <PageTransitions duur={320} forceerFallback={false}>{children}</PageTransitions>
-        <Effecten />
         <TabTitleLokker lokzin={tabLokzin} interval={1200} />
         <Toestemming />
         {process.env.VERCEL ? <Analytics /> : null}

@@ -2,8 +2,6 @@ import { kop } from '@/content/teksten'
 import { PillNav } from '@/features/pill-nav/PillNav'
 import { ImageMenu } from '@/features/image-menu/ImageMenu'
 import { ChecklistKnop } from '@/components/ChecklistKnop'
-import { ThemaKnop } from '@/components/ThemaKnop'
-import { Leesstand } from '@/components/v3c/Leesstand'
 
 /** Per menu-item een eigen foto in het schermvullende menu (image-menu, mobiel en tablet). */
 const MENUBEELD: Record<string, { beeld: string; alt: string }> = {
@@ -11,7 +9,6 @@ const MENUBEELD: Record<string, { beeld: string; alt: string }> = {
   '/about': { beeld: '/beeld/chris-duimen-540.webp', alt: 'Chris met twee duimen omhoog' },
   '/work': { beeld: '/beeld/radstok-interim-omslag-480.webp', alt: 'De website van Radstok Interim' },
   '/ai': { beeld: '/beeld/team-chris.webp', alt: 'Chris met de microfoon van Dicteren.ai' },
-  '/werkplaats': { beeld: '/werkplaats/project-keuken.webp', alt: 'Een eiken keuken uit een proefstuk van de Werkplaats' },
   '/contact': { beeld: '/beeld/team-brian.webp', alt: 'Brian' },
 }
 
@@ -22,7 +19,6 @@ const MENUBEELD: Record<string, { beeld: string; alt: string }> = {
 export function Kop({ pad }: { pad: string }) {
   const actief = (href: string) => (href === '/' ? pad === '/' : pad.startsWith(href))
   return (
-    <>
     <header className="kop-site" id="top">
       <div className="kop-desktop">
         <PillNav links={kop.links.map((l) => ({ ...l, active: actief(l.href) }))} brand={kop.merk} brandHref="/" className="pt-share" position="top" hideOnScroll={false} hideThreshold={0}>
@@ -35,7 +31,6 @@ export function Kop({ pad }: { pad: string }) {
             ))}
           </ul>
           <ChecklistKnop className="pn__cta">{kop.checklist}</ChecklistKnop>
-          <ThemaKnop />
         </PillNav>
       </div>
       <div className="kop-mobiel container-site">
@@ -43,21 +38,17 @@ export function Kop({ pad }: { pad: string }) {
           <span>{kop.merk}</span>{" "}
           <small aria-hidden="true">{kop.ondertitel}</small>
         </a>
-        <ThemaKnop className="thema-knop--mobiel" />
         <ImageMenu
           links={kop.links.map((l) => ({
             href: l.href,
             label: l.label,
             image: MENUBEELD[l.href].beeld,
             imageAlt: MENUBEELD[l.href].alt,
-            color: 'var(--color-grond)',
+            color: '#17110f',
             active: actief(l.href),
           }))}
         />
       </div>
     </header>
-    {/* v3: leesstand — de kop wijkt bij omlaag scrollen; merk en één menuknop blijven staan. */}
-    <Leesstand pad={pad} />
-    </>
   )
 }

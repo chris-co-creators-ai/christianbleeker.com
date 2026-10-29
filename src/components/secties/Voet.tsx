@@ -2,21 +2,18 @@ import { voet, kop, linkedin } from '@/content/teksten'
 import { LetterReveal } from '@/features/letter-reveal/LetterReveal'
 import { WijzigToestemmingKnop } from '@/features/toestemming/WijzigToestemmingKnop'
 import { ChecklistKnop } from '@/components/ChecklistKnop'
-import { VoetLijn } from '@/components/v3c/VoetLijn'
-import { CircleText } from '@/features/circle-text/CircleText'
 
 /**
  * Voet op elke pagina: merk, menu, privacy en (in de korte voet) de checklist als gewone link,
  * zodat hij ook op een telefoon overal te vinden is. Met `uitnodiging` (Home en /contact) staat erboven
  * de slotzin letter voor letter (letter-reveal) met de weg naar contact, LinkedIn en de checklist.
- * `data-dock-verberg`: de sectie-dock heeft hier niets toe te voegen. Met `opkomst` (alleen Home) zakt de
- * inhoud bij het inscrollen op zijn plek (footer-opkomst; gestart door HomeEffecten).
+ * `data-dock-verberg`: de sectie-dock heeft hier niets toe te voegen.
  */
-export function Voet({ uitnodiging = false, opkomst = false }: { uitnodiging?: boolean; opkomst?: boolean }) {
+export function Voet({ uitnodiging = false }: { uitnodiging?: boolean }) {
   const [eerste, tweede] = voet.kop.split('? ')
   return (
-    <footer className={uitnodiging ? 'voet' : 'voet voet--kort'} data-dock-verberg="" data-opkomst={opkomst ? '' : undefined}>
-      <div className="container-site" data-opkomst-inhoud={opkomst ? '' : undefined}>
+    <footer className={uitnodiging ? 'voet' : 'voet voet--kort'} data-dock-verberg="">
+      <div className="container-site">
         {uitnodiging ? (<>
         <LetterReveal as="h2" className="voet-kop" lineSelector="[data-lr-line]" duration={0.8} stagger={0.035} lineGap={0.15}>
           <span data-lr-line="">{eerste}?</span>
@@ -28,11 +25,8 @@ export function Voet({ uitnodiging = false, opkomst = false }: { uitnodiging?: b
             {voet.linkedin} <span aria-hidden="true">↗</span>
           </a>
           <ChecklistKnop className="knop knop--rand">{kop.checklist}</ChecklistKnop>
-          {/* v3e: draaiende cirkeltekst bij de uitnodiging, met dezelfde tekst en hetzelfde doel als de eerste knop. */}
-          <CircleText className="voet-cirkel" href="/contact" label={voet.bericht} text={voet.bericht} center={<span aria-hidden="true">×</span>} duration={22} />
         </div>
         </>) : null}
-        <VoetLijn />
         <div className="voet-onder">
           <p className="voet-merk">
             {kop.merk} <span className="x" aria-hidden="true">×</span> <span className="voet-sub">{kop.ondertitel}</span>

@@ -43,37 +43,6 @@ hieronder in de tabel — inclusief de reden ("gekozen in PRD/stap 5"). Een map 
 | `letter-reveal/` | `typography/letter-reveal/` | 2026-09-29 | gekozen in PRD/stap 5 |
 | `reveal-on-scroll/` | `scroll/reveal-on-scroll/` | 2026-09-29 | gekozen in PRD/stap 5 |
 | `tab-title-lokker/` | `effects/tab-title-lokker/` | 2026-09-29 | gekozen in PRD/stap 5 |
-| `drag-carousel/` | `carousels/drag-carousel/` (f605c67) | 2026-10-28 | v2: de twintig ontwerp-demo's op /work |
-| `device-mockup/` | `portfolio/device-mockup/` (f605c67) | 2026-10-28 | v2: laptop + telefoon per ontwerp-demo |
-| `beeldexplosie/` | `heroes/beeldexplosie/` | 2026-10-28 | v2 Home: opening van Werk (zonder `media/`; eigen showreel in `public/videos/werk-reel*`) |
-| `kinetic-type/` | `typography/kinetic-type/` | 2026-10-28 | v2 Home: dienstkoppen (zonder `fonts/`: het huisfont Unbounded, alleen wght) |
-| `story-word-light/` | `scroll/story-word-light/` | 2026-10-28 | v2 Home: alinea van "Over mij" |
-| `punt-zoom-intro/` | `effects/punt-zoom-intro/` | 2026-10-28 | v2 Home: intro 1× per sessie |
-| `film-grain/` | `effects/film-grain/` | 2026-10-28 | v2 Home: korrel over de hero-foto |
-| `letter-rol/` | `buttons/letter-rol/` | 2026-10-28 | v2 Home: knoppen |
-| `review-wall/` | `reviews/review-wall/` | 2026-10-28 | v2 Home: voorbeeldreviews |
-| `footer-opkomst/` | `effects/footer-opkomst/` | 2026-10-28 | v2 Home: lange voet |
-| `sticky-timeline/` | `scroll/sticky-timeline/` (e81470a) | 2026-10-28 | v2 Over: "Van marketing naar AI" |
-| `hotspots/` | `media/hotspots/` (e81470a) | 2026-10-28 | v2 Over: punten op het portret (kern van e81470a) |
-| `justify-fill/` | `typography/justify-fill/` (e81470a) | 2026-10-28 | v2 Over: de uitgevulde zin |
-| `schreef-accent/` | `typography/schreef-accent/` (e81470a) | 2026-10-28 | v2 Over: "naar" in de kop van de tijdlijn |
-| `voor-na-verhaal/` | `scroll/voor-na-verhaal/` (e81470a) | 2026-10-28 | v2 AI: deze site, vóór en na |
-| `impact-scan/` | `tools/impact-scan/` (e81470a) | 2026-10-28 | v2 AI: de AI-scan (scoremodus, titel h2) |
-| `kaartenrij-lottie/` | `scroll/kaartenrij-lottie/` (e81470a) | 2026-10-28 | v2 AI: zes vragen; iconen opnieuw gemaakt met maak-iconen.mjs |
-| `password-reveal/` | `typography/password-reveal/` (e81470a) | 2026-10-28 | v2 AI: "onzichtbaar." in de kop van de scan |
-| `app-tour-venster/` | `portfolio/app-tour-venster/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: "Interne apps", vier voorbeeld-apps; met `domein-wissel-kopie.*` (= `typography/domein-wissel`, telt als dat onderdeel) |
-| `eigen-naam-preview/` | `forms/eigen-naam-preview/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: "Bekijk het met je eigen bedrijfsnaam" |
-| `levende-kaarten/` | `cards/levende-kaarten/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: zes voorbeelden van interne apps |
-| `blokgrafiek/` | `stats/blokgrafiek/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: de drie app-varianten uit prijzen.ts |
-| `besparingscalculator/` | `tools/besparingscalculator/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: abonnementen tegenover één eigen app (indicatie; pakketkorting verborgen in v3x.css) |
-| `stappen-mini-ui/` | `process/stappen-mini-ui/` (ca6c7f1) | 2026-10-29 | v3x Contact: "Zo werken we samen" (stappen uit de Linkbox-mail, voor een klant herschreven); `wolk={false}`, de mesh-wolk-kopie wordt niet gestart |
-| `verbindingshub/` | `layouts/verbindingshub/` (ca6c7f1) | 2026-10-29 | v3x Over #team: de drie teamleden ↔ Dicteren.ai, Co-Creators.ai en Seveke Creative |
-
-Kleuren en letters van de v3x-onderdelen: `src/components/v3x/v3x.css` zet de generieke tokens (`--surface`, `--ink`, `--indigo` …) op de eigen `--color-*`-variabelen, zodat de onderdelen ongewijzigd blijven.
-
-| `blur-woorden/` | `typography/blur-woorden/` (7dfbedf) | 2026-10-29 | v3e: sectiekoppen site-breed woord voor woord scherp (gestart door `components/v3e/Effecten.tsx`, zonder de opmaakattributen `data-blur-woorden`/`data-bw-kop`: alleen de beweging) |
-| `circle-text/CircleText.tsx` | `typography/circle-text/CircleText.tsx` | 2026-10-29 | v3e: de React-wrapper erbij, voor de draaiende cirkeltekst bij de uitnodiging in de voet |
-| `binnenkomst/` | eigen code (niet in de bibliotheek) | 2026-10-29 | v3e: stijg/kantel/masker/kwart bij binnenkomst, generiek op data-attributen; kandidaat voor de bibliotheek |
 
 ## Hoe je later bijwerkt
 
@@ -105,52 +74,4 @@ ontwerpkeuzes voor één klant, geen infrastructuur; ze komen terug zodra een PR
 - `circle-text/` (css + js) komt uit `typography/circle-text/`: de draaiende
   ring rond de schijf van `krachtveld-logowand` (dat onderdeel importeert hem).
 - `src/_kwaliteit/basis.js` komt uit `_kwaliteit/basis.js` van de bibliotheek: tien onderdelen importeren hun gedeelde hulpjes (minder beweging, in beeld, touch) via `../../_kwaliteit/basis.js`.
-- `device-mockup/` was verwijderd (de schermbeelden van de cases staan al in een laptop-mockup) en kwam in v2 terug voor de ontwerp-demo's, waarvan de schermbeelden kaal zijn. De telefoon naast de laptop volgt de markup van het onderdeel zonder `tabindex`: hij is decoratief (`aria-hidden`), de laptop draagt de naam.
-- De acht v2-onderdelen van de Home (28-10-2026) zijn zonder `test/`, `demo.html`, `media/` en `fonts/` gekopieerd; de herkomstparagraaf van hun README is weggelaten (de repo is openbaar). `_kwaliteit/basis.js` kreeg `zonderUndefined()` uit de bibliotheek, die vijf van hen importeren. Thema-tokens en plaatsing staan per onderdeel in `src/components/home/*.css`.
-- v2 fase 2 (maker C, 28-10-2026): `live-demo-kader/` (portfolio/), `kaartenstapel-zij/` (scroll/),
-  `eindeloos-raster/` (layouts/), `stappen-persoonlijk/` (forms/), `advies-funnel/` (tools/),
-  `prijzen-per-dienst/` (pricing/), `agenda-facade/` (media/) en `availability-badge/` (badges/), zonder
-  `test/`, `demo.html`, demobeelden en voorbeeldconfigs; de herkomst-alinea van de READMEs is ingekort voor de
-  openbare repo. Twee kleine aanpassingen, als opties zodat de standaard gelijk blijft: `live-demo-kader.js` kreeg
-  `openTekst`, `sluitTekst` en `posterAlt` (een echte klantsite is geen "demo"; er is geen React-wrapper, die zit
-  in `src/components/v2c/CaseKader.tsx`), en `stappen-persoonlijk.js` kreeg `foutTekst` en `foutLink` (een
-  mislukte verzending wijst naar LinkedIn, zoals het oude formulier). `src/_kwaliteit/basis.js` kreeg
-  `zonderUndefined`, letterlijk uit de bibliotheek. Het contactformulier is nu de intake in stappen; hij post naar
-  dezelfde `/api/contact` met dezelfde velden (`ContactFormulier.tsx` is daarom weg).
-| `vel-menu/` | `navigation/vel-menu/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `flip-side-menu/` | `navigation/flip-side-menu/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `scroll-richting-nav/` | `navigation/scroll-richting-nav/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `flip-card/` | `cards/flip-card/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `kader-hover/` | `cards/kader-hover/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `lottie-scrub/` | `media/lottie-scrub/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `veeg-rij/` | `cards/veeg-rij/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `pulse-button/` | `buttons/pulse-button/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `floating-contact-card/` | `conversion/floating-contact-card/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-| `logo-kleurwissel/` | `effects/logo-kleurwissel/` | 2026-10-28 | v3 maker C (navigatie, kaarten, knoppen) |
-
-**Afwijking van de bibliotheek (v3 maker C):** `logo-kleurwissel/logo-kleurwissel.js` meet met een band van 1 px op het
-midden van het logo in plaats van de hele logohoogte. Gemeten op /about (390, 28-10): kwam de logowand binnen tussen
-de onderrand en het midden van het logo, dan bleef het merk de verkeerde kleur houden, omdat de observer daarna niets
-meer meldde. Terug te zetten naar de bibliotheek.
-
-- v3 (maker B, 28-10-2026), beeld en effecten: `diepte-beeld/` (effects/), `raster-intro/` (heroes/), `gradient-flow/`
-  (backgrounds/), `float-decor/` (effects/), `parallax/` (scroll/), `hero-motion/` (scroll/), `magneet-beelden/` (effects/),
-  `ghost-text/` (typography/), `eyebrow-lijn/` (scroll/) en `section-dividers/` (shapes/), zonder `test/`, `demo.html`,
-  demobeelden en fonts; de herkomstparagrafen zijn weggelaten (openbare repo). Drie aanpassingen: `section-dividers`
-  heet hier `.sdv` in plaats van `.sd` (die klasse is al van `sectie-dock`); `raster-intro.css` laadt geen Anton maar
-  gebruikt de koppenletter van de site, en haalt Instrument Serif uit `schreef-accent/fonts/`. De lagen van het
-  diepte-beeld (`public/beeld/diepte-{achter,voor}-*.webp`) zijn uit de TEDx-foto gesneden: het publiek als voorgrond,
-  het podium met het publiek weggevuld als achtergrond. Plaatsing en thema-tokens: `src/components/v3b/beeld.css`.
-
-- v3 Werkplaats (maker A, 28-10-2026): `three-mascot/` (effects/), `werkgebied-kaart/` (scroll/),
-  `afstand-postcode/`, `kleur-configurator/`, `boekingsvelden/`, `rechtenmatrix/` en `besteldeadline/` (tools/),
-  `open-status/` en `drempelteller/` (badges/), `zoek-keuzelijst/` (forms/), `link-dialog-funnel/` (modals/) en
-  `kennisbank-filter/` (layouts/), alleen op `/werkplaats`. Zonder `test/`, `demo*.html`, demomedia,
-  `maak-kaart.mjs`, `vacature-jsonld.mjs` en voorbeeldstanden; herkomstalinea's in README's en codecommentaar
-  weggelaten of ingekort (openbare repo). Twee aanpassingen: `three-mascot.js` laadt three.js van een vast pad
-  `/vendor/three/three.module.min.js` (in `public/`; Turbopack hasht `new URL(...)`-assets), alleen het procedurele
-  model (de hond), dus `GLTFLoader` staat er niet bij; `link-dialog-funnel.js` kreeg alleen ingekort commentaar.
-  De kaart (`src/content/werkplaats/kaart.svg`) is de uitvoer van `maak-kaart.mjs` uit de demo van de bibliotheek
-  (West-Friesland, met de hand benaderde omtrek); de projectfoto's staan in `public/werkplaats/`. De voorbeeld-
-  boekingspagina `public/werkplaats/voorbeeld-boeking.html` is de nepdienst van `boekingsvelden`, in de kleuren van
-  de site. Thema-tokens per onderdeel in `src/components/werkplaats/werkplaats.css`.
+- `device-mockup/` is verwijderd: de schermbeelden van de cases staan al in een laptop-mockup.

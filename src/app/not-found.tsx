@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Kop } from '@/components/secties/Kop'
 import { Voet } from '@/components/secties/Voet'
 import { nietGevonden } from '@/content/teksten'
-import { Verder } from '@/components/v3c/Verder'
 
 export const metadata: Metadata = { title: nietGevonden.kop, robots: { index: false, follow: true }, alternates: {} }
 
@@ -16,7 +15,6 @@ export default function NietGevonden() {
           <h1>{nietGevonden.kop}</h1>
           <p>{nietGevonden.tekst}</p>
           <a className="knop" href="/">{nietGevonden.home}</a>
-          <Verder />
         </section>
       </main>
       <Voet />

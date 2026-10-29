@@ -18,10 +18,3 @@ redirects-voorstel.tsv
 # uitvoer van de controlereeks (contactbladen, metingen) blijft lokaal
 qa/uitvoer/
 qa/_kijk.mjs
-
-# v2: schermbeelden en mobiele vellen staan lokaal, niet in de openbare repo
-qa/v2/
-docs/BOUWPLAN-V2.md
-
-# v3 maker B: schermbeelden en logs van de controles blijven lokaal
-qa/v3-b/
