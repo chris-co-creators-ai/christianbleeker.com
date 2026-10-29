@@ -23,7 +23,7 @@
  * @returns {() => void} destroy — stopt de renderloop, disposet alle GPU-resources en toont de poster weer. Idempotent.
  */
 import { minderBeweging, isTouch, inBeeld, vereisRoot } from '../../_kwaliteit/basis.js';
-import { bouwHond, animeerHond } from './hond.js';
+import { bouwHond, animeerHond, lichtHond, pasThemaToe } from './hond.js';
 
 // christianbleeker: vaste paden in public/vendor/three. Turbopack hasht new URL(...)-assets, waarna
 // GLTFLoader zijn relatieve import niet meer vindt. Alleen three.module.min.js staat er: de Werkplaats
@@ -42,8 +42,11 @@ export function init(root, options = {}) {
   const posterEl = root.querySelector('[data-mascot-poster]');
   const touch = isTouch(doc);
   const vorm = options.vorm || root.getAttribute('data-vorm') || 'bij';
-  const maxDpr = options.maxDpr || Number(root.getAttribute('data-max-dpr')) || 2;
+  // touch: lagere dpr-cap (mobiel budget), desktop 2
+  const maxDpr = options.maxDpr || Number(root.getAttribute('data-max-dpr')) || (touch ? 1.5 : 2);
   let hond = null;
+  let hondLicht = null;
+  let themaMO = null;
   let lastMove = -10;
 
   let destroyed = false;
@@ -101,6 +104,7 @@ export function init(root, options = {}) {
     isEligible: () => eligible,
     getVorm: () => vorm,
     getKopRotY: () => (hond ? hond.delen.kop.rotation.y : null),
+    getBouwMs: () => (hond ? hond.group.userData.bouwMs : null),
   };
   root.__mascotDebug = debug;
 
@@ -154,15 +158,21 @@ export function init(root, options = {}) {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
     camera.position.set(0, 0, 6);
-    if (vorm === 'hond') camera.position.set(0, -0.1, 7.4);
+    if (vorm === 'hond') { camera.fov = 34; camera.position.set(0, 0.35, 9.2); camera.lookAt(0, -0.2, 0); }
 
-    scene.add(new THREE.HemisphereLight(0xfff3d6, 0x2c2410, 0.95));
-    const dir = new THREE.DirectionalLight(0xffffff, 1.15);
-    dir.position.set(3, 4, 5);
-    scene.add(dir);
+    if (vorm === 'hond') {
+      // eigen lichtplan; zachte schaduwen alleen op desktop
+      hondLicht = lichtHond(THREE, scene, renderer, { schaduw: !touch });
+    } else {
+      scene.add(new THREE.HemisphereLight(0xfff3d6, 0x2c2410, 0.95));
+      const dir = new THREE.DirectionalLight(0xffffff, 1.15);
+      dir.position.set(3, 4, 5);
+      scene.add(dir);
+    }
 
     group = buildProceduralMascot();
     scene.add(group);
+    if (hond) volgThema();
 
     onResize();
 
@@ -174,6 +184,23 @@ export function init(root, options = {}) {
     win.addEventListener('scroll', onScroll, { passive: true });
 
     showCanvas();
+  }
+
+  // Thema: lees de achtergrond van de root (de kleurtokens van de site) en stem randlicht/schaduw af.
+  // Volgt een themawissel via attributen op <html> of de systeemvoorkeur.
+  function leesThema() {
+    if (!hond) return;
+    const m = (win.getComputedStyle(root).backgroundColor || '').match(/\d+(\.\d+)?/g);
+    const [r, g, b] = m ? m.map(Number) : [255, 255, 255];
+    const donker = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.45;
+    pasThemaToe(hond, hondLicht, donker);
+  }
+  function volgThema() {
+    leesThema();
+    if (themaMO || !('MutationObserver' in win)) return;
+    themaMO = new win.MutationObserver(leesThema);
+    themaMO.observe(doc.documentElement, { attributes: true });
+    if (win.matchMedia) win.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', leesThema);
   }
 
   /** Eigen, procedureel bij-achtig standaardmodel — geen assets van derden. */
@@ -374,6 +401,7 @@ export function init(root, options = {}) {
     disposeObject(group);
     group = buildProceduralMascot();
     scene.add(group);
+    if (hond) leesThema();
     if (isVisible && !doc.hidden) startRenderLoop();
   }
 
@@ -406,6 +434,8 @@ export function init(root, options = {}) {
     root.removeEventListener('pointermove', onPointerMove);
     win.removeEventListener('pointermove', onPointerMove);
     if (visIO) { visIO.disconnect(); visIO = null; }
+    if (themaMO) { themaMO.disconnect(); themaMO = null; }
+    if (win.matchMedia) win.matchMedia('(prefers-color-scheme: dark)').removeEventListener?.('change', leesThema);
     if (group) { disposeObject(group); group = null; }
     if (renderer) {
       renderer.dispose();
