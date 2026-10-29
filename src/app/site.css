@@ -374,8 +374,11 @@ h1, h2, h3 { overflow-wrap: break-word; }
 /* Gepind: het open paneel is zo hoog als het venster toelaat. Beeld en tekst passen zich daaraan aan
    (was: beeld 68vh, dus afgesneden, en op een laag venster viel de knop onder de rand). */
 .stapel[data-stapelpanelen][data-sp-modus='pin'] [data-sp-inhoud] { height: 100%; }
-.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-inhoud { height: 100%; box-sizing: border-box; padding: 12px var(--sp-pad) 20px; grid-template-columns: auto minmax(0, 1fr); }
-.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-beeld { height: 100%; max-height: none; width: auto; aspect-ratio: 4 / 5; }
+.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-inhoud { height: 100%; box-sizing: border-box; padding: 12px var(--sp-pad) 20px; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+/* Vaste kolommen, geen `auto`: Safari maakte de auto-kolom zo breed als de foto van nature is, waardoor de tekstkolom
+   rechts tot een strook van een paar woorden kromp en wegviel (29-10). Het beeld houdt 4:5 waar het past, anders vult het
+   zijn kolom (object-fit cover). */
+.stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-beeld { height: 100%; max-height: none; width: auto; max-width: 100%; aspect-ratio: 4 / 5; justify-self: start; }
 .stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-beeld img { object-position: 50% 0; }
 .stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-kort { font-size: clamp(22px, min(2.6vw, 4.4vh), 40px); max-width: 20ch; }
 .stapel[data-stapelpanelen][data-sp-modus='pin'] .stapel-tekst { padding-right: 0; }
