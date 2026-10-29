@@ -40,7 +40,7 @@
 
 .wp-hond { margin: 0; display: grid; gap: 18px; }
 .wp-hond-podium[data-mascot] { --tm-aspect: 4 / 5; background: var(--color-grond-2); border-radius: var(--wp-radius); }
-.wp-hond-podium [data-mascot-poster] { object-fit: contain; padding: 8% 10% 4%; }
+.wp-hond-podium [data-mascot-poster] { object-fit: contain; padding: 0; } /* poster = gerenderd eindbeeld met dezelfde kadrering als het canvas */
 .wp-hond-tekst { display: grid; gap: 8px; justify-items: start; }
 .wp-hond-tekst .demo-label { margin-bottom: 0; }
 
