@@ -1,7 +1,7 @@
 /**
  * Open prijzen op /contact (prijzen-per-dienst) en het advies "welk pakket past bij jou" (advies-funnel).
  *
- * VOORSTEL — ALLE BEDRAGEN, PAKKETNAMEN EN INHOUD ZIJN EEN VOORSTEL VAN SEVEKE CREATIVE (28-10-2026; prijzen bijgesteld 29-10 door Lars: website vanaf € 750 met alles uit de Linkbox-standaardmail, twee verhogingen, marketing lager, interne apps erbij).
+ * VOORSTEL — ALLE BEDRAGEN, PAKKETNAMEN EN INHOUD ZIJN EEN VOORSTEL VAN SEVEKE CREATIVE (28-10-2026; prijzen bijgesteld 29-10 door Lars: website vanaf € 750 met alles uit de Linkbox-standaardmail, twee verhogingen, marketing lager, interne apps erbij; marketing 29-10 uit de prijzen gehaald).
  * Chris heeft ze nog niet goedgekeurd; ze staan zo ook in docs/copy-nieuw.md. Eén bron: de funnel
  * leest zijn richtprijzen uit deze lijst, zodat advies en prijstabel elkaar nooit tegenspreken.
  */
@@ -51,25 +51,6 @@ export const diensten: Dienst[] = [
       { vraag: 'Is de site echt van mij?', antwoord: 'Ja. De code staat op GitHub op jouw naam en de hosting op jouw account. Bij de oplevering lopen we samen het stappenplan door; daarna beheer je hem zelf.' },
       { vraag: 'Schrijven jullie ook de teksten?', antwoord: 'Bij Groei en Maatwerk wel, samen met jou. Bij Start lever je ze aan via een korte vragenlijst in ChatGPT of Claude, die alles voor ons verzamelt.' },
       { vraag: 'Kan ik later zelf iets aanpassen?', antwoord: 'Ja. Bij elk pakket laten we zien hoe je teksten en beelden zelf bijwerkt.' },
-    ],
-  },
-  {
-    id: 'marketing',
-    titel: 'Marketing',
-    pakketten: [
-      {
-        id: 'klankbord', naam: 'Klankbord', prijs: 350, eenheid: 'excl. btw · per sessie', tijd: 'Twee uur',
-        oplevert: ['Een frisse blik op je site en je verhaal'],
-        inbegrepen: ['Voorbereiding op je huidige site', 'Sessie van twee uur', 'Verslag met de eerste stappen'],
-      },
-      {
-        id: 'plan', naam: 'Plan', prijs: 950, eenheid: 'excl. btw · eenmalig', tijd: '1 tot 2 weken', populair: true,
-        oplevert: ['Een plan voor de komende drie maanden'],
-        inbegrepen: ['Alles uit Klankbord', 'Doelgroep en boodschap op papier', 'Contentkalender voor drie maanden'],
-      },
-    ],
-    faq: [
-      { vraag: 'Moet ik al een website hebben?', antwoord: 'Nee. Een plan kan ook het begin zijn van een nieuwe site.' },
     ],
   },
   {
@@ -149,7 +130,6 @@ export const adviesConfig = {
       id: 'dienst', vraag: 'Waar heb je het meest behoefte aan?', type: 'enkel' as const,
       opties: [
         { waarde: 'website', label: 'Een website' },
-        { waarde: 'marketing', label: 'Marketing en strategie' },
         { waarde: 'apps', label: 'Een app voor binnen het bedrijf' },
         { waarde: 'ai', label: 'Aan de slag met AI' },
       ],
@@ -160,13 +140,6 @@ export const adviesConfig = {
         { waarde: 'klein', label: 'Eén verhaal op een paar pagina’s' },
         { waarde: 'middel', label: 'Diensten, werk en een blog' },
         { waarde: 'groot', label: 'Meerdere talen of iets op maat' },
-      ],
-    },
-    {
-      id: 'vraag', vraag: 'Wat zoek je?', type: 'enkel' as const, voorwaarde: { vraag: 'dienst', waarde: 'marketing' },
-      opties: [
-        { waarde: 'blik', label: 'Een frisse blik op wat er is' },
-        { waarde: 'plan', label: 'Een plan voor de komende maanden' },
       ],
     },
     {
@@ -188,8 +161,6 @@ export const adviesConfig = {
   advies: [
     { als: { dienst: 'website', omvang: 'klein' }, ...advies('website', 'start', 'Een compacte site die in een paar pagina’s laat zien wie je bent en wat je doet.') },
     { als: { dienst: 'website', omvang: 'groot' }, ...advies('website', 'maatwerk', 'Meertalig of met een eigen tool: daar hoort een eigen plan bij, en tijd om het goed te doen.') },
-    { als: { dienst: 'marketing', vraag: 'blik' }, ...advies('marketing', 'klankbord', 'Eén sessie waarin we samen naar je site en je verhaal kijken, met de eerste stappen op papier.') },
-    { als: { dienst: 'marketing' }, ...advies('marketing', 'plan', 'Een plan met je doelgroep, je boodschap en wat je de komende drie maanden doet.') },
     { als: { dienst: 'apps', team: 'een' }, ...advies('apps', 'proces', 'Eén app voor één klus, zodat je team daar geen losse lijstjes meer voor nodig heeft.') },
     { als: { dienst: 'apps', team: 'bedrijf' }, ...advies('apps', 'platform', 'Eén systeem voor meerdere afdelingen, met een AI-assistent die in je eigen gegevens zoekt.') },
     { als: { dienst: 'apps' }, ...advies('apps', 'team', 'Eén plek voor de planning, de klanten en de taken van je team.') },

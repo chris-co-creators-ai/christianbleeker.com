@@ -393,7 +393,6 @@ export const contact = {
     stap2Terugval: 'Waar wil je bedrijf naartoe?',
     doelen: [
       { waarde: 'website', titel: 'Een nieuwe website', tekst: 'Je huidige site past niet meer bij wie je nu bent.' },
-      { waarde: 'marketing', titel: 'Meer uit je site halen', tekst: 'De site staat, maar er komen te weinig goede gesprekken uit.' },
       { waarde: 'ai', titel: 'Aan de slag met AI', tekst: 'Je wilt weten wat AI voor jouw werk kan doen, zonder je eigen stem te verliezen.' },
       { waarde: 'apps', titel: 'Een app voor binnen het bedrijf', tekst: 'Uren, verlof, klanten of voorraad: één plek in plaats van losse lijstjes.' },
       { waarde: 'anders', titel: 'Iets anders', tekst: 'Vertel het in de volgende stap.' },
