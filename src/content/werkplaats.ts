@@ -29,7 +29,7 @@ export const werkplaats = {
     { id: 'in-de-buurt', naam: 'In de buurt', kop: 'Laat zien waar je werkt', tekst: 'Voor wie in de eigen regio werkt: waar je projecten zitten, hoe ver het rijden is en of je nu open bent.' },
     { id: 'kiezen', naam: 'Kiezen en bestellen', kop: 'Kiezen zonder te bellen', tekst: 'Een kleur, een ophaaldag, een plek in de groep. De bezoeker regelt het zelf, op de pagina.' },
     { id: 'afspreken', naam: 'Afspreken en aanvragen', kop: 'De eerste stap zo kort mogelijk', tekst: 'Datum en tijd al ingevuld, een aanvraag zonder nieuwe pagina en een keuzelijst die je vak kent.' },
-    { id: 'kennis', naam: 'Kennis en vertrouwen', kop: 'Laat zien wat je weet', tekst: 'Een kennisbank die je doorzoekt zonder zoekmachine, en eerlijk over wat een AI-assistent wel en niet zelf doet.' },
+    { id: 'kennis', naam: 'Kennis en vertrouwen', kop: 'Laat zien wat je weet', tekst: 'Een kennisbank die je doorzoekt zonder zoekmachine, en eerlijk over wat een AI-assistent wel en niet zelf doet.', apps: { tekst: 'Zo’n kennisbank of assistent bouwen we ook voor binnen je bedrijf, als interne app voor je team.', link: 'Bekijk de interne apps', href: '/contact#prijzen' } }, // apps: voorstel (v3-team 29-10)
   ],
 
   kaart: {

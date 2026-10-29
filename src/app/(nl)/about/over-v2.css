@@ -51,3 +51,13 @@
 /* De stapteller schuift als vaste pil over de stappen (en op mobiel onder de vaste kop door); de vullende lijn en de
    stippen vertellen hetzelfde, dus hij blijft weg. Hij is aria-hidden, er gaat niets verloren. */
 .reis-lijn [data-sticky-timeline-status] { display: none; }
+
+/* ── Samen met Brian en Lars (v3-team): twee kaarten in de stijl van Eigen product ── */
+.team-kaarten { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.team-kaart { flex-direction: row; align-items: flex-start; gap: clamp(16px, 2vw, 28px); }
+.team-kaart-foto { flex: 0 0 clamp(110px, 12vw, 170px); }
+.team-kaart-tekst { display: grid; gap: 10px; justify-items: start; }
+.team-kaart-tekst p:not(.kicker) { color: var(--color-tekst-2); max-width: 48ch; }
+.team-kaart-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+@media (max-width: 899px) { .team-kaarten { grid-template-columns: 1fr; } }
+@media (max-width: 479px) { .team-kaart { flex-direction: column; } .team-kaart-foto { flex-basis: auto; width: 140px; } }
