@@ -12,7 +12,7 @@ const demoNaam = (slug: string) => demos.find((d) => d.slug === slug)?.naam ?? s
 
 export const werkplaats = {
   titel: 'Werkplaats — wat we voor jouw vak bouwen',
-  beschrijving: 'Werkende proefstukken per vak: een werkgebied-kaart voor een aannemer, openingstijden voor een tandarts, een intake voor een advocaat. Allemaal voorbeelden om zelf te proberen.',
+  beschrijving: 'Werkende proefstukken per vak: een werkgebied-kaart voor een aannemer, openingstijden voor een tandarts, een intake voor een advocaat. Probeer ze zelf.',
   menu: 'Werkplaats',
   kicker: 'Werkplaats',
   kop: 'Wat we voor jouw vak bouwen',
