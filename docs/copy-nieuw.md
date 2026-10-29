@@ -623,3 +623,20 @@ ontwerp-demo bij het vak past, linkt het proefstuk naar die demo. De bron van al
 | "De nieuwe groep is vol: <aantal> aanmeldingen" | werkplaats (sjabloon) |
 | "<rol>: <handeling> staat nu op <stand>" | werkplaats (sjabloon) |
 | "<aantal> handelingen" | werkplaats (sjabloon) |
+
+## Prijzen v3, bijgesteld 29-10-2026 (Lars)
+
+Lars: "website begint bij 750 euro en daar moet alles in wat ook in de linkbox mail staat. en dan nog 2 verhogingen. en verander die marketing prijzen. daarnaast gaan we ook interne apps aanbieden." Bron van waarheid: `src/content/prijzen.ts`. De bedragen boven Start en de marketingprijzen zijn een voorstel van Lima.
+
+| Dienst | Pakket | Prijs | Doorlooptijd |
+|---|---|---|---|
+| Websites | Start | € 750 eenmalig | 1 tot 2 weken (alles uit de Linkbox-standaardmail: SEO, AI SEO, Next.js, Vercel, GitHub op naam klant, contactformulier met spamfilter, statistieken en online-controle, oude site overzetten) |
+| Websites | Groei (meest gekozen) | € 1.495 eenmalig | 2 tot 3 weken |
+| Websites | Maatwerk | vanaf € 2.950 eenmalig | 3 tot 5 weken |
+| Marketing | Klankbord | € 350 per sessie | twee uur |
+| Marketing | Plan (meest gekozen) | € 950 eenmalig | 1 tot 2 weken |
+| Interne apps | Eén werkproces | € 1.950 eenmalig | 2 tot 3 weken |
+| Interne apps | Teamapp (meest gekozen) | € 3.950 eenmalig | 4 tot 6 weken |
+| Interne apps | Bedrijfsplatform | vanaf € 7.500 eenmalig | 8 tot 12 weken |
+
+Voorbeelden van interne apps (FAQ): urenregistratie per project, verlof en roosters, klantportaal met offertes, voorraad en bestellingen, checklist met foto's voor inspecties, onboarding van nieuwe collega's, kennisbank waarin het team met AI zoekt.

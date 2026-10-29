@@ -369,11 +369,11 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     const a0 = await page.evaluate(() => ({ kop: document.querySelector('.af-advies-heading')?.textContent, prijs: document.querySelector('.af-advies-prijs')?.textContent }))
     await af.locator('.af-cta-link').click(); await page.waitForTimeout(500)
     const a1 = await page.evaluate(() => ({ hash: location.hash, tab: document.querySelector('.prijzen [role="tab"][aria-selected="true"]')?.textContent }))
-    if (a0.kop !== 'Websites: Start' || !/€ 2\.450/.test(a0.prijs || '') || a1.hash !== '#dienst-website' || a1.tab !== 'Websites') fouten.push(`${label} advies: ${JSON.stringify({ ...a0, ...a1 })}`)
+    if (a0.kop !== 'Websites: Start' || !/€ 750/.test(a0.prijs || '') || a1.hash !== '#dienst-website' || a1.tab !== 'Websites') fouten.push(`${label} advies: ${JSON.stringify({ ...a0, ...a1 })}`)
     // prijzen: tab Marketing, CTA met dienst en pakket
     await page.locator('.prijzen [role="tab"]', { hasText: 'Marketing' }).click(); await page.waitForTimeout(300)
     const p0 = await page.evaluate(() => { const pan = document.querySelector('.prijzen [data-dienst="marketing"]'); return { zicht: !pan.hidden, cta: pan.querySelector('[data-ppd-cta]').getAttribute('href'), bedrag: pan.querySelector('.ppd__bedrag').textContent.replace(/\s/g, ' ') } })
-    if (!p0.zicht || !/dienst=marketing&pakket=klankbord/.test(p0.cta) || p0.bedrag !== '€ 750') fouten.push(`${label} prijzen: ${JSON.stringify(p0)}`)
+    if (!p0.zicht || !/dienst=marketing&pakket=klankbord/.test(p0.cta) || p0.bedrag !== '€ 350') fouten.push(`${label} prijzen: ${JSON.stringify(p0)}`)
     // agenda: niets naar cal.com vóór de klik
     const agendaKnop = page.locator('.kennismaken .af__knop')
     await agendaKnop.scrollIntoViewIfNeeded(); await page.waitForTimeout(300)
