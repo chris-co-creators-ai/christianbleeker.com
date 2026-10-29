@@ -61,6 +61,15 @@ hieronder in de tabel — inclusief de reden ("gekozen in PRD/stap 5"). Een map 
 | `impact-scan/` | `tools/impact-scan/` (e81470a) | 2026-10-28 | v2 AI: de AI-scan (scoremodus, titel h2) |
 | `kaartenrij-lottie/` | `scroll/kaartenrij-lottie/` (e81470a) | 2026-10-28 | v2 AI: zes vragen; iconen opnieuw gemaakt met maak-iconen.mjs |
 | `password-reveal/` | `typography/password-reveal/` (e81470a) | 2026-10-28 | v2 AI: "onzichtbaar." in de kop van de scan |
+| `app-tour-venster/` | `portfolio/app-tour-venster/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: "Interne apps", vier voorbeeld-apps; met `domein-wissel-kopie.*` (= `typography/domein-wissel`, telt als dat onderdeel) |
+| `eigen-naam-preview/` | `forms/eigen-naam-preview/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: "Bekijk het met je eigen bedrijfsnaam" |
+| `levende-kaarten/` | `cards/levende-kaarten/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: zes voorbeelden van interne apps |
+| `blokgrafiek/` | `stats/blokgrafiek/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: de drie app-varianten uit prijzen.ts |
+| `besparingscalculator/` | `tools/besparingscalculator/` (ca6c7f1) | 2026-10-29 | v3x Werkplaats: abonnementen tegenover één eigen app (indicatie; pakketkorting verborgen in v3x.css) |
+| `stappen-mini-ui/` | `process/stappen-mini-ui/` (ca6c7f1) | 2026-10-29 | v3x Contact: "Zo werken we samen" (stappen uit de Linkbox-mail, voor een klant herschreven); `wolk={false}`, de mesh-wolk-kopie wordt niet gestart |
+| `verbindingshub/` | `layouts/verbindingshub/` (ca6c7f1) | 2026-10-29 | v3x Over #team: de drie teamleden ↔ Dicteren.ai, Co-Creators.ai en Seveke Creative |
+
+Kleuren en letters van de v3x-onderdelen: `src/components/v3x/v3x.css` zet de generieke tokens (`--surface`, `--ink`, `--indigo` …) op de eigen `--color-*`-variabelen, zodat de onderdelen ongewijzigd blijven.
 
 ## Hoe je later bijwerkt
 

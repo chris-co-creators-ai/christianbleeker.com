@@ -1,0 +1,100 @@
+/**
+ * mesh-wolk.css
+ * ------------------------------------------------------------------------
+ * Namespace: `[data-mesh-wolk]` (root), `.mw-canvas` (door de JS gemaakt),
+ * statusattributen `data-mw-staat`, `data-mw-getekend`, `data-mw-terugval`.
+ *
+ * Alle kleuren en getallen staan hier als CSS-variabelen; de JS leest ze. Zo
+ * kun je een wolk in CSS afstemmen en schakelt hij mee met `data-theme="dark"`
+ * (op <html> of op een sectie). Opties in `init()` gaan voor.
+ *
+ * De CSS-radialen zijn de basis: zonder JS, zonder WebGL2, bij contextverlies
+ * en vóór de eerste frame zie je ze. Het canvas vervaagt er daarna overheen.
+ * Layout-standaarden in :where(), zodat je eigen klassen altijd winnen.
+ */
+[data-mesh-wolk] {
+  --mw-achtergrond: var(--sky-soft, #e8f5fd);
+  --mw-kleur-1: #bfe3f8;
+  --mw-kleur-2: var(--sky, #8acbf1);
+  --mw-kleur-3: #dceffb;
+  --mw-speed: 1.2;
+  --mw-scale: 0.9;
+  --mw-softness: 0.82;
+  --mw-intensity: 0.28;
+  --mw-grain: 0.1;
+  --mw-rotation: 8;
+  background-color: var(--mw-achtergrond);
+  background-image:
+    radial-gradient(48% 58% at 24% 36%, var(--mw-kleur-1), transparent 72%),
+    radial-gradient(44% 52% at 76% 62%, var(--mw-kleur-2), transparent 70%),
+    radial-gradient(56% 48% at 50% 6%, var(--mw-kleur-3), transparent 74%);
+}
+:where([data-mesh-wolk]) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+[data-mesh-wolk][data-mw-preset='indigo'] {
+  --mw-achtergrond: var(--indigo-soft, #eceefe);
+  --mw-kleur-1: #c9cffc;
+  --mw-kleur-2: #9aa6f8;
+  --mw-kleur-3: #e4e7fe;
+  --mw-speed: 1.4;
+  --mw-scale: 1;
+  --mw-softness: 0.84;
+  --mw-intensity: 0.3;
+  --mw-rotation: 0;
+}
+[data-mesh-wolk][data-mw-preset='schemer'] {
+  --mw-achtergrond: #eef0ff;
+  --mw-kleur-1: #b7c6fa;
+  --mw-kleur-2: #93d9f2;
+  --mw-kleur-3: #e6edff;
+  --mw-scale: 0.82;
+  --mw-softness: 0.86;
+  --mw-intensity: 0.24;
+  --mw-grain: 0.09;
+  --mw-rotation: 0;
+}
+
+/* Donker: dezelfde families, laag in lichtheid. Hoofdtekst (#f3f4fd) haalt op elke kleur ≥ 7,7:1. */
+[data-theme='dark'] [data-mesh-wolk],
+[data-mesh-wolk][data-theme='dark'] {
+  --mw-achtergrond: #0d1546;
+  --mw-kleur-1: #132a5e;
+  --mw-kleur-2: #1f4d86;
+  --mw-kleur-3: #112458;
+}
+[data-theme='dark'] [data-mesh-wolk][data-mw-preset='indigo'],
+[data-mesh-wolk][data-mw-preset='indigo'][data-theme='dark'] {
+  --mw-achtergrond: #100e45;
+  --mw-kleur-1: #1e1d63;
+  --mw-kleur-2: #34379a;
+  --mw-kleur-3: #17155a;
+}
+[data-theme='dark'] [data-mesh-wolk][data-mw-preset='schemer'],
+[data-mesh-wolk][data-mw-preset='schemer'][data-theme='dark'] {
+  --mw-achtergrond: #110f4a;
+  --mw-kleur-1: #2b2d86;
+  --mw-kleur-2: #1a4677;
+  --mw-kleur-3: #17155a;
+}
+
+.mw-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+[data-mw-getekend] > .mw-canvas { opacity: 1; }
+[data-mw-terugval] > .mw-canvas { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mw-canvas { transition: none; }
+}

@@ -14,6 +14,7 @@ import { HeroMotion } from '@/features/hero-motion/HeroMotion'
 import { FloatDecor } from '@/features/float-decor/FloatDecor'
 import { GhostText } from '@/features/ghost-text/GhostText'
 import '@/components/v3b/beeld.css'
+import { Werkwijze } from '@/components/v3x/Werkwijze'
 import { site } from '@/content/site'
 import { breadcrumbSchema } from '@/lib/schema'
 
@@ -73,6 +74,7 @@ export default function Contact() {
           </GhostText>
           <Prijzen />
         </section>
+        <Werkwijze />
         <section className="sectie container-site contact-kennismaken">
           <Kennismaken />
         </section>

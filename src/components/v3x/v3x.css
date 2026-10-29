@@ -1,0 +1,86 @@
+/**
+ * v3x (29-10): de eu-hosted-onderdelen in de huisstijl van deze site. De onderdelen lezen generieke
+ * tokens (--surface, --ink, --indigo …) met het eu-hosted-palet als terugval; hier zetten we die tokens
+ * op de eigen kleuren en letters. Alles volgt data-thema (licht/donker) via de --color-*-variabelen.
+ * Geen animatieregels: die blijven in de onderdelen zelf (en globals.css/site.css zijn van een andere maker).
+ */
+.v3x {
+  --surface: var(--color-grond-2);
+  --surface-raised: var(--color-grond);
+  --surface-mist: color-mix(in srgb, var(--color-grond-2) 55%, var(--color-grond-3));
+  --ink: var(--color-tekst);
+  --ink-muted: var(--color-tekst-2);
+  --line: var(--color-lijn);
+  --line-strong: var(--color-lijn-sterk);
+  --line-contrast: var(--color-lijn-sterk);
+  --indigo: var(--color-hoofd);
+  --indigo-strong: color-mix(in srgb, var(--color-hoofd) 82%, var(--color-tekst));
+  --indigo-soft: color-mix(in srgb, var(--color-hoofd) 6%, var(--color-grond));
+  --on-indigo: var(--color-grond);
+  --action: var(--color-tekst);
+  --on-action: var(--color-grond);
+  --navy: var(--color-tekst);
+  --on-navy: var(--color-grond);
+  --on-navy-muted: color-mix(in srgb, var(--color-grond) 78%, var(--color-tekst));
+  --night-2: var(--color-tekst-2);
+  --sky: var(--color-accent);
+  --sky-soft: color-mix(in srgb, var(--color-accent) 16%, var(--color-grond-2));
+  --success: var(--color-accent);
+  --success-soft: color-mix(in srgb, var(--color-accent) 18%, var(--color-grond-2));
+  --warning: var(--color-hoofd);
+  --danger: var(--color-hoofd);
+  --focus: var(--color-accent);
+  --glass-line: color-mix(in srgb, var(--color-grond) 24%, transparent);
+  --grad-1: var(--color-hoofd);
+  --grad-2: color-mix(in srgb, var(--color-hoofd) 50%, var(--color-accent));
+  --grad-3: var(--color-accent);
+  --font-sans: var(--font-tekst);
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --shadow-window: 0 0 0 1px var(--color-lijn), var(--schaduw);
+  --shadow-lg: var(--schaduw);
+  --shadow-md: 0 0 0 1px var(--color-lijn), 0 12px 30px -18px rgb(0 0 0 / 0.45);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.12);
+  --radius-card: 20px;
+}
+.v3x-sub > h3, .v3x .lk-kaart h3, .v3x .smu-onderschrift h3 { font-family: var(--font-kop); }
+.v3x-sub { margin-top: clamp(56px, 8vw, 104px); }
+.v3x-sub > h3 { margin: 0 0 10px; font-size: clamp(24px, 2.6vw, 34px); font-weight: 600; }
+.v3x-sub > p { max-width: 62ch; margin: 0 0 clamp(24px, 3vw, 36px); color: var(--color-tekst-2); }
+.v3x .demo-label { margin-bottom: 18px; }
+
+/* ── Interne apps (/werkplaats) ─────────────────────────────────────── */
+.ia .enp { max-width: 1088px; margin: 20px auto 0; }
+.ia-rekenen .bc { --bc-sticky: 104px; --bc-cta-bg: var(--color-grond); --bc-cta-tekst: var(--color-tekst); }
+/* De pakketkorting van de bibliotheek past niet bij een eenmalige prijs: alleen de vergelijking blijft. */
+.ia-rekenen .bc__badge,
+.ia-rekenen .bc__korting,
+.ia-rekenen .bc__pakketten { display: none !important; }
+.ia-varianten { display: grid; gap: clamp(24px, 4vw, 48px); align-items: center; }
+@media (min-width: 900px) { .ia-varianten { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); } }
+.ia-varianten .bgf { padding: clamp(16px, 2.4vw, 28px); border-radius: 20px; border: 1px solid var(--color-lijn); background: var(--color-grond-2); }
+.ia-varianten ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.ia-varianten li strong { font-family: var(--font-kop); font-weight: 600; }
+.ia-varianten li span { display: block; color: var(--color-tekst-2); }
+
+/* ── Werkwijze websites (/contact) ──────────────────────────────────── */
+.ww .smu-beeld { background: var(--color-grond-2); }
+.ww .smu-totaal { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ww-stappen { margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; list-style: none; counter-reset: ww; display: grid; gap: 14px 32px; }
+@media (min-width: 900px) { .ww-stappen { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ww-stappen li { counter-increment: ww; display: grid; grid-template-columns: 2.4em minmax(0, 1fr); gap: 4px; color: var(--color-tekst-2); }
+.ww-stappen li::before { content: counter(ww, decimal-leading-zero); font: 600 14px/1.6 var(--font-kop); color: var(--color-hoofd); }
+.ww-stappen strong { color: var(--color-tekst); }
+
+/* ── Team (/about) ──────────────────────────────────────────────────── */
+.team-hub { margin-top: clamp(40px, 6vw, 72px); }
+.team-hub .vh__tegel img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.team-hub .vh__groep[data-vh-kant='bron'] .vh__tegel { overflow: hidden; padding: 0; }
+.team-hub .vh__hub .vh__tegel { font: 600 34px/1 var(--font-kop); color: var(--color-hoofd); }
+.ia-varianten h3 { margin: 0 0 10px; font: 600 clamp(24px, 2.6vw, 34px)/1.15 var(--font-kop); }
+.ia-varianten p { margin: 0 0 20px; color: var(--color-tekst-2); }
+.ia-varianten ul { margin-bottom: 20px; }
+/* drie staven: de volle naam past ook smal (twee regels), korter dan "Eén/Tea/Bed" */
+@container (max-width: 520px) {
+  .ia-varianten .bgf .bgf__label-lang { display: inline; }
+  .ia-varianten .bgf .bgf__label-kort { display: none; }
+}

@@ -21,6 +21,7 @@ import { HotspotsBeeld } from '@/components/HotspotsBeeld'
 import { EyebrowLijn } from '@/features/eyebrow-lijn/EyebrowLijn'
 import { SectionDivider } from '@/features/section-dividers/SectionDivider'
 import { GradientFlow } from '@/features/gradient-flow/GradientFlow'
+import { TeamHub } from '@/components/v3x/TeamHub'
 import './over-v2.css'
 import '@/components/v3b/beeld.css'
 
@@ -123,6 +124,7 @@ export default function Over() {
                 </li>
               ))}
             </ul>
+            <TeamHub />
           </section>
 
           <section className="logowand" aria-labelledby="websites-kop" data-logo="licht">

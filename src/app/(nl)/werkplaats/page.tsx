@@ -22,6 +22,8 @@ import { ZoekKeuzelijst } from '@/features/zoek-keuzelijst/ZoekKeuzelijst'
 import { KennisbankFilter } from '@/features/kennisbank-filter/KennisbankFilter'
 import { Rechtenmatrix } from '@/features/rechtenmatrix/Rechtenmatrix'
 import beroepen from '@/features/zoek-keuzelijst/beroepen.json'
+import { InterneApps } from '@/components/v3x/InterneApps'
+import { interneApps } from '@/content/v3x'
 import '@/components/werkplaats/werkplaats.css'
 
 export const metadata: Metadata = {
@@ -71,6 +73,7 @@ export default function Werkplaats() {
                 {w.groepen.map((g, i) => (
                   <li key={g.id}><a href={`#${g.id}`}><span className="wp-inhoud-nr" aria-hidden="true">{`0${i + 1}`}</span>{g.naam}</a></li>
                 ))}
+                <li><a href={`#${interneApps.id}`}><span className="wp-inhoud-nr" aria-hidden="true">{interneApps.nr}</span>{interneApps.naam}</a></li>
               </ol>
             </nav>
           </div>
@@ -241,6 +244,8 @@ export default function Werkplaats() {
             <Rechtenmatrix className="wp-rechten" config={rechtenConfig} />
           </Proefstuk>
         </Groep>
+
+        <InterneApps />
       </main>
       <Voet uitnodiging />
     </>

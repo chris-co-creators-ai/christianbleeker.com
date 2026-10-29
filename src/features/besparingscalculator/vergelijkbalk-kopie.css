@@ -1,0 +1,145 @@
+/**
+ * vergelijkbalk.css
+ * ------------------------------------------------------------------------
+ * Namespace: klasse `vgb` en `vgb__*`, attributen `data-vgb-*` (door de JS
+ * gezet), `data-toon="accent"` op een rij voor de gemarkeerde balk.
+ * Kleuren komen uit het eu-hosted-palet met een eigen terugval, dus het
+ * onderdeel werkt ook zonder `_paletten/eu-hosted/tokens.css`.
+ *
+ * Zonder JS (geen `data-vgb-actief`) is het spoor verborgen: je ziet naam en
+ * bedrag als lijst, geen lege balk die "0" suggereert.
+ */
+.vgb {
+  --vgb-ink: var(--ink, #0b093b);
+  --vgb-ink-zacht: var(--ink-muted, #4f5175);
+  --vgb-spoor: var(--surface-mist, #f5f6fe);
+  --vgb-grijs: var(--line-strong, #8488b2);
+  --vgb-accent: var(--indigo, #5466f4);
+  --vgb-hoogte: 32px;
+  --vgb-radius: var(--radius-control, 10px);
+  --vgb-ease: var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  --vgb-duur: 0.45s;
+  --vgb-groeiduur: 0.9s;
+  --vgb-stap: 0.08s;
+  container-type: inline-size;
+  color: var(--vgb-ink);
+  font-family: var(--font-sans, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif);
+}
+
+.vgb .vgb__lijst {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.vgb .vgb__rij {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'naam bedrag' 'spoor spoor';
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.vgb .vgb__naam {
+  grid-area: naam;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  min-width: 0;
+}
+
+.vgb .vgb__naam small {
+  display: block;
+  margin-top: 2px;
+  color: var(--vgb-ink-zacht);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.vgb .vgb__bedrag {
+  grid-area: bedrag;
+  margin: 0;
+  text-align: right;
+  white-space: nowrap;
+  font-family: var(--font-mono, ui-monospace, 'SF Mono', Menlo, Consolas, monospace);
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+
+.vgb .vgb__eenheid {
+  margin-left: 2px;
+  color: var(--vgb-ink-zacht);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.vgb .vgb__spoor {
+  grid-area: spoor;
+  display: none;
+  position: relative;
+  height: var(--vgb-hoogte);
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--vgb-radius);
+  background: var(--vgb-spoor);
+}
+
+.vgb[data-vgb-actief] .vgb__spoor {
+  display: block;
+}
+
+/* Volle afgeronde strook die uit het spoor schuift: s = 0 → helemaal links
+   buiten beeld, s = 1 → precies het hele spoor. */
+.vgb .vgb__balk {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--vgb-grijs);
+  transform: translateX(calc((var(--vgb-s, 0) - 1) * 100%));
+  transition: transform var(--vgb-duur) var(--vgb-ease);
+  will-change: transform;
+}
+
+.vgb .vgb__rij[data-toon='accent'] .vgb__balk {
+  background: var(--vgb-accent);
+}
+
+.vgb[data-vgb-groei] .vgb__balk {
+  transition-duration: var(--vgb-groeiduur);
+  transition-delay: calc(var(--vgb-i, 0) * var(--vgb-stap));
+}
+
+@container (min-width: 560px) {
+  .vgb .vgb__rij {
+    grid-template-columns: minmax(120px, 180px) minmax(0, 1fr) minmax(96px, auto);
+    grid-template-areas: 'naam spoor bedrag';
+    gap: 16px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vgb .vgb__balk {
+    transition: none;
+  }
+}
+
+:root[data-motion='paused'] .vgb .vgb__balk,
+.vgb[data-vgb-pauze] .vgb__balk {
+  transition: none;
+}
+
+@media (forced-colors: active) {
+  .vgb .vgb__spoor {
+    border: 1px solid CanvasText;
+  }
+  .vgb .vgb__balk {
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
+}

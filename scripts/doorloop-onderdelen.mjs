@@ -30,6 +30,7 @@
 import { laadChromium, LAUNCH, BASIS } from './browser.mjs'
 import { toetsV3b } from './doorloop-v3b.mjs'
 import { werkplaats } from './doorloop-werkplaats.mjs'
+import { toetsV3x } from './doorloop-v3x.mjs'
 const motor = await laadChromium()
 const naam = process.env.BROWSER || 'chromium'
 const fouten = [], regels = []
@@ -356,9 +357,9 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     }))
     const volgende = new Intl.DateTimeFormat('nl-NL', { month: 'long' }).format(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)) // badge = volgende maand
     if (c0.maand !== volgende || c0.scan !== 'test <b>vet</b>' || c0.html || c0.doel !== 'ai' || c0.stappen !== 1) fouten.push(`${label} contact ?scan: ${JSON.stringify(c0)} (badge verwacht ${volgende})`)
-    await page.goto(BASIS + '/contact?dienst=marketing&pakket=plan#intake', { waitUntil: 'networkidle' })
+    await page.goto(BASIS + '/contact?dienst=apps&pakket=team#intake', { waitUntil: 'networkidle' })
     const c1 = await page.evaluate(() => ({ doel: document.querySelector('#intake-formulier input[name="doel"]:checked')?.value, pakket: document.querySelector('#intake-formulier input[name="pakket"]').value }))
-    if (c1.doel !== 'marketing' || c1.pakket !== 'plan') fouten.push(`${label} contact ?dienst: ${JSON.stringify(c1)}`)
+    if (c1.doel !== 'apps' || c1.pakket !== 'team') fouten.push(`${label} contact ?dienst: ${JSON.stringify(c1)}`)
     // advies: website → klein geeft Start, en de knop opent het tabblad Websites bij de prijzen
     await page.evaluate(() => sessionStorage.clear()); await page.reload({ waitUntil: 'networkidle' })
     const af = page.locator('.pakket-advies')
@@ -370,10 +371,10 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     await af.locator('.af-cta-link').click(); await page.waitForTimeout(500)
     const a1 = await page.evaluate(() => ({ hash: location.hash, tab: document.querySelector('.prijzen [role="tab"][aria-selected="true"]')?.textContent }))
     if (a0.kop !== 'Websites: Start' || !/€ 750/.test(a0.prijs || '') || a1.hash !== '#dienst-website' || a1.tab !== 'Websites') fouten.push(`${label} advies: ${JSON.stringify({ ...a0, ...a1 })}`)
-    // prijzen: tab Marketing, CTA met dienst en pakket
-    await page.locator('.prijzen [role="tab"]', { hasText: 'Marketing' }).click(); await page.waitForTimeout(300)
-    const p0 = await page.evaluate(() => { const pan = document.querySelector('.prijzen [data-dienst="marketing"]'); return { zicht: !pan.hidden, cta: pan.querySelector('[data-ppd-cta]').getAttribute('href'), bedrag: pan.querySelector('.ppd__bedrag').textContent.replace(/\s/g, ' ') } })
-    if (!p0.zicht || !/dienst=marketing&pakket=klankbord/.test(p0.cta) || p0.bedrag !== '€ 350') fouten.push(`${label} prijzen: ${JSON.stringify(p0)}`)
+    // prijzen: tab Interne apps, CTA met dienst en pakket
+    await page.locator('.prijzen [role="tab"]', { hasText: 'Interne apps' }).click(); await page.waitForTimeout(300)
+    const p0 = await page.evaluate(() => { const pan = document.querySelector('.prijzen [data-dienst="apps"]'); return { zicht: !pan.hidden, cta: pan.querySelector('[data-ppd-cta]').getAttribute('href'), bedrag: pan.querySelector('.ppd__bedrag').textContent.replace(/\s/g, ' ') } })
+    if (!p0.zicht || !/dienst=apps&pakket=proces/.test(p0.cta) || p0.bedrag !== '€ 1.950') fouten.push(`${label} prijzen: ${JSON.stringify(p0)}`)
     // agenda: niets naar cal.com vóór de klik
     const agendaKnop = page.locator('.kennismaken .af__knop')
     await agendaKnop.scrollIntoViewIfNeeded(); await page.waitForTimeout(300)
@@ -495,6 +496,9 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
   // 12. v3 beeld en effecten (maker B): zie doorloop-v3b.mjs.
   await toetsV3b(page, { label, reduced, mobiel, fouten, regels })
 
+  // 12b. v3x (29-10): interne apps, werkwijze, team-hub; zie doorloop-v3x.mjs.
+  await toetsV3x(page, { label, reduced, mobiel, fouten, regels })
+
   // 13. Werkplaats (v3, maker A): eigen browser, eigen pagina
   await werkplaats(motor, { w, h, reduced, schema, naam, label }, fouten, regels)
 
@@ -504,4 +508,4 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
 }
 console.log(regels.join('\n'))
 if (fouten.length) { console.error(`\nONDERDELEN ROOD (${fouten.length}):\n- ${fouten.join('\n- ')}`); process.exit(1) }
-console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact; v3-C: leesstand (wijkende kop, merk, zijmenu/vel), kader-hover, snel contact + pulse, omslag, veeg-rij, voetlijn; v3b: diepte-beeld, eyebrow, parallax, randen, kleurveld, raster-intro, magneet, hero-motion, kader, €; Werkplaats: twaalf proefstukken`)
+console.log(`\nONDERDELEN GROEN (${naam}): thema-schakelaar zonder flits, werkfilter, 20 ontwerp-demo's, reveal na scrollen, acht Home-onderdelen; Over: tijdlijn, hotspots, uitvullen, schreef; AI: voor-na, kaartenrij, onthulling, scan; beeldwand, kader + stapel op de case, intake/advies/prijzen/agenda/badge op Contact; v3-C: leesstand (wijkende kop, merk, zijmenu/vel), kader-hover, snel contact + pulse, omslag, veeg-rij, voetlijn; v3b: diepte-beeld, eyebrow, parallax, randen, kleurveld, raster-intro, magneet, hero-motion, kader, €; Werkplaats: twaalf proefstukken; v3x: app-tour, eigen naam, levende kaarten, blokgrafiek, rekenhulp, werkwijze, team-hub`)

@@ -59,6 +59,9 @@ for (const reduced of [false, true]) {
             // plaats), de dichte lijst van de zoek-keuzelijst, de filterknoppen en het uitklapbare filterpaneel van de kennisbank
             // (smal achter "Filters") en de functie onder een rol in de smalle rechtenmatrix (staat ook in het paneel).
             // Werkgebied-kaart: een plaatsnaam die over de kaartrand zou vallen krijgt .wk-af (de stip houdt zijn aria-label).
+            // v3x (29-10): tooltips en schermlezerzinnen van inactieve tabs in de app-tour, het korte label van de
+            // blokgrafiek (alleen smal) en de pakketkorting van de rekenhulp (bewust verborgen in v3x.css: eenmalige prijs).
+            if (el.closest('.atv__tip, .atv__paneel .atv__sr, .bgf__label-kort, .ia-varianten .bgf__sub, .ia-rekenen .bc__korting, .ia-rekenen .bc__pakketten, .ia-rekenen .bc__badge')) continue
             if (el.closest('.wk-af, script, style, [aria-hidden="true"], [hidden], [inert], dialog:not([open]), template, .sr-only, .ervaringen-hint, [data-bv-actief] .bv__fallback, [data-rm-actief] .rm-fallback, .zk__lijst, .kb-toggle, .kb-klaar, .kb-paneel, .rm-tab__functie')) continue
             if (![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) continue
             let e = el; let op = 1; let vis = true

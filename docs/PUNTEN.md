@@ -53,6 +53,7 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /about | eyebrow-lijn | scroll/eyebrow-lijn | 2 | ja | `.verhaal-eerste[data-eyebrow-lijn][data-el-actief] .el__lijn` | "Wie ik ben" met een lijn en pijl naar de eerste zin (v3, ook op /ai) |
 | /about | section-dividers | shapes/section-dividers | 2 | ja | `.logowand > .sdv[data-divider] > svg` | de band "Websites" krijgt een zachte boog boven en onder (v3) |
 | /about | gradient-flow | backgrounds/gradient-flow | 3 | ja | `.statement > .gf[data-gradient-flow] .gf__blob` | warm, traag bewegend kleurveld achter "Een goede website begint bij de mensen erachter." (v3) |
+| /about | verbindingshub | layouts/verbindingshub | 4 | ja | `.team-hub .vh.vh--actief > .vh__vlak > svg.vh__lijnen` | #team: de drie teamleden, met stippen over de lijnen naar Dicteren.ai, Co-Creators.ai en Seveke Creative (v3x) |
 
 ## AI `/ai`
 
@@ -105,6 +106,7 @@ waarop gemeten wordt; `*` = elke route, ook de 404.
 | /contact | hero-motion | scroll/hero-motion | 3 | ja | `.contact-links[data-hero-stage] .contact-h1 [data-hero-ch]` | "Contact" rijst letter voor letter op, de rest volgt (zonder wegzakken: het formulier staat ernaast) (v3) |
 | /contact | float-decor | effects/float-decor | 3 | ja | `.contact-foto-houder[data-offset-kader]` | verschoven kader in de hoofdkleur achter de foto (v3) |
 | /contact | ghost-text | typography/ghost-text | 2 | ja | `.prijzen-ghost [data-ghost-text]` | een groot, open "€" achter "Wat kost het?" (v3) |
+| /contact | stappen-mini-ui | process/stappen-mini-ui | 4 | ja | `.ww [data-stappen-mini-ui][data-smu-actief] [data-smu-kopieer]:not([hidden])` | "Zo werken we samen" (websites vanaf € 750): drie levende stapkaarten, de domeinregels echt te kopiëren (v3x) |
 
 ## Werkplaats `/werkplaats` (v3, maker A)
 
@@ -125,6 +127,12 @@ voorbeeld. Waar een ontwerp-demo bij het vak past, linkt het proefstuk ernaar.
 | /werkplaats | zoek-keuzelijst | forms/zoek-keuzelijst | 2 | ja | `.wp-keuzelijst[data-zk-actief] .zk__input` | "voor een boekhouder": 151 beroepen met zoekwoorden |
 | /werkplaats | link-dialog-funnel | modals/link-dialog-funnel | 3 | ja | `js:(async () => { document.querySelector('.wp-intake a').click(); await new Promise((r) => setTimeout(r, 400)); const d = document.querySelector('dialog.ldf-dialog[open]'); if (d) d.close(); return !!d })()` | "voor een advocatenkantoor": intake in een dialoog, verstuurt niets |
 | /werkplaats | kennisbank-filter | layouts/kennisbank-filter | 3 | ja | `.wp-kennis [data-kb-controls]:not([hidden])` | "voor een psychologenpraktijk" |
+| /werkplaats | app-tour-venster | portfolio/app-tour-venster | 5 | ja | `.ia .atv[data-atv-actief] [role="tab"]` | "Interne apps": vier voorbeeld-apps (uren, verlof en rooster, klantdossier, kennisbank met AI) die zelf doorschuiven, met pauzeknop (v3x) |
+| /werkplaats | domein-wissel | typography/domein-wissel | 3 | ja | `.ia .atv [data-atv-adres][data-dw]` | de adresbalk van de app-tour: alleen het subdomein wisselt (uren. → rooster.); zit als byte-gelijke kopie in app-tour-venster en eigen-naam-preview (v3x) |
+| /werkplaats | eigen-naam-preview | forms/eigen-naam-preview | 3 | ja | `.ia .enp .enp__status[aria-live="polite"]` | "Bekijk het met je eigen bedrijfsnaam" onder de app-tour: naam en domeinen wisselen mee, alleen in dit tabblad (v3x) |
+| /werkplaats | levende-kaarten | cards/levende-kaarten | 5 | ja | `.ia-kaarten [data-levende-kaarten] .lk-kaart[data-lk-in]` | "Wat we bijvoorbeeld bouwen": zes interne apps, elk met een eigen lus (v3x) |
+| /werkplaats | blokgrafiek | stats/blokgrafiek | 3 | ja | `.ia-varianten .bgf [role="group"] [role="img"]` | de drie app-varianten: hoogte = richtprijs, blokken = weken bouwtijd, bron is de tabel uit prijzen.ts (v3x) |
+| /werkplaats | besparingscalculator | tools/besparingscalculator | 5 | ja | `.ia-rekenen .bc[data-bc-actief] .bc__schuif` | "Losse abonnementen of één eigen app?": verzonnen SaaS-voorbeeldprijzen per gebruiker tegenover één werkproces uit prijzen.ts over 36 maanden, als indicatie (v3x) |
 
 ## Elke pagina `*`
 
