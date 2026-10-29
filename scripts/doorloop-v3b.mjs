@@ -4,7 +4,7 @@
  *
  *  /ai      diepte-beeld: drie lagen, de kop ertussen, alle beelden geladen; met beweging schuift de voorgrond
  *           bij scrollen (en bij de muis op desktop), bij minder beweging staat alles stil (transform none).
- *           eyebrow-lijn: na inscrollen staat de zin er (opacity 1). parallax: de nummers 01–04 verschuiven met
+ *           eyebrow-lijn: na inscrollen staat de zin er (opacity 1). parallax: de nummers 01–05 verschuiven met
  *           beweging, staan stil bij minder beweging.
  *  /about   eyebrow-lijn bij "Wie ik ben"; twee section-dividers in de grondkleur; gradient-flow beweegt alleen
  *           met beweging en is aria-hidden.
@@ -62,7 +62,7 @@ export async function toetsV3b(page, { label, reduced, mobiel, fouten, regels })
   await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' })); await wacht(page, 400)
   const p1 = await transform(page, '.ai-lijst-diepte .ai-nr')
   const pVerschuift = p0.some((t, i) => t !== p1[i])
-  if (p0.length !== 4) fouten.push(`${label} parallax: ${p0.length} nummers`)
+  if (p0.length !== 5) fouten.push(`${label} parallax: ${p0.length} nummers`)
   if (beweging && !pVerschuift) fouten.push(`${label} parallax beweegt niet: ${JSON.stringify([p0, p1])}`)
   if (reduced && [...p0, ...p1].some((t) => t !== 'none')) fouten.push(`${label} parallax bij minder beweging: ${JSON.stringify(p1)}`)
   regels.push(`${label} v3b /ai diepte ${d0.lagen} lagen, kop ertussen, voorgrond ${voorBeweegt ? 'beweegt' : 'stil'} · eyebrow ${e0.label} zin ${e0.zin} · parallax ${pVerschuift ? 'verschuift' : 'stil'}`)

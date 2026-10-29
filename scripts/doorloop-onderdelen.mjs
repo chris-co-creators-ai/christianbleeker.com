@@ -446,10 +446,10 @@ for (const schema of ['light', 'dark']) for (const reduced of [false, true]) for
     const rust = await knopHoogte(1)
     await page.focus('.ai-kaders [data-kader]:nth-child(2) [data-kader-knop] a'); await page.waitForTimeout(reduced ? 100 : 800)
     const focus = await knopHoogte(1)
-    if (!kh0.actief || kh0.n !== 4 || focus < 20 || (!mobiel && !reduced && rust > 2) || ((mobiel || reduced) && rust < 20)) fouten.push(`${label} kader-hover: ${JSON.stringify({ ...kh0, rust, focus })}`)
+    if (!kh0.actief || kh0.n !== 5 || focus < 20 || (!mobiel && !reduced && rust > 2) || ((mobiel || reduced) && rust < 20)) fouten.push(`${label} kader-hover: ${JSON.stringify({ ...kh0, rust, focus })}`)
     let hover = '-'
     if (!mobiel) { await page.evaluate(() => document.activeElement?.blur()); await page.hover('.ai-kaders [data-kader]:nth-child(3)'); await page.waitForTimeout(reduced ? 100 : 800); hover = await knopHoogte(2); if (hover < 20) fouten.push(`${label} kader-hover bij hover: knop ${hover}px`) }
-    regels.push(`${label} kader-hover 4 kaarten · knop in rust ${rust}px · bij focus ${focus}px · bij hover ${hover}px`)
+    regels.push(`${label} kader-hover 5 kaarten · knop in rust ${rust}px · bij focus ${focus}px · bij hover ${hover}px`)
     await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(400)
     const fc = await page.evaluate(() => { const k = document.querySelector('.ai-snel'); const r = k.getBoundingClientRect(); const knop = k.querySelector('.pulse-button'); return { marge: parseFloat(getComputedStyle(k).marginTop), overlapTekst: [...document.querySelectorAll('.ai-kop-tekst > *')].some((e) => { const t = e.getBoundingClientRect(); return r.left < t.right && r.right > t.left && r.top < t.bottom && r.bottom > t.top }), kopOnder: Math.round(document.querySelector('.ai-kop').getBoundingClientRect().bottom), kaartBoven: Math.round(r.top), maand: k.querySelector('[data-ab-maand]')?.textContent, href: knop?.getAttribute('href') } })
     if ((!mobiel && (fc.marge > -40 || fc.kaartBoven >= fc.kopOnder)) || (mobiel && fc.marge < 0) || fc.overlapTekst || !fc.maand || fc.href !== '/contact') fouten.push(`${label} snel contact: ${JSON.stringify(fc)}`)

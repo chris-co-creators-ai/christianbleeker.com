@@ -44,6 +44,7 @@ function Groep({ groep, nr, children }: { groep: (typeof w.groepen)[number]; nr:
         <p className="kicker">{`0${nr}`} <span aria-hidden="true">—</span> {groep.naam}</p>
         <h2 id={`${groep.id}-kop`}>{groep.kop}</h2>
         <p className="sectie-tekst">{groep.tekst}</p>
+        {groep.apps ? <p className="sectie-tekst">{groep.apps.tekst} <a className="link" href={groep.apps.href}>{groep.apps.link}</a></p> : null}
       </div>
       {children}
     </section>

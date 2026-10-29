@@ -640,3 +640,53 @@ Lars: "website begint bij 750 euro en daar moet alles in wat ook in de linkbox m
 | Interne apps | Bedrijfsplatform | vanaf € 7.500 eenmalig | 8 tot 12 weken |
 
 Voorbeelden van interne apps (FAQ): urenregistratie per project, verlof en roosters, klantportaal met offertes, voorraad en bestellingen, checklist met foto's voor inspecties, onboarding van nieuwe collega's, kennisbank waarin het team met AI zoekt.
+
+## v3-team, 29-10-2026 (Lars): Brian en Lars op Over, interne apps op de andere pagina's
+
+Lars: "bij Over moet ook een stuk over Brian en een stuk over mij (Lars)" en "verwerk op de andere pagina's, waar het relevant is".
+Er staan alleen feiten in die al op de site stonden of die Lars aanleverde: Chris, Brian en Lars bouwen samen Dicteren.ai
+en Co-Creators.ai; Brian is bereikbaar op brian@co-creatie.ai; Lars Seveke runt Seveke Creative en bouwt websites, apps en
+AI-toepassingen voor ondernemers; de twintig ontwerp-demo's zijn van Seveke Creative; het aanbod (ook interne apps) staat in
+`src/content/prijzen.ts`. Geen opleidingen, jaartallen, woonplaatsen, werkgevers, klanten of citaten. Er zijn geen nieuwe
+bibliotheekonderdelen bijgekomen, dus `docs/PUNTEN.md` blijft gelijk.
+
+| Tekst | Waar | Bron |
+|---|---|---|
+| Samen met Brian en Lars | Over, kop van de nieuwe sectie (na "Van marketing naar AI", vóór Websites en Ervaringen) | voorstel |
+| Een paar dingen bouw ik niet alleen. Met Brian en Lars werk ik aan Dicteren.ai en Co-Creators.ai. | Over, intro (ik-vorm Chris) | voorstel |
+| Dicteren.ai en Co-Creators.ai | Over, kaart Brian, label | voorstel |
+| Brian bouwt met Chris en Lars aan Dicteren.ai, de app die gesproken ideeën omzet in bruikbare tekst. Samen werken ze ook aan Co-Creators.ai, een AI-werkplek waarvoor nu een wachtlijst loopt. | Over, kaart Brian | voorstel |
+| Mail Brian (mailto:brian@co-creatie.ai) · Co-creatie.ai ↗ (https://www.co-creatie.ai, HTTP 200 op 29-10) | Over, kaart Brian, links | voorstel |
+| Seveke Creative | Over, kaart Lars, label | voorstel |
+| Lars Seveke runt Seveke Creative en bouwt websites, apps en AI-toepassingen voor ondernemers. Met Chris en Brian bouwt hij aan Dicteren.ai en Co-Creators.ai. De twintig ontwerp-demo’s op de pagina Werk maakte hij met Seveke Creative. | Over, kaart Lars | voorstel |
+| Seveke Creative ↗ (https://seveke.nl, HTTP 200 op 29-10, titel "Seveke Creative — Menselijke automatisering voor MKB") | Over, kaart Lars, link | voorstel |
+| Portret van ${naam} | Over, alt van de teamfoto's | voorstel |
+| 005 · Interne apps · Eén plek in plaats van losse lijstjes. · Uren, verlof, klanten of voorraad: we bouwen een app voor binnen je bedrijf, die werkt zoals jouw team werkt. | Home, "Wat we doen" (vijfde dienst, over de volle breedte) | voorstel, uit de intake op /contact en prijzen.ts |
+| Websites en interne apps voor MKB-bedrijven, zelfstandig ondernemers en makers, met 15 jaar marketingervaring en een slimme blik op AI. | Home, meta (135 tekens) | voorstel |
+| Interne apps met AI | AI, "Wat we met AI doen", vijfde punt | voorstel |
+| Een app voor binnen je bedrijf: van één werkproces, zoals uren of verlof, tot één systeem voor meerdere afdelingen met een AI-assistent die in je eigen gegevens zoekt. | AI, "Wat we met AI doen" | voorstel, uit prijzen.ts (Eén werkproces t/m Bedrijfsplatform) |
+| Bekijk de pakketten en prijzen (→ /contact#prijzen) | AI, link bij interne apps | bestaande knoptekst van het advies |
+| Wie zijn Brian en Lars? (→ /about#team) | AI, onder de intro | voorstel |
+| Wat Chris, Brian en Lars met AI doen: AI-partners, Dicteren.ai, interne apps met AI, websites met een slimme blik op AI en een TEDx-talk. | AI, meta (137 tekens; "persoonlijke" eruit voor de lengte) | voorstel |
+| Dit zijn geen klanten. Het zijn ontwerpen die we samen met Seveke Creative maakten om te laten zien hoe een site voor een vak kan voelen, van fysiotherapeut tot ingenieursbureau. Elke demo is een werkende site: klik door en kijk rond. | Werk, ontwerp-demo's (was: "ontwerpen die we maakten") | voorstel |
+| Zo’n kennisbank of assistent bouwen we ook voor binnen je bedrijf, als interne app voor je team. Bekijk de interne apps (→ /contact#prijzen) | Werkplaats, groep 04 "Kennis en vertrouwen" | voorstel |
+
+Niet gewijzigd: menu, voet en de overige meta-omschrijvingen (daar klopt een vermelding van het team of de apps niet beter
+dan nu). Over-meta blijft over Chris, want de pagina blijft in zijn ik-vorm.
+
+### Ter controle door Brian en Lars
+
+Deze zinnen staan op de site als voorstel. Klopt iets niet, of wil je het anders, zeg het dan; er komt niets live zonder akkoord.
+
+**Brian**
+- Kop/label: "Dicteren.ai en Co-Creators.ai"
+- "Brian bouwt met Chris en Lars aan Dicteren.ai, de app die gesproken ideeën omzet in bruikbare tekst. Samen werken ze ook aan Co-Creators.ai, een AI-werkplek waarvoor nu een wachtlijst loopt."
+- Links: "Mail Brian" (brian@co-creatie.ai) en "Co-creatie.ai ↗". Is Co-creatie.ai de juiste site om bij jou te zetten, of liever een andere (LinkedIn, eigen site)?
+- Open vraag: welke 2–3 eigen feiten wil je erbij? Bijvoorbeeld wat jij in het team doet (bouwen, ontwerp, verkoop?), waar je vandaan komt in je werk, en waar je op aangesproken wilt worden.
+
+**Lars**
+- Kop/label: "Seveke Creative"
+- "Lars Seveke runt Seveke Creative en bouwt websites, apps en AI-toepassingen voor ondernemers. Met Chris en Brian bouwt hij aan Dicteren.ai en Co-Creators.ai. De twintig ontwerp-demo’s op de pagina Werk maakte hij met Seveke Creative."
+- Link: "Seveke Creative ↗" naar https://seveke.nl.
+- Werk zegt nu "ontwerpen die we samen met Seveke Creative maakten". Klopt "samen", of moet het "die Seveke Creative maakte" zijn?
+- Open vraag: welke 2–3 eigen feiten wil je erbij? Bijvoorbeeld wat jij in het team doet, sinds wanneer Seveke Creative bestaat, en wie de interne apps bouwt (jij, het team, of Seveke Creative).

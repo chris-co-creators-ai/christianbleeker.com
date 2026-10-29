@@ -35,7 +35,7 @@ export const voet = {
 
 export const home = {
   titel: 'Chris Bleeker — websites, marketing en AI', // voorstel (meta)
-  beschrijving: 'Websites voor MKB-bedrijven, zelfstandig ondernemers en makers, met 15 jaar marketingervaring en een slimme blik op AI.', // voorstel (meta)
+  beschrijving: 'Websites en interne apps voor MKB-bedrijven, zelfstandig ondernemers en makers, met 15 jaar marketingervaring en een slimme blik op AI.', // voorstel (meta; v3-team 29-10: interne apps erbij)
   kop: ['Jouw verhaal.', 'Sterk op het web.'],
   wissel: { voor: '×', woorden: ['websites', 'marketing', 'AI'] },
   fotoAlt: 'Chris Bleeker op het podium van TEDxEindhoven', // voorstel (alt)
@@ -61,6 +61,7 @@ export const home = {
       { nr: '002', titel: 'Ontwerp', sub: 'Een uitstraling die bij je past.', tekst: 'Van eerste indruk tot laatste detail: inhoud en vorm werken samen om jouw merk herkenbaar te maken.', lottie: 'service-2' },
       { nr: '003', titel: 'Marketing', sub: 'Vijftien jaar ervaring in de mix.', tekst: 'We kijken niet alleen naar een mooie pagina, ook naar de mensen die je wilt bereiken en de stap die zij willen zetten.', lottie: 'service-3' }, // voorstel (wij)
       { nr: '004', titel: 'AI & producten', sub: 'Technologie met een menselijk doel.', tekst: 'We onderzoeken hoe AI en digitale producten echte vragen kunnen helpen oplossen, zonder jouw eigen stem te verliezen.', lottie: 'service-4' }, // voorstel (wij)
+      { nr: '005', titel: 'Interne apps', sub: 'Eén plek in plaats van losse lijstjes.', tekst: 'Uren, verlof, klanten of voorraad: we bouwen een app voor binnen je bedrijf, die werkt zoals jouw team werkt.', lottie: 'service-5' }, // voorstel (v3-team 29-10; aanbod uit prijzen.ts)
     ],
   },
   over: {
@@ -185,6 +186,33 @@ export const over = {
   },
   statement: 'Een goede website begint bij de mensen erachter.',
   wie: 'Wie ik ben', // voorstel (v3): label van de eerste alinea
+  // v3-team (29-10-2026, Lars): Brian en Lars op Over. Voorstel ter controle door Brian en Lars, zie docs/copy-nieuw.md.
+  team: {
+    kop: 'Samen met Brian en Lars', // voorstel
+    tekst: 'Een paar dingen bouw ik niet alleen. Met Brian en Lars werk ik aan Dicteren.ai en Co-Creators.ai.', // voorstel (ik-vorm Chris)
+    leden: [
+      {
+        naam: 'Brian',
+        beeld: 'team-brian',
+        rol: 'Dicteren.ai en Co-Creators.ai', // voorstel
+        tekst: 'Brian bouwt met Chris en Lars aan Dicteren.ai, de app die gesproken ideeën omzet in bruikbare tekst. Samen werken ze ook aan Co-Creators.ai, een AI-werkplek waarvoor nu een wachtlijst loopt.', // voorstel (hij-vorm)
+        links: [
+          { href: 'mailto:brian@co-creatie.ai', label: 'Mail Brian' },
+          { href: 'https://www.co-creatie.ai', label: 'Co-creatie.ai ↗' },
+        ],
+      },
+      {
+        naam: 'Lars',
+        beeld: 'team-lars',
+        rol: 'Seveke Creative', // voorstel
+        tekst: 'Lars Seveke runt Seveke Creative en bouwt websites, apps en AI-toepassingen voor ondernemers. Met Chris en Brian bouwt hij aan Dicteren.ai en Co-Creators.ai. De twintig ontwerp-demo’s op de pagina Werk maakte hij met Seveke Creative.', // voorstel (hij-vorm)
+        links: [
+          { href: 'https://seveke.nl', label: 'Seveke Creative ↗' },
+        ],
+      },
+    ],
+    fotoAlt: (naam: string) => `Portret van ${naam}`, // voorstel (alt)
+  },
 }
 
 export const werk = {
@@ -202,7 +230,7 @@ export const werk = {
   demos: {
     kicker: "Ontwerp-demo's",
     kop: 'Twintig vakken, twintig eigen gezichten',
-    tekst: 'Dit zijn geen klanten. Het zijn ontwerpen die we maakten om te laten zien hoe een site voor een vak kan voelen, van fysiotherapeut tot ingenieursbureau. Elke demo is een werkende site: klik door en kijk rond.',
+    tekst: 'Dit zijn geen klanten. Het zijn ontwerpen die we samen met Seveke Creative maakten om te laten zien hoe een site voor een vak kan voelen, van fysiotherapeut tot ingenieursbureau. Elke demo is een werkende site: klik door en kijk rond.',
     label: 'Ontwerp-demo',
     carousel: "Twintig ontwerp-demo's",
     bekijk: 'Bekijk de demo',
@@ -256,12 +284,13 @@ export const casePagina = {
 
 export const ai = {
   titel: 'AI — persoonlijke AI-partners, Dicteren.ai en websites', // voorstel (meta)
-  beschrijving: 'Wat Chris, Brian en Lars met AI doen: persoonlijke AI-partners, Dicteren.ai, websites met een slimme blik op AI en een TEDx-talk.', // voorstel (meta)
+  beschrijving: 'Wat Chris, Brian en Lars met AI doen: AI-partners, Dicteren.ai, interne apps met AI, websites met een slimme blik op AI en een TEDx-talk.', // voorstel (meta; v3-team 29-10)
   kicker: 'AI', // voorstel
   kop: 'Technologie met een menselijk doel.',
   intro: 'We onderzoeken hoe AI en digitale producten echte vragen kunnen helpen oplossen, zonder jouw eigen stem te verliezen.', // voorstel (wij)
   tweede: 'Chris gaf er een TEDx-talk over bij TEDxEindhoven, en samen met Brian en Lars bouwt hij eigen AI-producten.', // voorstel
   fotoAlt: 'Chris Bleeker tijdens zijn TEDx-talk over AI', // voorstel (alt)
+  team: { href: '/about#team', label: 'Wie zijn Brian en Lars?' }, // voorstel (v3-team 29-10)
   wat: {
     kop: 'Wat we met AI doen', // voorstel
     items: [
@@ -274,6 +303,11 @@ export const ai = {
         titel: 'Dicteren.ai',
         tekst: 'Een app die gesproken ideeën omzet in bruikbare tekst, gebouwd door Chris, Brian en Lars.', // voorstel (uit Werk)
         link: { href: dicterenUrl, label: 'Dicteren.ai ↗' },
+      },
+      {
+        titel: 'Interne apps met AI', // voorstel (v3-team 29-10; aanbod uit prijzen.ts)
+        tekst: 'Een app voor binnen je bedrijf: van één werkproces, zoals uren of verlof, tot één systeem voor meerdere afdelingen met een AI-assistent die in je eigen gegevens zoekt.', // voorstel
+        link: { href: '/contact#prijzen', label: 'Bekijk de pakketten en prijzen' },
       },
       {
         titel: 'Websites met een slimme blik op AI', // voorstel (uit de Home-intro)

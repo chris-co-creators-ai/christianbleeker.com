@@ -74,6 +74,7 @@ export default function AiPagina() {
           <div className="container-site ai-kop-tekst">
             <EyebrowLijn label={ai.kicker} className="ai-intro" rootMargin="0px 0px -2% 0px">{ai.intro}</EyebrowLijn>
             <p className="ai-tweede">{ai.tweede}</p>
+            <p className="ai-tweede"><a className="link" href={ai.team.href}>{ai.team.label}</a></p>
           </div>
         </section>
         <SnelContact maand={volgendeMaand()} />

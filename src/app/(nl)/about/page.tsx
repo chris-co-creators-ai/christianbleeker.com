@@ -99,6 +99,32 @@ export default function Over() {
             <StickyTimeline className="reis-lijn" steps={over.reis.stappen.map((s) => ({ title: s.titel, text: s.tekst }))} activationRatio={0.6} />
           </section>
 
+          <section id="team" className="sectie container-site over-team" aria-labelledby="team-kop">
+            <div className="sectie-kop" data-reveal="">
+              <h2 id="team-kop">{over.team.kop}</h2>
+              <p className="sectie-tekst">{over.team.tekst}</p>
+            </div>
+            <ul className="team-kaarten">
+              {over.team.leden.map((l) => (
+                <li key={l.naam} className="eigen-kaart team-kaart" data-reveal="">
+                  <span className="beeld team-foto team-kaart-foto">
+                    <Beeld naam={l.beeld} breedte={526} hoogte={790} alt={over.team.fotoAlt(l.naam)} />
+                  </span>
+                  <div className="team-kaart-tekst">
+                    <p className="kicker">{l.rol}</p>
+                    <h3>{l.naam}</h3>
+                    <p>{l.tekst}</p>
+                    <p className="team-kaart-links">
+                      {l.links.map((k) => (
+                        <a key={k.href} className="link" href={k.href} {...(k.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{k.label}</a>
+                      ))}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+
           <section className="logowand" aria-labelledby="websites-kop" data-logo="licht">
             <SectionDivider vorm="curve" positie="boven" className="logowand-rand" />
             <div className="container-site">
