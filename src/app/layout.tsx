@@ -11,6 +11,7 @@ import { alternatesVoor } from '@/lib/i18n'
 import { Toestemming } from '@/features/toestemming/Toestemming'
 import { PageTransitions } from '@/features/page-transitions/PageTransitions'
 import { TabTitleLokker } from '@/features/tab-title-lokker/TabTitleLokker'
+import { Effecten } from '@/components/v3e/Effecten'
 
 const unbounded = localFont({
   src: '../fonts/unbounded-latin-wght-normal.woff2',
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema(site)) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', ...personSchema(site) }) }} />
         <PageTransitions duur={320} forceerFallback={false}>{children}</PageTransitions>
+        <Effecten />
         <TabTitleLokker lokzin={tabLokzin} interval={1200} />
         <Toestemming />
         {process.env.VERCEL ? <Analytics /> : null}

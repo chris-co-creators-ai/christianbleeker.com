@@ -126,6 +126,16 @@ voorbeeld. Waar een ontwerp-demo bij het vak past, linkt het proefstuk ernaar.
 | /werkplaats | link-dialog-funnel | modals/link-dialog-funnel | 3 | ja | `js:(async () => { document.querySelector('.wp-intake a').click(); await new Promise((r) => setTimeout(r, 400)); const d = document.querySelector('dialog.ldf-dialog[open]'); if (d) d.close(); return !!d })()` | "voor een advocatenkantoor": intake in een dialoog, verstuurt niets |
 | /werkplaats | kennisbank-filter | layouts/kennisbank-filter | 3 | ja | `.wp-kennis [data-kb-controls]:not([hidden])` | "voor een psychologenpraktijk" |
 
+## Effecten site-breed (v3e, 29-10)
+
+Invoeg- en draai-effecten over de hele site, gestart door `src/components/v3e/Effecten.tsx`. Bestaande onderdelen
+(letter-reveal, reveal-on-scroll, circle-text) tellen al elders; hier alleen wat nieuw is.
+
+| Pagina | Onderdeel | Map | Punten | Telt | Selector | Waar |
+|---|---|---|---|---|---|---|
+| /ai | blur-woorden | typography/blur-woorden | 2 | ja | `.sectie-kop[data-bw-verborgen] .bw-woord` | sectiekoppen worden woord voor woord scherp (op elke pagina met sectiekoppen) |
+| /contact | circle-text | typography/circle-text | 3 | nee | `.voet-cirkel[data-ct-ready]` | draaiende cirkeltekst bij de uitnodiging in de voet (telt op /about) |
+
 ## Elke pagina `*`
 
 | Pagina | Onderdeel | Map | Punten | Telt | Selector | Waar |

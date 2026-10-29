@@ -61,6 +61,9 @@ hieronder in de tabel — inclusief de reden ("gekozen in PRD/stap 5"). Een map 
 | `impact-scan/` | `tools/impact-scan/` (e81470a) | 2026-10-28 | v2 AI: de AI-scan (scoremodus, titel h2) |
 | `kaartenrij-lottie/` | `scroll/kaartenrij-lottie/` (e81470a) | 2026-10-28 | v2 AI: zes vragen; iconen opnieuw gemaakt met maak-iconen.mjs |
 | `password-reveal/` | `typography/password-reveal/` (e81470a) | 2026-10-28 | v2 AI: "onzichtbaar." in de kop van de scan |
+| `blur-woorden/` | `typography/blur-woorden/` (7dfbedf) | 2026-10-29 | v3e: sectiekoppen site-breed woord voor woord scherp (gestart door `components/v3e/Effecten.tsx`, zonder de opmaakattributen `data-blur-woorden`/`data-bw-kop`: alleen de beweging) |
+| `circle-text/CircleText.tsx` | `typography/circle-text/CircleText.tsx` | 2026-10-29 | v3e: de React-wrapper erbij, voor de draaiende cirkeltekst bij de uitnodiging in de voet |
+| `binnenkomst/` | eigen code (niet in de bibliotheek) | 2026-10-29 | v3e: stijg/kantel/masker/kwart bij binnenkomst, generiek op data-attributen; kandidaat voor de bibliotheek |
 
 ## Hoe je later bijwerkt
 
