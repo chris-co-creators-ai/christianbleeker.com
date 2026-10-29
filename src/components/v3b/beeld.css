@@ -13,7 +13,11 @@
 }
 /* Op een smal scherm een hoger kader, met de spreker in beeld. */
 @media (max-width: 47.99rem) {
-  .ai-diepte { --db-verhouding: 4 / 5; --db-uitsnede: 74% 50%; }
+  /* Mobiel (29-10): de kop stond bovenin over de spreker heen en zijn hoofd viel weg door de overscan van touch.
+     Nu minder overscan, uitsnede op Chris, en de kop onderin op het donkere podium. */
+  .ai-diepte.ai-diepte { --db-verhouding: 4 / 5; --db-uitsnede: 92% 0%; --db-overscan: 6%; }
+  .ai-diepte .ai-diepte-tekst { align-items: flex-end; }
+  .ai-diepte .ai-diepte-tekst .container-site { padding-top: 0; padding-bottom: 84px; }
 }
 .ai-diepte-tekst { display: flex; align-items: flex-start; pointer-events: none; }
 .ai-diepte-tekst .container-site { width: 100%; padding-top: clamp(104px, 13vw, 168px); }
