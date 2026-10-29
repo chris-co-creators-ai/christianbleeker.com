@@ -1,0 +1,27 @@
+/**
+ * binnenkomst.css — namespace `data-bk-*` (door de JS gezet) en `--bk-*`.
+ * Zonder `data-bk-uit` (geen JS, minder beweging, of klaar) geldt hier niets.
+ */
+[data-bk-uit] {
+  --bk-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 0;
+}
+[data-bk-uit='stijg'] { transform: translateY(20px); filter: blur(6px); }
+[data-bk-uit='kantel'] { transform: perspective(1100px) translateY(32px) rotateX(14deg); transform-origin: 50% 100%; }
+[data-bk-uit='masker'] { opacity: 1; transform: translateY(100%) scale(1.12); transform-origin: 50% 0; }
+[data-bk-uit='kwart'] { transform: rotate(-90deg) scale(0.7); }
+
+[data-bk-aan] {
+  transition:
+    opacity 0.7s var(--bk-ease) var(--bk-d, 0s),
+    transform 0.9s var(--bk-ease) var(--bk-d, 0s),
+    filter 0.8s var(--bk-ease) var(--bk-d, 0s);
+}
+[data-bk-aan][data-bk-uit='kantel'] { transition-duration: 0.7s, 1s, 0s; }
+[data-bk-aan][data-bk-uit='masker'] { transition-duration: 0s, 1.1s, 0s; }
+
+[data-bk-uit][data-bk-in] { opacity: 1; transform: none; filter: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-bk-uit] { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+}

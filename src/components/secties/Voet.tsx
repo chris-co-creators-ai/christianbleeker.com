@@ -3,6 +3,7 @@ import { LetterReveal } from '@/features/letter-reveal/LetterReveal'
 import { WijzigToestemmingKnop } from '@/features/toestemming/WijzigToestemmingKnop'
 import { ChecklistKnop } from '@/components/ChecklistKnop'
 import { VoetLijn } from '@/components/v3c/VoetLijn'
+import { CircleText } from '@/features/circle-text/CircleText'
 
 /**
  * Voet op elke pagina: merk, menu, privacy en (in de korte voet) de checklist als gewone link,
@@ -27,6 +28,8 @@ export function Voet({ uitnodiging = false, opkomst = false }: { uitnodiging?: b
             {voet.linkedin} <span aria-hidden="true">↗</span>
           </a>
           <ChecklistKnop className="knop knop--rand">{kop.checklist}</ChecklistKnop>
+          {/* v3e: draaiende cirkeltekst bij de uitnodiging, met dezelfde tekst en hetzelfde doel als de eerste knop. */}
+          <CircleText className="voet-cirkel" href="/contact" label={voet.bericht} text={voet.bericht} center={<span aria-hidden="true">×</span>} duration={22} />
         </div>
         </>) : null}
         <VoetLijn />

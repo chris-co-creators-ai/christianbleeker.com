@@ -71,6 +71,10 @@ hieronder in de tabel — inclusief de reden ("gekozen in PRD/stap 5"). Een map 
 
 Kleuren en letters van de v3x-onderdelen: `src/components/v3x/v3x.css` zet de generieke tokens (`--surface`, `--ink`, `--indigo` …) op de eigen `--color-*`-variabelen, zodat de onderdelen ongewijzigd blijven.
 
+| `blur-woorden/` | `typography/blur-woorden/` (7dfbedf) | 2026-10-29 | v3e: sectiekoppen site-breed woord voor woord scherp (gestart door `components/v3e/Effecten.tsx`, zonder de opmaakattributen `data-blur-woorden`/`data-bw-kop`: alleen de beweging) |
+| `circle-text/CircleText.tsx` | `typography/circle-text/CircleText.tsx` | 2026-10-29 | v3e: de React-wrapper erbij, voor de draaiende cirkeltekst bij de uitnodiging in de voet |
+| `binnenkomst/` | eigen code (niet in de bibliotheek) | 2026-10-29 | v3e: stijg/kantel/masker/kwart bij binnenkomst, generiek op data-attributen; kandidaat voor de bibliotheek |
+
 ## Hoe je later bijwerkt
 
 1. Vergelijk het bestand in `component-library/<pad>/` met het gelijknamige bestand hier

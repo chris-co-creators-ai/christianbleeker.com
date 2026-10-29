@@ -134,6 +134,16 @@ voorbeeld. Waar een ontwerp-demo bij het vak past, linkt het proefstuk ernaar.
 | /werkplaats | blokgrafiek | stats/blokgrafiek | 3 | ja | `.ia-varianten .bgf [role="group"] [role="img"]` | de drie app-varianten: hoogte = richtprijs, blokken = weken bouwtijd, bron is de tabel uit prijzen.ts (v3x) |
 | /werkplaats | besparingscalculator | tools/besparingscalculator | 5 | ja | `.ia-rekenen .bc[data-bc-actief] .bc__schuif` | "Losse abonnementen of één eigen app?": verzonnen SaaS-voorbeeldprijzen per gebruiker tegenover één werkproces uit prijzen.ts over 36 maanden, als indicatie (v3x) |
 
+## Effecten site-breed (v3e, 29-10)
+
+Invoeg- en draai-effecten over de hele site, gestart door `src/components/v3e/Effecten.tsx`. Bestaande onderdelen
+(letter-reveal, reveal-on-scroll, circle-text) tellen al elders; hier alleen wat nieuw is.
+
+| Pagina | Onderdeel | Map | Punten | Telt | Selector | Waar |
+|---|---|---|---|---|---|---|
+| /ai | blur-woorden | typography/blur-woorden | 2 | ja | `.sectie-kop[data-bw-verborgen] .bw-woord` | sectiekoppen worden woord voor woord scherp (op elke pagina met sectiekoppen) |
+| /contact | circle-text | typography/circle-text | 3 | nee | `.voet-cirkel[data-ct-ready]` | draaiende cirkeltekst bij de uitnodiging in de voet (telt op /about) |
+
 ## Elke pagina `*`
 
 | Pagina | Onderdeel | Map | Punten | Telt | Selector | Waar |
