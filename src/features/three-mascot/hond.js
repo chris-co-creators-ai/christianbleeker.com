@@ -23,6 +23,7 @@
 const STANDAARD = {
   vacht: 0x8f5a35, // warm kaneelbruin: leest op papier én op donker
   vachtDonker: 0x5e3720, // rug, oren
+  oorBinnen: 0x3f2216, // binnenkant van het oor
   aftekening: 0xe2bf86, // snuit, bef, poten, wenkbrauwen
   neus: 0x23160f,
   oog: 0x2a170c,
@@ -35,6 +36,12 @@ const STANDAARD = {
 
 // --- signed distance functions ---------------------------------------------------------------
 const len = (x, y, z) => Math.sqrt(x * x + y * y + z * z);
+// 2D-ellips (x,y) als benaderde afstand: voor vlakke aftekening op de voorkant
+function ellips2(px, py, cx, cy, rx, ry) {
+  const x = (px - cx) / rx, y = (py - cy) / ry;
+  const k0 = Math.hypot(x, y), k1 = Math.hypot(x / rx, y / ry);
+  return k1 > 1e-6 ? (k0 * (k0 - 1)) / k1 : -Math.min(rx, ry);
+}
 function ellips(px, py, pz, c, r) {
   const x = (px - c[0]) / r[0], y = (py - c[1]) / r[1], z = (pz - c[2]) / r[2];
   const k0 = len(x, y, z);
@@ -58,12 +65,14 @@ const sstap = (e0, e1, x) => { const t = Math.max(0, Math.min(1, (x - e0) / (e1 
 // --- vormen (lokale coördinaten; +z = naar de kijker, grond op y = -2) ------------------------
 function lijfSdf(x, y, z) {
   const ax = Math.abs(x);
-  let d = ellips(x, y, z, [0, -0.7, 0.1], [0.66, 0.84, 0.64]); // borstkas
+  let d = ellips(x, y, z, [0, -0.64, 0.08], [0.64, 0.78, 0.62]); // borstkas
   d = smin(d, ellips(x, y, z, [0, -1.42, -0.42], [0.74, 0.56, 0.78]), 0.45); // achterlijf
   d = smin(d, ellips(ax, y, z, [0.52, -1.5, -0.2], [0.38, 0.47, 0.64]), 0.28); // dijen
-  d = smin(d, ellips(ax, y, z, [0.66, -1.9, 0.3], [0.2, 0.12, 0.34]), 0.16); // achterpoten
-  d = smin(d, staaf(ax, y, z, [0.26, -0.82, 0.44], [0.27, -1.8, 0.6], 0.18, 0.135), 0.2); // voorpoten
-  d = smin(d, ellips(ax, y, z, [0.28, -1.9, 0.7], [0.175, 0.115, 0.23]), 0.1); // voorvoeten
+  d = smin(d, ellips(ax, y, z, [0.64, -1.91, 0.3], [0.17, 0.1, 0.28]), 0.14); // achtervoeten
+  d = smin(d, staaf(ax, y, z, [0.25, -0.76, 0.42], [0.26, -1.82, 0.56], 0.15, 0.112), 0.18); // voorpoten
+  d = smin(d, ellips(ax, y, z, [0.265, -1.91, 0.64], [0.145, 0.095, 0.19]), 0.08); // voorvoeten
+  // teenlijnen: twee ondiepe groeven voor op elke voorvoet
+  d = smax(d, -ellips(Math.abs(ax - 0.265), y, z, [0.05, -1.86, 0.8], [0.016, 0.07, 0.1]), 0.025);
   d = smin(d, staaf(x, y, z, [0, -0.3, 0.06], [0, 0.32, 0.16], 0.44, 0.38), 0.3); // nek
   // zachte groef tussen de voorpoten: twee poten in plaats van één stam
   d = smax(d, -ellips(x, y, z, [0, -1.5, 0.78], [0.075, 0.42, 0.3]), 0.1);
@@ -71,18 +80,20 @@ function lijfSdf(x, y, z) {
 }
 function lijfKleur(x, y, z, k, uit) {
   const ax = Math.abs(x);
-  // bef: druppel op de borst
-  // bef: van de keel naar de borst, met een strakkere rand (minder airbrush)
-  const bef = 1 - sstap(-0.03, 0.035, Math.min(
-    ellips(x, y, z, [0, -0.42, 0.6], [0.2, 0.6, 0.32]),
-    ellips(x, y, z, [0, 0.05, 0.42], [0.16, 0.36, 0.3]),
-  ));
-  // poten: sokken
-  const sok = 1 - sstap(-1.7, -1.62, y);
+  // sokken: dicht bij de vachtkleur, zacht verloop
+  const sok = (1 - sstap(-1.78, -1.62, y)) * (ax > 0.1 ? 1 : 0);
   // rug iets donkerder (zadel)
   const zadel = sstap(-0.3, 0.6, -z * 0.8 + (y + 0.8) * 0.35) * 0.55;
   menging(uit, k.vacht, k.vachtDonker, zadel);
-  menging(uit, uit, k.aftekening, Math.max(bef, sok * (ax > 0.1 ? 1 : 0)));
+  menging(uit, uit, k.aftekening, sok * 0.42);
+  // teenlijnen iets donkerder
+  const teen = 1 - sstap(0.006, 0.03, Math.abs(Math.abs(ax - 0.265) - 0.05));
+  menging(uit, uit, k.vachtDonker, teen * sstap(-1.8, -1.84, y) * sstap(0.66, 0.74, z) * 0.6);
+  // bef als vorm (afstand tot de rand, scherp in de shader): begint smal bij de keel, schild op de borst
+  uit.m = Math.max(Math.min(
+    ellips2(x, y, 0, -0.5, 0.21, 0.62),
+    ellips2(x, y, 0, 0.05, 0.12, 0.42),
+  ), 0.2 - z);
 }
 
 function kopSdf(x, y, z) {
@@ -98,31 +109,40 @@ function kopSdf(x, y, z) {
 }
 function kopKleur(x, y, z, k, uit) {
   const ax = Math.abs(x);
-  const snuit = 1 - sstap(-0.03, 0.02, ellips(x, y, z, [0, -0.15, 0.5], [0.4, 0.32, 0.6]));
-  const brauw = 1 - sstap(-0.02, 0.03, ellips(ax, y, z, [0.21, 0.27, 0.47], [0.08, 0.05, 0.08]));
-  const bles = 1 - sstap(-0.03, 0.05, ellips(x, y, z, [0, 0.32, 0.5], [0.06, 0.22, 0.2]));
   const kruin = sstap(0.1, 0.6, y - z * 0.3) * 0.5;
   menging(uit, k.vacht, k.vachtDonker, kruin);
-  menging(uit, uit, k.aftekening, Math.max(snuit, brauw, bles * 0.9));
+  // aftekening als vorm: snuit, wenkbrauwvlekjes en een bles die naar de snuit smaller wordt
+  const bles = Math.max(ax - (0.022 + 0.055 * sstap(0.12, 0.55, y)), 0.1 - y, y - 0.66, 0.15 - z);
+  uit.m = Math.min(
+    ellips(x, y, z, [0, -0.15, 0.52], [0.35, 0.3, 0.6]),
+    ellips(ax, y, z, [0.21, 0.27, 0.47], [0.08, 0.05, 0.08]),
+    bles,
+  );
 
 }
 
 function oorSdf(x, y, z) {
-  // hangoor: afgeplatte druppel die naar onderen breder en dunner wordt
-  const dik = 0.07 + 0.03 * sstap(0, -0.6, y);
-  let d = ellips(x, y, z, [0, -0.36, 0.02], [dik, 0.44, 0.24]);
-  d = smin(d, ellips(x, y, z, [0, -0.02, 0], [0.1, 0.14, 0.16]), 0.12);
+  // hangoor met dikte, naar onderen breder; +x = buitenkant. De punt slaat licht naar buiten om.
+  const buig = 0.05 * sstap(-0.5, -0.82, y); // punt licht naar buiten
+  let d = ellips(x - buig, y, z, [0, -0.4, 0.02], [0.085, 0.46, 0.23]);
+  d = smin(d, ellips(x, y, z, [0, -0.02, 0], [0.11, 0.15, 0.17]), 0.12);
+  d = smin(d, ellips(x, y, z, [0.065, -0.8, 0.02], [0.05, 0.045, 0.16]), 0.06); // omgeslagen rand
   return d;
 }
+// taps toelopende staart in een vloeiende boog (ligt op de grond, krult omhoog)
+const STAART = [[0, 0, 0, 0.15], [0.24, 0.02, -0.1, 0.135], [0.45, 0.1, -0.16, 0.115], [0.6, 0.26, -0.17, 0.097],
+  [0.69, 0.45, -0.12, 0.078], [0.72, 0.64, -0.04, 0.058], [0.69, 0.79, 0.04, 0.04]];
 function staartSdf(x, y, z) {
-  let d = staaf(x, y, z, [0, 0, 0], [0.38, 0.06, -0.12], 0.15, 0.13);
-  d = smin(d, staaf(x, y, z, [0.38, 0.06, -0.12], [0.64, 0.34, -0.14], 0.13, 0.1), 0.08);
-  d = smin(d, staaf(x, y, z, [0.64, 0.34, -0.14], [0.7, 0.7, -0.02], 0.1, 0.06), 0.06);
+  let d = 1e9;
+  for (let i = 0; i < STAART.length - 1; i += 1) {
+    const a = STAART[i], b = STAART[i + 1];
+    d = Math.min(d, staaf(x, y, z, a, b, a[3], b[3])); // kapsules met gelijke straal op de knik: naadloos
+  }
   return d;
 }
 
 // --- surface nets ---------------------------------------------------------------------------
-const tmpKleur = { r: 0, g: 0, b: 0 };
+const tmpKleur = { r: 0, g: 0, b: 0, m: 1 };
 function menging(uit, a, b, t) {
   const ar = a.r, ag = a.g, ab = a.b;
   uit.r = ar + (b.r - ar) * t; uit.g = ag + (b.g - ag) * t; uit.b = ab + (b.b - ab) * t;
@@ -143,7 +163,7 @@ function veldNaarMesh(THREE, sdf, min, max, stap, kleur) {
   const at = (i, j, k) => v[i + nx * (j + ny * k)];
   const cx = nx - 1, cy = ny - 1;
   const cel = new Int32Array(cx * cy * (nz - 1)).fill(-1);
-  const pos = [], nor = [], col = [];
+  const pos = [], nor = [], col = [], merk = [];
   const e = stap * 0.5;
   const grad = (x, y, z) => {
     const gx = sdf(x + e, y, z) - sdf(x - e, y, z);
@@ -174,9 +194,9 @@ function veldNaarMesh(THREE, sdf, min, max, stap, kleur) {
       x -= g[0] * d; y -= g[1] * d; z -= g[2] * d;
     }
     const g = grad(x, y, z);
-    kleur(x, y, z, tmpKleur);
+    tmpKleur.m = 1; kleur(x, y, z, tmpKleur);
     cel[i + cx * (j + cy * k)] = pos.length / 3;
-    pos.push(x, y, z); nor.push(g[0], g[1], g[2]); col.push(tmpKleur.r, tmpKleur.g, tmpKleur.b);
+    pos.push(x, y, z); nor.push(g[0], g[1], g[2]); col.push(tmpKleur.r, tmpKleur.g, tmpKleur.b); merk.push(tmpKleur.m);
   }
   const idx = [];
   const ci = (i, j, k) => cel[i + cx * (j + cy * k)];
@@ -194,6 +214,7 @@ function veldNaarMesh(THREE, sdf, min, max, stap, kleur) {
   geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   geo.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3));
   geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  geo.setAttribute('merk', new THREE.Float32BufferAttribute(merk, 1));
   geo.setIndex(idx);
   return geo;
 }
@@ -217,15 +238,30 @@ export function bouwHond(THREE, kleuren = {}) {
   const g = new THREE.Group();
 
   // vacht: mat, met sheen voor het zachte, fluweelachtige randje dat vacht van klei onderscheidt
-  const vachtMat = () => new THREE.MeshPhysicalMaterial({
-    vertexColors: true, roughness: 0.82, metalness: 0,
-    sheen: 0.7, sheenRoughness: 0.55, sheenColor: new THREE.Color(hex.aftekening),
-  });
+  // De aftekening is geen vertexkleur maar een afstand tot de rand (attribuut 'merk', < 0 = binnen):
+  // per pixel overgevloeid met een smalle, licht zachte rand, onafhankelijk van de rasterdichtheid.
+  const vachtMat = () => {
+    const m = new THREE.MeshPhysicalMaterial({
+      vertexColors: true, roughness: 0.82, metalness: 0,
+      sheen: 0.7, sheenRoughness: 0.55, sheenColor: new THREE.Color(hex.aftekening),
+    });
+    m.onBeforeCompile = (sh) => {
+      sh.uniforms.uMerk = { value: k.aftekening };
+      sh.vertexShader = sh.vertexShader
+        .replace('#include <common>', '#include <common>\nattribute float merk;\nvarying float vMerk;')
+        .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMerk = merk;');
+      sh.fragmentShader = sh.fragmentShader
+        .replace('#include <common>', '#include <common>\nvarying float vMerk;\nuniform vec3 uMerk;')
+        .replace('#include <color_fragment>', '#include <color_fragment>\nfloat wM = max(fwidth(vMerk), 0.016);\ndiffuseColor.rgb = mix(diffuseColor.rgb, uMerk, 1.0 - smoothstep(-wM, wM, vMerk));');
+    };
+    m.customProgramCacheKey = () => 'hond-vacht';
+    return m;
+  };
   // alleen de grond vangt schaduw: zelfschaduw gaf harde vlekken op kop en borst
   const schaduwen = (m) => { m.castShadow = true; return m; };
 
   const lijf = schaduwen(new THREE.Mesh(
-    veldNaarMesh(THREE, lijfSdf, [-1.05, -2.12, -1.4], [1.05, 1.0, 1.2], 0.04, (x, y, z, o) => lijfKleur(x, y, z, k, o)),
+    veldNaarMesh(THREE, lijfSdf, [-1.05, -2.12, -1.4], [1.05, 1.0, 1.2], 0.036, (x, y, z, o) => lijfKleur(x, y, z, k, o)),
     vachtMat(),
   ));
   g.add(lijf);
@@ -269,18 +305,21 @@ export function bouwHond(THREE, kleuren = {}) {
     glim.position.set(-0.028, 0.035, 0.074); o.add(glim);
   }
 
-  const oorGeo = veldNaarMesh(THREE, oorSdf, [-0.2, -0.85, -0.3], [0.2, 0.18, 0.32], 0.022, (x, y, z, o) => menging(o, k.vachtDonker, k.vacht, sstap(0.05, -0.2, y) * 0.25));
+  const oorGeo = veldNaarMesh(THREE, oorSdf, [-0.2, -0.95, -0.3], [0.32, 0.22, 0.32], 0.02, (x, y, z, o) => {
+    menging(o, k.vachtDonker, k.vacht, sstap(0.05, -0.2, y) * 0.2);
+    menging(o, o, k.oorBinnen, sstap(0.0, -0.06, x - 0.05 * sstap(-0.5, -0.82, y))); // binnenkant donkerder
+  });
   const oren = [];
   for (const s of [-1, 1]) {
-    const piv = new THREE.Group(); piv.position.set(s * 0.52, 0.36, 0.02); kop.add(piv);
+    const piv = new THREE.Group(); piv.position.set(s * 0.53, 0.37, 0.04); kop.add(piv);
     const oor = schaduwen(new THREE.Mesh(oorGeo, vachtMat()));
-    oor.scale.set(1, 1.15, 1.1); oor.rotation.set(0.05, s * -0.2, s * 0.12); piv.add(oor);
+    oor.scale.set(s, 1.18, 1.08); oor.rotation.set(0.04, s * -0.55, s * 0.08); piv.add(oor); // gespiegeld: +x blijft buiten
     piv.userData.s = s; oren.push(piv);
   }
 
   const staart = new THREE.Group(); staart.position.set(0.4, -1.84, -0.92); g.add(staart);
   staart.add(schaduwen(new THREE.Mesh(
-    veldNaarMesh(THREE, staartSdf, [-0.18, -0.18, -0.32], [0.86, 0.8, 0.16], 0.025, (x, y, z, o) => menging(o, k.vacht, k.aftekening, sstap(0.56, 0.63, y))),
+    veldNaarMesh(THREE, staartSdf, [-0.2, -0.2, -0.36], [0.9, 0.92, 0.2], 0.022, (x, y, z, o) => { menging(o, k.vacht, k.vachtDonker, 0.25); o.m = 0.7 - y; }),
     vachtMat(),
   )));
 
@@ -326,7 +365,7 @@ export function bouwHond(THREE, kleuren = {}) {
   return {
     group: g,
     delen: { kop, ogen, oren, staart, romp: lijf, vanger, blob, pootVlekMat },
-    toestand: { kopZ: 0, staartFase: 0, curX: 0, curY: 0, kopY: kop.position.y, rustY: g.rotation.y },
+    toestand: { kopZ: 0.12, staartFase: 0, curX: 0, curY: 0, kopY: kop.position.y, rustY: g.rotation.y },
   };
 }
 
@@ -392,7 +431,8 @@ export function animeerHond(h, s) {
   const ty = stil > 3 ? s.kijk + Math.sin(s.time * 0.35) * 0.12 : s.targetY;
   const vorigY = t.curY;
   t.curX += (tx - t.curX) * 0.08; t.curY += (ty - t.curY) * 0.08;
-  const tz = stil > 1.2 && stil < 3.2 ? 0.22 : 0;
+  // rusthouding: kop licht scheef (±7°); bij even stilstand verder ("en nu?")
+  const tz = stil > 1.2 && stil < 3.2 ? 0.24 : 0.12;
   t.kopZ += (tz - t.kopZ) * 0.06;
   d.kop.rotation.set(t.curX, t.curY + 0.18, t.kopZ); // +0.18 compenseert de driekwartdraai: de kop kijkt naar je
   h.group.rotation.y = t.rustY + t.curY * 0.2;
