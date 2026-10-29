@@ -60,7 +60,7 @@
 .hero .mh__stage { position: absolute; inset: 0; aspect-ratio: auto; min-height: 0; background: var(--color-grond); }
 .hero .mh__dia { object-position: 64% 38%; }
 .hero .mh__overlay {
-  background: linear-gradient(180deg, rgb(var(--rgb-grond) / 0.6) 0%, rgb(var(--rgb-grond) / 0.1) 32%, rgb(var(--rgb-grond) / 0.25) 55%, var(--color-grond) 97%);
+  background: linear-gradient(180deg, rgb(var(--rgb-grond) / 0.4) 0%, rgb(var(--rgb-grond) / 0.04) 32%, rgb(var(--rgb-grond) / 0.15) 60%, var(--color-grond) 97%);
 }
 .hero .mh__inhoud {
   position: relative; inset: auto; max-width: 1320px; width: 100%; margin: 0 auto;
@@ -525,10 +525,11 @@ h1, h2, h3 { overflow-wrap: break-word; }
 [data-thema='licht'] .doen-icoon [data-lottie-fallback] { filter: invert(1) sepia(0.15); }
 
 /* Hero op papier: een egale papierwas links (kop en intro) en minder grijze nevel in het midden. */
-[data-thema='licht'] .hero .mh__overlay { background: linear-gradient(180deg, rgb(var(--rgb-grond) / 0.7) 0%, rgb(var(--rgb-grond) / 0.25) 30%, rgb(var(--rgb-grond) / 0.45) 58%, var(--color-grond) 96%); }
-[data-thema='licht'] .hero .mh__overlay::after, [data-thema='licht'] .ai-foto::before { background: linear-gradient(90deg, rgb(var(--rgb-grond) / 0.92) 0%, rgb(var(--rgb-grond) / 0.7) 40%, rgb(var(--rgb-grond) / 0) 72%); }
+/* Lars 29-10: minder wit over de foto, zodat het beeld tot zijn recht komt; de leesbaarheid van de kop komt van het verloop links. */
+[data-thema='licht'] .hero .mh__overlay { background: linear-gradient(180deg, rgb(var(--rgb-grond) / 0.35) 0%, rgb(var(--rgb-grond) / 0.04) 30%, rgb(var(--rgb-grond) / 0.18) 62%, var(--color-grond) 97%); }
+[data-thema='licht'] .hero .mh__overlay::after, [data-thema='licht'] .ai-foto::before { background: linear-gradient(90deg, rgb(var(--rgb-grond) / 0.86) 0%, rgb(var(--rgb-grond) / 0.55) 34%, rgb(var(--rgb-grond) / 0) 60%); }
 @media (max-width: 599px) {
-  [data-thema='licht'] .hero .mh__overlay { background: linear-gradient(180deg, rgb(var(--rgb-grond) / 0.55) 0%, rgb(var(--rgb-grond) / 0.12) 22%, rgb(var(--rgb-grond) / 0.8) 52%, var(--color-grond) 88%); }
+  [data-thema='licht'] .hero .mh__overlay { background: linear-gradient(180deg, rgb(var(--rgb-grond) / 0.3) 0%, rgb(var(--rgb-grond) / 0.04) 22%, rgb(var(--rgb-grond) / 0.72) 56%, var(--color-grond) 90%); }
 }
 
 .demo-sectie.sectie:last-child { padding-bottom: clamp(24px, 4vw, 56px); }
