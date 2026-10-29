@@ -52,7 +52,7 @@
    stippen vertellen hetzelfde, dus hij blijft weg. Hij is aria-hidden, er gaat niets verloren. */
 .reis-lijn [data-sticky-timeline-status] { display: none; }
 
-/* ── Samen met Brian en Lars (v3-team): twee kaarten in de stijl van Eigen product ── */
+/* ── Teamsectie (v3-team): twee kaarten in de stijl van Eigen product ── */
 .team-kaarten { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .team-kaart { flex-direction: row; align-items: flex-start; gap: clamp(16px, 2vw, 28px); }
 .team-kaart-foto { flex: 0 0 clamp(110px, 12vw, 170px); }
